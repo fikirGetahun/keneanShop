@@ -86,6 +86,10 @@
         $('#postBox').load('profileViewPanel.php?'+$.param({uid: '<?php echo $uid;  ?>'}))
       })
 
+      $('#adPost').click(function(){
+        $('#postBox').load('postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+      })
+
     })
 
   </script>
@@ -269,16 +273,20 @@
     </li><!-- End Messages Nav -->
 
     <li class="nav-item dropdown pe-3">
-
+    <?php 
+      $out6 = $admin->userDataShower($uid);
+      $row6 = $out6->fetch_assoc();
+    
+    ?>
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+        <img src="<?php echo $row6['photoPath']  ?>" alt="Profile" class="rounded-circle">
+        <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $row6['firstName'].' '.$row6['lastName']  ?></span>
       </a><!-- End Profile Iamge Icon -->
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
-          <h6>Kevin Anderson</h6>
-          <span>Web Designer</span>
+          <h6><?php echo $row6['firstName'].' '.$row6['lastName']  ?></h6>
+          <span><?php echo $row6['job']  ?></span>
         </li>
         <li>
           <hr class="dropdown-divider">
@@ -391,6 +399,11 @@
           <li>
             <a id="postTender" href="#tenderPost">
               <i class="bi bi-circle"></i><span>Post Tender</span>
+            </a>
+          </li>
+          <li>
+            <a id="postAd" href="#adPost">
+              <i class="bi bi-circle"></i><span>Post Advertisment</span>
             </a>
           </li>
           <li>

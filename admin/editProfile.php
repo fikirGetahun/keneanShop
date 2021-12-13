@@ -19,6 +19,12 @@
         $uid2 = $_POST['uid'];
 
         $out = $admin->updateUserData($uid2, $password, $firstName, $lastName, $phone, $about, $job);
+        if(isset($_FILES['photoq'])){
+            $fname = $_FILES['photoq']['name'];
+            $tmpName = $_FILES['photoq']['tmp_name'];
+            $out3 = $admin->updateUserPhoto($fname, $tmpName, $uid2);
+            $ask = $admin->updateUserData($uid2, $password, $firstName, $lastName, $phone, $about, $job);
+        }
     }
 
 ?>

@@ -152,6 +152,18 @@
             }
         }
 
+        //update userphoto path and file
+        function updateUserPhoto($fileName, $tempName, $uid){
+            include "connect.php";
+            $location = "../uploads/adminPhoto/";
+            $x = rand(2, 20000);
+            $path = $location.'a'.$x.$fileName;
+            move_uploaded_file($tempName, $path);
+            $q = "UPDATE `user` SET `photoPath`= '$path' WHERE `user`.`id` = '$uid'";
+            $ask = $mysql->query($q);
+
+            return $path;
+        }
 
 
 
