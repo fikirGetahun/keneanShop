@@ -92,12 +92,14 @@
 
 
         //USER ADDER AS 'ADMIN' OR 'EDITOR'
-        function userAdder($firstName, $lastName, $phone, $username, $password, $auth){
+        function userAdder($firstName, $lastName, $phone, $username, $password, $auth, $photoPath, $job, $about){
             include "connect.php";
-            $q ="INSERT INTO `user`( `username`, `password`, `firstName`, `lastName`, `phone`, `auth`)
-             VALUES ('$username', '$password', '$firstName', '$lastName', '$phone', '$auth')";
+            $date = date('Y/m/d');
+            $q ="INSERT INTO `user`( `username`, `password`, `firstName`, `lastName`, `phone`, `auth`,`photoPath`,`lastLogedIn` , `job`, `about`)
+             VALUES ('$username', '$password', '$firstName', '$lastName', '$phone', '$auth', '$photoPath', '$date', '$job', '$about' )";
 
              $ask = $mysql->query($q);
+
         }
 
         //user auth identifier
@@ -118,6 +120,39 @@
 
             return $ask;
         }
+
+        //to upload profile photo of user
+        function uploadPhoto($fileName, $tempName){
+            include "connect.php";
+            //to count the files uloaded so that to attach the filename.numberofphoto
+            $q = "SELECT * FROM `user` WHERE 1";
+            $ask = $mysql->query($q);
+            $num = $ask->num_rows;
+            $location = "../uploads/adminPhoto/";
+
+            if(move_uploaded_file($tempName, $location.$num.$fileName)){
+                echo $location.$fileName.$num;
+                return $location.$num.$fileName;
+            }else{
+                return 'FILE_NOT_UPLOADED';
+            }
+        }
+
+        //update users data
+        function updateUserData($uid, $password, $firstName, $lastName, $phone, $about, $job){
+            include "connect.php";
+            $q = "UPDATE `user` SET `password`= '$password',`firstName`= '$firstName',
+            `lastName`= '$lastName' ,`phone`= '$phone',`about`= '$about' ,`job`= '$job'  WHERE `user`.`id` = '$uid'";
+
+            $ask = $mysql->query($q);
+            if($ask){
+
+            }else{
+                echo "not workinggg";
+            }
+        }
+
+
 
 
     }

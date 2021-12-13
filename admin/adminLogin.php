@@ -20,6 +20,7 @@
             while($row = $check->fetch_assoc()){
                 if($row['username'] == $us && $row['password'] == $pa){
                     $_SESSION['idz'] = $row['id'];
+                    
                     header('Location: admin.php');
                 }
 
