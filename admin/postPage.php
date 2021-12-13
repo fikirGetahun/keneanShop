@@ -170,12 +170,12 @@ if(isset($_GET['uid'])){
           </div>
           <select class="custom-select" name="jobType" id="inputGroupSelect01">
             <option selected>Choose...</option>
-            <option value="Management & Business Administration">	Management & Business Administration </option>
-            <option value="Engineering">	Engineering</option>
-            <option value="Medical/Health">	Medical/Health</option>
-            <option value="Marketing/Advertising">	Marketing/Advertising</option>
-            <option value="Accounting">	Accounting</option>
-            <option value="	Media/Design">	Media/Design</option>
+            <option value="clothing/shoes">	clothing/shoes </option>
+            <option value="Beauty/Health">	Beauty/Health</option>
+            <option value="Book/CDs">	Book/CDs</option>
+            <option value="Machine/Tools">	Machine/Tools</option>
+            <option value="Jeweler">	Jeweler</option>
+            <option value="	Furniture">	Furniture</option>
             <option value="NGO">	NGO</option>
             <option value="Hotel Host">	Hotel Host</option>
             <option value="House Worker">	House Worker</option>
@@ -310,8 +310,79 @@ if(isset($_GET['uid'])){
         }
       }
 
-    ?>
+    
+    if(isset($_GET['type'])){
+      if($_GET['type'] == 'ad'){
+        ?>
+        <form id="adPost" method="POST" enctype="multipart/form-data">
+        <input hidden name="uid" value="<?php echo $uidx; ?>">
 
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
+          </div>
+          <select class="custom-select" name="Type" id="inputGroupSelect01">
+            <option selected>Choose...</option>
+            <option value="clothing/shoes">	clothing/shoes </option>
+            <option value="Beauty/Health">	Beauty/Health</option>
+            <option value="Book/CDs">	Book/CDs</option>
+            <option value="Machine/Tools">	Machine/Tools</option>
+            <option value="Jeweler">	Jeweler</option>
+            <option value="	Furniture">	Furniture</option>
+            <option value="Car Device">	NGO</option>
+            <option value="Other">  Other</option>
+          </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Target For: </label>
+        </div>
+        <select class="custom-select" name="for" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="women">Women</option>
+          <option value="men">Men</option>
+          <option value="both">Both</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Price :</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Address </label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="address" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Phone Number</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phoneNumber" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Describtion</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        
+
+        <input type="submit" onclick="x()" value="POST">
+
+        </form>
+        <?php
+      }
+    }
+?>
 
 
   </main><!-- End #main -->
