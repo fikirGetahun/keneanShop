@@ -18,14 +18,6 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -86,8 +78,16 @@
         $('#postBox').load('profileViewPanel.php?'+$.param({uid: '<?php echo $uid;  ?>'}))
       })
 
-      $('#adPost').click(function(){
+      $('#postAd').click(function(){
         $('#postBox').load('postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+      })
+
+      $('#viewAd').click(function(){
+        $('#postBox').load('viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+      })
+
+      $('#adCategory').click(function(){
+        $('#postBox').load('addCategory.php')
       })
 
     })
@@ -391,29 +391,20 @@
           <i class="bi bi-layout-text-window-reverse"></i><span>Manage Post</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a id="postVacancy" href="#content">
-              <i class="bi bi-circle"></i><span>Post Vacancy</span>
-            </a>
-          </li>
-          <li>
-            <a id="postTender" href="#tenderPost">
-              <i class="bi bi-circle"></i><span>Post Tender</span>
-            </a>
-          </li>
-          <li>
-            <a id="postAd" href="#adPost">
-              <i class="bi bi-circle"></i><span>Post Advertisment</span>
-            </a>
-          </li>
+
           <li>
             <a id="editVacancy" href="#viewVacancyPost">
-              <i class="bi bi-circle"></i><span>View Vacancy Post</span>
+              <i class="bi bi-circle"></i><span>View Vacancy PostS</span>
             </a>
           </li>
           <li>
             <a id="editTender" href="#viewTenderPost">
-              <i class="bi bi-circle"></i><span>View Tender Post</span>
+              <i class="bi bi-circle"></i><span>View Tender PostS</span>
+            </a>
+          </li>
+          <li>
+            <a id="viewAd" href="#viewAdPost">
+              <i class="bi bi-circle"></i><span>View AD PostS</span>
             </a>
           </li>
         </ul>
@@ -425,19 +416,23 @@
           <i class="bi bi-gem"></i><span>Add Posts</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+        <li>
+            <a id="postVacancy" href="#content">
+              <i class="bi bi-circle "></i><span>Post Vacancy</span>
             </a>
           </li>
           <li>
-            <a href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Remix Icons</span>
+            <a id="postTender" href="#tenderPost">
+              <i class="bi bi-circle"></i><span>Post Tender</span>
             </a>
           </li>
           <li>
-            <a href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Boxicons</span>
+            <a id="postAd" href="#adPost">
+              <i class="bi bi-circle"></i><span>Post Advertisment</span>
+            </a>
+            <a id="adCategory" style="padding-left: 60px;" href="#adCatagory">
+              <i class="
+              bi bi-circle"></i><span>Add ADs Catagory</span>
             </a>
           </li>
         </ul>

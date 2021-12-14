@@ -12,11 +12,11 @@
         }
 
         //insert tender post
-        function addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id ){
+        function addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id, $title ){
             include('connect.php');
             $today = date("Y/m/d");
-            $q = "INSERT INTO `tender`( `tenderType`, `startingDate`, `deadLine`, `location`, `initialCost`, `info`, `posterId`, `postedDate`)
-             VALUES ('$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date' )";
+            $q = "INSERT INTO `tender`( `title`,`tenderType`, `startingDate`, `deadLine`, `location`, `initialCost`, `info`, `posterId`, `postedDate`)
+             VALUES ( '$title' ,'$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date' )";
 
              $ask = $mysql->query($q);
 
@@ -80,12 +80,12 @@
         }
 
         // TENDER POST DATA EDITOR
-        function updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2  ){
+        function updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title  ){
             include "connect.php";
             $date = date('Y/m/d');
             $q = "UPDATE `tender` SET `tenderType`='$tenderType',
             `startingDate`='$startingDate',`deadLine`='$deadLine',`location`='$location',
-            `initialCost`='$initialCost',`info`='$info',`postedDate`='$date' WHERE `tender`.`id` = '$id2' ";
+            `initialCost`='$initialCost',`info`='$info',`postedDate`='$date', `title`= '$title' WHERE `tender`.`id` = '$id2' ";
 
             $ask = $mysql->query($q);
         }
@@ -166,8 +166,81 @@
         }
 
 
+        // ad post data inserting function
+        function adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $photoPath1, $photoPath2, $photoPath3){
+            include "connect.php";
+            $postStatus = 'ACTIVE';
+            $q = "INSERT INTO `electronics`( `type`, `price`, `address`, `phone`, `for`,
+             `title`, `posterId`, `info`, `photoPath1`, `photoPath2`, `photoPath3`, `postStatus`)
+             VALUES ('$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$photoPath2', '$photoPath3', '$postStatus')";
+            
+            $ask = $mysql->query($q);
+        }
+
+
+        //ad photos uploader
+        function adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3){
+            include "connect.php";
+            $location = "../uploads/postsPhoto/";
+            $random = rand(1000, 100000);
+            $path1 = $location.'ad'.$random.$fName1;
+            $path2 = $location.'ad'.$random.$fName2;
+            $path3 = $location.'ad'.$random.$fName3;
+
+            if(move_uploaded_file($tmpName1, $path1) &&
+                move_uploaded_file($tmpName2, $path2) &&
+                    move_uploaded_file($tmpName3, $path3)){
+                        $path = array($path1, $path2, $path3);
+                        return $path;
+                    }else{
+                        return 'ERROR';
+                    }
+            
+        }
+
+            //ad posts data shower and counter
+
+        function postAdShower(){
+            include "connect.php";
+            $q = "SELECT * FROM `electronics` WHERE 1";
+
+            $ask = $mysql->query($q);
+            return $ask;
+        }
+
+
+        // ads category adder
+        function adsCategoryAdder($data){
+            include "connect.php";
+            $q = "INSERT INTO `adCategory`( `category`) VALUES ('$data')";
+
+            $ask = $mysql->query($q);
+        } 
+
+        //ads category lister
+        function adsCategoryLister(){
+            include "connect.php";
+            $q = "SELECT * FROM `adCategory` WHERE 1";
+
+            $ask = $mysql->query($q);
+
+            return $ask;
+        }
+
+        //update ads category
+        function updateAdCat($cat, $id){
+            include "connect.php";
+            $q ="UPDATE `adcategory` SET `category` = '$cat' WHERE `adCategory`.`id` = '$id' ";
+
+            $ask = $mysql->query($q);
+            
+        }
 
     }
+
+
+
+    
 
     $admin = new adminPhp;
 

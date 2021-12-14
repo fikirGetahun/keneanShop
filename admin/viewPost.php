@@ -3,7 +3,7 @@
 
 ?>
 <div id="allin">
-<head>
+<!-- <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -47,7 +47,24 @@
         $('#allin').load('editPost.php?'+$.param({type: 'editTender', pid: uid}))
       }
   </script>
-</head>
+</head> -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Album example for Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./assets/album.css" rel="stylesheet">
+  </head>
 <body>
     <?php
 
@@ -57,16 +74,27 @@
             while($row = $data->fetch_assoc()){
                 ?>
                 <h6>Vacancy Post</h6>
-                <div class="bg-light col-2" style="border: 1px black solid; float: left; margin:15px; ">
-                <label for="exampleInputEmail1"><?php echo $row['companyName'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['positionType'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['positionTitle'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['location'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['deadLine'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['positionNum'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['info'] ?></label><br>
-                <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="edit('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
+
+
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Position :<?php echo $row['positionTitle'] ?></h5>
+                            <p class="card-text">Job Type :<?php echo $row['positionType'] ?></p>
+                            <p class="card-text">Deadline :<?php echo $row['deadLine'] ?></p>
+                            <p class="card-text">Requierd Position :<?php echo $row['positionNum'] ?></p>
+                            <p class="card-text">Job Type :<?php echo $row['info'] ?></p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                        <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="edit('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
+                        </div>
+                    </div>
                 </div>
+
                 <?php
                 
             }
@@ -75,18 +103,89 @@
             while($row = $data->fetch_assoc()){
                 ?>
                 <h6>Tender Post</h6>
-                <div class="bg-light col-2" style="border: 1px black solid; float: left; margin:15px; ">
-                <label for="exampleInputEmail1"><?php echo $row['tenderType'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['startingDate'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['deadLine'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['location'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['initialCost'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['postedDate'] ?></label><br>
-                <label for="exampleInputEmail1"><?php echo $row['info'] ?></label><br>
-                <button class="btn btn-dark" onclick="editTender('<?php echo $row['id']; ?>')" >Edit</button>
-                </div>
                 <?php
+                $date1 = date('Y/m/d');
+                $date2 = $row['deadLine'];
+                // Calculating the difference in timestamps
+                $diff = strtotime($date2) - strtotime($date1);
+            
+                // 1 day = 24 hours
+                // 24 * 60 * 60 = 86400 seconds
+                $difff= abs(round($diff / 86400));
+                
+                if($difff < 3 ){
+                    ?>
+                    <div class="card mb-3" style="max-width: 540px; box-shadow:  10px 10px red; ">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['title'] ?></h5>
+                            <p class="card-text"><?php echo $row['info'] ?></p>
+                            <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
+                        </div>
+                        <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="editTender('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
+                        </div>
+                    </div>
+                    </div>
+                    <?php
+                }else{
+
+                
+                  
+                ?>
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['title'] ?></h5>
+                            <p class="card-text"><?php echo $row['info'] ?></p>
+                            <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
+                        </div>
+                        <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="editTender('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+            }
         }
+    }elseif($_GET['type'] == 'ad'){
+            $ad = $admin -> postAdShower();
+            ?>
+            <div class="row">
+            <?php
+            while($row = $ad->fetch_assoc()){
+                ?>
+
+                
+                <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="img-thumbnail" src="<?php echo $row['photoPath1'] ?>" alt="Card">
+                <div class="card-body">
+                  <p class="card-text"><?php echo $row['title'] ?></p>
+                  <p class="card-text"><?php echo $row['price'] ?> Birr</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                <?php
+            }
+            ?>
+            </div>
+            <?php
     }
 }
     

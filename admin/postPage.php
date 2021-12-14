@@ -3,12 +3,15 @@
 
 
 <?php
+
+use function PHPSTORM_META\elementType;
+
 require_once "../php/adminCrude.php";
 
 if(isset($_GET['uid'])){
   $uidx = $_GET['uid'];
 }
-
+// vacancy post handler block
   if(isset(
     $_POST['companyName'], $_POST['jobType'], 
     $_POST['jobTitle'], $_POST['positionType'],
@@ -36,7 +39,7 @@ if(isset($_GET['uid'])){
     $_POST['Deadline2'],
      $_POST['initialCost'],
      $_POST['location2'],
-     $_POST['description2'],$_POST['uid']
+     $_POST['description2'],$_POST['uid'], $_POST['title']
      )
      ){
 
@@ -47,10 +50,38 @@ if(isset($_GET['uid'])){
       $initialCost=$_POST['initialCost'];
       $info = $_POST['description2'];
       $id2 = $_POST['uid'];
+      $title = $_POST['title'];
 
-      $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2   );
+      $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title   );
 
      }
+
+
+     //ad post handler block
+     if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['for'], $_POST['title'],
+     $_POST['posterId'], $_POST['info'], $_FILES['photo1'], $_FILES['photo2'], $_FILES['photo3'])){
+       echo 'in the ad';
+      $type = $_POST['type'];
+      $price = $_POST['price'];
+      $address =  $_POST['address'];
+      $phone = $_POST['phone'];
+      $for = $_POST['for']; 
+      $title = $_POST['title'];
+      $posterId = $_POST['posterId'];
+      $info = $_POST['info'];
+      $fName1 = $_FILES['photo1']['name'];
+      $fName2 = $_FILES['photo2']['name'];
+      $fName3 = $_FILES['photo3']['name'];
+      $tmpName1 = $_FILES['photo1']['tmp_name'];
+      $tmpName2 = $_FILES['photo2']['tmp_name'];
+      $tmpName3 = $_FILES['photo3']['tmp_name'];
+
+      $adOut = $admin->adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3  );
+
+      $out7 = $admin->adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $adOut[0], $adOut[1], $adOut[2]);
+
+    
+    }
 
 ?>
 
@@ -131,7 +162,7 @@ if(isset($_GET['uid'])){
   <!-- ======= Sidebar ======= -->
 
 
-  <main id="main" class="main">
+  <main id="main" class="container">
 
  
     <?php
@@ -240,7 +271,7 @@ if(isset($_GET['uid'])){
       if(isset($_GET['type'])){
         if($_GET['type'] == 'tender'){
           ?>
-             <div class="pagetitle">
+    <div class="pagetitle">
       <h1>Tender Post</h1>
       <nav>
         <ol class="breadcrumb">
@@ -256,8 +287,16 @@ if(isset($_GET['uid'])){
         </p>
 
         <div id="vacancyBox" class="container">
-        <form id="tenderForm" action="postPage.php" method="POST" >
+        <form id="tenderForm"  method="POST" >
         <input hidden name="uid" value="<?php echo $uidx; ?>">
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Tender Title</label>
+          <input type="text" class="form-control" id="tenderType" 
+          aria-describedby="emailHelp" name="title" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
         <div class="form-group">
           <label for="exampleInputEmail1">Tender Type</label>
           <input type="text" class="form-control" id="tenderType" 
@@ -314,23 +353,27 @@ if(isset($_GET['uid'])){
     if(isset($_GET['type'])){
       if($_GET['type'] == 'ad'){
         ?>
-        <form id="adPost" method="POST" enctype="multipart/form-data">
-        <input hidden name="uid" value="<?php echo $uidx; ?>">
+        <h5>Post Advertisment</h5>
+        <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
+        <input hidden name="posterId" value="<?php echo $uidx; ?>">
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
           </div>
-          <select class="custom-select" name="Type" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="clothing/shoes">	clothing/shoes </option>
-            <option value="Beauty/Health">	Beauty/Health</option>
-            <option value="Book/CDs">	Book/CDs</option>
-            <option value="Machine/Tools">	Machine/Tools</option>
-            <option value="Jeweler">	Jeweler</option>
-            <option value="	Furniture">	Furniture</option>
-            <option value="Car Device">	NGO</option>
-            <option value="Other">  Other</option>
+          <select class="custom-select" name="type" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+            ?><?php
+              $out11 = $admin->adsCategoryLister();
+              while($r = $out11->fetch_assoc()){
+?>
+            
+            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
+<?php
+              }
+            ?>
+
+
           </select>
         </div>
 
@@ -344,6 +387,14 @@ if(isset($_GET['uid'])){
           <option value="men">Men</option>
           <option value="both">Both</option>
         </select>
+        </div>
+
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Title</Title></label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="title" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group">
@@ -363,7 +414,7 @@ if(isset($_GET['uid'])){
         <div class="form-group">
           <label for="exampleInputEmail1">Phone Number</label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="phoneNumber" placeholder="Company Name">
+          aria-describedby="emailHelp" name="phone" placeholder="Company Name">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
@@ -374,12 +425,45 @@ if(isset($_GET['uid'])){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        
+        <div class="row">
+        <div id="registerBox">
+    <label for="exampleInputEmail1">Upload Profile Photo 1</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo1" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div id="registerBox">
+    <label for="exampleInputEmail1">Upload Profile Photo 2</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo2" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div id="registerBox">
+    <label for="exampleInputEmail1">Upload Profile Photo 3</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo3" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+        </div>
 
         <input type="submit" onclick="x()" value="POST">
 
         </form>
         <?php
+      }if(isset($_GET['type'])){
+        if($_GET['type'] == 'car'){
+          ?>
+                  <div class="form-group">
+          <label for="exampleInputEmail1">Address </label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="address" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+          
+          <?php
+        }
       }
     }
 ?>

@@ -36,7 +36,7 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
     $_POST['Deadline2'],
      $_POST['initialCost'],
      $_POST['location2'],
-     $_POST['description2'],$_POST['uid']
+     $_POST['description2'],$_POST['uid'], $_POST['title']
      )
      ){
 
@@ -47,8 +47,9 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
       $initialCost=$_POST['initialCost'];
       $info = $_POST['description2'];
       $id2 = $_POST['uid'];
+      $title = $_POST['title'];
 
-      $db = $admin->updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2   );
+      $db = $admin->updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title   );
 
      }
 
@@ -259,6 +260,21 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
     <form id="editT" action="editPost.php" method="POST" >
     <input hidden name="uid" value="<?php echo $uidx; ?>">
     <div class="form-group">
+
+    <div class="form-group">
+          <label for="exampleInputEmail1">Tender Title</label>
+          <input type="text" class="form-control" id="tenderType" 
+          aria-describedby="emailHelp" name="title" placeholder="Company Name"
+          value="<?php
+        $out = $admin->tenderEditLister($uidx);
+        $row = $out->fetch_assoc();
+        echo $row['title']
+      
+      ?>"
+          >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
       <label for="exampleInputEmail1">Tender Type</label>
       <input type="text" class="form-control" id="tenderType" 
       aria-describedby="emailHelp" name="tenderType" placeholder="Company Name"
