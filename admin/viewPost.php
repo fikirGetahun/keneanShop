@@ -49,8 +49,16 @@
 
       function adEdit(uid){
         $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: uid}))
-
       }
+
+      function editCar(pid){
+        $('#allin').load('editPost.php?'+$.param({type: 'car', pid: pid}))
+      }
+
+      function editHouse(pid){
+        $('#allin').load('editPost.php?'+$.param({type: 'house', pid: pid}))
+      }
+
   </script>
 </head> -->
 <head>
@@ -210,7 +218,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" onclick="editCar(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
                   </div>
@@ -246,7 +254,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" onclick="editHouse(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
                   </div>

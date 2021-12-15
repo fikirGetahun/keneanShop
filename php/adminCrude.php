@@ -400,6 +400,153 @@
            
         }
 
+
+        //a single car post data lister
+        function carPostDataLister($pid){
+            include "connect.php";
+            $q = "SELECT * FROM `car` WHERE `id` = '$pid'";
+            $ask = $mysql->query($q);
+
+            return $ask;
+        }
+
+        //car post data edit/update
+        function updateCarPost($title,$type, $status, $fuleKind, $postId, $fixidOrN,$price,$info,$forRentOrSell){
+            include "connect.php";
+            $q = "UPDATE `car` SET `title`= '$title',`type`='$type', `status` = '$status',
+             `fuleKind`= '$fuleKind',`fixidOrN`= '$fixidOrN' ,`price`= '$price',`info`= '$info',
+             `forRentOrSell`= '$forRentOrSell' WHERE `car`.`id` = '$postId'";
+
+             $ask = $mysql->query($q);
+        }
+
+
+        //car post photo change
+        function carPhotoChange($dbPath, $fName, $tmpName, $pid ){
+            include "connect.php";
+            $location = "../uploads/carPostsPhoto/";
+            $random = rand(1000, 100000);
+            $path = $location.'ad'.$random.$fName;
+
+            if(move_uploaded_file($tmpName, $path)){
+                $q = "UPDATE `car` SET `$dbPath`='$path' WHERE `car`.`id` = '$pid'";
+                $ask = $mysql->query($q);
+            }
+            
+        }
+
+        //house update block
+        function updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
+        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId ){
+            include "connect.php";
+            $postDate = date('Y-m-d H:i:s');
+            $q = "UPDATE `housesell` SET `title`= '$title',`type`= '$type',`houseOrLand`= '$houseOrLand',
+            `city`= '$city' ,`subCity`= '$subCity',`wereda`= '$wereda',`area`= '$area',
+            `bedRoomNo`= '$bedRoomNo',`bathRoomNo`= '$bathRoomNo',`cost`= '$price',`fixedOrN`= '$fixidOrN',
+            `forRentOrSell`= '$forRentOrSell',`info`= '$info',`postedDate`='$postDate' WHERE `housesell`.`id` = '$postId'";
+
+            $ask = $mysql->query($q);
+
+        }
+
+        //house photo changer
+        function housePhotoChange($dbPath, $fName, $tmpName, $pid ){
+            include "connect.php";
+            $location = "../uploads/houseOrLandPhotos/";
+            $random = rand(1000, 100000);
+            $path = $location.'ad'.$random.$fName;
+
+            if(move_uploaded_file($tmpName, $path)){
+                $q = "UPDATE `housesell` SET `$dbPath`='$path' WHERE `housesell`.`id` = '$pid'";
+                $ask = $mysql->query($q);
+            }
+            
+        }
+
+        //a single house post lister
+        function singleHousePostLister($pid){
+            include "connect.php";
+            $q = "SELECT * FROM `housesell` WHERE `id` = '$pid'";
+
+            $ask = $mysql->query($q);
+            return $ask;
+        }
+
+        //car catagory inserter
+        function carCategoryAdder($cat){
+            include "connect.php";
+            $q = "INSERT INTO `carcategory`(`category`) VALUES ('$cat')";
+            $ask = $mysql->query($q);
+
+        }
+
+        //car catagory list
+        function carCategoryLister(){
+            include "connect.php";
+            $q = "SELECT * FROM `carcategory` WHERE 1";
+
+            
+            $ask = $mysql->query($q);
+            return $ask;
+        }
+
+        //car catagory edit
+        function carCategoryEdit($id, $data){
+            include "connect.php";
+            $q =" UPDATE `carcategory` SET `category`= '$data' WHERE `carcategory`.`id` = '$id'";
+            $ask = $mysql->query($q);
+        }
+
+                //vacancy catagory inserter
+                function vacancyCategoryAdder($cat){
+                    include "connect.php";
+                    $q = "INSERT INTO `carcategory`(`category`) VALUES ('$cat')";
+                    $ask = $mysql->query($q);
+        
+                }
+
+                //vacancy catagory list
+                function vacancyCategoryLister(){
+                    include "connect.php";
+                    $q = "SELECT * FROM `vacancycategory` WHERE 1";
+        
+                    
+                    $ask = $mysql->query($q);
+                    return $ask;
+                }
+        
+                //vacancy catagory edit
+                function vacancyCategoryEdit($id, $data){
+                    include "connect.php";
+                    $q =" UPDATE `vacancycategory` SET `category`= '$data' WHERE `vacancycategory`.`id` = '$id'";
+                    $ask = $mysql->query($q);
+                }
+
+                        //house catagory inserter
+        function houseCategoryAdder($cat){
+            include "connect.php";
+            $q = "INSERT INTO `carcategory`(`category`) VALUES ('$cat')";
+            $ask = $mysql->query($q);
+
+        }
+
+                        //house catagory list
+        function houseCategoryLister(){
+            include "connect.php";
+            $q = "SELECT * FROM `housecategory` WHERE 1";
+
+            
+            $ask = $mysql->query($q);
+            return $ask;
+        }
+
+        //house catagory edit
+        function houseCategoryEdit($id, $data){
+            include "connect.php";
+            $q =" UPDATE `housecategory` SET `category`= '$data' WHERE `housecategory`.`id` = '$id'";
+            $ask = $mysql->query($q);
+        }
+
     }
 
 

@@ -103,7 +103,7 @@
       })
 
       $('#adCategory').click(function(){
-        $('#postBox').load('addCategory.php')
+        $('#postBox').load('addCategory.php', {type: 'ad'})
       })
 
 

@@ -7,6 +7,11 @@ if(isset($_POST['adCat'])){
     $out = $admin->adsCategoryAdder($cat);
 }
 
+if(isset($php_errormsg['carC'])){
+    $cat = $_POST['carC'];
+    $out = $admin->carCategoryAdder($cat);
+}
+
 if(isset($_POST['edCat'])){
 
 }
@@ -50,7 +55,12 @@ if(isset($_POST['edCat'])){
     </script>
 </head>
 <body>
-<h3>Current Ads Category</h3>
+<?php
+if(isset($_POST['type'])){
+    if($_POST['type'] == 'ad'){
+        ?>
+        
+        h3>Current Ads Category</h3>
 <div id="xx">
 
 
@@ -96,4 +106,62 @@ if(isset($_POST['edCat'])){
 </div><br>
 <input class="btn btn-light" type="submit" onclick="update()" value="Add Category">
 </form>
+
+        <?php
+    }elseif($_POST['type'] == 'car'){
+        ?>
+        h3>Current Cars Category</h3>
+<div id="xx">
+
+
+<table class="table" id="cBox">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php
+      $out = $admin->carCategoryLister();
+      while($row = $out->fetch_assoc()){
+
+              ?>
+            <tr>
+            <th scope="row"><?php echo $row['id'] ?></th>
+            <td id="editAd<?php echo $row['id'] ?>">
+            <?php echo $row['category'] ?>
+             <button onclick="edit(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
+            <button class="btn btn-dark">Delete</button>
+            </td>
+
+            </tr>
+              <?php            
+          }
+      
+      
+      ?>
+
+
+  </tbody>
+</table>
+</div>
+<form  method="POST">
+<div id="registerBox">
+    <label for="exampleInputEmail1">Add Category</label>
+    <input type="text" class="form-control" id="adCategory" 
+          aria-describedby="emailHelp" name="carC" placeholder="Job">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    
+</div><br>
+<input class="btn btn-light" type="submit" onclick="update()" value="Add Category">
+</form>
+        
+        <?php
+    }
+}
+
+?>
+
+<
 </body>

@@ -55,14 +55,21 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
      }
 
      //ad post edit handler
-     if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['for'], $_POST['title'],
+     if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['title'],
      $_POST['pid'], $_POST['info'])){
        echo 'in the ad';
+
+      $for = " ";
+
+      if(isset($_POST['for'])){
+        $for = $_POST['for']; 
+      }
+
       $type = $_POST['type'];
       $price = $_POST['price'];
       $address =  $_POST['address'];
       $phone = $_POST['phone'];
-      $for = $_POST['for']; 
+      
       $title = $_POST['title'];
       $postId = $_POST['pid'];
       $info = $_POST['info'];
@@ -94,6 +101,110 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
 
 
     }
+
+
+      //car post handler
+      if(isset($_POST['type2'],$_POST['status2'],$_POST['forRentOrSell'],$_POST['fuleKind'],$_POST['fixidOrN'],$_POST['price2'],$_POST['info2'],$_POST['pid'],
+       $_POST['title'])){
+      echo 'inx';
+      $title = $_POST['title'];
+      $type = $_POST['type2'];
+      $status = $_POST['status2'];
+      $forRentOrSell= $_POST['forRentOrSell'];
+      $fixidOrN= $_POST['fixidOrN'];
+      $fuleKind = $_POST['fuleKind'];
+      $price = $_POST['price2'];
+      $info = $_POST['info2'];
+      $postId = $_POST['pid'];
+
+      if(isset($_FILES['x1'])){
+        $fName1 = $_FILES['x1']['name'];
+        $tmpName1 = $_FILES['x1']['tmp_name'];
+        $adPhotoE = $admin->carPhotoChange('photoPath1', $fName1, $tmpName1, $postId);
+      }
+
+      if(isset($_FILES['x2'])){
+        $fName2 = $_FILES['x2']['name'];
+        $tmpName2 = $_FILES['x2']['tmp_name'];
+        $adPhotoE = $admin->carPhotoChange('photoPath2', $fName2, $tmpName2, $postId);
+
+      }
+
+      if(isset($_FILES['x3'])){
+        $fName3 = $_FILES['x3']['name'];
+        $tmpName3 = $_FILES['x3']['tmp_name'];
+        $adPhotoE = $admin->carPhotoChange('photoPath3', $fName3, $tmpName3, $postId);
+
+      }      
+
+
+
+
+      $out12 = $admin->updateCarPost($title,$type, $status, $fuleKind, $postId, $fixidOrN,$price,$info,$forRentOrSell );
+    }
+
+
+        //house or land post data inserter
+        if(isset(
+          $_POST['houseOrLand'], $_POST['city'],$_POST['subCity'], $_POST['wereda'],
+           $_POST['forRentOrSell'], $_POST['area'], $_POST['cost'], $_POST['fixidOrN'], 
+           $_POST['info'],$_POST['pid'], $_POST['title']
+        )){
+          echo 'inn house';
+
+          // these variables will not be set if user choose house so initial value will be empty
+          $bedRoomNo = ' ';
+          $bathRoomNo = ' ';
+          $type = " ";
+          if(isset(
+            $_POST['bedRoomNo'],
+            $_POST['bathRoomNo'],
+            $_POST['type']
+          )){
+            $bedRoomNo = $_POST['bedRoomNo'];
+            $bathRoomNo = $_POST['bathRoomNo'];
+            $type = $_POST['type'];
+          }
+          $title = $_POST['title'];
+          $houseOrLand =$_POST['houseOrLand'];
+          $city =$_POST['city'];
+          $subCity=$_POST['subCity'];
+          $wereda= $_POST['wereda'];
+          $forRentOrSell=$_POST['forRentOrSell'];
+          $area=$_POST['area'];
+          $price=$_POST['cost'];
+          $fixidOrN=$_POST['fixidOrN'];
+          $info=$_POST['info'];
+          $postId = $_POST['pid'];
+
+          if(isset($_FILES['xy1'])){
+            $fName1 = $_FILES['xy1']['name'];
+            $tmpName1 = $_FILES['xy1']['tmp_name'];
+            $adPhotoE = $admin->housePhotoChange('photoPath1', $fName1, $tmpName1, $postId);
+          }
+    
+          if(isset($_FILES['xy2'])){
+            $fName2 = $_FILES['xy2']['name'];
+            $tmpName2 = $_FILES['xy2']['tmp_name'];
+            $adPhotoE = $admin->housePhotoChange('photoPath2', $fName2, $tmpName2, $postId);
+    
+          }
+    
+          if(isset($_FILES['xy3'])){
+            $fName3 = $_FILES['xy3']['name'];
+            $tmpName3 = $_FILES['xy3']['tmp_name'];
+            $adPhotoE = $admin->housePhotoChange('photoPath3', $fName3, $tmpName3, $postId);
+    
+          }      
+
+
+    
+          
+          $outH = $admin->updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
+          $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId );
+          
+    
+        }
 
 ?>
 <script src="../assets/jquery.js"></script>
@@ -178,16 +289,16 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
                 $row = $p->fetch_assoc();
                 echo $row['positionType']; 
       ?>"</option>
-        <option value="1">	Management & Business Administration </option>
-        <option value="2">	Engineering</option>
-        <option value="3">	Medical/Health</option>
-        <option value="4">	Marketing/Advertising</option>
-        <option value="5">	Accounting</option>
-        <option value="6">	Media/Design</option>
-        <option value="7">	NGO</option>
-        <option value="8">	Hotel Host</option>
-        <option value="9">	House Worker</option>
-        <option value="10">  Other</option>
+        <option value="Management & Business Administration ">	Management & Business Administration </option>
+        <option value="Engineering">	Engineering</option>
+        <option value="Medical/Health">	Medical/Health</option>
+        <option value="Marketing/Advertising">	Marketing/Advertising</option>
+        <option value="Accounting">	Accounting</option>
+        <option value="Media/Design">	Media/Design</option>
+        <option value="NGO">	NGO</option>
+        <option value="Hotel Host">	Hotel Host</option>
+        <option value="House Worker">	House Worker</option>
+        <option value="Other">  Other</option>
       </select>
     </div>
     <div class="form-group">
@@ -547,6 +658,388 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
       }
       
       ?>
+      
+      <?php
+    }elseif($_GET['type'] == 'car'){
+      $carE = $admin->carPostDataLister($uidx);
+      $carRow = $carE->fetch_assoc();
+      ?>
+        <form id="car" action="editPost.php" method="POST" enctype="multipart/form-data" >
+          <input hidden name="pid" value="<?php echo $uidx; ?>">
+
+          <div class="form-group">
+              <label for="exampleInputEmail1">Title</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="title" placeholder="Company Name" 
+              value="<?php echo $carRow['title'] ?>"
+              >
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+<script>
+  $(document).ready(function(){
+    $('#sCar').on('change', function(){
+      if(this.value == "other"){
+        $('#typeC').load("divTags.php #typeCar")
+      }
+
+    })
+  })
+</script>
+
+              <div id="typeC" class="input-group mb-3">
+            <div  class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01"> Car Type: </label>
+            </div>
+            <select id="sCar" class="custom-select" name="type2" id="inputGroupSelect01">
+              <option selected><?php echo $carRow['type'] ?></option>
+              <option value="	TOYOTA  ">	TOYOTA  </option>
+              <option value="	JEEP ">	JEEP </option>
+              <option value="	IVECO ">	IVECO </option>
+              <option value="	LIFAN ">	LIFAN </option>
+              <option value="	SUZUKI ">	SUZUKI </option>
+              <option value="	VOLVO ">	VOLVO </option>
+              <option value="	NISSAN ">	NISSAN </option>
+              <option value="	FORD ">	FORD </option>
+              <option value="other">	Other </option>
+            </select>
+            </div>
+
+            <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Status Of Car: </label>
+        </div>
+        <select class="custom-select" name="status2" id="inputGroupSelect01">
+          <option selected><?php echo $carRow['status'] ?></option>
+          <option value="NEW">New</option>
+          <option value="OLD">Old</option>
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
+        </div>
+        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
+          <option selected><?php echo $carRow['forRentOrSell'] ?></option>
+          <option value="For Rent">For Rent</option>
+          <option value="For Sell">For Sell</option>
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Fule Kind: </label>
+        </div>
+        <select class="custom-select" name="fuleKind" id="inputGroupSelect01">
+          <option selected><?php echo $carRow['fuleKind'] ?></option>
+          <option value="Benzene">Benzene</option>
+          <option value="Diesel">Diesel</option>
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
+        </div>
+        <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
+          <option selected><?php echo $carRow['fixidOrN'] ?></option>
+          <option value="Fixed">Fixed</option>
+          <option value="Negotiatable">Negotiatable</option>
+          <option value="Negotiatable">Slightly Negotiable</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Price : </label>
+          <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price2" placeholder="Company Name" 
+          value="<?php echo $carRow['price'] ?>"
+          >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Describtion</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info2" placeholder="location"> <?php echo $carRow['info'] ?> </textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+<script>
+  $(document).ready(function(){
+
+    $('#carPB1').click(function(){
+      $('#carF1').load('divTags.php #carCform1')
+    })
+    
+    $('#carPB2').click(function(){
+      $('#carF2').load('divTags.php #carCform2')
+    })
+
+    $('#carPB3').click(function(){
+      $('#carF3').load('divTags.php #carCform3')
+    })
+
+  })
+
+</script>
+
+   
+          <div id="carF1">
+          <img class="img-thumbnail" src="<?php echo $carRow['photoPath1'] ?>" alt="Card">
+                <button type="button" id="carPB1" class="btn btn-dark">Change Photo</button>
+          </div>
+          <div id="carF2">
+          <img class="img-thumbnail" src="<?php echo $carRow['photoPath2'] ?>" alt="Card">
+                <button type="button" id="carPB2" class="btn btn-dark">Change Photo</button>
+          </div>
+          <div id="carF3">
+          <img class="img-thumbnail" src="<?php echo $carRow['photoPath3'] ?>" alt="Card">
+                <button type="button" id="carPB3" class="btn btn-dark">Change Photo</button>
+          </div>
+        
+
+
+
+        <input type="submit" onclick="x()" value="POST">
+
+          </form>
+      <?php
+    }elseif($_GET['type'] == 'house'){
+      $houseOut = $admin->singleHousePostLister($uidx);
+      $houseRow = $houseOut->fetch_assoc();
+      ?>
+      
+
+      <script>
+      $(document).ready(function(){
+
+        $('#city').on('change',function(){
+          if(this.value == "otherCity"){
+          $('#cityBox').load('divTags.php #otherCity')
+ 
+        }
+   
+        })
+
+        $('#subCity').on('change',function(){
+        if(this.value == "otherSubCity"){
+         $('#subCityBox').load('divTags.php #otherSubCity')
+        }
+      
+        })
+
+        $('#HorL').on('change', function(){
+          if(this.value == "HOUSE"){
+          $('#houseTypeLoader').load("divTags.php #houseType")
+          $('#bedOrBath').load('divTags.php #bedBath')
+        }
+        })
+        })
+      </script>
+
+<form id="house" action="editPost.php" method="POST" enctype="multipart/form-data" >
+             <input hidden name="pid" value="<?php echo $uidx; ?>">
+
+             <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">House Or Land </label>
+        </div>
+        <select id="HorL"  class="custom-select" name="houseOrLand" id="inputGroupSelect01">
+          <option selected value="<?php echo $houseRow['houseOrLand'] ?> "></option>
+          <option value="HOUSE">House</option>
+          <option value="LAND">Land</option>
+        </select>
+        
+        </div>
+
+        <div class="form-group">
+              <label for="exampleInputEmail1">Title</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="title" placeholder="Company Name" 
+              value="<?php echo $houseRow['title'] ?> "
+              >
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+        
+<div id="houseTypeLoader">
+        <?php
+        if($houseRow['houseOrLand'] != " " ){
+          ?>
+          <div id="houseType" class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Type : </label>
+        </div>
+        <select class="custom-select" name="type" id="inputGroupSelect01">
+          <option selected><?php echo $houseRow['type'] ?> </option>
+          <option value="women">Villa</option>
+          <option value="men">Gojo</option>
+        </select>
+        </div>
+          <?php
+        }
+        ?>
+</div>
+
+
+        <div id="cityBox" class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> City :</label>
+        </div>
+        <select class="custom-select" name="city" id="city">
+          <option selected><?php echo $houseRow['city'] ?> </option>
+          <option value="women">Addis Ababa</option>
+          <option value="men">Gonder</option>
+          <option value="both">BahirDar</option>
+          <option value="otherCity">Other</option>
+        </select>
+        </div>
+
+        <div id="subCityBox" class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> SubCity : </label>
+        </div>
+        <select id="subCity" class="custom-select" name="subCity" id="inputGroupSelect01">
+          <option selected><?php echo $houseRow['subCity'] ?> </option>
+          <option value="women">Jemo</option>
+          <option value="men">4 kilo</option>
+          <option value="otherSubCity">Other</option>          
+        </select>
+        </div>
+
+        
+
+             <div class="form-group">
+              <label for="exampleInputEmail1">Wereda :</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="wereda" placeholder="Company Name"
+              value="<?php echo $houseRow['wereda'] ?> "
+              >
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
+        </div>
+        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
+          <option selected><?php echo $houseRow['forRentOrSell'] ?> </option>
+          <option value="For Rent">For Rent</option>
+          <option value="For Sell">For Sell</option>
+        </select>
+        </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Area :</label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="area" placeholder="Company Name" 
+              value="<?php echo $houseRow['area'] ?>">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div id="bedOrBath">
+              <?php
+            if($houseRow['bedRoomNo'] != " " && $houseRow['bathRoomNo'] != " "  ){
+              ?>
+              
+              <div id="bedBath">
+<div class="form-group">
+              <label for="exampleInputEmail1">Number Of BedRoom :</label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="bedRoomNo" placeholder="Company Name" 
+              value="<?php echo $houseRow['bedRoomNo'] ?>">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Bath Of BedRoom :</label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="bathRoomNo" placeholder="Company Name"
+              value="<?php echo $houseRow['bathRoomNo'] ?>">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+</div>
+              
+              <?php
+            }
+            ?>
+            </div>
+
+
+
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Price :</label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="cost" placeholder="Company Name"
+              value="<?php echo $houseRow['cost'] ?>">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
+        </div>
+        <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
+          <option selected><?php echo $houseRow['fixedOrN'] ?> </option>
+          <option value="Fixed">Fixed</option>
+          <option value="Negotiatable">Negotiatable</option>
+          <option value="Negotiatable">Slightly Negotiable</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Describtion</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="location"><?php echo $houseRow['info'] ?> </textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+        <script>
+  $(document).ready(function(){
+
+    $('#hPB1').click(function(){
+      $('#hF1').load('divTags.php #hform1')
+    })
+    
+    $('#hPB2').click(function(){
+      $('#hF2').load('divTags.php #hform2')
+    })
+
+    $('#hPB3').click(function(){
+      $('#hF3').load('divTags.php #hform3')
+    })
+
+  })
+
+</script>
+
+   
+          <div id="hF1">
+          <img class="img-thumbnail" src="<?php echo $houseRow['photoPath1'] ?>" alt="Card">
+                <button type="button" id="hPB1" class="btn btn-dark">Change Photo</button>
+          </div>
+          <div id="hF2">
+          <img class="img-thumbnail" src="<?php echo $houseRow['photoPath2'] ?>" alt="Card">
+                <button type="button" id="hPB2" class="btn btn-dark">Change Photo</button>
+          </div>
+          <div id="hF3">
+          <img class="img-thumbnail" src="<?php echo $houseRow['photoPath3'] ?>" alt="Card">
+                <button type="button" id="hPB3" class="btn btn-dark">Change Photo</button>
+          </div>
+        
+
+
+
+        <input type="submit" value="Post">
+
+             </form>
+
+
       
       <?php
     }

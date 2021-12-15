@@ -132,3 +132,47 @@
           <option value="both">Both</option>
         </select>
         </div>
+
+
+<div id="carCform1">
+          <label for="exampleInputEmail1">Upload Profile Photo 1</label>
+          <input type="file" class="form-control" id="photo" 
+           name="x1" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div id="carCform2">
+          <label for="exampleInputEmail1">Upload Profile Photo 1</label>
+          <input type="file" class="form-control" id="photo" 
+           name="x2" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div id="carCform3">
+          <label for="exampleInputEmail1">Upload Profile Photo 1</label>
+          <input type="file" class="form-control" id="photo" 
+           name="x3" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+
+    <div id="hform1">
+    <label for="exampleInputEmail1">Upload Profile Photo 1</label>
+          <input type="file" class="form-control" id="photo" 
+           name="xy1" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div id="hform2">
+    <label for="exampleInputEmail1">Upload Profile Photo 2</label>
+          <input type="file" class="form-control" id="photo" 
+           name="xy2" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div id="hform3">
+    <label for="exampleInputEmail1">Upload Profile Photo 3</label>
+          <input type="file" class="form-control" id="photo" 
+           name="xy3" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
