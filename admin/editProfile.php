@@ -66,21 +66,27 @@
   <script src="../assets/jquery.js"></script>
   <script>
       $(document).ready(function(){
-        $('#registerBox1').on('submit', function(e){
+        $('form').on('submit', function(e){
           e.preventDefault()
           $.ajax({
             url: 'editProfile.php',
             type: 'post',
             data:  new FormData( this ),
             success : function(){
-              $('#alert').text('Saved Changes SUCCESSFULL!  ')
+                $('#alert').text('Saved Changes SUCCESSFULL!  ')
             },
             processData: false,
         contentType: false
           })
+          
           return false;
 
     })
+
+    $('#cp').click(function(){
+        $('#photoChange').load('divTags.php #changeProfile')
+    })
+
       })
   </script>
 </head>
@@ -135,13 +141,9 @@
           aria-describedby="emailHelp" name="about" placeholder="About Your Self"> <?php echo $row5['about'] ?> </textarea>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
      
+          <button id="cp" type="button" class="btn btn-light">Change Profile Photo</button>
+        <div id="photoChange"></div>
 
-        <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo</label>
-          <input type="file" class="form-control" id="photo" 
-           name="photoq" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
     <div id="uploadStat"></div>
 
 

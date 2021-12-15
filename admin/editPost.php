@@ -9,6 +9,7 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
   $uidx = $_GET['pid'];
 }
 
+//vacancy edit handler
   if(isset(
     $_POST['companyName'], $_POST['jobType'], 
     $_POST['jobTitle'], $_POST['positionType'],
@@ -52,6 +53,47 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
       $db = $admin->updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title   );
 
      }
+
+     //ad post edit handler
+     if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['for'], $_POST['title'],
+     $_POST['pid'], $_POST['info'])){
+       echo 'in the ad';
+      $type = $_POST['type'];
+      $price = $_POST['price'];
+      $address =  $_POST['address'];
+      $phone = $_POST['phone'];
+      $for = $_POST['for']; 
+      $title = $_POST['title'];
+      $postId = $_POST['pid'];
+      $info = $_POST['info'];
+
+      if(isset($_FILES['photo1'])){
+        $fName1 = $_FILES['photo1']['name'];
+        $tmpName1 = $_FILES['photo1']['tmp_name'];
+        $adPhotoE = $admin->adPhotoChange('photoPath1', $fName1, $tmpName1, $postId);
+      }
+
+      if(isset($_FILES['photo2'])){
+        $fName2 = $_FILES['photo2']['name'];
+        $tmpName2 = $_FILES['photo2']['tmp_name'];
+        $adPhotoE = $admin->adPhotoChange('photoPath2', $fName2, $tmpName2, $postId);
+
+      }
+
+      if(isset($_FILES['photo3s'])){
+        $fName3 = $_FILES['photo3']['name'];
+        $tmpName3 = $_FILES['photo3']['tmp_name'];
+        $adPhotoE = $admin->adPhotoChange('photoPath3', $fName3, $tmpName3, $postId);
+
+      }
+
+      
+      
+
+      $adEdit = $admin->updateAdPost( $type, $price, $address, $phone, $for, $title, $info, $postId);
+
+
+    }
 
 ?>
 <script src="../assets/jquery.js"></script>
@@ -364,6 +406,147 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
   
   </section>
                 
+      
+      <?php
+    }elseif($_GET['type'] == 'ad'){
+      $adEdit = $admin->adEditDataLister($uidx);
+      while($adRow = $adEdit->fetch_assoc()){
+        ?>
+        <form id="adPost" action="editPost.php"   method="POST" enctype="multipart/form-data">
+        <input hidden name="pid" value="<?php  echo $uidx ?>"
+        <div class="form-group">
+          <label for="exampleInputEmail1">Title</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="title" placeholder="Company Name" 
+          value="<?php echo $adRow['title'] ?>"
+          >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
+          </div>
+          <select class="custom-select" name="type" id="inputGroupSelect01">
+          <option selected><?php echo $adRow['type'] ?></option>
+            ?><?php
+              $out11 = $admin->adsCategoryLister();
+              while($r = $out11->fetch_assoc()){
+              ?>
+            
+            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
+            <?php
+              }
+            ?>
+
+              
+          </select>
+        </div>
+
+        <?php
+        if($adRow['for'] != " "){
+?>
+
+<div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Target For: </label>
+        </div>
+        <select class="custom-select" name="for" id="inputGroupSelect01">
+          <option selected><?php echo $adRow['for'] ?></option>
+          <option value="women">Women</option>
+          <option value="men">Men</option>
+          <option value="both">Both</option>
+        </select>
+        </div>
+<?php
+        }
+        
+        ?>
+
+
+
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Price :</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price" placeholder="Company Name" 
+          value="<?php echo $adRow['price'] ?>"
+          >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Address </label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="address" placeholder="Company Name"
+          value="<?php echo $adRow['address'] ?>"
+          >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Phone Number</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="Company Name"
+          value="<?php echo $adRow['phone'] ?>"
+          >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Describtion</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="location"><?php echo $adRow['info'] ?></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="row">
+          <script>
+            $(document).ready(function(){
+              $('#adPB1').click(function(){
+                $('#adPC1').load('divTags.php #adP1')
+              })
+
+              $('#adPB2').click(function(){
+                $('#adPC2').load('divTags.php #adP2')
+              })
+
+              $('#adPB3').click(function(){
+                $('#adPC3').load('divTags.php #adP3')
+              })
+            })
+
+          </script>
+
+
+
+              <div id="adPC1">
+                <img class="img-thumbnail" src="<?php echo $adRow['photoPath1'] ?>" alt="Card">
+                <button type="button" id="adPB1" class="btn btn-dark">Change Photo</button>
+
+              </div>
+
+              <div id="adPC2">
+                <img class="img-thumbnail" src="<?php echo $adRow['photoPath2'] ?>" alt="Card">
+                <button type="button" id="adPB2" class="btn btn-dark">Change Photo</button>
+              </div>
+
+              <div id="adPC3">
+                <img class="img-thumbnail" src="<?php echo $adRow['photoPath3'] ?>" alt="Card">
+                <button type="button" id="adPB3" class="btn btn-dark">Change Photo</button>
+              </div>
+
+        </div>
+
+        <input type="submit" onclick="x()" value="POST">
+
+        </form>
+        
+        <?php
+      }
+      
+      ?>
       
       <?php
     }

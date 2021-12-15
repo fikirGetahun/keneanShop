@@ -170,7 +170,7 @@
         function adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $photoPath1, $photoPath2, $photoPath3){
             include "connect.php";
             $postStatus = 'ACTIVE';
-            $q = "INSERT INTO `electronics`( `type`, `price`, `address`, `phone`, `for`,
+            $q = "INSERT INTO `ad`( `type`, `price`, `address`, `phone`, `for`,
              `title`, `posterId`, `info`, `photoPath1`, `photoPath2`, `photoPath3`, `postStatus`)
              VALUES ('$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$photoPath2', '$photoPath3', '$postStatus')";
             
@@ -194,14 +194,12 @@
                 if(move_uploaded_file($tmpName1, $path1)){
                     $path[0] = $path1;
                 }
-                    elseif(move_uploaded_file($tmpName2, $path2)) {
+                    if(move_uploaded_file($tmpName2, $path2)) {
                         $path[1] = $path2;
                     }
-                        elseif(move_uploaded_file($tmpName3, $path3)){
+                        if(move_uploaded_file($tmpName3, $path3)){
                             $path[2] = $path3;
                             
-                        }else{
-                            return 'ERROR';
                         }
 
             }
@@ -215,7 +213,7 @@
 
         function postAdShower(){
             include "connect.php";
-            $q = "SELECT * FROM `electronics` WHERE 1";
+            $q = "SELECT * FROM `ad` WHERE 1";
 
             $ask = $mysql->query($q);
             return $ask;
@@ -251,13 +249,13 @@
 
 
         //car post data inserter
-        function carPostAdder($type, $status, $fuleKind, $posterId, $fixedOrN, $photoPath1, $photoPath2, $photoPath3,$price,$info,$forRentOrSell ){
+        function carPostAdder($title, $type, $status, $fuleKind, $posterId, $fixedOrN, $photoPath1, $photoPath2, $photoPath3,$price,$info,$forRentOrSell ){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $postStatus = 'ACTIVE';
-            $q ="INSERT INTO `car`( `type`, `status`, `fuleKind`, `posterId`, `fixidOrN`,
+            $q ="INSERT INTO `car`( `title`,`type`, `status`, `fuleKind`, `posterId`, `fixidOrN`,
              `photoPath1`, `photoPath2`, `photoPath3`, `price`, `info`, `forRentOrSell`, `postStatus`, `postedDate`)
-             VALUES ( '$type', '$status', '$fuleKind', '$posterId', '$fixedOrN', '$photoPath1', '$photoPath2', '$photoPath3','$price','$info','$forRentOrSell', '$postStatus', '$postDate' )";
+             VALUES ( '$title','$type', '$status', '$fuleKind', '$posterId', '$fixedOrN', '$photoPath1', '$photoPath2', '$photoPath3','$price','$info','$forRentOrSell', '$postStatus', '$postDate' )";
 
             $ask = $mysql->query($q);
 
@@ -281,14 +279,12 @@
                 if(move_uploaded_file($tmpName1, $path1)){
                     $path[0] = $path1;
                 }
-                    elseif(move_uploaded_file($tmpName2, $path2)) {
+                    if(move_uploaded_file($tmpName2, $path2)) {
                         $path[1] = $path2;
                     }
-                        elseif(move_uploaded_file($tmpName3, $path3)){
+                        if(move_uploaded_file($tmpName3, $path3)){
                             $path[2] = $path3;
                             
-                        }else{
-                            return 'ERROR';
                         }
 
             }
@@ -301,8 +297,107 @@
 
 
         //house or land selles data adder block
-        function addHouseOrLandPost(){
+        function addHouseOrLandPost($title,$type,$houseOrLand, $city, $subCity, $wereda,
+        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $posterId, $fName1, $fName2, $fName3){
             include "connect.php";
+            $postDate = date('Y-m-d H:i:s');
+            $postStatus = 'ACTIVE';
+            $q = "INSERT INTO `housesell`(`title`,`type`, `houseOrLand`, `city`, `subCity`, `wereda`, `area`,
+             `bedRoomNo`, `bathRoomNo`, `cost`, `fixedOrN`, `forRentOrSell`, `info`, `posterId`,
+              `photoPath1`, `photoPath2`, `photoPath3`, `postedDate`, `postStatus`)
+             VALUES ('$title','$type','$houseOrLand', '$city', '$subCity', '$wereda',
+        '$forRentOrSell', '$area', '$bedRoomNo', '$bathRoomNo', '$price', '$fixidOrN', 
+        '$info', '$posterId', '$fName1', '$fName2', '$fName3', '$postDate', '$postStatus')";
+
+        $ask = $mysql->query($q);
+            
+        }
+
+
+        //house and land photo uploader
+        function houseOrLandPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3){
+            include "connect.php";
+            $location = "../uploads/houseOrLandPhotos/";
+            $random = rand(1000, 100000);
+            $path1 = $location.'ad'.$random.$fName1;
+            $path2 = $location.'ad'.$random.$fName2;
+            $path3 = $location.'ad'.$random.$fName3;
+
+            $path = array(' ', ' ', ' ');
+
+            if($fName1 != '' || $fName2 != '' || $fName3 != ''){
+
+                if(move_uploaded_file($tmpName1, $path1)){
+                    $path[0] = $path1;
+                }
+                    if(move_uploaded_file($tmpName2, $path2)) {
+                        $path[1] = $path2;
+                    }
+                        if(move_uploaded_file($tmpName3, $path3)){
+                            $path[2] = $path3;
+                            
+                        }
+
+            }
+
+            return $path;
+ 
+                
+        }
+
+        //cars post viewer
+        function carPostLister(){
+            include "connect.php";
+            $q = "SELECT * FROM `car` WHERE 1 ";
+            $ask = $mysql->query($q);
+
+            return $ask;
+        }
+
+        //house post viewer
+        function houseOrLandPostLister(){
+            include "connect.php";
+            $q = "SELECT * FROM `housesell` WHERE 1 ";
+            $ask = $mysql->query($q);
+
+            return $ask;
+        }
+
+        //ad edit data lister
+        function adEditDataLister($pid){
+            include "connect.php";
+            $q = "SELECT * FROM `ad` WHERE `id` = '$pid' ";
+
+            $ask = $mysql->query($q);
+            return $ask;
+
+        }
+
+        //ad update
+        function updateAdPost($type, $price, $address, $phone, $for, $title, $info, $postId){
+            include "connect.php";
+            $q = "UPDATE `ad` SET `type` = '$type',`price`= '$price',`address`= '$address' ,
+            `phone` = '$phone',`for`= '$for',`title`= '$title',`info`= '$info' WHERE `ad`.`id` = '$postId' ";
+
+            $ask = $mysql->query($q);
+
+
+        }
+
+        //ad photo change
+        function adPhotoChange($dbPath, $fName, $tmpName, $pid ){
+            include "connect.php";
+            $location = "../uploads/adPostsPhoto/";
+            $random = rand(1000, 100000);
+            $path = $location.'ad'.$random.$fName;
+
+            if(move_uploaded_file($tmpName, $path)){
+                $q = "UPDATE `ad` SET `$dbPath`='$path' WHERE `ad`.`id` = '$pid'";
+                $ask = $mysql->query($q);
+            }
+            
+
+           
         }
 
     }

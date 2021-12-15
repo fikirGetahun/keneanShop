@@ -46,6 +46,11 @@
       function editTender(uid){
         $('#allin').load('editPost.php?'+$.param({type: 'editTender', pid: uid}))
       }
+
+      function adEdit(uid){
+        $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: uid}))
+
+      }
   </script>
 </head> -->
 <head>
@@ -173,7 +178,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" onclick="adEdit(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
                   </div>
@@ -186,6 +191,73 @@
             ?>
             </div>
             <?php
+    }elseif($_GET['type'] == 'car'){
+        $carOut = $admin->carPostLister();
+        ?>
+        <div class="row">
+        <?php
+        
+        while($cars = $carOut->fetch_assoc()){
+            ?>
+            
+                
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="img-thumbnail" src="<?php echo $cars['photoPath1'] ?>" alt="Card">
+                <div class="card-body">
+                  <p class="card-text"><?php echo $cars['type'] ?></p>
+                  <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php
+        }
+        ?>
+        </div>
+        <?php
+    
+        
+        
+        
+    }elseif($_GET['type'] == 'house'){
+        $hOut = $admin->houseOrLandPostLister();
+        ?>
+        <div class="row">
+        <?php
+        
+        while($cars = $hOut->fetch_assoc()){
+            ?>
+            
+                
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="img-thumbnail" src="<?php echo $cars['photoPath1'] ?>" alt="Card">
+                <div class="card-body">
+                  <p class="card-text"><?php echo $cars['title'] ?></p>
+                  <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
+                  <h6><?php echo $cars['cost'] ?> Birr</h6>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php
+        }
+        ?>
+        </div>
+        <?php
     }
 }
     

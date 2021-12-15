@@ -18,6 +18,44 @@
             </div>
 </div>
 
+<div id="typeCar" >
+            <div class="form-group">
+              <label for="exampleInputEmail1">Other</Title></label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="type2" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+</div>
+
+<div id="changeProfile">
+<label for="exampleInputEmail1">Upload Profile Photo</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photoq" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+</div>
+
+<div id="adP1">
+    <label for="exampleInputEmail1">Upload Profile Photo 1</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo1" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div id="adP2">
+    <label for="exampleInputEmail1">Upload Profile Photo 1</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo2" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div id="adP3">
+    <label for="exampleInputEmail1">Upload Profile Photo 1</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo3" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
 
 <div id="houseType" class="input-group mb-3">
         <div class="input-group-prepend">
@@ -81,3 +119,16 @@
   </tbody>
 </table>
 </div>
+
+
+<div id="targetFor" class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Target For: </label>
+        </div>
+        <select class="custom-select" name="for" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="women">Women</option>
+          <option value="men">Men</option>
+          <option value="both">Both</option>
+        </select>
+        </div>

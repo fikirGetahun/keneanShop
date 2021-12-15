@@ -59,8 +59,9 @@ if(isset($_GET['uid'])){
 
     //car post handler
     if(isset($_POST['type2'],$_POST['status2'],$_POST['forRentOrSell'],$_POST['fuleKind'],$_POST['fixidOrN'],$_POST['price2'],$_POST['info2'],$_POST['posterId2'],
-      $_FILES['x1'],$_FILES['x2'],$_FILES['x3'])){
+      $_FILES['x1'],$_FILES['x2'],$_FILES['x3'], $_POST['title'])){
       echo 'inx';
+      $title = $_POST['title'];
       $type = $_POST['type2'];
       $status = $_POST['status2'];
       $forRentOrSell= $_POST['forRentOrSell'];
@@ -78,20 +79,23 @@ if(isset($_GET['uid'])){
 
       $carPhoto = $admin->carPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3 );
 
-      $out12 = $admin->carPostAdder($type, $status, $fuleKind, $posterId, $fixidOrN, $carPhoto[0], $carPhoto[1], $carPhoto[2],$price,$info,$forRentOrSell );
+      $out12 = $admin->carPostAdder($title,$type, $status, $fuleKind, $posterId, $fixidOrN, $carPhoto[0], $carPhoto[1], $carPhoto[2],$price,$info,$forRentOrSell );
       echo $out12;
     }
 
 
      //ad post handler block
-     if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['for'], $_POST['title'],
+     if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['title'],
      $_POST['posterId'], $_POST['info'], $_FILES['photo1'], $_FILES['photo2'], $_FILES['photo3'])){
        echo 'in the ad';
+      $for = " ";
+      if(isset($_POST['for'])){
+        $for = $_POST['for'];
+      }
       $type = $_POST['type'];
       $price = $_POST['price'];
       $address =  $_POST['address'];
       $phone = $_POST['phone'];
-      $for = $_POST['for']; 
       $title = $_POST['title'];
       $posterId = $_POST['posterId'];
       $info = $_POST['info'];
@@ -107,43 +111,43 @@ if(isset($_GET['uid'])){
       $adOut = $admin->adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3  );
 
       $out7 = $admin->adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $adOut[0], $adOut[1], $adOut[2]);
-      if($out7){
-        echo 'work';
-      }else{
-        echo 'no';
-      }
+
     
     }
 
     //house or land post data inserter
     if(isset(
       $_POST['houseOrLand'], $_POST['city'],$_POST['subCity'], $_POST['wereda'],
-       $_POST['forRentOrSell'], $_POST['area'], $_POST['price'], $_POST['fixidOrN'], 
-       $_POST['info'], $_FILES['xy1'], $_FILES['xy2'], $_FILES['xy3']
+       $_POST['forRentOrSell'], $_POST['area'], $_POST['cost'], $_POST['fixidOrN'], 
+       $_POST['info'], $_FILES['xy1'], $_FILES['xy2'], $_FILES['xy3'],$_POST['posterId'], $_POST['title']
     )){
       echo 'inn house';
 
       // these variables will not be set if user choose house so initial value will be empty
       $bedRoomNo = ' ';
       $bathRoomNo = ' ';
+      $type = " ";
       
       if(isset(
         $_POST['bedRoomNo'],
-        $_POST['bathRoomNo']
+        $_POST['bathRoomNo'],
+        $_POST['type']
       )){
         $bedRoomNo = $_POST['bedRoomNo'];
         $bathRoomNo = $_POST['bathRoomNo'];
+        $type = $_POST['type'];
       }
-
+      $title = $_POST['title'];
       $houseOrLand =$_POST['houseOrLand'];
       $city =$_POST['city'];
       $subCity=$_POST['subCity'];
       $wereda= $_POST['wereda'];
       $forRentOrSell=$_POST['forRentOrSell'];
       $area=$_POST['area'];
-      $price=$_POST['price'];
+      $price=$_POST['cost'];
       $fixidOrN=$_POST['fixidOrN'];
       $info=$_POST['info'];
+      $posterId = $_POST['posterId'];
       $fName1 = $_FILES['xy1']['name'];
       $fName2 = $_FILES['xy2']['name'];
       $fName3 = $_FILES['xy3']['name'];
@@ -151,8 +155,13 @@ if(isset($_GET['uid'])){
       $tmpName2 = $_FILES['xy2']['tmp_name'];
       $tmpName3 = $_FILES['xy3']['tmp_name'];
 
-
       
+      $houseUpload = $admin->houseOrLandPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
+      $outH = $admin->addHouseOrLandPost($title, $type, $houseOrLand, $city, $subCity, $wereda,
+       $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $posterId, $houseUpload[0], $houseUpload[1], $houseUpload[2] );
+      
+       echo $outH;
+
     }
 
 
@@ -230,8 +239,6 @@ if(isset($_GET['uid'])){
       if(this.value == "otherCity"){
         $('#cityBox').load('divTags.php #otherCity')
  
-      }else{
-        $('#cityBox').empty()
       }
    
     })
@@ -239,8 +246,6 @@ if(isset($_GET['uid'])){
     $('#subCity').on('change',function(){
       if(this.value == "otherSubCity"){
         $('#subCityBox').load('divTags.php #otherSubCity')
-      }else{
-        $('#subCityBox').empty()
       }
       
     })
@@ -249,11 +254,15 @@ if(isset($_GET['uid'])){
       if(this.value == "HOUSE"){
         $('#houseTypeLoader').load("divTags.php #houseType")
         $('#bedOrBath').load('divTags.php #bedBath')
-      }else{
-        $('#houseTypeLoader').empty()
-        $('#bedOrBath').empty()
       }
     })
+
+    $('#sCar').on('change', function(){
+      if(this.value == "other"){
+        $('#typeC').load("divTags.php #typeCar")
+      }
+    })
+
     
   })
 
@@ -462,38 +471,6 @@ if(isset($_GET['uid'])){
         <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
         <input hidden name="posterId" value="<?php echo $uidx; ?>">
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
-          </div>
-          <select class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-            ?><?php
-              $out11 = $admin->adsCategoryLister();
-              while($r = $out11->fetch_assoc()){
-?>
-            
-            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
-<?php
-              }
-            ?>
-
-
-          </select>
-        </div>
-
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Target For: </label>
-        </div>
-        <select class="custom-select" name="for" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="women">Women</option>
-          <option value="men">Men</option>
-          <option value="both">Both</option>
-        </select>
-        </div>
-
 
         <div class="form-group">
           <label for="exampleInputEmail1">Title</Title></label>
@@ -501,6 +478,46 @@ if(isset($_GET['uid'])){
           aria-describedby="emailHelp" name="title" placeholder="Company Name">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+
+<script>
+
+$(document).ready(function(){
+$('#tCategory').on('change', function(){
+  if(this.value == "Cloth and Shoe"){
+    $('#targetLoader').load('divTags.php #targetFor')
+  }
+ 
+})
+
+})
+
+</script>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
+          </div>
+          <select id="tCategory" class="custom-select" name="type" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+            ?><?php
+              $out11 = $admin->adsCategoryLister();
+              while($r = $out11->fetch_assoc()){
+              ?>
+            
+            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
+            <?php
+              }
+            ?>
+
+
+          </select>
+        </div>
+
+        <div id="targetLoader">
+
+        </div>
+
+
 
         <div class="form-group">
           <label for="exampleInputEmail1">Price :</label>
@@ -563,11 +580,19 @@ if(isset($_GET['uid'])){
           <h5>Post Car Ads</h5>
           <form id="car" action="postPage.php" method="POST" enctype="multipart/form-data" >
           <input hidden name="posterId2" value="<?php echo $uidx; ?>">
-              <div class="input-group mb-3">
-            <div class="input-group-prepend">
+
+          <div class="form-group">
+              <label for="exampleInputEmail1">Title</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="title" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+              <div id="typeC" class="input-group mb-3">
+            <div  class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01"> Car Type: </label>
             </div>
-            <select class="custom-select" name="type2" id="inputGroupSelect01">
+            <select id="sCar" class="custom-select" name="type2" id="inputGroupSelect01">
               <option selected>Choose...</option>
               <option value="	TOYOTA  ">	TOYOTA  </option>
               <option value="	JEEP ">	JEEP </option>
@@ -577,7 +602,7 @@ if(isset($_GET['uid'])){
               <option value="	VOLVO ">	VOLVO </option>
               <option value="	NISSAN ">	NISSAN </option>
               <option value="	FORD ">	FORD </option>
-              <option value="	HUMER ">	HUMER </option>
+              <option value="other">	Other </option>
             </select>
             </div>
 
@@ -673,7 +698,7 @@ if(isset($_GET['uid'])){
             ?>
             <h5>House Ad Post</h5>
              <form id="car" action="postPage.php" method="POST" enctype="multipart/form-data" >
-             <input hidden name="posterId2" value="<?php echo $uidx; ?>">
+             <input hidden name="posterId" value="<?php echo $uidx; ?>">
 
              <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -686,6 +711,13 @@ if(isset($_GET['uid'])){
         </select>
         
         </div>
+
+        <div class="form-group">
+              <label for="exampleInputEmail1">Title</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="title" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
 
         
 <div id="houseTypeLoader"></div>
@@ -719,7 +751,7 @@ if(isset($_GET['uid'])){
         
 
              <div class="form-group">
-              <label for="exampleInputEmail1">Wereda :</Title></label>
+              <label for="exampleInputEmail1">Wereda :</label>
               <input type="text" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="wereda" placeholder="Company Name">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>

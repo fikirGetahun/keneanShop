@@ -94,7 +94,13 @@
         $('#postBox').load('viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
-      
+      $('#viewCar').click(function(){
+        $('#postBox').load('viewPost.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
+      })
+
+      $('#viewHouse').click(function(){
+        $('#postBox').load('viewPost.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
+      })
 
       $('#adCategory').click(function(){
         $('#postBox').load('addCategory.php')
@@ -416,6 +422,16 @@
           <li>
             <a id="viewAd" href="#viewAdPost">
               <i class="bi bi-circle"></i><span>View AD PostS</span>
+            </a>
+          </li>
+          <li>
+            <a id="viewCar" href="#viewCarPost">
+              <i class="bi bi-circle"></i><span>View Car PostS</span>
+            </a>
+          </li>
+          <li>
+            <a id="viewHouse" href="#viewHousePost">
+              <i class="bi bi-circle"></i><span>View House PostS</span>
             </a>
           </li>
         </ul>
