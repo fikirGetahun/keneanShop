@@ -187,14 +187,27 @@
             $path2 = $location.'ad'.$random.$fName2;
             $path3 = $location.'ad'.$random.$fName3;
 
-            if(move_uploaded_file($tmpName1, $path1) &&
-                move_uploaded_file($tmpName2, $path2) &&
-                    move_uploaded_file($tmpName3, $path3)){
-                        $path = array($path1, $path2, $path3);
-                        return $path;
-                    }else{
-                        return 'ERROR';
+            $path = array(' ', ' ', ' ');
+
+            if($fName1 != '' || $fName2 != '' || $fName3 != ''){
+
+                if(move_uploaded_file($tmpName1, $path1)){
+                    $path[0] = $path1;
+                }
+                    elseif(move_uploaded_file($tmpName2, $path2)) {
+                        $path[1] = $path2;
                     }
+                        elseif(move_uploaded_file($tmpName3, $path3)){
+                            $path[2] = $path3;
+                            
+                        }else{
+                            return 'ERROR';
+                        }
+
+            }
+
+            return $path;
+ 
             
         }
 

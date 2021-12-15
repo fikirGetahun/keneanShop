@@ -484,24 +484,7 @@
                   </ul>
                 </div>
 
-                <div class="card-body">
-                  <h5 class="card-title">Vacancy Posts <span>| Today</span></h5>
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cart"></i>
-                    </div>
-                    <div class="ps-3">
-                      <?php
-                        $count = $admin->vacancyPostCounter();
-                        $num = $count->num_rows;
-                      ?>
-                      <h6><?php echo $num; ?></h6>
-                     
-
-                    </div>
-                  </div>
-                </div>
 
 
 
@@ -523,6 +506,27 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Normal Users <span>| Today</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-cart"></i>
+                    </div>
+                    <div class="ps-3">
+                      <?php
+                        $count = $admin->userNumber('USER');
+                        $num = $count->num_rows;
+                      ?>
+                      <h6><?php echo $num; ?></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+
 
                 <div class="card-body">
                   <h5 class="card-title">Editors <span>| Today</span></h5>
@@ -551,6 +555,9 @@
 
     <!-- tender counter -->
     <div class="col-xxl-4 col-md-6">
+
+
+
               <div class="card info-card revenue-card">
 
                 <div class="filter">
@@ -582,18 +589,14 @@
                   </div>
                 </div>
 
-              </div>
-
-              <div class="card-body">
-                  <h5 class="card-title">Normal Users <span>| Today</span></h5>
+                
+                <div class="card-body">
+                  <h5 class="card-title">Vacancy Posts <span>| This Month</span></h5>
 
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cart"></i>
-                    </div>
-                    <div class="ps-3">
+                  <div class="ps-3">
                       <?php
-                        $count = $admin->userNumber('USER');
+                        $count = $admin->vacancyPostCounter();
                         $num = $count->num_rows;
                       ?>
                       <h6><?php echo $num; ?></h6>
@@ -602,6 +605,28 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Advertisment Posts <span>| This Month</span></h5>
+
+                  <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                      <?php
+                        $count = $admin->postAdShower();
+                        $num = $count->num_rows;
+                      ?>
+                      <h6><?php echo $num; ?></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+
+
             </div><!-- End Revenue Card -->
     </div>
     </div>

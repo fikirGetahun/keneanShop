@@ -76,11 +76,49 @@ if(isset($_GET['uid'])){
       $tmpName2 = $_FILES['photo2']['tmp_name'];
       $tmpName3 = $_FILES['photo3']['tmp_name'];
 
+      if($fName1 == "" || $fName2 == "" || $fName3 == ""){
+        
+      }
+
       $adOut = $admin->adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3  );
 
       $out7 = $admin->adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $adOut[0], $adOut[1], $adOut[2]);
-
+      if($out7){
+        echo 'work';
+      }else{
+        echo 'no';
+      }
     
+    }
+
+
+    //car post handler
+    if(isset(
+      $_POST['type'],
+      $_POST['status'],
+      $_POST['forRentOrSell'],
+      $_POST['fuileKind'],
+      $_POST['fixidOrN'],
+      $_POST['price'],
+      $_POST['info'],
+      $_FILES['photo11'],
+      $_FILES['photo22'],
+      $_FILES['photo33']
+    )){
+
+      $type = $_POST['type'];
+      $status = $_POST['status'];
+      $forRentOrSell= $_POST['forRentOrSell'];
+      $fuileOrN= $_POST['fixidOrN'];
+      $fuileKind = $_POST['fuileKind'];
+      $price = $_POST['price'];
+      $info = $_POST['info'];
+      $fName1= $_FILES['photo11'];
+      $fName2= $_FILES['photo22'];
+      $fName3= $_FILES['photo33'];
+
+      
+
     }
 
 ?>
@@ -455,12 +493,110 @@ if(isset($_GET['uid'])){
       }if(isset($_GET['type'])){
         if($_GET['type'] == 'car'){
           ?>
-                  <div class="form-group">
-          <label for="exampleInputEmail1">Address </label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Company Name">
+          <form id="car" method="POST">
+              <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01"> Car Type: </label>
+            </div>
+            <select class="custom-select" name="type" id="inputGroupSelect01">
+              <option selected>Choose...</option>
+              <option value="	TOYOTA  ">	TOYOTA  </option>
+              <option value="	JEEP ">	JEEP </option>
+              <option value="	IVECO ">	IVECO </option>
+              <option value="	LIFAN ">	LIFAN </option>
+              <option value="	SUZUKI ">	SUZUKI </option>
+              <option value="	VOLVO ">	VOLVO </option>
+              <option value="	NISSAN ">	NISSAN </option>
+              <option value="	FORD ">	FORD </option>
+              <option value="	HUMER ">	HUMER </option>
+            </select>
+            </div>
+
+            <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Status Of Car: </label>
+        </div>
+        <select class="custom-select" name="status" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="NEW">New</option>
+          <option value="OLD">Old</option>
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
+        </div>
+        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="For Rent">For Rent</option>
+          <option value="For Sell">For Sell</option>
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Fule Kind: </label>
+        </div>
+        <select class="custom-select" name="fuleKind" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Benzene">Benzene</option>
+          <option value="Diesel">Diesel</option>
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
+        </div>
+        <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Fixed">Fixed</option>
+          <option value="Negotiatable">Negotiatable</option>
+          <option value="Negotiatable">Slightly Negotiable</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Price : </label>
+          <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price" placeholder="Company Name">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Describtion</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="row">
+        <div id="registerBox">
+    <label for="exampleInputEmail1">Upload Profile Photo 1</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo11" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div id="registerBox">
+    <label for="exampleInputEmail1">Upload Profile Photo 2</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo22" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div id="registerBox">
+    <label for="exampleInputEmail1">Upload Profile Photo 3</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo33" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+        </div>
+
+          <input type="submit" class="btn btn-dark"  value="Post">
+
+          </form>
           
           <?php
         }
