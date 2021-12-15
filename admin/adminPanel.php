@@ -82,13 +82,24 @@
         $('#postBox').load('postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
+      $('#carPost').click(function(){
+        $('#postBox').load('postPage.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
+      })
+
+      $('#housePost').click(function(){
+        $('#postBox').load('postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
+      })
+
       $('#viewAd').click(function(){
         $('#postBox').load('viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
+      
+
       $('#adCategory').click(function(){
         $('#postBox').load('addCategory.php')
       })
+
 
     })
 
@@ -424,6 +435,16 @@
           <li>
             <a id="postTender" href="#tenderPost">
               <i class="bi bi-circle"></i><span>Post Tender</span>
+            </a>
+          </li>
+          <li>
+            <a id="carPost" href="#carPost">
+              <i class="bi bi-circle"></i><span>Post Cars</span>
+            </a>
+          </li>
+          <li>
+            <a id="housePost" href="#housePost">
+              <i class="bi bi-circle"></i><span>Post House</span>
             </a>
           </li>
           <li>
