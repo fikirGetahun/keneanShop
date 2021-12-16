@@ -2,11 +2,12 @@
     class adminPhp{
 
         //insert vacancy post
-        function addVacancyPost(  $type, $poitionType, $companyName, $positionTitle, $location, $deadLine, $posterId, $positionNum, $info   ){
+        function addVacancyPost(  $type, $poitionType, $companyName, $positionTitle, $location, $deadLine, $posterId, $positionNum, $info, $sex   ){
             include("connect.php");
-            $today = date("Y/m/d");
-            $q = "INSERT INTO `vacancy`( `type`, `positionType`, `companyName`, `positionTitle`, `location`, `deadLine`, `posterId`, `positionNum`, `info`, `postedDate`) 
-            VALUES ( '$type', ' $poitionType', '$companyName', '$positionTitle', '$location', '$deadLine', '$posterId', '$positionNum', '$info', '$today' )";
+            $postStatus = 'ACTIVE';
+            $today = date('Y-m-d H:i:s');
+            $q = "INSERT INTO `vacancy`( `type`, `positionType`, `companyName`, `positionTitle`, `sex`, `location`, `deadLine`, `posterId`, `positionNum`, `info`, `postedDate`, `postStatus`) 
+            VALUES ( '$type', ' $poitionType', '$companyName', '$positionTitle', '$sex', '$location', '$deadLine', '$posterId', '$positionNum', '$info', '$today', '$postStatus' )";
 
             $ask = $mysql->query($q);
         }
@@ -14,9 +15,10 @@
         //insert tender post
         function addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id, $title ){
             include('connect.php');
-            $today = date("Y/m/d");
-            $q = "INSERT INTO `tender`( `title`,`tenderType`, `startingDate`, `deadLine`, `location`, `initialCost`, `info`, `posterId`, `postedDate`)
-             VALUES ( '$title' ,'$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date' )";
+            $postStatus = 'ACTIVE';
+            $date = date('Y-m-d H:i:s');
+            $q = "INSERT INTO `tender`( `title`,`tenderType`, `startingDate`, `deadLine`, `location`, `initialCost`, `info`, `posterId`, `postedDate`, `postStatus`)
+             VALUES ( '$title' ,'$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date', '$postStatus' )";
 
              $ask = $mysql->query($q);
 
@@ -60,12 +62,13 @@
         //vacancy edit
         function updateVacancyPost($jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info){
             include "connect.php";
-            $date = date('Y/m/d');
+            $date = date('Y-m-d H:i:s');
+            $edited = 'YES';
             $q = "UPDATE `vacancy` SET 
           `type`='$jobType',`positionType`='$positionType',
             `companyName`='$companyName',`positionTitle`='$jobTitle',
             `location`='$location',`deadLine`='$Deadline',
-            `positionNum`='$reqNo',`info`='$info',`postedDate`= '$date' WHERE `vacancy`.`id` = '$id'";
+            `positionNum`='$reqNo',`info`='$info',`postedDate`= '$date', `edited` = '$edited' WHERE `vacancy`.`id` = '$id'";
 
             $ask = $mysql->query($q);
         }
@@ -82,10 +85,11 @@
         // TENDER POST DATA EDITOR
         function updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title  ){
             include "connect.php";
-            $date = date('Y/m/d');
+            $date = date('Y-m-d H:i:s');
+            $edited = 'YES';
             $q = "UPDATE `tender` SET `tenderType`='$tenderType',
             `startingDate`='$startingDate',`deadLine`='$deadLine',`location`='$location',
-            `initialCost`='$initialCost',`info`='$info',`postedDate`='$date', `title`= '$title' WHERE `tender`.`id` = '$id2' ";
+            `initialCost`='$initialCost',`info`='$info',`postedDate`='$date', `title`= '$title', `edited` = '$edited' WHERE `tender`.`id` = '$id2' ";
 
             $ask = $mysql->query($q);
         }
@@ -94,7 +98,7 @@
         //USER ADDER AS 'ADMIN' OR 'EDITOR'
         function userAdder($firstName, $lastName, $phone, $username, $password, $auth, $photoPath, $job, $about){
             include "connect.php";
-            $date = date('Y/m/d');
+            $date = date('Y-m-d H:i:s');
             $q ="INSERT INTO `user`( `username`, `password`, `firstName`, `lastName`, `phone`, `auth`,`photoPath`,`lastLogedIn` , `job`, `about`)
              VALUES ('$username', '$password', '$firstName', '$lastName', '$phone', '$auth', '$photoPath', '$date', '$job', '$about' )";
 
@@ -167,12 +171,12 @@
 
 
         // ad post data inserting function
-        function adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $photoPath1, $photoPath2, $photoPath3){
+        function adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $photoPath1, $photoPath2, $photoPath3, $ship){
             include "connect.php";
             $postStatus = 'ACTIVE';
             $q = "INSERT INTO `ad`( `type`, `price`, `address`, `phone`, `for`,
-             `title`, `posterId`, `info`, `photoPath1`, `photoPath2`, `photoPath3`, `postStatus`)
-             VALUES ('$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$photoPath2', '$photoPath3', '$postStatus')";
+             `title`, `posterId`, `info`, `photoPath1`, `photoPath2`, `photoPath3`, `postStatus`, `shipping`)
+             VALUES ('$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$photoPath2', '$photoPath3', '$postStatus', '$ship')";
             
             $ask = $mysql->query($q);
         }
@@ -376,8 +380,9 @@
         //ad update
         function updateAdPost($type, $price, $address, $phone, $for, $title, $info, $postId){
             include "connect.php";
+            $edited = 'YES';
             $q = "UPDATE `ad` SET `type` = '$type',`price`= '$price',`address`= '$address' ,
-            `phone` = '$phone',`for`= '$for',`title`= '$title',`info`= '$info' WHERE `ad`.`id` = '$postId' ";
+            `phone` = '$phone',`for`= '$for',`title`= '$title',`info`= '$info', `edited` = '$edited' WHERE `ad`.`id` = '$postId' ";
 
             $ask = $mysql->query($q);
 
@@ -439,11 +444,12 @@
         function updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
         $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId ){
             include "connect.php";
+            $edited = 'YES';
             $postDate = date('Y-m-d H:i:s');
             $q = "UPDATE `housesell` SET `title`= '$title',`type`= '$type',`houseOrLand`= '$houseOrLand',
             `city`= '$city' ,`subCity`= '$subCity',`wereda`= '$wereda',`area`= '$area',
             `bedRoomNo`= '$bedRoomNo',`bathRoomNo`= '$bathRoomNo',`cost`= '$price',`fixedOrN`= '$fixidOrN',
-            `forRentOrSell`= '$forRentOrSell',`info`= '$info',`postedDate`='$postDate' WHERE `housesell`.`id` = '$postId'";
+            `forRentOrSell`= '$forRentOrSell',`info`= '$info',`postedDate`='$postDate', `edited` = '$edited'  WHERE `housesell`.`id` = '$postId'";
 
             $ask = $mysql->query($q);
 
@@ -500,7 +506,7 @@
                 //vacancy catagory inserter
                 function vacancyCategoryAdder($cat){
                     include "connect.php";
-                    $q = "INSERT INTO `carcategory`(`category`) VALUES ('$cat')";
+                    $q = "INSERT INTO `vacancycategory`(`category`) VALUES ('$cat')";
                     $ask = $mysql->query($q);
         
                 }
@@ -525,7 +531,7 @@
                         //house catagory inserter
         function houseCategoryAdder($cat){
             include "connect.php";
-            $q = "INSERT INTO `carcategory`(`category`) VALUES ('$cat')";
+            $q = "INSERT INTO `housecategory`(`category`) VALUES ('$cat')";
             $ask = $mysql->query($q);
 
         }
@@ -544,6 +550,80 @@
         function houseCategoryEdit($id, $data){
             include "connect.php";
             $q =" UPDATE `housecategory` SET `category`= '$data' WHERE `housecategory`.`id` = '$id'";
+            $ask = $mysql->query($q);
+        }
+
+        //ad category delete
+        function adCategoryDelete($id){
+            include "connect.php";
+            $q = "DELETE FROM `adcategory` WHERE `id` = '$id'";
+            $ask = $mysql->query($q);
+        }
+
+        //vacancy category delete
+        function vacancyCategoryDelete($id){
+            include "connect.php";
+            $q = "DELETE FROM `vacancycategory` WHERE `id` = '$id'";
+            $ask = $mysql->query($q);
+        }
+
+        //car category delete
+        function carCategoryDelete($id){
+            include "connect.php";
+            $q = "DELETE FROM `carcategory` WHERE `id` = '$id'";
+            $ask = $mysql->query($q);
+        }
+
+        //house category delete
+        function houseCategoryDelete($id){
+            include "connect.php";
+            $q = "DELETE FROM `housecategory` WHERE `id` = '$id'";
+            $ask = $mysql->query($q);
+        }
+
+        //ad post status changer
+        function adPostStatus($pid){
+            include "connect.php";
+            $q = "UPDATE `ad` SET `postStatus` = 'SOLD'  WHERE `ad`.`id` = '$pid' ";
+            $ask = $mysql->query($q);
+
+        }
+
+        //ad post deleter
+        function adPostDelete($pid){
+            include "connect.php";
+            $q = "DELETE FROM `ad` WHERE `id` = '$pid'";
+            $ask = $mysql->query($q);
+        }
+
+        //car post status changer
+        function carPostStatus($pid){
+            include "connect.php";
+            $q = "UPDATE `car` SET `postStatus` = 'SOLD'  WHERE `car`.`id` = '$pid' ";
+            $ask = $mysql->query($q);
+
+        }
+
+        //car post delter
+        function carPostDelete($pid){
+            include "connect.php";
+            $q = "DELETE FROM `car` WHERE `id` = '$pid'";
+            $ask = $mysql->query($q);
+        }
+
+
+                //house post status changer
+        function housePostStatus($pid){
+            include "connect.php";
+            $q = "UPDATE `housesell` SET `postStatus` = 'SOLD'  WHERE `housesell`.`id` = '$pid' ";
+            $ask = $mysql->query($q);
+
+        }
+
+        //car post delter
+        function housePostDelete($pid){
+            include "connect.php";
+            $q = "DELETE FROM `housesell` WHERE `id` = '$pid'";
             $ask = $mysql->query($q);
         }
 

@@ -447,6 +447,10 @@
             <a id="postVacancy" href="#content">
               <i class="bi bi-circle "></i><span>Post Vacancy</span>
             </a>
+            <a id="vacancyCategory" style="padding-left: 60px;" href="#vacancyCatagory">
+              <i class="
+              bi bi-circle"></i><span>Add Vacancy Category</span>
+            </a>
           </li>
           <li>
             <a id="postTender" href="#tenderPost">
@@ -457,10 +461,36 @@
             <a id="carPost" href="#carPost">
               <i class="bi bi-circle"></i><span>Post Cars</span>
             </a>
+            <script>
+              $(document).ready(function(){
+                $('#carCategory').click(function(){
+                  $('#postBox').load('addCategory.php', {type: 'car'})
+                })
+
+                $('#vacancyCategory').click(function(){
+                  $('#postBox').load('addCategory.php', {type: 'vacancy'})
+                })
+
+                $('#houseCategory').click(function(){
+                  $('#postBox').load('addCategory.php', {type: 'house'})
+                })
+              })
+
+            </script>
+
+
+            <a id="carCategory" style="padding-left: 60px;" href="#carCatagory">
+              <i class="
+              bi bi-circle"></i><span>Add Cars Category</span>
+            </a>
           </li>
           <li>
             <a id="housePost" href="#housePost">
               <i class="bi bi-circle"></i><span>Post House</span>
+            </a>
+            <a id="houseCategory" style="padding-left: 60px;" href="#houseCatagory">
+              <i class="
+              bi bi-circle"></i><span>Add House Category</span>
             </a>
           </li>
           <li>
@@ -469,7 +499,7 @@
             </a>
             <a id="adCategory" style="padding-left: 60px;" href="#adCatagory">
               <i class="
-              bi bi-circle"></i><span>Add ADs Catagory</span>
+              bi bi-circle"></i><span>Add ADs Category</span>
             </a>
           </li>
         </ul>

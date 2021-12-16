@@ -236,6 +236,29 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
       return false;
 
     })
+
+
+    $('form').on('submit', function(e){
+          e.preventDefault()
+          $.ajax({
+            url: 'editPost.php',
+            type: 'post',
+            data:  new FormData( this ),
+            success : function(){
+              $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text('Edit SUCCESSFULL!  ')
+              $('#alertVacancy').delay(3200).fadeOut(300);
+            },
+            processData: false,
+        contentType: false
+          })
+          
+          return false;
+
+    })
+
 </script>
 
     <body>
@@ -283,22 +306,35 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
     <div class="input-group-prepend">
       <label class="input-group-text" for="inputGroupSelect01">Type Of JOBS</label>
       </div>
-      <select class="custom-select" name="jobType" id="inputGroupSelect01">
+
+      <script>
+            $(document).ready(function(){
+              $('#jobTT').on('change', function(){
+                if(this.value == 'OTHER'){
+                  $('#jobT').load('divTags.php #jobType')
+                }
+                
+              })
+            })
+
+          </script>
+
+      <select class="custom-select" name="jobType" id="jobTT">
         <option selected>"<?php 
                 $p = $admin->editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['positionType']; 
       ?>"</option>
         <option value="Management & Business Administration ">	Management & Business Administration </option>
-        <option value="Engineering">	Engineering</option>
-        <option value="Medical/Health">	Medical/Health</option>
-        <option value="Marketing/Advertising">	Marketing/Advertising</option>
-        <option value="Accounting">	Accounting</option>
-        <option value="Media/Design">	Media/Design</option>
-        <option value="NGO">	NGO</option>
-        <option value="Hotel Host">	Hotel Host</option>
-        <option value="House Worker">	House Worker</option>
-        <option value="Other">  Other</option>
+        <?php
+                $vacancyCat = $admin->vacancyCategoryLister();
+                while($vacancyCatRow = $vacancyCat->fetch_assoc()){
+                  ?>
+                  <option value="<?php echo $vacancyCatRow['category'] ?>"><?php echo $vacancyCatRow['category'] ?></option>
+                  <?php
+                }
+              ?>
+        <option value="OTHER">  Other</option>
       </select>
     </div>
     <div class="form-group">
@@ -651,7 +687,7 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
         </div>
 
         <input type="submit" onclick="x()" value="POST">
-
+        <div id="alertVacancy"></div>
         </form>
         
         <?php
@@ -693,15 +729,15 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
             </div>
             <select id="sCar" class="custom-select" name="type2" id="inputGroupSelect01">
               <option selected><?php echo $carRow['type'] ?></option>
-              <option value="	TOYOTA  ">	TOYOTA  </option>
-              <option value="	JEEP ">	JEEP </option>
-              <option value="	IVECO ">	IVECO </option>
-              <option value="	LIFAN ">	LIFAN </option>
-              <option value="	SUZUKI ">	SUZUKI </option>
-              <option value="	VOLVO ">	VOLVO </option>
-              <option value="	NISSAN ">	NISSAN </option>
-              <option value="	FORD ">	FORD </option>
-              <option value="other">	Other </option>
+              <?php
+                $carCat = $admin->carCategoryLister();
+                while($carCatRow = $carCat->fetch_assoc()){
+                  ?>
+                  <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
+                  <?php
+                }
+              ?>
+              
             </select>
             </div>
 
@@ -802,7 +838,7 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
 
 
         <input type="submit" onclick="x()" value="POST">
-
+        <div id="alertVacancy"></div>
           </form>
       <?php
     }elseif($_GET['type'] == 'house'){
@@ -1036,7 +1072,7 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
 
 
         <input type="submit" value="Post">
-
+        <div id="alertVacancy"></div>
              </form>
 
 

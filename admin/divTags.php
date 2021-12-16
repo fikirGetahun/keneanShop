@@ -27,6 +27,24 @@
             </div>
 </div>
 
+<div id="jobType" >
+            <div class="form-group">
+              <label for="exampleInputEmail1">Other</Title></label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="jobType" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+</div>
+
+<div id="houseTypeOther" >
+            <div class="form-group">
+              <label for="exampleInputEmail1">Other</Title></label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="type" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+</div>
+
 <div id="changeProfile">
 <label for="exampleInputEmail1">Upload Profile Photo</label>
           <input type="file" class="form-control" id="photo" 
@@ -58,13 +76,22 @@
 
 
 <div id="houseType" class="input-group mb-3">
+  
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01"> Type : </label>
         </div>
-        <select class="custom-select" name="type" id="inputGroupSelect01">
+        <select class="custom-select" name="type" id="selHouseType">
           <option selected>Choose...</option>
-          <option value="women">Villa</option>
-          <option value="men">Gojo</option>
+<?php
+    require_once "../php/adminCrude.php";
+    $house = $admin->houseCategoryLister();
+    while($houseRow = $house->fetch_assoc()){
+      ?>
+      <option value="<?php echo $houseRow['category'] ?>"><?php echo $houseRow['category'] ?></option>
+      <?php
+    }
+
+?>
         </select>
 </div>
 
@@ -85,6 +112,52 @@
             </div>
 </div>
 
+
+<div id="carCat">
+
+
+<table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php
+      require_once "../php/adminCrude.php";
+      $out = $admin->carCategoryLister();
+      while($row = $out->fetch_assoc()){
+
+              ?>
+            <tr>
+            <th scope="row"><?php echo $row['id'] ?></th>
+            <td id="editAd<?php echo $row['id'] ?>">
+            <?php echo $row['category'] ?>
+            <?php
+            if($row['category'] != 'OTHER' ){
+                    ?>
+             <button onclick="editCar(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
+            <button onclick="carDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+                    <?php
+                }
+            ?>
+
+            </td>
+
+            </tr>
+              <?php            
+          }
+      
+      
+      ?>
+
+
+  </tbody>
+</table>
+</div>
+
+
 <div id="cBox">
 <table class="table" >
   <thead>
@@ -93,6 +166,7 @@
       <th scope="col">Category</th>
     </tr>
   </thead>
+
   <tbody>
       <?php
       require_once "../php/adminCrude.php";
@@ -104,8 +178,15 @@
             <th scope="row"><?php echo $row['id'] ?></th>
             <td id="editAd<?php echo $row['id'] ?>">
             <?php echo $row['category'] ?>
-             <button onclick="edit(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
-            <button class="btn btn-dark">Delete</button>
+            <?php
+                if($row['category'] != 'OTHER' ){
+                    ?>
+                    <button onclick="edit(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
+                    <button onclick="adDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+                    <?php
+                }
+            ?>
+
             </td>
 
             </tr>
@@ -175,4 +256,91 @@
           <input type="file" class="form-control" id="photo" 
            name="xy3" >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div id="vacancyCat">
+    <table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php
+      require_once "../php/adminCrude.php";
+      $out = $admin->vacancyCategoryLister();
+      while($row = $out->fetch_assoc()){
+
+              ?>
+            <tr>
+            <th scope="row"><?php echo $row['id'] ?></th>
+            <td id="editAd<?php echo $row['id'] ?>">
+            <?php echo $row['category'] ?>
+            <?php
+                if($row['category'] != 'OTHER' ){
+                    ?>
+             <button onclick="editVacancy(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
+            <button onclick="vacDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+                    <?php
+                }
+            ?>
+
+
+            </td>
+
+            </tr>
+              <?php            
+          }
+      
+      
+      ?>
+
+
+  </tbody>
+</table>
+    </div>
+
+    <div id="houseCat">
+    <table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+
+
+      <?php
+      require_once "../php/adminCrude.php";
+      $out = $admin->houseCategoryLister();
+      while($row = $out->fetch_assoc()){
+
+              ?>
+            <tr>
+            <th scope="row"><?php echo $row['id'] ?></th>
+            <td id="editAd<?php echo $row['id'] ?>">
+            <?php echo $row['category'] ?>
+            <?php
+                if($row['category'] != 'OTHER' ){
+                    ?>
+             <button onclick="editHouse(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
+            <button onclick="houseDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+                    <?php
+                }
+            ?>
+
+            </tr>
+              <?php            
+          }
+      
+      
+      ?>
+
+
+  </tbody>
+</table>
     </div>

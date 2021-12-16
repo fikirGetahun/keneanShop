@@ -16,7 +16,7 @@ if(isset($_GET['uid'])){
     $_POST['companyName'], $_POST['jobType'], 
     $_POST['jobTitle'], $_POST['positionType'],
     $_POST['Deadline'], $_POST['reqNo'], $_POST['location'],
-    $_POST['description'],$_POST['uid']
+    $_POST['description'],$_POST['uid'], $_POST['sex']
   )){
     $companyName = $_POST['companyName'];
     $jobType =$_POST['jobType'];
@@ -27,9 +27,10 @@ if(isset($_GET['uid'])){
     $location=$_POST['location'];
     $info=$_POST['description']; 
     $id = $_POST['uid'];
+    $sex = $_POST['sex'];
 
 
-    $ask = $admin->addVacancyPost($jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info  );
+    $ask = $admin->addVacancyPost($jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info, $sex  );
 
   }
 
@@ -86,12 +87,13 @@ if(isset($_GET['uid'])){
 
      //ad post handler block
      if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['title'],
-     $_POST['posterId'], $_POST['info'], $_FILES['photo1'], $_FILES['photo2'], $_FILES['photo3'])){
+     $_POST['posterId'], $_POST['info'], $_FILES['photo1'], $_FILES['photo2'], $_FILES['photo3'], $_POST['shipping'])){
        echo 'in the ad';
       $for = " ";
       if(isset($_POST['for'])){
         $for = $_POST['for'];
       }
+      $ship = $_POST['shipping'];
       $type = $_POST['type'];
       $price = $_POST['price'];
       $address =  $_POST['address'];
@@ -110,7 +112,7 @@ if(isset($_GET['uid'])){
 
       $adOut = $admin->adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3  );
 
-      $out7 = $admin->adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $adOut[0], $adOut[1], $adOut[2]);
+      $out7 = $admin->adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $adOut[0], $adOut[1], $adOut[2], $ship);
 
     
     }
@@ -214,8 +216,11 @@ if(isset($_GET['uid'])){
         type: 'post',
         data: $('#vacancyForm').serialize(),
         success : function(){
-          $('#alertVacancy').text('POST SUCCESSFULL!  ')
-        }
+          $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text('POST SUCCESSFULL!  ')
+              $('#alertVacancy').delay(3200).fadeOut(300);        }
       })
       return false;
 
@@ -228,10 +233,34 @@ if(isset($_GET['uid'])){
         type: 'post',
         data: $('#tenderForm').serialize(),
         success : function(){
-          $('#alertVacancy').text('POST SUCCESSFULL!  ')
-        }
+          $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text('POST SUCCESSFULL!  ')
+              $('#alertVacancy').delay(3200).fadeOut(300);        }
       })
       return false;
+
+    })
+
+    $('form').on('submit', function(e){
+          e.preventDefault()
+          $.ajax({
+            url: 'postPage.php',
+            type: 'post',
+            data:  new FormData( this ),
+            success : function(){
+              $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text('POST SUCCESSFULL!  ')
+              $('#alertVacancy').delay(3200).fadeOut(300);
+            },
+            processData: false,
+        contentType: false
+          })
+          
+          return false;
 
     })
 
@@ -309,23 +338,38 @@ if(isset($_GET['uid'])){
           aria-describedby="emailHelp" name="companyName" placeholder="Company Name">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <div class="input-group mb-3">
+        <script>
+            $(document).ready(function(){
+              $('#jobTT').on('change', function(){
+                if(this.value == 'OTHER'){
+                  $('#jt').load('divTags.php #jobType')
+                }
+                
+              })
+            })
+
+          </script>
+        <div id="jt" class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Type Of JOBS</label>
           </div>
-          <select class="custom-select" name="jobType" id="inputGroupSelect01">
+
+
+          <div id="jobT">
+          <select class="custom-select" name="jobType" id="jobTT">
             <option selected>Choose...</option>
-            <option value="clothing/shoes">	clothing/shoes </option>
-            <option value="Beauty/Health">	Beauty/Health</option>
-            <option value="Book/CDs">	Book/CDs</option>
-            <option value="Machine/Tools">	Machine/Tools</option>
-            <option value="Jeweler">	Jeweler</option>
-            <option value="	Furniture">	Furniture</option>
-            <option value="NGO">	NGO</option>
-            <option value="Hotel Host">	Hotel Host</option>
-            <option value="House Worker">	House Worker</option>
-            <option value="Other">  Other</option>
+            <?php
+                $vacancyCat = $admin->vacancyCategoryLister();
+                while($vacancyCatRow = $vacancyCat->fetch_assoc()){
+                  ?>
+                  <option value="<?php echo $vacancyCatRow['category'] ?>"><?php echo $vacancyCatRow['category'] ?></option>
+                  <?php
+                }
+              ?>
           </select>
+          </div>
+
+
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Job Title</label>
@@ -345,6 +389,19 @@ if(isset($_GET['uid'])){
           <option value="Contractual">Contractual </option>
         </select>
         </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+        </div>
+        <select class="custom-select" name="sex" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Male">Mele</option>
+          <option value="Female">Female</option>
+          <option value="Both">Both</option>
+        </select>
+        </div>
+
         <div class="form-group">
           <label for="exampleInputEmail1">Deadline</label>
           <input type="date" class="form-control" id="Deadline" 
@@ -540,6 +597,17 @@ $('#tCategory').on('change', function(){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Offer Shipping</label>
+        </div>
+        <select class="custom-select" name="shipping" id="inputGroupSelect01">
+          <option value="NO" selected>NO</option>
+          <option value="YES">YES</option>
+
+        </select>
+        </div>
+
         <div class="form-group">
           <label for="exampleInputEmail1">Describtion</label>
           <textarea type="text" class="form-control" id="des2" 
@@ -571,7 +639,7 @@ $('#tCategory').on('change', function(){
         </div>
 
         <input type="submit" onclick="x()" value="POST">
-
+        <div id="alertVacancy"></div>
         </form>
         <?php
       }if(isset($_GET['type'])){
@@ -594,15 +662,15 @@ $('#tCategory').on('change', function(){
             </div>
             <select id="sCar" class="custom-select" name="type2" id="inputGroupSelect01">
               <option selected>Choose...</option>
-              <option value="	TOYOTA  ">	TOYOTA  </option>
-              <option value="	JEEP ">	JEEP </option>
-              <option value="	IVECO ">	IVECO </option>
-              <option value="	LIFAN ">	LIFAN </option>
-              <option value="	SUZUKI ">	SUZUKI </option>
-              <option value="	VOLVO ">	VOLVO </option>
-              <option value="	NISSAN ">	NISSAN </option>
-              <option value="	FORD ">	FORD </option>
-              <option value="other">	Other </option>
+              <?php
+                $carCat = $admin->carCategoryLister();
+                while($carCatRow = $carCat->fetch_assoc()){
+                  ?>
+                  <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
+                  <?php
+                }
+              ?>
+              
             </select>
             </div>
 
@@ -689,7 +757,7 @@ $('#tCategory').on('change', function(){
         </div>
 
         <input type="submit" onclick="x()" value="POST">
-
+        <div id="alertVacancy"></div>
           </form>
           
           <?php
@@ -718,7 +786,17 @@ $('#tCategory').on('change', function(){
               aria-describedby="emailHelp" name="title" placeholder="Company Name">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
-
+            <script src="../assets/jquery.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('#selHouseType').on('change',function(){
+        alert('inhh')
+        if(this.value == 'OTHER'){
+          $('#houseTypeLoader').load('divTags.php #houseTypeOther')
+        }
+      })
+    })
+  </script>
         
 <div id="houseTypeLoader"></div>
 
@@ -833,7 +911,7 @@ $('#tCategory').on('change', function(){
         </div>
 
         <input type="submit" value="Post">
-
+        <div id="alertVacancy"></div>
              </form>
             
             
