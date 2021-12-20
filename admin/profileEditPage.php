@@ -65,6 +65,7 @@ require_once "../php/adminCrude.php";
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
      
 
+        <button class="btn btn-light">Change Profile Photo</button>
         <div id="registerBox">
     <label for="exampleInputEmail1">Upload Profile Photo</label>
           <input type="file" class="form-control" id="photo" 

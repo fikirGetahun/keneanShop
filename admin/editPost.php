@@ -209,6 +209,8 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
 ?>
 <script src="../assets/jquery.js"></script>
 <script>
+  $(document).ready(function(){
+
     $('#editV').on('submit', function(e){
       e.preventDefault()
       $.ajax({
@@ -258,6 +260,8 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
           return false;
 
     })
+  })
+
 
 </script>
 

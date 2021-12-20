@@ -79,27 +79,27 @@
       })
 
       $('#postAd').click(function(){
-        $('#postBox').load('postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('./postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#carPost').click(function(){
-        $('#postBox').load('postPage.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('./postPage.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#housePost').click(function(){
-        $('#postBox').load('postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('./postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewAd').click(function(){
-        $('#postBox').load('viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('./viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewCar').click(function(){
-        $('#postBox').load('viewPost.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('./viewPost.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewHouse').click(function(){
-        $('#postBox').load('viewPost.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('./viewPost.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#adCategory').click(function(){
@@ -472,9 +472,13 @@
                 })
 
                 $('#houseCategory').click(function(){
-                  $('#postBox').load('addCategory.php', {type: 'house'})
+                  $('#postBox').load('./addCategory.php', {type: 'house'})
                 })
+
+
               })
+
+
 
             </script>
 

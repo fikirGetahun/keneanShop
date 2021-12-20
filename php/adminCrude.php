@@ -99,11 +99,24 @@
         function userAdder($firstName, $lastName, $phone, $username, $password, $auth, $photoPath, $job, $about){
             include "connect.php";
             $date = date('Y-m-d H:i:s');
+
+
             $q ="INSERT INTO `user`( `username`, `password`, `firstName`, `lastName`, `phone`, `auth`,`photoPath`,`lastLogedIn` , `job`, `about`)
              VALUES ('$username', '$password', '$firstName', '$lastName', '$phone', '$auth', '$photoPath', '$date', '$job', '$about' )";
 
              $ask = $mysql->query($q);
 
+        }
+
+        //user persenal table creation
+        function userTable(){
+            $q = "CREATE TABLE `userpost` (
+                `id` int(11) NOT NULL AUTO_INCREMENT,
+                `postId` int(11) NOT NULL,
+                `postType` varchar(20) NOT NULL,
+                `fav` varchar(10) NOT NULL,
+                PRIMARY KEY (`id`)
+               ) ENGINE=InnoDB DEFAULT CHARSET=latin1";
         }
 
         //user auth identifier
@@ -253,13 +266,15 @@
 
 
         //car post data inserter
-        function carPostAdder($title, $type, $status, $fuleKind, $posterId, $fixedOrN, $photoPath1, $photoPath2, $photoPath3,$price,$info,$forRentOrSell ){
+        function carPostAdder($title, $type, $status, $fuleKind, $posterId, $fixedOrN,
+         $photoPath1, $photoPath2, $photoPath3,$price,$info,$forRentOrSell ){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $postStatus = 'ACTIVE';
             $q ="INSERT INTO `car`( `title`,`type`, `status`, `fuleKind`, `posterId`, `fixidOrN`,
              `photoPath1`, `photoPath2`, `photoPath3`, `price`, `info`, `forRentOrSell`, `postStatus`, `postedDate`)
-             VALUES ( '$title','$type', '$status', '$fuleKind', '$posterId', '$fixedOrN', '$photoPath1', '$photoPath2', '$photoPath3','$price','$info','$forRentOrSell', '$postStatus', '$postDate' )";
+             VALUES ( '$title','$type', '$status', '$fuleKind', '$posterId', '$fixedOrN', '$photoPath1', 
+             '$photoPath2', '$photoPath3','$price','$info','$forRentOrSell', '$postStatus', '$postDate' )";
 
             $ask = $mysql->query($q);
 
@@ -382,7 +397,7 @@
             include "connect.php";
             $edited = 'YES';
             $q = "UPDATE `ad` SET `type` = '$type',`price`= '$price',`address`= '$address' ,
-            `phone` = '$phone',`for`= '$for',`title`= '$title',`info`= '$info', `edited` = '$edited' WHERE `ad`.`id` = '$postId' ";
+            `phone` = '$phone',`for`= '$for',`title`= '$title', `info`= '$info', `edited` = '$edited' WHERE `ad`.`id` = '$postId' ";
 
             $ask = $mysql->query($q);
 

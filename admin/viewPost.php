@@ -58,6 +58,19 @@
       function editHouse(pid){
         $('#allin').load('editPost.php?'+$.param({type: 'house', pid: pid}))
       }
+      function adView(id){
+                  $('#allin').load('discriptionPage.php', {type: 'ad',pid: id})
+                }
+
+      function viewCar(id){
+        $('#allin').load('discriptionPage.php', {type: 'car',pid: id})
+                
+      }
+      function houseView(id){
+        $('#allin').load('discriptionPage.php', {type: 'house',pid: id})
+
+      }
+
 
   </script>
 </head> -->
@@ -78,7 +91,6 @@
     <!-- Custom styles for this template -->
     <link href="./assets/album.css" rel="stylesheet">
   </head>
-<body>
     <?php
 
     if(isset($_GET['type'])){
@@ -172,12 +184,15 @@
             $ad = $admin -> postAdShower();
             ?>
             <div class="row">
+              <script>
+
+              </script>
             <?php
             while($row = $ad->fetch_assoc()){
                 ?>
 
                 
-                <div class="col-md-4">
+                <div id="adVieww" class="col-md-4">
               <div class="card mb-4 box-shadow">
                 <img class="img-thumbnail" src="<?php echo $row['photoPath1'] ?>" alt="Card">
                 <div class="card-body">
@@ -185,7 +200,7 @@
                   <p class="card-text"><?php echo $row['price'] ?> Birr</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <a href="#viewDiscription" onclick="adView(<?php echo $row['id'] ?>)"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
                       <button type="button" onclick="adEdit(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
@@ -217,7 +232,7 @@
                   <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" onclick="viewCar(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
                       <button type="button" onclick="editCar(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
@@ -253,7 +268,7 @@
                   <h6><?php echo $cars['cost'] ?> Birr</h6>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" onclick="houseView(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
                       <button type="button" onclick="editHouse(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
@@ -275,4 +290,3 @@
     
     ?>
     </div>
-</body>

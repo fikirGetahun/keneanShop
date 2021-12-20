@@ -287,7 +287,7 @@ if(isset($_GET['uid'])){
     })
 
     $('#sCar').on('change', function(){
-      if(this.value == "other"){
+      if(this.value == "OTHER"){
         $('#typeC').load("divTags.php #typeCar")
       }
     })
@@ -546,11 +546,20 @@ $('#tCategory').on('change', function(){
  
 })
 
+$('#tCategory').on('change', function(){
+  if(this.value == "OTHER"){
+    $('#adTy').load('divTags.php #otherAd')
+  }
+ 
+})
+
+
+
 })
 
 </script>
 
-        <div class="input-group mb-3">
+        <div id="adTy"  class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
           </div>
@@ -646,7 +655,7 @@ $('#tCategory').on('change', function(){
         if($_GET['type'] == 'car'){
           ?>
           <h5>Post Car Ads</h5>
-          <form id="car" action="postPage.php" method="POST" enctype="multipart/form-data" >
+          <form action="postPage.php" method="POST" enctype="multipart/form-data" >
           <input hidden name="posterId2" value="<?php echo $uidx; ?>">
 
           <div class="form-group">

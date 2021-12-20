@@ -2,16 +2,27 @@
 
 <div id="otherCity" >
             <div class="form-group">
-              <label for="exampleInputEmail1">Other</Title></label>
+              <label for="exampleInputEmail1">Other City</label>
               <input type="text" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="otherCity" placeholder="Company Name">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
 </div>
 
+
+<div id="otherAd" >
+            <div class="form-group">
+              <label for="exampleInputEmail1">Other Type</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="type" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+</div>
+
+
 <div id="otherSubCity" >
             <div class="form-group">
-              <label for="exampleInputEmail1">Other</Title></label>
+              <label for="exampleInputEmail1">Other SubCity</Title></label>
               <input type="text" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="subCity" placeholder="Company Name">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>

@@ -42,7 +42,7 @@ if(isset($_GET['uid'])){
 <script>
     $(document).ready(function(){
         $('#viewp').click(function(){
-            $('#viewBox').load('pageViewPanel.php')
+            $('#viewBox').load('pageViewPage.php')
         })
 
         $('#editP').click(function(){
