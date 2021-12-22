@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    include('../includes/header.php');
-    include('../php/auth.php');
+    require_once('../includes/header.php');
+    require_once('../php/auth.php');
 
 
     $login = '';
@@ -47,8 +47,8 @@
               url: 'adminLogin.php',
               type: 'post',
               data: $('form').serialize(),
-              success: function(){
-
+              success: function(data){
+                alert(data)
               }
           })
           return false;

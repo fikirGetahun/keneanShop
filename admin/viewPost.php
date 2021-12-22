@@ -39,6 +39,26 @@
   ======================================================== -->
   <script src="../assets/jquery.js"></script>
   <script>
+    $(document).ready(function(){
+
+      // $(window).scroll(function(){
+      //   // alert(($(window).height() - $(document).height()))
+      //   if($(window).scrollTop() == ($(document).height() - $(window).height())){
+      //     // alert('scroll')
+      //     $.ajax({
+      //       url:'scrollView.php',
+      //       type: 'GET',
+      //       data:'type=vacancy',
+      //       success: function(data){
+      //         $('#vac1').append(data)
+      //       }
+      //     })
+      //   }
+      // })
+
+    })
+
+
       function edit(uid){
         $('#allin').load('editPost.php?'+$.param({type: 'editVacancy', pid: uid}))
       }
@@ -91,6 +111,7 @@
     <!-- Custom styles for this template -->
     <link href="./assets/album.css" rel="stylesheet">
   </head>
+  <div id="vac1">
     <?php
 
     if(isset($_GET['type'])){
@@ -101,7 +122,7 @@
                 <h6>Vacancy Post</h6>
 
 
-                <div class="card mb-3" style="max-width: 540px;">
+                <div  class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
                         <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
@@ -281,6 +302,50 @@
         ?>
         </div>
         <?php
+    }elseif($_GET['type'] == 'electronics'){
+      $hOut = $admin->electronicsViewLister();
+      ?>
+      <script>
+        function elcView(id){
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+
+        }
+
+        function editElc(id){
+          $('#allin').load('editPost.php?'+$.param({type: 'electronics', pid: id}))
+
+        }
+
+      </script>
+      <div class="row">
+      <?php
+      
+      while($cars = $hOut->fetch_assoc()){
+          ?>
+          
+              
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php echo $cars['photoPath1'] ?>" alt="Card">
+              <div class="card-body">
+                <p class="card-text"><?php echo $cars['title'] ?></p>
+                <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
+                <h6><?php echo $cars['price'] ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" onclick="elcView(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" onclick="editElc(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </div>
+                  <small class="text-muted">9 mins</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php
+      }
+      ?>
+      </div>
+      <?php
     }
 }
     

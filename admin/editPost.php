@@ -9,202 +9,7 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
   $uidx = $_GET['pid'];
 }
 
-//vacancy edit handler
-  if(isset(
-    $_POST['companyName'], $_POST['jobType'], 
-    $_POST['jobTitle'], $_POST['positionType'],
-    $_POST['Deadline'], $_POST['reqNo'], $_POST['location'],
-    $_POST['description'],$_POST['pid']
-  )){
-    $companyName = $_POST['companyName'];
-    $jobType =$_POST['jobType'];
-    $jobTitle=$_POST['jobTitle'];
-    $positionType=$_POST['positionType'];
-    $Deadline=$_POST['Deadline'];
-    $reqNo=$_POST['reqNo'];
-    $location=$_POST['location'];
-    $info=$_POST['description']; 
-    $id = $_POST['pid'];
 
-
-    $ask = $admin->updateVacancyPost($jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info  );
-
-  }
-
-  //tender post data handler block
-  if(isset($_POST['tenderType'],
-   $_POST['startDate'],
-    $_POST['Deadline2'],
-     $_POST['initialCost'],
-     $_POST['location2'],
-     $_POST['description2'],$_POST['uid'], $_POST['title']
-     )
-     ){
-
-      $tenderType = $_POST['tenderType'];
-      $startingDate = $_POST['startDate'];
-      $deadLine=$_POST['Deadline2'];
-      $location=$_POST['location2'];
-      $initialCost=$_POST['initialCost'];
-      $info = $_POST['description2'];
-      $id2 = $_POST['uid'];
-      $title = $_POST['title'];
-
-      $db = $admin->updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title   );
-
-     }
-
-     //ad post edit handler
-     if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['title'],
-     $_POST['pid'], $_POST['info'])){
-       echo 'in the ad';
-
-      $for = " ";
-
-      if(isset($_POST['for'])){
-        $for = $_POST['for']; 
-      }
-
-      $type = $_POST['type'];
-      $price = $_POST['price'];
-      $address =  $_POST['address'];
-      $phone = $_POST['phone'];
-      
-      $title = $_POST['title'];
-      $postId = $_POST['pid'];
-      $info = $_POST['info'];
-
-      if(isset($_FILES['photo1'])){
-        $fName1 = $_FILES['photo1']['name'];
-        $tmpName1 = $_FILES['photo1']['tmp_name'];
-        $adPhotoE = $admin->adPhotoChange('photoPath1', $fName1, $tmpName1, $postId);
-      }
-
-      if(isset($_FILES['photo2'])){
-        $fName2 = $_FILES['photo2']['name'];
-        $tmpName2 = $_FILES['photo2']['tmp_name'];
-        $adPhotoE = $admin->adPhotoChange('photoPath2', $fName2, $tmpName2, $postId);
-
-      }
-
-      if(isset($_FILES['photo3s'])){
-        $fName3 = $_FILES['photo3']['name'];
-        $tmpName3 = $_FILES['photo3']['tmp_name'];
-        $adPhotoE = $admin->adPhotoChange('photoPath3', $fName3, $tmpName3, $postId);
-
-      }
-
-      
-      
-
-      $adEdit = $admin->updateAdPost( $type, $price, $address, $phone, $for, $title, $info, $postId);
-
-
-    }
-
-
-      //car post handler
-      if(isset($_POST['type2'],$_POST['status2'],$_POST['forRentOrSell'],$_POST['fuleKind'],$_POST['fixidOrN'],$_POST['price2'],$_POST['info2'],$_POST['pid'],
-       $_POST['title'])){
-      echo 'inx';
-      $title = $_POST['title'];
-      $type = $_POST['type2'];
-      $status = $_POST['status2'];
-      $forRentOrSell= $_POST['forRentOrSell'];
-      $fixidOrN= $_POST['fixidOrN'];
-      $fuleKind = $_POST['fuleKind'];
-      $price = $_POST['price2'];
-      $info = $_POST['info2'];
-      $postId = $_POST['pid'];
-
-      if(isset($_FILES['x1'])){
-        $fName1 = $_FILES['x1']['name'];
-        $tmpName1 = $_FILES['x1']['tmp_name'];
-        $adPhotoE = $admin->carPhotoChange('photoPath1', $fName1, $tmpName1, $postId);
-      }
-
-      if(isset($_FILES['x2'])){
-        $fName2 = $_FILES['x2']['name'];
-        $tmpName2 = $_FILES['x2']['tmp_name'];
-        $adPhotoE = $admin->carPhotoChange('photoPath2', $fName2, $tmpName2, $postId);
-
-      }
-
-      if(isset($_FILES['x3'])){
-        $fName3 = $_FILES['x3']['name'];
-        $tmpName3 = $_FILES['x3']['tmp_name'];
-        $adPhotoE = $admin->carPhotoChange('photoPath3', $fName3, $tmpName3, $postId);
-
-      }      
-
-
-
-
-      $out12 = $admin->updateCarPost($title,$type, $status, $fuleKind, $postId, $fixidOrN,$price,$info,$forRentOrSell );
-    }
-
-
-        //house or land post data inserter
-        if(isset(
-          $_POST['houseOrLand'], $_POST['city'],$_POST['subCity'], $_POST['wereda'],
-           $_POST['forRentOrSell'], $_POST['area'], $_POST['cost'], $_POST['fixidOrN'], 
-           $_POST['info'],$_POST['pid'], $_POST['title']
-        )){
-          echo 'inn house';
-
-          // these variables will not be set if user choose house so initial value will be empty
-          $bedRoomNo = ' ';
-          $bathRoomNo = ' ';
-          $type = " ";
-          if(isset(
-            $_POST['bedRoomNo'],
-            $_POST['bathRoomNo'],
-            $_POST['type']
-          )){
-            $bedRoomNo = $_POST['bedRoomNo'];
-            $bathRoomNo = $_POST['bathRoomNo'];
-            $type = $_POST['type'];
-          }
-          $title = $_POST['title'];
-          $houseOrLand =$_POST['houseOrLand'];
-          $city =$_POST['city'];
-          $subCity=$_POST['subCity'];
-          $wereda= $_POST['wereda'];
-          $forRentOrSell=$_POST['forRentOrSell'];
-          $area=$_POST['area'];
-          $price=$_POST['cost'];
-          $fixidOrN=$_POST['fixidOrN'];
-          $info=$_POST['info'];
-          $postId = $_POST['pid'];
-
-          if(isset($_FILES['xy1'])){
-            $fName1 = $_FILES['xy1']['name'];
-            $tmpName1 = $_FILES['xy1']['tmp_name'];
-            $adPhotoE = $admin->housePhotoChange('photoPath1', $fName1, $tmpName1, $postId);
-          }
-    
-          if(isset($_FILES['xy2'])){
-            $fName2 = $_FILES['xy2']['name'];
-            $tmpName2 = $_FILES['xy2']['tmp_name'];
-            $adPhotoE = $admin->housePhotoChange('photoPath2', $fName2, $tmpName2, $postId);
-    
-          }
-    
-          if(isset($_FILES['xy3'])){
-            $fName3 = $_FILES['xy3']['name'];
-            $tmpName3 = $_FILES['xy3']['tmp_name'];
-            $adPhotoE = $admin->housePhotoChange('photoPath3', $fName3, $tmpName3, $postId);
-    
-          }      
-
-
-    
-          
-          $outH = $admin->updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
-          $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId );
-          
-    
-        }
 
 ?>
 <script src="../assets/jquery.js"></script>
@@ -243,15 +48,15 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
     $('form').on('submit', function(e){
           e.preventDefault()
           $.ajax({
-            url: 'editPost.php',
+            url: 'editHandler.php',
             type: 'post',
             data:  new FormData( this ),
-            success : function(){
+            success : function(data){
               $( 'form' ).each(function(){
                     this.reset();
               });
-              $('#alertVacancy').text('Edit SUCCESSFULL!  ')
-              $('#alertVacancy').delay(3200).fadeOut(300);
+              $('#alertVacancy').text('Edit SUCCESSFULL!  '+data)
+              // $('#alertVacancy').delay(3200).fadeOut(300);
             },
             processData: false,
         contentType: false
@@ -747,6 +552,17 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
 
             <div class="input-group mb-3">
         <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
+        </div>
+        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
+          <option selected value="<?php echo $carRow['ownerBroker'] ?>"><?php echo $carRow['ownerBroker'] ?></option>
+          <option value="Owner">Owner</option>
+          <option value="Broker">Broker</option>
+        </select>
+        </div>
+
+            <div class="input-group mb-3">
+        <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01"> Status Of Car: </label>
         </div>
         <select class="custom-select" name="status2" id="inputGroupSelect01">
@@ -755,6 +571,8 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
           <option value="OLD">Old</option>
         </select>
         </div>
+
+        
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -777,6 +595,37 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
           <option value="Diesel">Diesel</option>
         </select>
         </div>
+
+
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Transmission Type: </label>
+        </div>
+        <select class="custom-select" name="transmission" id="inputGroupSelect01">
+        <option selected value="<?php echo $carRow['transmission'] ?>"><?php echo $carRow['transmission'] ?></option>
+          <option value="automatic">Automatic</option>
+          <option value="manual">Manual</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+              <label for="exampleInputEmail1">Body Status :</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="bodyStatus" placeholder="Company Name"
+              value="<?php echo $carRow['bodyStatus'] ?>">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+              <label for="exampleInputEmail1">Km Range :</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="km" placeholder="Company Name"
+              value="<?php echo $carRow['km'] ?>">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -961,6 +810,18 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
 
             <div class="input-group mb-3">
         <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
+        </div>
+        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
+          <option selected value="<?php echo $houseRow['ownerBroker'] ?> " ><?php echo $houseRow['ownerBroker'] ?> </option>
+          <option value="Owner">Owner</option>
+          <option value="Broker">Broker</option>
+        </select>
+        </div>
+        
+
+            <div class="input-group mb-3">
+        <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
         </div>
         <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
@@ -1080,6 +941,183 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
              </form>
 
 
+      
+      <?php
+    }elseif($_GET['type'] == 'electronics'){
+      $elcEdit = $admin->elecSinglePostViewer($uidx);
+      $elecRow = $elcEdit->fetch_assoc();
+
+      ?>
+      
+      <h5>Post Electronics Items</h5>
+      <form  method="POST" enctype="multipart/form-data" >
+      <input hidden name="posterId" value="<?php echo $uidx; ?>">
+
+      <div class="form-group">
+          <label for="exampleInputEmail1">Title</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="titleElc" placeholder="Title of Your Post" 
+          value="<?php echo $elecRow['title'] ?>">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+
+          <div id="typeC" class="input-group mb-3">
+        <div  class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01"> Electronics Type: </label>
+        </div>
+        <select id="sElc" class="custom-select" name="type" id="inputGroupSelect01">
+          <option selected><?php echo $elecRow['type'] ?></option>
+          <option value="Computer Laptop">Computer Laptop</option>
+          <?php
+            $carCat = $admin->carCategoryLister();
+            while($carCatRow = $carCat->fetch_assoc()){
+              ?>
+              <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
+              <?php
+            }
+          ?>
+          
+        </select>
+        </div>
+
+        <?php 
+          if($elecRow['ram'] != " " &&
+          $elecRow['processor'] != " " &&
+          $elecRow['core'] != " " &&
+          $elecRow['storage'] != " " &&
+          $elecRow['size'] != " " ){
+
+            ?>
+            
+      <div id="sizeInch" class="form-group">
+          <label for="exampleInputEmail1">Size In Inch:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="size" placeholder="Size of Item" 
+          value="<?php echo $elecRow['size'] ?>">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+              <div id="ram" class="form-group">
+          <label for="exampleInputEmail1">Ram:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="ram" placeholder="Size of Item" 
+          value="<?php echo $elecRow['ram'] ?>">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div id="proc" class="form-group">
+          <label for="exampleInputEmail1">Processor Type:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="processor" placeholder="Processor Type" 
+          value="<?php echo $elecRow['processor'] ?>">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div id="storage" class="form-group">
+          <label for="exampleInputEmail1">Storage Size:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="storage" placeholder="Storage Size"
+          value="<?php echo $elecRow['storage'] ?>">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div id="core" class="form-group">
+          <label for="exampleInputEmail1">Core Count:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="core" placeholder="Core count"
+          value="<?php echo $elecRow['core'] ?>">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+            <?php
+
+          }
+        
+        ?>
+
+        <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01"> Status Of Item: </label>
+    </div>
+    <select class="custom-select" name="status" id="inputGroupSelect01">
+      <option selected value="<?php echo $elecRow['status'] ?>"><?php echo $elecRow['status'] ?></option>
+      <option value="NEW">New</option>
+      <option value="OLD">Old</option>
+    </select>
+    </div>
+
+
+
+    <div id="computer"></div>
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">Price : </label>
+      <input type="number" class="form-control" id="nameTitle" 
+      aria-describedby="emailHelp" name="price" placeholder="Price in Birr" 
+      value="<?php echo $elecRow['price'] ?>">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div class="form-group">
+          <label for="exampleInputEmail1">Address :</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="address" placeholder="Your Address" 
+          value="<?php echo $elecRow['address'] ?>">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+
+
+        <script>
+  $(document).ready(function(){
+
+    $('#carPB1').click(function(){
+      $('#carF1').load('divTags.php #elecp1')
+    })
+    
+    $('#carPB2').click(function(){
+      $('#carF2').load('divTags.php #elecp2')
+    })
+
+    $('#carPB3').click(function(){
+      $('#carF3').load('divTags.php #elecp3')
+    })
+
+  })
+
+</script>
+
+   
+          <div id="carF1">
+          <img class="img-thumbnail" src="<?php echo $elecRow['photoPath1'] ?>" alt="Card">
+                <button type="button" id="carPB1" class="btn btn-dark">Change Photo</button>
+          </div>
+          <div id="carF2">
+          <img class="img-thumbnail" src="<?php echo $elecRow['photoPath2'] ?>" alt="Card">
+                <button type="button" id="carPB2" class="btn btn-dark">Change Photo</button>
+          </div>
+          <div id="carF3">
+          <img class="img-thumbnail" src="<?php echo $elecRow['photoPath3'] ?>" alt="Card">
+                <button type="button" id="carPB3" class="btn btn-dark">Change Photo</button>
+          </div>
+
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">Describtion</label>
+      <textarea type="text" class="form-control" id="des2" 
+      aria-describedby="emailHelp" name="info" placeholder="Detailed Info"><?php echo $elecRow['info'] ?></textarea>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div class="row">
+
+    </div>
+
+    <input type="submit" onclick="x()" value="POST">
+    <div id="alertVacancy"></div>
+      </form>
       
       <?php
     }

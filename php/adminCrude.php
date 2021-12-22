@@ -36,7 +36,7 @@
         //vacancy post lister
         function vacancyPostLister(){
             include "connect.php";
-            $q = "SELECT * FROM `vacancy` WHERE 1";
+            $q = "SELECT * FROM `vacancy` ORDER BY RAND() LIMIT 4";
             $ask = $mysql->query($q);
             return $ask;
         }
@@ -108,16 +108,7 @@
 
         }
 
-        //user persenal table creation
-        function userTable(){
-            $q = "CREATE TABLE `userpost` (
-                `id` int(11) NOT NULL AUTO_INCREMENT,
-                `postId` int(11) NOT NULL,
-                `postType` varchar(20) NOT NULL,
-                `fav` varchar(10) NOT NULL,
-                PRIMARY KEY (`id`)
-               ) ENGINE=InnoDB DEFAULT CHARSET=latin1";
-        }
+
 
         //user auth identifier
         function userDataShower($uid){
@@ -230,7 +221,7 @@
 
         function postAdShower(){
             include "connect.php";
-            $q = "SELECT * FROM `ad` WHERE 1";
+            $q = "SELECT * FROM `ad` ORDER BY RAND() LIMIT 9";
 
             $ask = $mysql->query($q);
             return $ask;
@@ -267,14 +258,16 @@
 
         //car post data inserter
         function carPostAdder($title, $type, $status, $fuleKind, $posterId, $fixedOrN,
-         $photoPath1, $photoPath2, $photoPath3,$price,$info,$forRentOrSell ){
+         $photoPath1, $photoPath2, $photoPath3,$price,$info,$forRentOrSell,$transmission, $bodyStatus, $km, $ob ){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $postStatus = 'ACTIVE';
             $q ="INSERT INTO `car`( `title`,`type`, `status`, `fuleKind`, `posterId`, `fixidOrN`,
-             `photoPath1`, `photoPath2`, `photoPath3`, `price`, `info`, `forRentOrSell`, `postStatus`, `postedDate`)
+             `photoPath1`, `photoPath2`, `photoPath3`, `price`, `info`, `forRentOrSell`,
+              `postStatus`, `postedDate`, `transmission`, `bodyStatus`, `km`, `ownerBroker`  )
              VALUES ( '$title','$type', '$status', '$fuleKind', '$posterId', '$fixedOrN', '$photoPath1', 
-             '$photoPath2', '$photoPath3','$price','$info','$forRentOrSell', '$postStatus', '$postDate' )";
+             '$photoPath2', '$photoPath3','$price','$info','$forRentOrSell', '$postStatus', '$postDate',
+             '$transmission', '$bodyStatus', '$km', '$ob' )";
 
             $ask = $mysql->query($q);
 
@@ -317,16 +310,16 @@
 
         //house or land selles data adder block
         function addHouseOrLandPost($title,$type,$houseOrLand, $city, $subCity, $wereda,
-        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $posterId, $fName1, $fName2, $fName3){
+        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $posterId, $fName1, $fName2, $fName3, $ob){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $postStatus = 'ACTIVE';
             $q = "INSERT INTO `housesell`(`title`,`type`, `houseOrLand`, `city`, `subCity`, `wereda`, `area`,
              `bedRoomNo`, `bathRoomNo`, `cost`, `fixedOrN`, `forRentOrSell`, `info`, `posterId`,
-              `photoPath1`, `photoPath2`, `photoPath3`, `postedDate`, `postStatus`)
+              `photoPath1`, `photoPath2`, `photoPath3`, `postedDate`, `postStatus`, `ownerBroker`)
              VALUES ('$title','$type','$houseOrLand', '$city', '$subCity', '$wereda',
         '$forRentOrSell', '$area', '$bedRoomNo', '$bathRoomNo', '$price', '$fixidOrN', 
-        '$info', '$posterId', '$fName1', '$fName2', '$fName3', '$postDate', '$postStatus')";
+        '$info', '$posterId', '$fName1', '$fName2', '$fName3', '$postDate', '$postStatus', '$ob')";
 
         $ask = $mysql->query($q);
             
@@ -367,7 +360,7 @@
         //cars post viewer
         function carPostLister(){
             include "connect.php";
-            $q = "SELECT * FROM `car` WHERE 1 ";
+            $q = "SELECT * FROM `car` ORDER BY RAND() LIMIT 8 ";
             $ask = $mysql->query($q);
 
             return $ask;
@@ -376,7 +369,7 @@
         //house post viewer
         function houseOrLandPostLister(){
             include "connect.php";
-            $q = "SELECT * FROM `housesell` WHERE 1 ";
+            $q = "SELECT * FROM `housesell` ORDER BY RAND() LIMIT 8 ";
             $ask = $mysql->query($q);
 
             return $ask;
@@ -431,11 +424,13 @@
         }
 
         //car post data edit/update
-        function updateCarPost($title,$type, $status, $fuleKind, $postId, $fixidOrN,$price,$info,$forRentOrSell){
+        function updateCarPost($title,$type, $status, $fuleKind, $postId,
+         $fixidOrN,$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob){
             include "connect.php";
             $q = "UPDATE `car` SET `title`= '$title',`type`='$type', `status` = '$status',
              `fuleKind`= '$fuleKind',`fixidOrN`= '$fixidOrN' ,`price`= '$price',`info`= '$info',
-             `forRentOrSell`= '$forRentOrSell' WHERE `car`.`id` = '$postId'";
+             `forRentOrSell`= '$forRentOrSell', `transmission` = '$transmission',
+             `bodyStatus` = '$bodyStatus', `km` = '$km' , `ownerBroker` = '$ob'  WHERE `car`.`id` = '$postId'";
 
              $ask = $mysql->query($q);
         }
@@ -457,14 +452,14 @@
 
         //house update block
         function updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
-        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId ){
+        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId, $ob ){
             include "connect.php";
             $edited = 'YES';
             $postDate = date('Y-m-d H:i:s');
             $q = "UPDATE `housesell` SET `title`= '$title',`type`= '$type',`houseOrLand`= '$houseOrLand',
             `city`= '$city' ,`subCity`= '$subCity',`wereda`= '$wereda',`area`= '$area',
             `bedRoomNo`= '$bedRoomNo',`bathRoomNo`= '$bathRoomNo',`cost`= '$price',`fixedOrN`= '$fixidOrN',
-            `forRentOrSell`= '$forRentOrSell',`info`= '$info',`postedDate`='$postDate', `edited` = '$edited'  WHERE `housesell`.`id` = '$postId'";
+            `forRentOrSell`= '$forRentOrSell',`info`= '$info',`postedDate`='$postDate', `edited` = '$edited' , `ownerBroker` = '$ob'  WHERE `housesell`.`id` = '$postId'";
 
             $ask = $mysql->query($q);
 
@@ -640,6 +635,118 @@
             include "connect.php";
             $q = "DELETE FROM `housesell` WHERE `id` = '$pid'";
             $ask = $mysql->query($q);
+        }
+
+
+        //electronics post data adder
+        function elecPostAdder($type, $status, $posterId, $title, $address, $price,
+        $info, $photo1, $photo2, $photo3, $ram, $processor, $size, $storage, $core){
+            include "connect.php";
+            $postStatus = "ACTIVE";
+            $postDate = date('Y-m-d H:i:s');
+            $q = "INSERT INTO `electronics`( `type`, `status`, `postStatus`, `postedDate`, `posterId`, `title`, `address`, `price`, `info`, `photoPath1`, `photoPath2`, `photoPath3`, `ram`, `processor`, `size`, `storage`, `core`)
+             VALUES ('$type', '$status', '$postStatus', '$postDate', '$posterId', '$title', '$address', '$price',
+              '$info', '$photo1', '$photo2', '$photo3', '$ram', '$processor', '$size', '$storage', '$core')";
+
+            $ask = $mysql->query($q);
+        }
+
+
+
+        //electronics update block
+        function updateElectronicsPost($type, $status, $title, $address, $price,
+        $info, $ram, $processor, $size, $storage, $core, $pid ){
+            include "connect.php";
+            $edited = 'YES';
+            $q = "UPDATE `electronics` SET `type`= '$type',`status`= '$status',
+            `title`= '$title',`address`= '$address',`price`= '$price' ,`info`= '$info' 
+            ,`ram`= '$ram' ,`processor`= '$processor' ,`size`= '$size',`storage`= '$storage',
+            `core`= '$core',`edited`= '$edited' WHERE `electronics`.`id` = '$pid'";
+
+            $ask = $mysql->query($q);
+
+        }
+
+        //house photo changer
+        function electronicsPhotoChange($dbPath, $fName, $tmpName, $pid ){
+            include "connect.php";
+            $location = "../uploads/electronicsPhoto/";
+            $random = rand(1000, 100000);
+            $path = $location.'ad'.$random.$fName;
+
+            if(move_uploaded_file($tmpName, $path)){
+                $q = "UPDATE `electronics` SET `$dbPath`='$path' WHERE `electronics`.`id` = '$pid'";
+                $ask = $mysql->query($q);
+            }
+            
+        }
+
+
+
+
+        //electronics photo uploader
+        function electronicsPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3){
+            include "connect.php";
+            $location = "../uploads/electronicsPhoto/";
+            $random = rand(1000, 100000);
+            $path1 = $location.'elc'.$random.$fName1;
+            $path2 = $location.'elc'.$random.$fName2;
+            $path3 = $location.'elc'.$random.$fName3;
+
+            $path = array(' ', ' ', ' ');
+
+            if($fName1 != '' || $fName2 != '' || $fName3 != ''){
+
+                if(move_uploaded_file($tmpName1, $path1)){
+                    $path[0] = $path1;
+                }
+                    if(move_uploaded_file($tmpName2, $path2)) {
+                        $path[1] = $path2;
+                    }
+                        if(move_uploaded_file($tmpName3, $path3)){
+                            $path[2] = $path3;
+                            
+                        }
+
+            }
+
+            return $path;
+ 
+                
+        }
+
+        //electonics post view lister
+        function electronicsViewLister(){
+            include "connect.php";
+            $q = "SELECT * FROM `electronics` ORDER BY RAND() LIMIT 8";
+
+            $ask = $mysql->query($q);
+
+            return $ask;
+
+        }
+
+        //electronics single post view
+        function elecSinglePostViewer($pid){
+            include "connect.php";
+            $q = "SELECT * FROM `electronics` WHERE `id` = '$pid'";
+
+            $ask = $mysql->query($q);
+
+            return $ask;
+        }
+
+
+        //electronics category
+        function electronicsCategoryAdder($cat, $table){
+
+        }
+
+
+        //users post collecter
+        function userPostCollecter($uid){
+            include "connect.php";
+            $q = "";
         }
 
     }

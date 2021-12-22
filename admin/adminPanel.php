@@ -106,7 +106,11 @@
         $('#postBox').load('addCategory.php', {type: 'ad'})
       })
 
+      $('#elecView').click(function(){
+        $('#postBox').load('./viewPost.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
+      })
 
+      
     })
 
   </script>
@@ -425,6 +429,11 @@
             </a>
           </li>
           <li>
+            <a id="elecView" href="#viewElectronicsPost">
+              <i class="bi bi-circle"></i><span>View Electronics PostS</span>
+            </a>
+          </li>
+          <li>
             <a id="viewCar" href="#viewCarPost">
               <i class="bi bi-circle"></i><span>View Car PostS</span>
             </a>
@@ -436,7 +445,29 @@
           </li>
         </ul>
       </li><!-- End Tables Nav -->
+      <script>
+              $(document).ready(function(){
+                $('#carCategory').click(function(){
+                  $('#postBox').load('addCategory.php', {type: 'car'})
+                })
+                $('#postElectronics').click(function(){
+                  $('#postBox').load('postPage.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
+                })
 
+                $('#vacancyCategory').click(function(){
+                  $('#postBox').load('addCategory.php', {type: 'vacancy'})
+                })
+
+                $('#houseCategory').click(function(){
+                  $('#postBox').load('./addCategory.php', {type: 'house'})
+                })
+
+
+              })
+
+
+
+            </script>
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
@@ -458,29 +489,15 @@
             </a>
           </li>
           <li>
+            <a id="postElectronics" href="#electronicsPost">
+              <i class="bi bi-circle"></i><span>Post Electronics</span>
+            </a>
+          </li>
+          <li>
             <a id="carPost" href="#carPost">
               <i class="bi bi-circle"></i><span>Post Cars</span>
             </a>
-            <script>
-              $(document).ready(function(){
-                $('#carCategory').click(function(){
-                  $('#postBox').load('addCategory.php', {type: 'car'})
-                })
 
-                $('#vacancyCategory').click(function(){
-                  $('#postBox').load('addCategory.php', {type: 'vacancy'})
-                })
-
-                $('#houseCategory').click(function(){
-                  $('#postBox').load('./addCategory.php', {type: 'house'})
-                })
-
-
-              })
-
-
-
-            </script>
 
 
             <a id="carCategory" style="padding-left: 60px;" href="#carCatagory">

@@ -355,3 +355,61 @@
   </tbody>
 </table>
     </div>
+
+
+      <div id="sizeInch" class="form-group">
+          <label for="exampleInputEmail1">Size In Inch:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="size" placeholder="Size of Item">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+              <div id="ram" class="form-group">
+          <label for="exampleInputEmail1">Ram:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="ram" placeholder="Size of Item">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div id="proc" class="form-group">
+          <label for="exampleInputEmail1">Processor Type:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="processor" placeholder="Processor Type">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div id="storage" class="form-group">
+          <label for="exampleInputEmail1">Storage Size:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="storage" placeholder="Storage Size">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div id="core" class="form-group">
+          <label for="exampleInputEmail1">Core Count:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="core" placeholder="Core count">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+        <div id="elecp1">
+<label for="exampleInputEmail1">Upload Photo 1</label>
+      <input type="file" class="form-control" id="photo" 
+       name="elc1" >
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div id="elecp2">
+<label for="exampleInputEmail1">Upload Photo 2</label>
+      <input type="file" class="form-control" id="photo" 
+       name="elc2" >
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div id="elecp3">
+<label for="exampleInputEmail1">Upload Photo 3</label>
+      <input type="file" class="form-control" id="photo" 
+       name="elc3" >
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
