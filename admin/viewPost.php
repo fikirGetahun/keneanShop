@@ -164,8 +164,20 @@
                     <div class="card mb-3" style="max-width: 540px; box-shadow:  10px 10px red; ">
                     <div class="row g-0">
                         <div class="col-md-4">
-                        <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
-                        </div>
+                        <?php 
+                        $p = $admin->photoSplit($row['photoPath1']);
+                        if(!empty($p)){
+                          ?>
+                          <img src="<?php echo $p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <?php
+                        }if(empty($row['photoPath1'])){
+                          ?>
+                          <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+                          <?php
+                        }
+                        
+                        ?> 
+                                                </div>
                         <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $row['title'] ?></h5>
@@ -185,7 +197,22 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                        <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+                        
+                        <?php 
+                        $p = $admin->photoSplit($row['photoPath1']);
+                        if(!empty($p)){
+                          ?>
+                          <img src="<?php echo $p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <?php
+                        }if(empty($row['photoPath1'])){
+                          ?>
+                          <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+                          <?php
+                        }
+                        
+                        ?> 
+                        
+
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
@@ -215,7 +242,7 @@
                 
                 <div id="adVieww" class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php echo $row['photoPath1'] ?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $row['title'] ?></p>
                   <p class="card-text"><?php echo $row['price'] ?> Birr</p>
@@ -247,7 +274,7 @@
                 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php echo $cars['photoPath1'] ?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['type'] ?></p>
                   <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
@@ -282,7 +309,7 @@
                 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php echo $cars['photoPath1'] ?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
@@ -326,7 +353,7 @@
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php echo $cars['photoPath1'] ?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $cars['title'] ?></p>
                 <p class="card-text"><?php echo $cars['info'] ?> Birr</p>

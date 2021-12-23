@@ -43,6 +43,41 @@ class auth{
                 $ask = $mysql->query($q);
             }
 
+    //users post collection lister
+    function userPostsLister($uid){
+        include "connect.php";
+        $q = "SELECT `ad`.id, `car`.id, `electronics`.id,
+        `housesell`.id , `tender`.id, `vacancy`.id 
+        FROM `ad`, `car`, `electronics`, 
+        WHERE `ad`.posterId = '$uid';";
+    }
+
+
+    //compress image
+    function compress($tmpLocation, $uploadPath, $qulity){
+        $imageInfo = getimagesize($tmpLocation);
+        $mime = $imageInfo['mime'];
+
+        switch($mime){
+            case 'image/jpeg':
+                $image = imagecreatefromjpeg($tmpLocation);
+                break;
+            case 'image/png':
+                $image = imagecreatefrompng($tmpLocation);
+                break;
+            case 'image/gif':
+                $image = imagecreatefromgif($tmpLocation);
+            default:
+                $image = imagecreatefromjpeg($tmpLocation);
+        }
+
+        imagejpeg($image, $uploadPath, $qulity);
+
+
+        return $uploadPath;
+
+    }
+
 }
 
 $auth = new auth;

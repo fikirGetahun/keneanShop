@@ -446,13 +446,40 @@
         </ul>
       </li><!-- End Tables Nav -->
       <script>
+
+
+
+// document.addEventListener('popstate', (event) => {
+//   alert(location)
+//     if(location == 'http://localhost/shop2/admin/admin.php/post'){
+      
+//       $('#postBox').load('postPage.php?type=electronics&uid=89')
+//     }
+// });
+
               $(document).ready(function(){
                 $('#carCategory').click(function(){
                   $('#postBox').load('addCategory.php', {type: 'car'})
                 })
-                $('#postElectronics').click(function(){
-                  $('#postBox').load('postPage.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
+                $('#postElectronics').click(function(e){
+                  e.preventDefault()
+                  // history.pushState({type: 'electronics'}, '', 'http://localhost/shop2/admin/admin.php/post')
+                  $('#postBox').load('http://localhost/shop2/admin/postPage.php?type=electronics&uid=89')
+                  // window.location.href = 'postPage.php?type=electronics&uid=<?php echo $uid ?>'
+                  // $('#postBox').load('postPage.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
                 })
+                // window.onpopstate = function (event) {
+                  
+                //   if(event.state.type == 'electronics'){
+                //     $('#postBox').load('http://localhost/shop2/admin/postPage.php?type=electronics&uid=89')
+                //   } 
+                // }
+               
+
+                  if(event.state.type == 'electronics'){
+                    $('#postBox').load('http://localhost/shop2/admin/postPage.php?type=electronics&uid=89')
+                  }                 
+
 
                 $('#vacancyCategory').click(function(){
                   $('#postBox').load('addCategory.php', {type: 'vacancy'})
@@ -461,6 +488,8 @@
                 $('#houseCategory').click(function(){
                   $('#postBox').load('./addCategory.php', {type: 'house'})
                 })
+
+
 
 
               })
@@ -489,7 +518,7 @@
             </a>
           </li>
           <li>
-            <a id="postElectronics" href="#electronicsPost">
+            <a id="postElectronics" href='#'>
               <i class="bi bi-circle"></i><span>Post Electronics</span>
             </a>
           </li>

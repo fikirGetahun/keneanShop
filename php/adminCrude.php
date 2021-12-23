@@ -13,12 +13,12 @@
         }
 
         //insert tender post
-        function addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id, $title ){
+        function addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id, $title, $photo ){
             include('connect.php');
             $postStatus = 'ACTIVE';
             $date = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `tender`( `title`,`tenderType`, `startingDate`, `deadLine`, `location`, `initialCost`, `info`, `posterId`, `postedDate`, `postStatus`)
-             VALUES ( '$title' ,'$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date', '$postStatus' )";
+            $q = "INSERT INTO `tender`( `title`,`tenderType`, `startingDate`, `deadLine`, `location`, `initialCost`, `info`, `posterId`, `postedDate`, `postStatus`, `photoPath1`)
+             VALUES ( '$title' ,'$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date', '$postStatus', '$photo' )";
 
              $ask = $mysql->query($q);
 
@@ -175,12 +175,12 @@
 
 
         // ad post data inserting function
-        function adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $photoPath1, $photoPath2, $photoPath3, $ship){
+        function adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $photoPath1, $ship){
             include "connect.php";
             $postStatus = 'ACTIVE';
             $q = "INSERT INTO `ad`( `type`, `price`, `address`, `phone`, `for`,
-             `title`, `posterId`, `info`, `photoPath1`, `photoPath2`, `photoPath3`, `postStatus`, `shipping`)
-             VALUES ('$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$photoPath2', '$photoPath3', '$postStatus', '$ship')";
+             `title`, `posterId`, `info`, `photoPath1`, `postStatus`, `shipping`)
+             VALUES ('$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$postStatus', '$ship')";
             
             $ask = $mysql->query($q);
         }
@@ -258,15 +258,15 @@
 
         //car post data inserter
         function carPostAdder($title, $type, $status, $fuleKind, $posterId, $fixedOrN,
-         $photoPath1, $photoPath2, $photoPath3,$price,$info,$forRentOrSell,$transmission, $bodyStatus, $km, $ob ){
+         $photoPath1,$price,$info,$forRentOrSell,$transmission, $bodyStatus, $km, $ob ){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $postStatus = 'ACTIVE';
             $q ="INSERT INTO `car`( `title`,`type`, `status`, `fuleKind`, `posterId`, `fixidOrN`,
-             `photoPath1`, `photoPath2`, `photoPath3`, `price`, `info`, `forRentOrSell`,
+             `photoPath1`,  `price`, `info`, `forRentOrSell`,
               `postStatus`, `postedDate`, `transmission`, `bodyStatus`, `km`, `ownerBroker`  )
              VALUES ( '$title','$type', '$status', '$fuleKind', '$posterId', '$fixedOrN', '$photoPath1', 
-             '$photoPath2', '$photoPath3','$price','$info','$forRentOrSell', '$postStatus', '$postDate',
+             '$price','$info','$forRentOrSell', '$postStatus', '$postDate',
              '$transmission', '$bodyStatus', '$km', '$ob' )";
 
             $ask = $mysql->query($q);
@@ -310,16 +310,16 @@
 
         //house or land selles data adder block
         function addHouseOrLandPost($title,$type,$houseOrLand, $city, $subCity, $wereda,
-        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $posterId, $fName1, $fName2, $fName3, $ob){
+        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $posterId, $fName1, $ob){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $postStatus = 'ACTIVE';
             $q = "INSERT INTO `housesell`(`title`,`type`, `houseOrLand`, `city`, `subCity`, `wereda`, `area`,
              `bedRoomNo`, `bathRoomNo`, `cost`, `fixedOrN`, `forRentOrSell`, `info`, `posterId`,
-              `photoPath1`, `photoPath2`, `photoPath3`, `postedDate`, `postStatus`, `ownerBroker`)
+              `photoPath1`, `postedDate`, `postStatus`, `ownerBroker`)
              VALUES ('$title','$type','$houseOrLand', '$city', '$subCity', '$wereda',
         '$forRentOrSell', '$area', '$bedRoomNo', '$bathRoomNo', '$price', '$fixidOrN', 
-        '$info', '$posterId', '$fName1', '$fName2', '$fName3', '$postDate', '$postStatus', '$ob')";
+        '$info', '$posterId', '$fName1', '$postDate', '$postStatus', '$ob')";
 
         $ask = $mysql->query($q);
             
@@ -640,13 +640,13 @@
 
         //electronics post data adder
         function elecPostAdder($type, $status, $posterId, $title, $address, $price,
-        $info, $photo1, $photo2, $photo3, $ram, $processor, $size, $storage, $core){
+        $info, $photo1, $ram, $processor, $size, $storage, $core){
             include "connect.php";
             $postStatus = "ACTIVE";
             $postDate = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `electronics`( `type`, `status`, `postStatus`, `postedDate`, `posterId`, `title`, `address`, `price`, `info`, `photoPath1`, `photoPath2`, `photoPath3`, `ram`, `processor`, `size`, `storage`, `core`)
+            $q = "INSERT INTO `electronics`( `type`, `status`, `postStatus`, `postedDate`, `posterId`, `title`, `address`, `price`, `info`, `photoPath1`, `ram`, `processor`, `size`, `storage`, `core`)
              VALUES ('$type', '$status', '$postStatus', '$postDate', '$posterId', '$title', '$address', '$price',
-              '$info', '$photo1', '$photo2', '$photo3', '$ram', '$processor', '$size', '$storage', '$core')";
+              '$info', '$photo1', '$ram', '$processor', '$size', '$storage', '$core')";
 
             $ask = $mysql->query($q);
         }
@@ -748,6 +748,111 @@
             include "connect.php";
             $q = "";
         }
+
+
+
+        //upload all photos
+        function uploadPhotos($tableName, $fileVar ){
+            require_once "auth.php";
+            //  echo 'idddddddddd'.$fileVar['name'];
+            $dbPath = '';
+            $allowedType = array('jpeg', 'png', 'jpg');
+            $error = array();
+            $count = count($fileVar['name']);
+            if($count <=3 ){
+                for($i=0;$i<=$count-1;$i++){
+                    $fileName = explode('.',$fileVar['name'][$i]);
+                    $fileExt = $fileName[1];
+                    $mimeArr = explode('/', $fileVar['type'][$i]);
+                    $mimeType = $mimeArr[0];
+                    $mimeExt = $mimeArr[1];
+                    $tmpLoc[] = $fileVar['tmp_name'][$i];
+                    $fileSize[] = $fileVar['size'][$i];
+                    $uploadName = md5(microtime()).'.'.$fileExt;
+                    if($tableName == 'ad'){
+                        $uploadPath[] = '../uploads/adPostsPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/adPostsPhoto/'.$uploadName;
+                    }
+                    
+                    if($tableName == 'electronics'){
+                        $uploadPath[] = '../uploads/electronicsPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/vacancyPhoto/'.$uploadName;
+                    }
+
+                    if($tableName == 'car'){
+                        $uploadPath[] = '../uploads/CarPostsPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/CarPostsPhoto/'.$uploadName;
+                    }
+
+                    if($tableName == 'housesell'){
+                        $uploadPath[] = '../uploads/houseOrLandPhotos/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/houseOrLandPhotos/'.$uploadName;
+                    }
+
+                    if($tableName == 'tender'){
+                        $uploadPath[] = '../uploads/tenderPhotos/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/tenderPhotos/'.$uploadName;
+                    }
+
+
+                    if(!in_array($fileExt, $allowedType)){
+                        $error[] = 'File Extention must be png, jpg, jpeg';
+                    }
+
+                    if($mimeType != 'image'){
+                        $error[] = 'File must be an Image';
+                    }
+
+                    if($mimeType != $fileExt && ($mimeExt == 'jpeg' && $fileExt != 'jpg')){
+                        $error[] = 'File extention does not match file';
+                    }
+
+                    if($fileSize[$i] > 150000000){
+                        $error[] = 'File size exided the limited size.';
+                    }
+                }
+                $total = array();
+
+                if(!empty($error)){
+                    $total[0]= $error[0].''.$error[1].''.$error[2].''.$error[3];
+                    $total[1] = 'error';
+                    return $total;
+                }else{
+                    for($i=0;$i<=$count-1;$i++){
+                        $up = $auth->compress($tmpLoc[$i], $uploadPath[$i], 75 );
+                    }
+                    $total[0] = $dbPath;
+                    $total[1] = 'work';
+                    return $total;
+                }
+
+            }else{
+                echo 'You can only post 3 images';
+            }
+
+        }
+
+        //to split all the photos from db photo path
+        function photoSplit($dbPath){
+            $path = explode(',', $dbPath);
+            return $path;
+        }
+
 
     }
 

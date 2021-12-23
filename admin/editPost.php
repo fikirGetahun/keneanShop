@@ -903,35 +903,78 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
         <script>
   $(document).ready(function(){
 
+    var p = ['a','b','c']
+
+
     $('#hPB1').click(function(){
-      $('#hF1').load('divTags.php #hform1')
+      $('#hF1').empty()
+       p[0] = " ";
     })
     
     $('#hPB2').click(function(){
-      $('#hF2').load('divTags.php #hform2')
-    })
+      $('#hF2').empty()
+       p[1] = " ";    })
 
     $('#hPB3').click(function(){
-      $('#hF3').load('divTags.php #hform3')
-    })
+      $('#hF3').empty()
+       p[2] = " ";  
+        })
+
+        if( p == []){
+          $('#hF3').load('divTags.php #elecp2')
+
+        }
 
   })
+
+  function h(p){
+
+alert('inf')
+    if(p == []){
+      alert('inift')
+      $('#hF3').load('divTags.php #elecp2')
+    }else{
+      alert('inifF')
+      $p = []
+      $('#hF3').load('divTags.php #elecp2')
+
+    }
+  }
+
 
 </script>
 
    
           <div id="hF1">
-          <img class="img-thumbnail" src="<?php echo $houseRow['photoPath1'] ?>" alt="Card">
-                <button type="button" id="hPB1" class="btn btn-dark">Change Photo</button>
+          <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($houseRow['photoPath1']); echo $p[0] ;?>" alt="Card">
+                <button type="button" onclick="h(<?php echo $p ?>)" id="hPB1" class="btn btn-dark">1Delete Photo</button>
           </div>
+
+          <?php
+          if(!empty($p[1])){
+            ?>
           <div id="hF2">
-          <img class="img-thumbnail" src="<?php echo $houseRow['photoPath2'] ?>" alt="Card">
-                <button type="button" id="hPB2" class="btn btn-dark">Change Photo</button>
+          <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($houseRow['photoPath1']); echo $p[1] ;?>" alt="Card">
+                <button type="button" id="hPB2" class="btn btn-dark">2Delete Photo</button>
           </div>
+            <?php
+          }
+
+          ?>
+
+        <?php
+          if(!empty($p[2])){
+            ?>
           <div id="hF3">
-          <img class="img-thumbnail" src="<?php echo $houseRow['photoPath3'] ?>" alt="Card">
-                <button type="button" id="hPB3" class="btn btn-dark">Change Photo</button>
+          <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($houseRow['photoPath1']); echo $p[2] ;?>" alt="Card">
+                <button type="button" id="hPB3" class="btn btn-dark">3Delete Photo</button>
           </div>
+            <?php
+          }
+
+          ?>
+
+
         
 
 

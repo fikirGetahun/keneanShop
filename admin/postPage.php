@@ -101,8 +101,8 @@ if(isset($_GET['uid'])){
               $( 'form' ).each(function(){
                     this.reset();
               });
-              $('#alertVacancy').text('POST SUCCESSFULL!  '+data)
-              $('#alertVacancy').delay(3200).fadeOut(300);
+              $('#alertVacancy').text(data)
+              $('#alertVacancy').delay(5200).fadeOut(300);
             },
             processData: false,
         contentType: false
@@ -356,6 +356,13 @@ if(isset($_GET['uid'])){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
+        <div class="row">
+        <div id="registerBox">
+        <label for="exampleInputEmail1">Upload Photo  [Optional] </label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
         <input type="submit" onclick="x()" value="POST">
         <div id="alertVacancy"></div>
         </form>
@@ -474,13 +481,12 @@ $('#tCategory').on('change', function(){
 
         <div class="row">
         <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 1</label>
-          <input type="file" class="form-control" id="photo" 
-           name="photo1" >
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
+        </div>
 
-    <div id="registerBox">
+    <!-- <div id="registerBox">
     <label for="exampleInputEmail1">Upload Profile Photo 2</label>
           <input type="file" class="form-control" id="photo" 
            name="photo2" >
@@ -493,7 +499,7 @@ $('#tCategory').on('change', function(){
            name="photo3" >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
-        </div>
+        </div> -->
 
         <input type="submit" onclick="x()" value="POST">
         <div id="alertVacancy"></div>
@@ -624,27 +630,13 @@ $('#tCategory').on('change', function(){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
+
+
         <div class="row">
         <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 1</label>
-          <input type="file" class="form-control" id="photo" 
-           name="x1" >
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 2</label>
-          <input type="file" class="form-control" id="photo" 
-           name="x2" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 3</label>
-          <input type="file" class="form-control" id="photo" 
-           name="x3" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
         </div>
 
         <input type="submit" onclick="x()" value="POST">
@@ -787,28 +779,14 @@ $('#tCategory').on('change', function(){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
+      
         <div class="row">
         <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 1</label>
-          <input type="file" class="form-control" id="photo" 
-           name="xy1" >
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 2</label>
-          <input type="file" class="form-control" id="photo" 
-           name="xy2" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 3</label>
-          <input type="file" class="form-control" id="photo" 
-           name="xy3" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
         </div>
+
 
         <input type="submit" value="Post">
         <div id="alertVacancy"></div>
@@ -902,26 +880,10 @@ $('#sElc').on('change', function(){
     </div>
 
     <div class="row">
-    <div id="registerBox">
-<label for="exampleInputEmail1">Upload Photo 1</label>
-      <input type="file" class="form-control" id="photo" 
-       name="elc1" >
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
-
-<div id="registerBox">
-<label for="exampleInputEmail1">Upload Photo 2</label>
-      <input type="file" class="form-control" id="photo" 
-       name="elc2" >
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
-
-<div id="registerBox">
-<label for="exampleInputEmail1">Upload Photo 3</label>
-      <input type="file" class="form-control" id="photo" 
-       name="elc3" >
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+        <div id="registerBox">
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
     <input type="submit" onclick="x()" value="POST">

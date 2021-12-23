@@ -8,9 +8,7 @@ if(isset($_POST['titleElc'],
     $_POST['price'],
     $_POST['address'],
     $_POST['info'],
-    $_FILES['elc1'],
-    $_FILES['elc2'],
-    $_FILES['elc3'],
+    $_FILES['photo'],
     $_POST['posterId']
 )){
 
@@ -30,12 +28,8 @@ if(isset($_POST['titleElc'],
 
 
 
-    $fName1 = $_FILES['elc1']['name'];
-    $fName2 = $_FILES['elc2']['name'];
-    $fName3 = $_FILES['elc3']['name'];
-    $tmpName1 = $_FILES['elc1']['tmp_name'];
-    $tmpName2 = $_FILES['elc2']['tmp_name'];
-    $tmpName3 = $_FILES['elc3']['tmp_name'];
+    $fName1 = $_FILES['photo'];
+
 
     if(isset($_POST['size'], $_POST['processor'], $_POST['core'], $_POST['storage'], $_POST['ram'])){
         $size = $_POST['size'];
@@ -45,11 +39,20 @@ if(isset($_POST['titleElc'],
         $ram = $_POST['ram'];
     }
     
-    $photo = $admin->electronicsPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
+    // $photo = $admin->electronicsPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
+
+    $up = $admin->uploadPhotos('car', $fName1);
+
+    if($up[1] == 'error'){
+      echo $up[0];
+    }else{
+      $out = $admin->elecPostAdder($type, $status, $posterId, $title, $address, $price,
+      $info, $up[0], $ram, $processor, $size, $storage, $core);
+            
+      echo 'Post Succesfully!';
+    }
 
 
-    $out = $admin->elecPostAdder($type, $status, $status, $title, $address, $price,
-    $info, $photo[0], $photo[1], $photo[2], $ram, $processor, $size, $storage, $core);
 
 
 }
@@ -83,7 +86,7 @@ if(isset(
     $_POST['Deadline2'],
      $_POST['initialCost'],
      $_POST['location2'],
-     $_POST['description2'],$_POST['uid'], $_POST['title']
+     $_POST['description2'],$_POST['uid'], $_POST['title'], $_FILES['photo']
      )
      ){
 
@@ -95,15 +98,24 @@ if(isset(
       $info = $_POST['description2'];
       $id2 = $_POST['uid'];
       $title = $_POST['title'];
+      $fileName1 = $_FILES['photo'];
 
-      $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title   );
+      $up = $admin->uploadPhotos('tender', $fileName1);
+
+
+      if($up[1] == 'error'){
+        echo $up[0];
+      }else{
+        $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, $up[0]   );
+        echo 'Post Succesfully!';
+      }
 
      }
 
 
     //car post handler
     if(isset($_POST['type2'],$_POST['status2'],$_POST['forRentOrSell'],$_POST['fuleKind'],$_POST['fixidOrN'],$_POST['price2'],$_POST['info2'],$_POST['posterId2'],
-      $_FILES['x1'],$_FILES['x2'],$_FILES['x3'], $_POST['title'],
+      $_FILES['photo'], $_POST['title'],
        $_POST['transmission'], $_POST['bodyStatus'], $_POST['km'], $_POST['ownerBroker'])){
       echo 'inx';
       $title = $_POST['title'];
@@ -121,26 +133,30 @@ if(isset(
       $ob = $_POST['ownerBroker'];
 
       $posterId = $_POST['posterId2'];
-      $fName1 = $_FILES['x1']['name'];
-      $fName2 = $_FILES['x2']['name'];
-      $fName3 = $_FILES['x3']['name'];
-      $tmpName1 = $_FILES['x1']['tmp_name'];
-      $tmpName2 = $_FILES['x2']['tmp_name'];
-      $tmpName3 = $_FILES['x3']['tmp_name'];
+      $fName1 = $_FILES['photo'];
 
-      $carPhoto = $admin->carPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3 );
+      $up = $admin->uploadPhotos('car', $fName1);
 
-      $out12 = $admin->carPostAdder($title,$type, $status,
-       $fuleKind, $posterId, $fixidOrN, $carPhoto[0], $carPhoto[1],
-        $carPhoto[2],$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob );
-      echo $out12;
+      if($up[1] == 'error'){
+        echo $up[0];
+      }else{
+        $out12 = $admin->carPostAdder($title,$type, $status,
+        $fuleKind, $posterId, $fixidOrN, $up[0],$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob );
+        
+        echo 'Post Succesfully!';
+      }
+
+
+
+      // $carPhoto = $admin->carPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3 );
+
+
     }
 
 
      //ad post handler block
      if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['title'],
-     $_POST['posterId'], $_POST['info'], $_FILES['photo1'], $_FILES['photo2'], $_FILES['photo3'], $_POST['shipping'])){
-       echo 'in the ad';
+     $_POST['posterId'], $_POST['info'], $_FILES['photo'], $_POST['shipping'])){
       $for = " ";
       if(isset($_POST['for'])){
         $for = $_POST['for'];
@@ -153,18 +169,22 @@ if(isset(
       $title = $_POST['title'];
       $posterId = $_POST['posterId'];
       $info = $_POST['info'];
-      $fName1 = $_FILES['photo1']['name'];
-      $fName2 = $_FILES['photo2']['name'];
-      $fName3 = $_FILES['photo3']['name'];
-      $tmpName1 = $_FILES['photo1']['tmp_name'];
-      $tmpName2 = $_FILES['photo2']['tmp_name'];
-      $tmpName3 = $_FILES['photo3']['tmp_name'];
+      $fName1 = $_FILES['photo'];
 
 
 
-      $adOut = $admin->adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3  );
 
-      $out7 = $admin->adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $adOut[0], $adOut[1], $adOut[2], $ship);
+      // $adOut = $admin->adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3  );
+      $up = $admin->uploadPhotos('ad', $fName1);
+
+      if($up[1] == 'error'){
+        echo $up[0];
+      }else{
+        $out7 = $admin->adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $up[0], $ship);
+        echo 'Post Succesfully!';
+      }
+
+
 
     
     }
@@ -173,7 +193,7 @@ if(isset(
     if(isset(
       $_POST['houseOrLand'], $_POST['city'],$_POST['subCity'], $_POST['wereda'],
        $_POST['forRentOrSell'], $_POST['area'], $_POST['cost'], $_POST['fixidOrN'], 
-       $_POST['info'], $_FILES['xy1'], $_FILES['xy2'], $_FILES['xy3'],$_POST['posterId'],
+       $_POST['info'], $_FILES['photo'],$_POST['posterId'],
         $_POST['title'], $_POST['ownerBroker']
     )){
       echo 'inn house';
@@ -203,21 +223,26 @@ if(isset(
       $fixidOrN=$_POST['fixidOrN'];
       $info=$_POST['info'];
       $posterId = $_POST['posterId'];
-      $fName1 = $_FILES['xy1']['name'];
-      $fName2 = $_FILES['xy2']['name'];
-      $fName3 = $_FILES['xy3']['name'];
-      $tmpName1 = $_FILES['xy1']['tmp_name'];
-      $tmpName2 = $_FILES['xy2']['tmp_name'];
-      $tmpName3 = $_FILES['xy3']['tmp_name'];
+      $fName1 = $_FILES['photo'];
+
       $ob = $_POST['ownerBroker'];
 
+      $up = $admin->uploadPhotos('housesell', $fName1);
+
+      if($up[1] == 'error'){
+        echo $up[0];
+      }else{
+        $outH = $admin->addHouseOrLandPost($title, $type, $houseOrLand, $city, $subCity, $wereda,
+        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info,
+         $posterId, $up[0], $ob );
+        
+         echo 'Post Succesfully!';
+      }
       
-      $houseUpload = $admin->houseOrLandPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
-      $outH = $admin->addHouseOrLandPost($title, $type, $houseOrLand, $city, $subCity, $wereda,
-       $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info,
-        $posterId, $houseUpload[0], $houseUpload[1], $houseUpload[2], $ob );
+      // $houseUpload = $admin->houseOrLandPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
       
-       echo $outH;
+
+      
 
     }
 
