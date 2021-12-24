@@ -269,4 +269,34 @@ if(isset(
     
             }
 
+
+// home tutor insert api
+if(isset(
+  $_POST['name'], $_POST['sex'], 
+  $_POST['eduBackground'], $_POST['clientRange'],
+  $_POST['paymentStatus'],  $_POST['price'],
+  $_POST['address'],  $_POST['companyInfo'],
+  $_POST['info'], $_POST['phone'], $_POST['posterId'] 
+)){
+
+$pid = $_POST['posterId'];
+$name =$_POST['name'];
+$sex =  $_POST['sex'];
+$edu = $_POST['eduBackground'];
+$range = $_POST['clientRange'];
+$payStatus = $_POST['paymentStatus'];
+$price =  $_POST['price'];
+$address = $_POST['address'];
+$cinfo = $_POST['companyInfo'];
+$info = $_POST['info'];
+$phone = $_POST['phone'];
+
+$out = $admin->homeTutoreAdder($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
+$phone, $cinfo, $info);
+
+
+
+}
+
+
 ?>

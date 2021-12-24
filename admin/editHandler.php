@@ -307,7 +307,7 @@ if(isset(
           $j=$_POST['photoPath'];
           $parr = explode(',', $path);
           $count = count($parr);
-          if($count <=3){
+          if($count <=2){
           for($i=0;$i<$count-1;$i++ ){
             if($parr[$i] == $j){
                 unset($parr[$i]);

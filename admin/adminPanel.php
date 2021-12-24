@@ -48,7 +48,10 @@
     });
 
 
-    
+    $('#homeTutor').click(function(){
+        $('#postBox').load('./postPage.php?'+$.param({type: "home", uid: '<?php echo $uid; ?>'}))
+      })
+
     $('#addUser').click(function(){
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
         $('#postBox').load('adminRegister.php');
@@ -577,6 +580,28 @@
           </li>
         </ul>
       </li><!-- End Icons Nav -->
+
+      <script>
+        $(document).ready(function(){
+
+        })
+      </script>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables2-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Job Seeker Upload</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables2-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+          <li>
+            <a id="homeTutor" href="#viewVacancyPost">
+              <i class="bi bi-circle"></i><span>Home Tutor [Upload Your Portoflio]</span>
+            </a>
+          </li>
+          <li>
+
+        </ul>
+      </li><!-- End Tables Nav -->
 
       <!-- <li class="nav-heading">Pages</li>
 

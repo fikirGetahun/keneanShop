@@ -1129,7 +1129,7 @@ $('#tCategory').on('change', function(){
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Payment Status</label>
         </div>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
+        <select class="custom-select" name="paymentStatus" id="inputGroupSelect01">
           <option selected>Choose...</option>
           <option value="Horly">Hourly</option>
           <option value="Dayly">Dayly</option>
@@ -1146,6 +1146,13 @@ $('#tCategory').on('change', function(){
         </div>
 
         <div class="form-group">
+          <label for="exampleInputEmail1">Phone </label>
+          <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
           <label for="exampleInputEmail1">Address</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="address" placeholder="location"></textarea>
@@ -1153,7 +1160,7 @@ $('#tCategory').on('change', function(){
         </div>
 
         <div class="form-group">
-          <h6>If you are representing  company, please fill the next form.</h6>
+          <h6>If you are representing  or if you are Agent, please fill the next form.</h6>
           <label for="exampleInputEmail1">Company Info</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="companyInfo" placeholder="location"></textarea>
@@ -1163,7 +1170,7 @@ $('#tCategory').on('change', function(){
         <div class="form-group">
           <label for="exampleInputEmail1">Description About You</label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
+          aria-describedby="emailHelp" name="info" placeholder="info"></textarea>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         
@@ -1172,6 +1179,118 @@ $('#tCategory').on('change', function(){
         <input type="submit" onclick="x()" value="POST">
         <div id="alertVacancy"></div>
         </form>
+        <?php
+      }
+    }if(isset($_GET['type'])){
+      if($_GET['type'] == 'houseKeeper'){
+        ?>
+          <form  method="POST" enctype="multipart/form-data">
+          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Full Name</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="name" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+
+          <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+        </div>
+        <select class="custom-select" name="sex" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Male">Mele</option>
+          <option value="Female">Female</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Age</label>
+          <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="age" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Religion</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="religion" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Address</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="address" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Work Type</label>
+        </div>
+        <select class="custom-select" name="workType" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Half Day">Half Day</option>
+          <option value="Full Day">Full Day</option>
+          <option value="Monthly">Monthly</option>
+
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Price:</label>
+          <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Experience</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="experience" placeholder="info"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Current Address</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="cAddress" placeholder="info"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+
+        <div class="form-group">
+        <h6>If you are an agent, then fill your discription</h6>
+          <label for="exampleInputEmail1">Agent Info</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="agentInfo" placeholder="location"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="bidp" id="inlineRadio1" value="YES">
+          <label class="form-check-label" for="inlineRadio1">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="bidp" id="inlineRadio2" value="NO">
+          <label class="form-check-label" for="inlineRadio2">No</label>
+        </div>
+
+        
+
+
+
+
+
+          
+
+
+          <input type="submit" onclick="x()" value="POST">
+          <div id="alertVacancy"></div>
+          </form>
         <?php
       }
     }

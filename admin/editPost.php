@@ -923,13 +923,16 @@ require_once "../php/adminCrude.php";
          $houseOut = $admin->singleHousePostLister($uidx);
          $houseRow = $houseOut->fetch_assoc();
          $p = $admin->photoSplit($houseRow['photoPath1']);  
+         if(!empty($p[0])){
           $p1 = $p[0];
+      }
+        
           if(!empty($p[1])){
               $p2 = $p[1];
           }
           if(!empty($p[2])){
              $p3 = $p[2];
-        }
+          }
        
          
         //  echo $p1;

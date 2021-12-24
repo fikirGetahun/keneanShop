@@ -978,7 +978,18 @@
         $ask = $mysql->query($q);
         }
 
-        //
+        //home tutor upload
+        function homeTutoreAdder($pid,$name, $sex, $edu, $range, $payStatus, $price, $address,
+        $phone, $cinfo, $info){
+            include "connect.php";
+            $postDate = date('Y-m-d H:i:s');
+            $q = "INSERT INTO `jobhometutor`( `posterId`, `Name`, `sex`, `eduBackground`, `clientRange`,
+             `paymentStatus`, `Price`, `address`, `phone`, `companyInfo`, `info`, `postedDate`)
+            VALUES ('$pid', '$name', '$sex', '$edu', '$range', '$payStatus', '$price', '$address',
+                   '$phone', '$cinfo', '$info', '$postDate'   )";
+
+            $ask = $mysql->query($q);
+}
 
 
 
