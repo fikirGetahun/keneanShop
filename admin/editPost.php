@@ -1,20 +1,25 @@
 <html>
-    <head>
-
-    </head>
-    <?php
-require_once "../php/adminCrude.php";
-
-if(isset($_GET['pid'])){ //pid is post id to be edited
-  $uidx = $_GET['pid'];
-}
+    <script src="../assets/jquery.js"></script>  
+  
+   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"> -->
 
 
+   <!-- </script> -->
+   <?php
+   require_once "../php/adminCrude.php";
+   if(isset($_GET['pid'])){ //pid is post id to be edited
+    $uidx = $_GET['pid'];
+  }
 
-?>
-<script src="../assets/jquery.js"></script>
-<script>
+   ?>
+    <script>
+
   $(document).ready(function(){
+
+
+
 
     $('#editV').on('submit', function(e){
       e.preventDefault()
@@ -65,12 +70,27 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
           return false;
 
     })
+
+    
+
+
+
   })
+  
+
 
 
 </script>
+    <?php
+require_once "../php/adminCrude.php";
 
-    <body>
+
+
+
+
+?>
+
+
     <main id="main" class="main">
 
  
@@ -899,57 +919,65 @@ if(isset($_GET['pid'])){ //pid is post id to be edited
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-
-        <script>
-  $(document).ready(function(){
-
-    var p = ['a','b','c']
-
-
-    $('#hPB1').click(function(){
-      $('#hF1').empty()
-       p[0] = " ";
-    })
-    
-    $('#hPB2').click(function(){
-      $('#hF2').empty()
-       p[1] = " ";    })
-
-    $('#hPB3').click(function(){
-      $('#hF3').empty()
-       p[2] = " ";  
-        })
-
-        if( p == []){
-          $('#hF3').load('divTags.php #elecp2')
-
+        <?php
+         $houseOut = $admin->singleHousePostLister($uidx);
+         $houseRow = $houseOut->fetch_assoc();
+         $p = $admin->photoSplit($houseRow['photoPath1']);  
+          $p1 = $p[0];
+          if(!empty($p[1])){
+              $p2 = $p[1];
+          }
+          if(!empty($p[2])){
+             $p3 = $p[2];
         }
+       
+         
+        //  echo $p1;
+         
+         
+         ?>
 
-  })
+         <script>
+           $(document).ready(function(){
+            $("#hPB1").on("click", function(e){
+              $('#hF1').empty()
+              $.post('editHandler.php', {photoPath:"<?php echo $p1 ?>", tableName: "housesell", pid: "<?php echo $uidx ?>"}, 
+                function(returnedData){
+                  $('#hF1').append(returnedData)
+                })
+            })
+            
+            $("#hPB2").on("click", function(e){
+              $('#hF2').empty()
+              $.post('editHandler.php', {photoPath:"<?php echo $p2 ?>", tableName: "housesell", pid: "<?php echo $uidx ?>"}, 
+                function(returnedData){
+                  $('#hF2').append(returnedData)
+               })
+            })
+            
+            $("#hPB3").on("click", function(e){
+              $('#hF3').empty()
+            $.post('editHandler.php', {photoPath:"<?php echo $p3  ?>", tableName: "housesell", pid: "<?php echo $uidx ?>"}, 
+              function(returnedData){
+                $('#hF3').append(returnedData)        
+            })
+            })
 
-  function h(p){
 
-alert('inf')
-    if(p == []){
-      alert('inift')
-      $('#hF3').load('divTags.php #elecp2')
-    }else{
-      alert('inifF')
-      $p = []
-      $('#hF3').load('divTags.php #elecp2')
+           })
 
-    }
-  }
-
-
-</script>
-
-   
+         </script>
+  <div id="px">
+    <?php
+      if(!empty($p[0])){
+        ?>
           <div id="hF1">
-          <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($houseRow['photoPath1']); echo $p[0] ;?>" alt="Card">
-                <button type="button" onclick="h(<?php echo $p ?>)" id="hPB1" class="btn btn-dark">1Delete Photo</button>
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($houseRow['photoPath1']); echo $p[0] ;?>" alt="Card">  
+                <button type="button" id="hPB1" class="btn btn-dark">1Delete Photo</button>
           </div>
-
+        <?php
+      }
+    ?>
           <?php
           if(!empty($p[1])){
             ?>
@@ -973,18 +1001,13 @@ alert('inf')
           }
 
           ?>
-
-
-        
-
-
+  </div>
 
         <input type="submit" value="Post">
         <div id="alertVacancy"></div>
              </form>
+             
 
-
-      
       <?php
     }elseif($_GET['type'] == 'electronics'){
       $elcEdit = $admin->elecSinglePostViewer($uidx);
@@ -1171,5 +1194,3 @@ alert('inf')
 
 
 </main><!-- End #main -->
-    </body>
-</html>

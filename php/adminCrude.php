@@ -175,12 +175,12 @@
 
 
         // ad post data inserting function
-        function adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $photoPath1, $ship){
+        function adPostPoster($big, $type, $price, $address, $phone, $for, $title, $posterId, $info, $photoPath1, $ship){
             include "connect.php";
             $postStatus = 'ACTIVE';
-            $q = "INSERT INTO `ad`( `type`, `price`, `address`, `phone`, `for`,
+            $q = "INSERT INTO `ad`(`bigDiscount`, `type`, `price`, `address`, `phone`, `for`,
              `title`, `posterId`, `info`, `photoPath1`, `postStatus`, `shipping`)
-             VALUES ('$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$postStatus', '$ship')";
+             VALUES ('$big','$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$postStatus', '$ship')";
             
             $ask = $mysql->query($q);
         }
@@ -759,6 +759,113 @@
             $allowedType = array('jpeg', 'png', 'jpg');
             $error = array();
             $count = count($fileVar['name']);
+            echo 'c---c---'.$count;
+            if($count <=3 ){
+                for($i=0;$i<=$count-1;$i++){
+                    $fileName = explode('.',$fileVar['name'][$i]);
+                    $fileExt = $fileName[1];
+                    $mimeArr = explode('/', $fileVar['type'][$i]);
+                    $mimeType = $mimeArr[0];
+                    $mimeExt = $mimeArr[1];
+                    $tmpLoc[] = $fileVar['tmp_name'][$i];
+                    $fileSize[] = $fileVar['size'][$i];
+                    $uploadName = md5(microtime()).'.'.$fileExt;
+                    if($tableName == 'ad'){
+                        $uploadPath[] = '../uploads/adPostsPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/adPostsPhoto/'.$uploadName;
+                    }
+                    
+                    if($tableName == 'electronics'){
+                        $uploadPath[] = '../uploads/electronicsPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/vacancyPhoto/'.$uploadName;
+                    }
+
+                    if($tableName == 'car'){
+                        $uploadPath[] = '../uploads/CarPostsPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/CarPostsPhoto/'.$uploadName;
+                    }
+
+                    if($tableName == 'housesell'){
+                        $uploadPath[] = '../uploads/houseOrLandPhotos/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/houseOrLandPhotos/'.$uploadName;
+                    }
+
+                    if($tableName == 'tender'){
+                        $uploadPath[] = '../uploads/tenderPhotos/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/tenderPhotos/'.$uploadName;
+                    }
+
+                    if($tableName == 'charity'){
+                        $uploadPath[] = '../uploads/charityPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/charityPhoto/'.$uploadName;
+                    }
+
+
+                    if(!in_array($fileExt, $allowedType)){
+                        $error[] = 'File Extention must be png, jpg, jpeg';
+                    }
+
+                    if($mimeType != 'image'){
+                        $error[] = 'File must be an Image';
+                    }
+
+                    if($mimeType != $fileExt && ($mimeExt == 'jpeg' && $fileExt != 'jpg')){
+                        $error[] = 'File extention does not match file';
+                    }
+
+                    if($fileSize[$i] > 150000000){
+                        $error[] = 'File size exided the limited size.';
+                    }
+                }
+                $total = array();
+
+                if(!empty($error)){
+                    $total[0]= $error[0].''.$error[1].''.$error[2].''.$error[3];
+                    $total[1] = 'error';
+                    return $total;
+                }else{
+                    for($i=0;$i<=$count-1;$i++){
+                        $up = $auth->compress($tmpLoc[$i], $uploadPath[$i], 75 );
+                    }
+                    $total[0] = $dbPath;
+                    $total[1] = 'work';
+                    return $total;
+                
+            }
+
+            }else{
+                echo 'You can only post 3 images';
+            }
+
+        }
+
+        //photo updater
+        function photoUpdater($tableName, $pid, $fileVar){
+            require_once "auth.php";
+            include "connect.php";
+            //  echo 'idddddddddd'.$fileVar['name'];
+            $dbPath = '';
+            $allowedType = array('jpeg', 'png', 'jpg');
+            $error = array();
+            $count = count($fileVar['name']);
             if($count <=3 ){
                 for($i=0;$i<=$count-1;$i++){
                     $fileName = explode('.',$fileVar['name'][$i]);
@@ -835,6 +942,13 @@
                 }else{
                     for($i=0;$i<=$count-1;$i++){
                         $up = $auth->compress($tmpLoc[$i], $uploadPath[$i], 75 );
+                        $q = "UPDATE `$tableName` SET `photoPath1` = '$dbPath' WHERE  `$tableName`.`id` = '$pid'  ";
+                        $ask = $mysql->query($q);
+                        if($ask){
+                            echo 'Photo Updated!';
+                        }else{
+                            echo 'Db Error';
+                        }
                     }
                     $total[0] = $dbPath;
                     $total[1] = 'work';
@@ -844,7 +958,6 @@
             }else{
                 echo 'You can only post 3 images';
             }
-
         }
 
         //to split all the photos from db photo path
@@ -852,6 +965,22 @@
             $path = explode(',', $dbPath);
             return $path;
         }
+
+
+        //charity upload
+        function charityUpload($title, $photo, $info, $location, $phone, $posterId){
+            include "connect.php";
+            $postStatus = "ACTIVE";
+            $postDate = date('Y-m-d H:i:s');
+            $q = "INSERT INTO `charity` ( `title`, `photoPath1`, `info`, `location`, `phone`, `posterId`, `postedDate`, `postStatus`) 
+            VALUES ( '$title', '$photo', '$info', '$location', '$phone', '$posterId', '$postDate', '$postStatus' )";
+        
+        $ask = $mysql->query($q);
+        }
+
+        //
+
+
 
 
     }

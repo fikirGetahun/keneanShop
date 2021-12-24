@@ -76,7 +76,7 @@
       }
 
       function editHouse(pid){
-        $('#allin').load('editPost.php?'+$.param({type: 'house', pid: pid}))
+        $('#postBox').load('editPost.php?'+$.param({type: 'house', pid: pid}))
       }
       function adView(id){
                   $('#allin').load('discriptionPage.php', {type: 'ad',pid: id})

@@ -156,7 +156,7 @@ if(isset(
 
      //ad post handler block
      if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['title'],
-     $_POST['posterId'], $_POST['info'], $_FILES['photo'], $_POST['shipping'])){
+     $_POST['posterId'], $_POST['info'], $_FILES['photo'], $_POST['shipping'], $_POST['big'])){
       $for = " ";
       if(isset($_POST['for'])){
         $for = $_POST['for'];
@@ -170,6 +170,7 @@ if(isset(
       $posterId = $_POST['posterId'];
       $info = $_POST['info'];
       $fName1 = $_FILES['photo'];
+      $big = $_POST['big'];
 
 
 
@@ -180,7 +181,7 @@ if(isset(
       if($up[1] == 'error'){
         echo $up[0];
       }else{
-        $out7 = $admin->adPostPoster($type, $price, $address, $phone, $for, $title, $posterId, $info, $up[0], $ship);
+        $out7 = $admin->adPostPoster($big, $type, $price, $address, $phone, $for, $title, $posterId, $info, $up[0], $ship);
         echo 'Post Succesfully!';
       }
 
@@ -245,5 +246,27 @@ if(isset(
       
 
     }
+
+
+            //charity api
+
+            if(isset($_POST['title'], $_POST['location'], $_POST['phone'], $_POST['info'], $_FILES['photo'], $_POST['posterId'])){
+              require_once "../php/adminCrude.php";
+              // echo 'inzzdfa';
+              $title = $_POST['title'];
+              $loc = $_POST['location'];
+              $phone = $_POST['phone'];
+              $info = $_POST['info'];
+              $fileVar = $_FILES['photo'];
+              $pid = $_POST['posterId'];
+    
+              $up = $admin->uploadPhotos('charity', $fileVar);
+              // echo $up[1];
+    
+    
+              $db = $admin->charityUpload($title, $up[0], $info, $loc, $phone, $pid);
+    
+    
+            }
 
 ?>

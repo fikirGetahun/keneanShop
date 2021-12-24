@@ -46,6 +46,8 @@
           $('#postBox').empty()
         }
     });
+
+
     
     $('#addUser').click(function(){
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
@@ -86,6 +88,14 @@
         $('#postBox').load('./postPage.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
       })
 
+      $('#postCharity').click(function(){
+        $('#postBox').load('./postPage.php?'+$.param({type: "big", uid: '<?php echo $uid; ?>'}))
+      })
+
+      $('#postBig').click(function(){
+        $('#postBox').load('./postPage.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
+      })
+
       $('#housePost').click(function(){
         $('#postBox').load('./postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
@@ -110,7 +120,7 @@
         $('#postBox').load('./viewPost.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
       })
 
-      
+
     })
 
   </script>
@@ -522,6 +532,19 @@
               <i class="bi bi-circle"></i><span>Post Electronics</span>
             </a>
           </li>
+
+          <li>
+            <a id="postCharity" href='#'>
+              <i class="bi bi-circle"></i><span>Post Charity</span>
+            </a>
+          </li>
+
+          <li>
+            <a id="postBig" href='#'>
+              <i class="bi bi-circle"></i><span>Post Big Discount Advertisment</span>
+            </a>
+          </li>
+
           <li>
             <a id="carPost" href="#carPost">
               <i class="bi bi-circle"></i><span>Post Cars</span>

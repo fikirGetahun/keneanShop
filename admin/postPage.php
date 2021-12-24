@@ -56,40 +56,40 @@ if(isset($_GET['uid'])){
 <script src="../assets/jquery.js"></script>
 <script>
   $(document).ready(function(){
-    $('#vacancyForm').on('submit', function(e){
-      e.preventDefault()
-      $.ajax({
-        url: 'postPage.php',
-        type: 'post',
-        data: $('#vacancyForm').serialize(),
-        success : function(){
-          $( 'form' ).each(function(){
-                    this.reset();
-              });
-              $('#alertVacancy').text('POST SUCCESSFULL!  ')
-              $('#alertVacancy').delay(3200).fadeOut(300);    
-                }
-      })
-      return false;
+    // $('#vacancyForm').on('submit', function(e){
+    //   e.preventDefault()
+    //   $.ajax({
+    //     url: 'postPage.php',
+    //     type: 'post',
+    //     data: $('#vacancyForm').serialize(),
+    //     success : function(){
+    //       $( 'form' ).each(function(){
+    //                 this.reset();
+    //           });
+    //           $('#alertVacancy').text('POST SUCCESSFULL!  ')
+    //           $('#alertVacancy').delay(3200).fadeOut(300);    
+    //             }
+    //   })
+    //   return false;
 
-    })
+    // })
 
-    $('#tenderForm').on('submit', function(e){
-      e.preventDefault()
-      $.ajax({
-        url: 'postPage.php',
-        type: 'post',
-        data: $('#tenderForm').serialize(),
-        success : function(){
-          $( 'form' ).each(function(){
-                    this.reset();
-              });
-              $('#alertVacancy').text('POST SUCCESSFULL!  ')
-              $('#alertVacancy').delay(3200).fadeOut(300);        }
-      })
-      return false;
+    // $('#tenderForm').on('submit', function(e){
+    //   e.preventDefault()
+    //   $.ajax({
+    //     url: 'postPage.php',
+    //     type: 'post',
+    //     data: $('#tenderForm').serialize(),
+    //     success : function(){
+    //       $( 'form' ).each(function(){
+    //                 this.reset();
+    //           });
+    //           $('#alertVacancy').text('POST SUCCESSFULL!  ')
+    //           $('#alertVacancy').delay(3200).fadeOut(300);        }
+    //   })
+    //   return false;
 
-    })
+    // })
 
     $('form').on('submit', function(e){
           e.preventDefault()
@@ -102,13 +102,12 @@ if(isset($_GET['uid'])){
                     this.reset();
               });
               $('#alertVacancy').text(data)
-              $('#alertVacancy').delay(5200).fadeOut(300);
+              // $('#alertVacancy').delay(5200).fadeOut(300);
             },
             processData: false,
         contentType: false
           })
           
-          return false;
 
     })
 
@@ -359,7 +358,7 @@ if(isset($_GET['uid'])){
         <div class="row">
         <div id="registerBox">
         <label for="exampleInputEmail1">Upload Photo  [Optional] </label>
-          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+          <input type="file" class="form-control" id="photo" name="photo" >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
@@ -382,6 +381,7 @@ if(isset($_GET['uid'])){
         <h5>Post Advertisment</h5>
         <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
         <input hidden name="posterId" value="<?php echo $uidx; ?>">
+        <input hidden name="big" value="NOT">
 
 
         <div class="form-group">
@@ -505,6 +505,7 @@ $('#tCategory').on('change', function(){
         <div id="alertVacancy"></div>
         </form>
         <?php
+      }
       }if(isset($_GET['type'])){
         if($_GET['type'] == 'car'){
           ?>
@@ -798,7 +799,7 @@ $('#tCategory').on('change', function(){
 
         }
       }
-    }
+    
     if(isset($_GET['type'])){
       if($_GET['type'] == 'electronics'){
         ?>
@@ -893,7 +894,287 @@ $('#sElc').on('change', function(){
         <?php
       }
     }
+    if(isset($_GET['type'])){
+      if($_GET['type'] == 'big' ){
+        ?>
+        <form  method="POST" enctype="multipart/form-data">
+
+        <input hidden name="posterId" value="<?php echo $uidx; ?>">
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Charity Title</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="title" placeholder="Title">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1"> Address  </label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="location" placeholder="Title">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Phone no:</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="Title">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+        <div class="form-group">
+      <label for="exampleInputEmail1">Describtion</label>
+      <textarea type="text" class="form-control" id="des2" 
+      aria-describedby="emailHelp" name="info" placeholder="Detailed Info"></textarea>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+
+
+        <div class="row">
+            <div id="registerBox">
+            <label for="exampleInputEmail1">Upload Photos</label>
+              <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div id="alertVacancy"></div>
+        <input type="submit"  value="POST">
+
+        </form>
+        
+        <?php
+      }
     
+    }
+
+    if(isset($_GET['type'])){
+      if($_GET['type'] == 'bigDiscount'){
+        ?>
+                <h5>Big Discount Post Advertisment</h5>
+        <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
+        <input hidden name="posterId" value="<?php echo $uidx; ?>">
+        <input hidden name="big" value="ACTIVE">
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Title</Title></label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="title" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+<script>
+
+$(document).ready(function(){
+$('#tCategory').on('change', function(){
+  if(this.value == "Cloth and Shoe"){
+    $('#targetLoader').load('divTags.php #targetFor')
+  }
+ 
+})
+
+$('#tCategory').on('change', function(){
+  if(this.value == "OTHER"){
+    $('#adTy').load('divTags.php #otherAd')
+  }
+ 
+})
+
+
+
+})
+
+</script>
+
+        <div id="adTy"  class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
+          </div>
+          <select id="tCategory" class="custom-select" name="type" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+            ?><?php
+              $out11 = $admin->adsCategoryLister();
+              while($r = $out11->fetch_assoc()){
+              ?>
+            
+            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
+            <?php
+              }
+            ?>
+
+
+          </select>
+        </div>
+
+        <div id="targetLoader">
+
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Price :</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Address </label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="address" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Phone Number</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Offer Shipping</label>
+        </div>
+        <select class="custom-select" name="shipping" id="inputGroupSelect01">
+          <option value="NO" selected>NO</option>
+          <option value="YES">YES</option>
+
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Describtion</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="row">
+        <div id="registerBox">
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+    <!-- <div id="registerBox">
+    <label for="exampleInputEmail1">Upload Profile Photo 2</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo2" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div id="registerBox">
+    <label for="exampleInputEmail1">Upload Profile Photo 3</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photo3" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+        </div> -->
+
+        <input type="submit" onclick="x()" value="POST">
+        <div id="alertVacancy"></div>
+        </form>
+        
+        
+        <?php
+      }
+    }if(isset($_GET['type'])){
+      if($_GET['type'] == 'home'){
+        ?>
+        <form  method="POST" enctype="multipart/form-data">
+        <input hidden name="posterId" value="<?php echo $uidx; ?>">
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Full Name</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="name" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+        </div>
+        <select class="custom-select" name="sex" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Male">Mele</option>
+          <option value="Female">Female</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Educational Background:</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="eduBackground" placeholder="location"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Range </label>
+        </div>
+        <select class="custom-select" name="clientRange" id="inputGroupSelect01">
+          <option value="1-8">1-8 Grade</option>
+          <option value="9-12">9-10</option>
+          <option value="9-10">9-10</option>
+          <option value="10-11">10-11</option>
+          <option value="11-12">11-12</option>
+
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Payment Status</label>
+        </div>
+        <select class="custom-select" name="sex" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Horly">Hourly</option>
+          <option value="Dayly">Dayly</option>
+          <option value="Monthly">Monthly</option>
+
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Price:</label>
+          <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Address</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="address" placeholder="location"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <h6>If you are representing  company, please fill the next form.</h6>
+          <label for="exampleInputEmail1">Company Info</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="companyInfo" placeholder="location"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Description About You</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        
+
+
+        <input type="submit" onclick="x()" value="POST">
+        <div id="alertVacancy"></div>
+        </form>
+        <?php
+      }
+    }
 ?>
 
 

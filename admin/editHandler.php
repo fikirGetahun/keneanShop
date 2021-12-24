@@ -269,4 +269,99 @@ if(isset(
     
         }
 
+        //deleting photo api
+        if(isset($_POST['photoPath'], $_POST['tableName'], $_POST['pid'])){
+          include "../php/connect.php";
+          require_once "../php/adminCrude.php";
+          // echo 'inphoto deleter';
+          $pid = $_POST['pid'];
+          $tn = $_POST['tableName'];
+
+          if($tn == 'housesell'){
+            $out = $admin->singleHousePostLister($pid);
+            $row = $out->fetch_assoc();
+          }
+          
+          if($tn == 'ad'){
+            $out = $admin->adEditDataLister($pid);
+            $row = $out->fetch_assoc();
+          }
+
+          if($tn == 'electronics'){
+            $out = $admin->elecSinglePostViewer($pid);
+            $row = $out->fetch_assoc();
+          }
+
+          if($tn == 'car'){
+            $out = $admin->carPostDataLister($pid);
+            $row = $out->fetch_assoc();
+          }
+
+          if($tn == 'tender'){
+            $out = $admin->tenderEditLister($pid);
+            $row = $out->fetch_assoc();
+          }
+
+
+          $path = $row['photoPath1'];
+          $j=$_POST['photoPath'];
+          $parr = explode(',', $path);
+          $count = count($parr);
+          if($count <=3){
+          for($i=0;$i<$count-1;$i++ ){
+            if($parr[$i] == $j){
+                unset($parr[$i]);
+                $dbPath = implode(',', $parr);
+                break;
+            }
+          }
+        }elseif($count == 1){
+          unset($parr[0]);
+          $dbPath = " ";
+        }
+
+        if(empty($dbPath)){
+          $dbPath = NULL;
+        }
+          
+      
+          // to delete the selected photo
+          
+
+          $q = "UPDATE `$tn` SET `photoPath1` = '$dbPath'  WHERE `$tn`.`id` = '$pid' ";
+          $ask = $mysql->query($q);
+          if(empty($dbPath)){
+            ?>
+            <form method="POST" enctype="multipart/form-data" >
+              <input hidden name="pid" value="<?php echo $pid; ?>">
+              <input hidden name="tName" value="<?php echo $tn; ?>">
+            <div class="row">
+            <div id="registerBox">
+            <label for="exampleInputEmail1">Upload Photo  </label>
+              <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            </div>
+          </form>
+            <?php
+          }
+          // echo $dbPath;
+          // echo 'uuu '.$parr[$index];
+        }
+
+
+
+        //input updated photos to database
+        if(isset($_FILES['photo'], $_POST['pid'], $_POST['tName'])){
+          require_once "../php/adminCrude.php";
+          $p = $_FILES['photo'];
+          $pid = $_POST['pid'];
+          $tName = $_POST['tName'];
+          $upd = $admin->photoUpdater($tName, $pid, $p);
+          return $upd;
+        }
+
+
+
+
 ?>
