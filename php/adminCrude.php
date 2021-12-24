@@ -838,9 +838,8 @@
                 $total = array();
 
                 if(!empty($error)){
-                    $total[0]= $error[0].''.$error[1].''.$error[2].''.$error[3];
-                    $total[1] = 'error';
-                    return $total;
+                    $error[4] = 'error';
+                    return $error;
                 }else{
                     for($i=0;$i<=$count-1;$i++){
                         $up = $auth->compress($tmpLoc[$i], $uploadPath[$i], 75 );
@@ -856,6 +855,93 @@
             }
 
         }
+
+        //upload single photos
+        function uploadSinglePhoto($tableName, $fileVar ){
+            require_once "auth.php";
+            //  echo 'idddddddddd'.$fileVar['name'];
+            $dbPath = '';
+            $allowedType = array('jpeg', 'png', 'jpg');
+            $error = array();
+                    $fileName = explode('.',$fileVar['name']);
+                    $fileExt = pathinfo($fileVar['name'], PATHINFO_EXTENSION);
+                    
+                    $mimeArr = explode('/', $fileVar['type']);
+                    $tmpLoc = $fileVar['tmp_name'];
+                    $fileSize = $fileVar['size'];
+                    $uploadName = md5(microtime()).'.'.$fileExt;
+
+                    if($tableName == 'ad'){
+                        $uploadPath = '../uploads/adPostsPhoto/'.$uploadName;
+                        $dbPath .= '../uploads/adPostsPhoto/'.$uploadName;
+                    }
+                    
+                    if($tableName == 'electronics'){
+                        $uploadPath = '../uploads/electronicsPhoto/'.$uploadName;
+                        $dbPath .= '../uploads/vacancyPhoto/'.$uploadName;
+                    }
+                    
+
+                    if($tableName == 'car'){
+                        $uploadPath = '../uploads/CarPostsPhoto/'.$uploadName;
+
+                        $dbPath .= '../uploads/CarPostsPhoto/'.$uploadName;
+                    }
+
+                    if($tableName == 'housesell'){
+                        $uploadPath = '../uploads/houseOrLandPhotos/'.$uploadName;
+
+                        $dbPath .= '../uploads/houseOrLandPhotos/'.$uploadName;
+                    }
+
+                    if($tableName == 'tender'){
+                        $uploadPath = '../uploads/tenderPhotos/'.$uploadName;
+
+                        $dbPath .= '../uploads/tenderPhotos/'.$uploadName;
+                    }
+
+                    if($tableName == 'charity'){
+                        $uploadPath= '../uploads/charityPhoto/'.$uploadName;
+
+                        $dbPath .= '../uploads/charityPhoto/'.$uploadName;
+                    }
+
+                    if($tableName == 'hotelHouse'){
+                        $uploadPath= '../uploads/homeWorker/'.$uploadName;
+
+                        $dbPath .= '../uploads/homeWorker/'.$uploadName;
+                    }
+
+
+                    if(!in_array($fileExt, $allowedType)){
+                        $error[] = 'File Extention must be png, jpg, jpeg';
+                    }
+
+
+
+
+                    if($fileSize > 150000000){
+                        $error[] = 'File size exided the limited size.';
+                    }
+                
+                $total = array();
+
+                if(!empty($error)){
+                    $error[4] = 'error';
+                    return $error;
+                }else{
+                        $up = $auth->compress($tmpLoc, $uploadPath, 75 );
+                    
+                    $total[0] = $dbPath;
+                    $total[4] = 'work';
+                    return $total;
+                
+            }
+
+    
+
+        }
+    
 
         //photo updater
         function photoUpdater($tableName, $pid, $fileVar){
@@ -989,11 +1075,29 @@
                    '$phone', '$cinfo', '$info', '$postDate'   )";
 
             $ask = $mysql->query($q);
-}
+        }
 
 
 
+        //house keeper and hotel worker data uploader
+        function hotelHouseDataAdder($h,$name, $sex, $age, $religion, $field, $address, $wType,
+        $price, $experience, $bid, $cAddress, $agentInfo, $photoPath1, $posterId){
+            include "connect.php";
+            $postedDate = date('Y-m-d H:i:s');
+            $q = "INSERT INTO `hotelHouse`
+            ( `name`, `sex`, `age`, `religion`, `field`, `address`, `workType`,
+             `price`, `experience`, `bidingPerson`, `currentAddress`, `agentInfo`,
+              `photoPath1`, `posterId`, `postedDate`, `hotelOrHouse`) 
+            VALUES ('$name', '$sex', '$age', '$religion', '$field', '$address', '$wType',
+             '$price', '$experience', '$bid', '$cAddress', '$agentInfo', '$photoPath1', '$posterId', '$postedDate', '$h')";
 
+            
+
+            $ask = $mysql->query($q);
+
+        }
+
+    
     }
 
 

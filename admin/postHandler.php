@@ -43,7 +43,7 @@ if(isset($_POST['titleElc'],
 
     $up = $admin->uploadPhotos('car', $fName1);
 
-    if($up[1] == 'error'){
+    if($up[4] == 'error'){
       echo $up[0];
     }else{
       $out = $admin->elecPostAdder($type, $status, $posterId, $title, $address, $price,
@@ -103,7 +103,7 @@ if(isset(
       $up = $admin->uploadPhotos('tender', $fileName1);
 
 
-      if($up[1] == 'error'){
+      if($up[4] == 'error'){
         echo $up[0];
       }else{
         $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, $up[0]   );
@@ -137,7 +137,7 @@ if(isset(
 
       $up = $admin->uploadPhotos('car', $fName1);
 
-      if($up[1] == 'error'){
+      if($up[4] == 'error'){
         echo $up[0];
       }else{
         $out12 = $admin->carPostAdder($title,$type, $status,
@@ -178,7 +178,7 @@ if(isset(
       // $adOut = $admin->adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3  );
       $up = $admin->uploadPhotos('ad', $fName1);
 
-      if($up[1] == 'error'){
+      if($up[4] == 'error'){
         echo $up[0];
       }else{
         $out7 = $admin->adPostPoster($big, $type, $price, $address, $phone, $for, $title, $posterId, $info, $up[0], $ship);
@@ -230,7 +230,7 @@ if(isset(
 
       $up = $admin->uploadPhotos('housesell', $fName1);
 
-      if($up[1] == 'error'){
+      if($up[4] == 'error'){
         echo $up[0];
       }else{
         $outH = $admin->addHouseOrLandPost($title, $type, $houseOrLand, $city, $subCity, $wereda,
@@ -261,7 +261,7 @@ if(isset(
               $pid = $_POST['posterId'];
     
               $up = $admin->uploadPhotos('charity', $fileVar);
-              // echo $up[1];
+              // echo $up[4];
     
     
               $db = $admin->charityUpload($title, $up[0], $info, $loc, $phone, $pid);
@@ -297,6 +297,57 @@ $phone, $cinfo, $info);
 
 
 }
+
+
+//house keeper and hotel api
+if(isset(
+  $_POST['name'], $_POST['sex'], 
+  $_POST['age'],
+  $_POST['address'],$_POST['workType'],
+  $_POST['price'], 
+  $_POST['experience'], $_POST['cAddress'],
+  $_POST['bidp'], $_POST['agentInfo'],
+   $_FILES['photo'], $_POST['posterId'],$_POST['hotelOrHouse']
+)){
+
+$hotelOrHouse = $_POST['hotelOrHouse'];
+$pid = $_POST['posterId'];
+$name =$_POST['name'];
+$sex =  $_POST['sex'];
+$price =  $_POST['price'];
+$experience = $_POST['experience'];
+$bid = $_POST['bidp'];
+$address = $_POST['address'];
+$age =  $_POST['age'];
+$cAddress = $_POST['cAddress'];
+$wType = $_POST['workType'];
+$agentInfo = $_POST['agentInfo'];
+$fileVar = $_FILES['photo'];
+
+$religion = " ";
+$field = " ";
+
+if(isset($_POST['religion'])){
+  $religion = $_POST['religion'];
+}
+if(isset( $_POST['field'])){
+  $field =  $_POST['field'] ;
+}
+
+$up = $admin->uploadSinglePhoto('hotelHouse', $fileVar);
+if($up[4] == 'error'){
+  echo "error";
+}else{
+  $out = $admin->hotelHouseDataAdder($hotelOrHouse,$name, $sex, $age, $religion, $field, $address, $wType,
+  $price, $experience, $bid, $cAddress, $agentInfo, $up[0], $pid);
+  echo 'Post Succesfull!';
+
+}
+
+
+
+}
+
 
 
 ?>

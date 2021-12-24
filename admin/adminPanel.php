@@ -87,6 +87,15 @@
         $('#postBox').load('./postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
+      $('#houseKeeper').click(function(){
+        $('#postBox').load('./postPage.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
+      })
+
+      $('#hotelWorker').click(function(){
+        $('#postBox').load('./postPage.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
+      })
+      
+
       $('#carPost').click(function(){
         $('#postBox').load('./postPage.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
       })
@@ -596,6 +605,16 @@
           <li>
             <a id="homeTutor" href="#viewVacancyPost">
               <i class="bi bi-circle"></i><span>Home Tutor [Upload Your Portoflio]</span>
+            </a>
+          </li>
+          <li>
+            <a id="houseKeeper" href="#viewVacancyPost">
+              <i class="bi bi-circle"></i><span>House Keeper [Upload Your Portoflio]</span>
+            </a>
+          </li>
+          <li>
+            <a id="hotelWorker" href="#viewVacancyPost">
+              <i class="bi bi-circle"></i><span>Hotel Worker [Upload Your Portoflio]</span>
             </a>
           </li>
           <li>
