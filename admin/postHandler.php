@@ -276,7 +276,7 @@ if(isset(
   $_POST['eduBackground'], $_POST['clientRange'],
   $_POST['paymentStatus'],  $_POST['price'],
   $_POST['address'],  $_POST['companyInfo'],
-  $_POST['info'], $_POST['phone'], $_POST['posterId'] 
+  $_POST['info'], $_POST['phone'], $_POST['posterId'], $_FILES['photo']
 )){
 
 $pid = $_POST['posterId'];
@@ -291,8 +291,18 @@ $cinfo = $_POST['companyInfo'];
 $info = $_POST['info'];
 $phone = $_POST['phone'];
 
-$out = $admin->homeTutoreAdder($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
-$phone, $cinfo, $info);
+$fileVar = $_FILES['photo'];
+
+$o = $admin->uploadSinglePhoto('jobhometutor', $fileVar);
+
+if($o[4] == 'error'){
+  echo 'error uploading photo';
+}else{
+  $out = $admin->homeTutoreAdder($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
+$phone, $cinfo, $info, $o[0]);
+
+}
+
 
 
 

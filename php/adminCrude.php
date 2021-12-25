@@ -912,6 +912,14 @@
                         $dbPath .= '../uploads/homeWorker/'.$uploadName;
                     }
 
+                    
+                    if($tableName == 'jobhometutor'){
+                        $uploadPath= '../uploads/homeTutor/'.$uploadName;
+
+                        $dbPath .= '../uploads/homeTutor/'.$uploadName;
+                    }
+
+
 
                     if(!in_array($fileExt, $allowedType)){
                         $error[] = 'File Extention must be png, jpg, jpeg';
@@ -1010,6 +1018,12 @@
                         $dbPath .= '../uploads/charityPhoto/'.$uploadName;
                     }
 
+                    if($tableName == 'jobhometutor'){
+                        $uploadPath= '../uploads/homeTutor/'.$uploadName;
+
+                        $dbPath .= '../uploads/homeTutor/'.$uploadName;
+                    }
+
 
                     if(!in_array($fileExt, $allowedType)){
                         $error[] = 'File Extention must be png, jpg, jpeg';
@@ -1084,17 +1098,29 @@ $ask = $mysql->query($q);
 
         //home tutor upload
         function homeTutoreAdder($pid,$name, $sex, $edu, $range, $payStatus, $price, $address,
-        $phone, $cinfo, $info){
+        $phone, $cinfo, $info, $photo){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $q = "INSERT INTO `jobhometutor`( `posterId`, `Name`, `sex`, `eduBackground`, `clientRange`,
-             `paymentStatus`, `Price`, `address`, `phone`, `companyInfo`, `info`, `postedDate`)
+             `paymentStatus`, `Price`, `address`, `phone`, `companyInfo`, `info`, `postedDate`, `photoPath1` )
             VALUES ('$pid', '$name', '$sex', '$edu', '$range', '$payStatus', '$price', '$address',
-                   '$phone', '$cinfo', '$info', '$postDate'   )";
+                   '$phone', '$cinfo', '$info', '$postDate', '$photo'   )";
 
             $ask = $mysql->query($q);
         }
+        
 
+        //home tutor edit api
+        function homeTutoreUpdate($pid,$name, $sex, $edu, $range, $payStatus, $price, $address,
+        $phone, $cinfo, $info){
+            include "connect.php";
+            $q = "UPDATE `jobhometutor` SET `Name`='$name',`sex`= '$sex',`eduBackground`= '$edu',
+            `clientRange`= '$range',`paymentStatus`= '$payStatus',`Price`= '$price' ,`address`= '$address',
+            `phone`= '$phone',`companyInfo`= '$cinfo',`info`= '$info' , `edited`= 'EDITED'
+             WHERE `jobhometutor`.`id` = '$pid'";
+
+            $ask = $mysql->query($q);
+        }
 
 
         //house keeper and hotel worker data uploader
@@ -1130,6 +1156,16 @@ $ask = $mysql->query($q);
         function allPostsLister($tableName){
             include "connect.php";
             $q = "SELECT * FROM `$tableName` WHERE 1";
+
+            $ask = $mysql->query($q);
+
+            return $ask;
+        }
+
+        //big discount data lister
+        function bigDiscountLister(){
+            include "connect.php";
+            $q = "SELECT * FROM `ad` WHERE `bigDiscount` = 'ACTIVE'";
 
             $ask = $mysql->query($q);
 

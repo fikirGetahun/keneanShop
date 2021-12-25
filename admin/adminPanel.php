@@ -66,7 +66,13 @@
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
         $('#postBox').load('viewPost.php?'+$.param({type: 'vacancy'}))
       })
-     
+
+      $('#viewHomeTutorPerson').click(function(){
+        // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: 'homeTutor'}))
+      })
+
+      
 
       $('#postVacancy').click(function(){
         
@@ -114,6 +120,10 @@
 
       $('#viewAd').click(function(){
         $('#postBox').load('./viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+      })
+
+      $('#viewAd2').click(function(){
+        $('#postBox').load('./viewPost.php?'+$.param({type: "bigDiscount ", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewCar').click(function(){
@@ -473,6 +483,17 @@
           <li>
             <a id="viewCharity" href="viewPost.php?type=charity&uid=<?php echo $uid ?>">
               <i class="bi bi-circle"></i><span>View Charity Post</span>
+            </a>
+          </li>
+          <li>
+            <a id="viewAd2" href="#">
+              <i class="bi bi-circle"></i><span>View BigDiscount Ads Post</span>
+            </a>
+          </li>
+
+          <li>
+            <a id="viewHomeTutorPerson" href="#">
+              <i class="bi bi-circle"></i><span>Home Tutor Peole </span>
             </a>
           </li>
         </ul>

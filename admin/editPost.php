@@ -1326,6 +1326,168 @@ foreach($pp as $photo){
     }
   }
 
+  ///////////////////////////
+  if(isset($_GET['type'])){
+    if($_GET['type'] == 'homeTutor'){
+
+      $out = $admin->aSinglePostView($uidx, 'jobhometutor');
+      $row = $out->fetch_assoc();
+
+      ?>
+      
+      <h5>Home Tutor Job Application</h5>
+
+<form  method="POST" enctype="multipart/form-data">
+<input hidden name="posterId" value="<?php echo $uidx; ?>">
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Full Name</label>
+  <input type="text" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="name" placeholder="Full Name"  value="<?php echo $row['Name'] ?>">
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div class="input-group mb-3">
+<div class="input-group-prepend">
+  <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+</div>
+<select class="custom-select" name="sex" id="inputGroupSelect01">
+  <option selected value="<?php echo $row['sex'] ?>" ><?php echo $row['sex'] ?></option>
+  <option value="Male">Mele</option>
+  <option value="Female">Female</option>
+</select>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Educational Background:</label>
+  <textarea type="text" class="form-control" id="des2" 
+  aria-describedby="emailHelp" name="eduBackground" placeholder="location"> <?php echo $row['eduBackground'] ?> </textarea>
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+
+<div class="input-group mb-3">
+<div class="input-group-prepend">
+  <label class="input-group-text" for="inputGroupSelect01">Range </label>
+</div>
+<select class="custom-select" name="clientRange" id="inputGroupSelect01">
+  <option value="<?php echo $row['clientRange'] ?>" ><?php echo $row['clientRange'] ?></option>
+  <option value="1-8">1-8 Grade</option>
+  <option value="9-12">9-10</option>
+  <option value="9-10">9-10</option>
+  <option value="10-11">10-11</option>
+  <option value="11-12">11-12</option>
+
+</select>
+</div>
+
+<div class="input-group mb-3">
+<div class="input-group-prepend">
+  <label class="input-group-text" for="inputGroupSelect01">Payment Status</label>
+</div>
+<select class="custom-select" name="paymentStatus" id="inputGroupSelect01">
+  <option selected value="<?php echo $row['paymentStatus'] ?>" ><?php echo $row['paymentStatus'] ?></option>
+  <option value="Horly">Hourly</option>
+  <option value="Dayly">Dayly</option>
+  <option value="Monthly">Monthly</option>
+
+</select>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Price:</label>
+  <input type="number" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="price" placeholder="Full Name" value="<?php echo $row['price'] ?>" >
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Phone </label>
+  <input type="number" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="phone" placeholder="Full Name" value="<?php echo $row['phone'] ?>" >
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Address</label>
+  <textarea type="text" class="form-control" id="des2" 
+  aria-describedby="emailHelp" name="address" placeholder="location"><?php echo $row['address'] ?></textarea>
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div class="form-group">
+  <h6>If you are representing  or if you are Agent, please fill the next form.</h6>
+  <label for="exampleInputEmail1">Company Info</label>
+  <textarea type="text" class="form-control" id="des2" 
+  aria-describedby="emailHelp" name="companyInfo" placeholder="location"><?php echo $row['companyInfo'] ?></textarea>
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Description About You</label>
+  <textarea type="text" class="form-control" id="des2" 
+  aria-describedby="emailHelp" name="info" placeholder="info"><?php echo $row['info'] ?></textarea>
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+
+
+<input type="submit" onclick="x()" value="POST">
+<div id="alertVacancy"></div>
+
+
+
+
+<script>
+// photo updater and deleter
+           function pUpdate(divz, photo){
+            $('#'+divz).empty()
+            $.post('editHandler.php', {photoPath: photo, tableName: "jobhometutor", pid: "<?php echo $uidx ?>"}, 
+              function(returnedData){
+                $('#'+divz).append(returnedData)        
+            })
+           }
+
+         </script>
+           <?php
+           $i = 0;
+           $pp = $admin->photoSplit($row['photoPath1']);
+           if(!empty($row['photoPath1'])){
+           foreach($pp as $photo){
+             ?>
+                  <div id="<?php echo $i ?>">
+                  <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
+                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+                  </div>
+             <?php
+             $i ++;
+           }
+          }else{
+            ?>
+                  <form method="POST" enctype="multipart/form-data" >
+                  <input hidden name="pid" value="<?php echo $uidx; ?>">
+                  <input hidden name="tName" value="jobhometutor">
+                  <div class="row">
+                  <div id="registerBox">
+                  <label for="exampleInputEmail1">Upload Photo  </label>
+                  <input type="file" class="form-control" id="photo" name="photo" multiple >
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  </div>
+                  </div>
+
+                  <input type="submit" value="Change Photo">
+                  </form>
+            
+            <?php
+          }
+           ?>
+</form>
+
+
+      <?php
+    }
+  }
+
 ?>
 
 

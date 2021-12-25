@@ -419,6 +419,102 @@ elseif($_GET['type'] == 'charity'){
   <?php
 }
 }
+//////////////////////////////////////////
+elseif($_GET['type'] == 'bigDiscount'){
+  ?>
+        <script>
+        function elcView(id){
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+
+        }
+
+        function editElc(id){
+          $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: id})) 
+
+        }
+
+      </script>
+      <div class="row">
+      <?php
+        $out = $admin->bigDiscountLister();
+      while(  $row = $out->fetch_assoc()){
+          ?>
+          
+              
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <p class="card-text"><?php echo $row['title'] ?></p>
+                <p class="card-text"><?php echo $row['info'] ?> Birr</p>
+                <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </div>
+                  <small class="text-muted">9 mins</small>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+  <?php
+}
+}
+//////////////////////////////////////
+elseif($_GET['type'] == 'homeTutor'){
+
+  $out = $admin->allPostsLister('jobhometutor');
+  
+  ?>
+  
+
+  <script>
+        function elcView(id){
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+
+        }
+
+        function editElc(id){
+          $('#allin').load('editPost.php?'+$.param({type: 'homeTutor', pid: id})) 
+
+        }
+
+      </script>
+      <div class="row">
+      <?php
+      while(  $row = $out->fetch_assoc()){
+          ?>
+          
+              
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <p class="card-text">Name: <?php echo $row['Name'] ?></p>
+                <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
+                <p class="card-text">Info : <?php echo $row['info'] ?> Birr</p>
+                <h6>Phone : <?php echo $row['Price']  ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </div>
+                  <small class="text-muted">9 mins</small>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+  <?php
+}
+  
+?>
+
+  
+  <?php
+}
 } 
 
     

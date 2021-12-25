@@ -948,11 +948,11 @@ $('#sElc').on('change', function(){
       }
     
     }
-
+///////////////////////////////////////
     if(isset($_GET['type'])){
       if($_GET['type'] == 'bigDiscount'){
         ?>
-                <h5>Big Discount Post Advertisment</h5>
+        <h5>Big Discount Post Advertisment</h5>
         <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
         <input hidden name="posterId" value="<?php echo $uidx; ?>">
         <input hidden name="big" value="ACTIVE">
@@ -1081,6 +1081,7 @@ $('#tCategory').on('change', function(){
         
         <?php
       }
+      //////////////////////////////////////////////////////
     }if(isset($_GET['type'])){
       if($_GET['type'] == 'home'){
         ?>
@@ -1177,6 +1178,13 @@ $('#tCategory').on('change', function(){
           aria-describedby="emailHelp" name="info" placeholder="info"></textarea>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+
+        <div class="row">
+        <div id="registerBox">
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file" class="form-control" id="photo" name="photo" multiple >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
         
 
 
@@ -1185,6 +1193,7 @@ $('#tCategory').on('change', function(){
         </form>
         <?php
       }
+      /////////////////////////////////////////////
     }if(isset($_GET['type'])){
       if($_GET['type'] == 'houseKeeper'){
         ?>
@@ -1307,6 +1316,7 @@ $('#tCategory').on('change', function(){
           <div id="alertVacancy"></div>
           </form>
         <?php
+        /////////////////////////////////////////////////////////////////////////
       }if(isset($_GET['type'])){
         if($_GET['type'] == 'hotel'){
           ?>
