@@ -845,7 +845,7 @@
                         $up = $auth->compress($tmpLoc[$i], $uploadPath[$i], 75 );
                     }
                     $total[0] = $dbPath;
-                    $total[1] = 'work';
+                    $total[4] = 'work';
                     return $total;
                 
             }
@@ -1002,6 +1002,14 @@
                         $dbPath .= '../uploads/tenderPhotos/'.$uploadName;
                     }
 
+                    if($tableName == 'charity'){
+                        $uploadPath[] = '../uploads/charityPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= '../uploads/charityPhoto/'.$uploadName;
+                    }
+
 
                     if(!in_array($fileExt, $allowedType)){
                         $error[] = 'File Extention must be png, jpg, jpeg';
@@ -1064,6 +1072,16 @@
         $ask = $mysql->query($q);
         }
 
+// charity update
+function charityUpdate($title, $info, $location, $phone, $posterId){
+    include "connect.php";
+    $q = "UPDATE `charity` SET `title`='$title',`info`= '$info',
+    `location`= '$location',`phone`= '$phone',`edited`= 'EDITED'
+     WHERE `charity`.`id` = '$posterId'";
+
+$ask = $mysql->query($q);
+}
+
         //home tutor upload
         function homeTutoreAdder($pid,$name, $sex, $edu, $range, $payStatus, $price, $address,
         $phone, $cinfo, $info){
@@ -1095,6 +1113,27 @@
 
             $ask = $mysql->query($q);
 
+        }
+
+        //all posts single post viewing api dynamicaly
+
+        function aSinglePostView($pid, $tableName){
+            include "connect.php";
+            $q = "SELECT * FROM `$tableName` WHERE `id` = '$pid'";
+
+            $ask = $mysql->query($q);
+
+            return $ask;
+        }
+
+        // ALL POST LIST DYNAMICALLY
+        function allPostsLister($tableName){
+            include "connect.php";
+            $q = "SELECT * FROM `$tableName` WHERE 1";
+
+            $ask = $mysql->query($q);
+
+            return $ask;
         }
 
     

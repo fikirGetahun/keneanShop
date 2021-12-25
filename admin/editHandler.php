@@ -279,31 +279,36 @@ if(isset(
 
           if($tn == 'housesell'){
             $out = $admin->singleHousePostLister($pid);
-            $row = $out->fetch_assoc();
+            $roww = $out->fetch_assoc();
           }
           
           if($tn == 'ad'){
             $out = $admin->adEditDataLister($pid);
-            $row = $out->fetch_assoc();
+            $roww = $out->fetch_assoc();
           }
 
           if($tn == 'electronics'){
             $out = $admin->elecSinglePostViewer($pid);
-            $row = $out->fetch_assoc();
+            $roww = $out->fetch_assoc();
           }
 
           if($tn == 'car'){
             $out = $admin->carPostDataLister($pid);
-            $row = $out->fetch_assoc();
+            $roww = $out->fetch_assoc();
           }
 
           if($tn == 'tender'){
             $out = $admin->tenderEditLister($pid);
-            $row = $out->fetch_assoc();
+            $roww = $out->fetch_assoc();
+          }
+
+          if($tn == 'charity'){
+            $out = $admin->aSinglePostView($pid, 'charity');
+            $roww = $out->fetch_assoc();
           }
 
 
-          $path = $row['photoPath1'];
+          $path = $roww['photoPath1'];
           $j=$_POST['photoPath'];
           $parr = explode(',', $path);
           $count = count($parr);
@@ -326,12 +331,36 @@ if(isset(
           
       
           // to delete the selected photo
-          
+         ////////////////////////////////////////////////////// 
 
           $q = "UPDATE `$tn` SET `photoPath1` = '$dbPath'  WHERE `$tn`.`id` = '$pid' ";
           $ask = $mysql->query($q);
           if(empty($dbPath)){
             ?>
+            <script>
+              $(document).ready(function(){
+                $('form').on('submit', function(e){
+          e.preventDefault()
+          $.ajax({
+            url: 'editHandler.php',
+            type: 'post',
+            data:  new FormData( this ),
+            success : function(data){
+              $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text('Edit SUCCESSFULL!  '+data)
+              // $('#alertVacancy').delay(3200).fadeOut(300);
+            },
+            processData: false,
+        contentType: false
+          })
+          
+          return false;
+
+    })
+              })
+            </script>
             <form method="POST" enctype="multipart/form-data" >
               <input hidden name="pid" value="<?php echo $pid; ?>">
               <input hidden name="tName" value="<?php echo $tn; ?>">
@@ -342,6 +371,8 @@ if(isset(
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             </div>
+
+            <input type="submit" value="Change Photo">
           </form>
             <?php
           }
@@ -349,11 +380,13 @@ if(isset(
           // echo 'uuu '.$parr[$index];
         }
 
-
-
+///////////////////////////////////////////////////////////////////
+// echo 'edit handler';  
         //input updated photos to database
         if(isset($_FILES['photo'], $_POST['pid'], $_POST['tName'])){
           require_once "../php/adminCrude.php";
+          echo 'photo updater api';
+
           $p = $_FILES['photo'];
           $pid = $_POST['pid'];
           $tName = $_POST['tName'];
@@ -362,6 +395,22 @@ if(isset(
         }
 
 
+//////////////////////////
+//charity update api
+if(isset($_POST['title'], $_POST['location'], $_POST['phone'], $_POST['info'], $_POST['posterId'])){
+  require_once "../php/adminCrude.php";
+  echo 'inzzdfa';
+  $title = $_POST['title'];
+  $loc = $_POST['location'];
+  $phone = $_POST['phone'];
+  $info = $_POST['info'];
+  $pid = $_POST['posterId'];
 
+
+
+  $db = $admin->charityUpdate($title, $info, $loc, $phone, $pid);
+
+
+}
 
 ?>

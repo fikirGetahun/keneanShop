@@ -247,7 +247,7 @@ if(isset(
 
     }
 
-
+/////////////////////////////////////////////
             //charity api
 
             if(isset($_POST['title'], $_POST['location'], $_POST['phone'], $_POST['info'], $_FILES['photo'], $_POST['posterId'])){
@@ -269,7 +269,7 @@ if(isset(
     
             }
 
-
+///////////////////////////////////////////////////
 // home tutor insert api
 if(isset(
   $_POST['name'], $_POST['sex'], 
@@ -298,7 +298,7 @@ $phone, $cinfo, $info);
 
 }
 
-
+////////////////////////////////////////////////////
 //house keeper and hotel api
 if(isset(
   $_POST['name'], $_POST['sex'], 

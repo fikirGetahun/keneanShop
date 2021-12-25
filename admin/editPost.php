@@ -60,7 +60,7 @@
               $( 'form' ).each(function(){
                     this.reset();
               });
-              $('#alertVacancy').text('Edit SUCCESSFULL!  '+data)
+              $('#alertVacancy').text(data)
               // $('#alertVacancy').delay(3200).fadeOut(300);
             },
             processData: false,
@@ -254,7 +254,7 @@ require_once "../php/adminCrude.php";
     <?php
     }
   }
-  
+  //////////////////////////////////////////////////////////////////////////
   //if post tender is selected it loads this if block
   if(isset($_GET['type'])){
     if($_GET['type'] == 'editTender'){
@@ -375,16 +375,64 @@ require_once "../php/adminCrude.php";
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
-    <input type="submit" onclick="x()" value="POST">
+    <input type="submit" onclick="x()" value="Save Changes">
     <div id="alertVacancy"></div>
     </form>
+    
+    <script>
+// photo updater and deleter
+function pUpdate(divz, photo){
+ $('#'+divz).empty()
+ $.post('editHandler.php', {photoPath: photo, tableName: "tender", pid: "<?php echo $uidx ?>"}, 
+   function(returnedData){
+     $('#'+divz).append(returnedData)        
+ })
+}
+
+</script>
+<?php
+$i = 0;
+$pp = $admin->photoSplit($row['photoPath1']);
+if(!empty($row['photoPath1'])){
+foreach($pp as $photo){
+  ?>
+       <div id="<?php echo $i ?>">
+       <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       </div>
+  <?php
+  $i ++;
+}
+}else{
+ ?>
+       <form method="POST" enctype="multipart/form-data" >
+       <input hidden name="pid" value="<?php echo $uidx; ?>">
+       <input hidden name="tName" value="tender">
+       <div class="row">
+       <div id="registerBox">
+       <label for="exampleInputEmail1">Upload Photo  </label>
+       <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+       </div>
+       </div>
+
+       <input type="submit" value="Change Photo">
+       </form>
+ 
+ <?php
+}
+?>
+
+
     </div>
   
   </section>
                 
       
       <?php
-    }elseif($_GET['type'] == 'ad'){
+    }
+    //////////////////////////////////////////////////////
+    elseif($_GET['type'] == 'ad'){
       $adEdit = $admin->adEditDataLister($uidx);
       while($adRow = $adEdit->fetch_assoc()){
         ?>
@@ -477,47 +525,55 @@ require_once "../php/adminCrude.php";
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="row">
-          <script>
-            $(document).ready(function(){
-              $('#adPB1').click(function(){
-                $('#adPC1').load('divTags.php #adP1')
-              })
 
-              $('#adPB2').click(function(){
-                $('#adPC2').load('divTags.php #adP2')
-              })
-
-              $('#adPB3').click(function(){
-                $('#adPC3').load('divTags.php #adP3')
-              })
-            })
-
-          </script>
-
-
-
-              <div id="adPC1">
-                <img class="img-thumbnail" src="<?php echo $adRow['photoPath1'] ?>" alt="Card">
-                <button type="button" id="adPB1" class="btn btn-dark">Change Photo</button>
-
-              </div>
-
-              <div id="adPC2">
-                <img class="img-thumbnail" src="<?php echo $adRow['photoPath2'] ?>" alt="Card">
-                <button type="button" id="adPB2" class="btn btn-dark">Change Photo</button>
-              </div>
-
-              <div id="adPC3">
-                <img class="img-thumbnail" src="<?php echo $adRow['photoPath3'] ?>" alt="Card">
-                <button type="button" id="adPB3" class="btn btn-dark">Change Photo</button>
-              </div>
-
-        </div>
-
-        <input type="submit" onclick="x()" value="POST">
+        <input type="submit" onclick="x()" value="Save Changes">
         <div id="alertVacancy"></div>
         </form>
+
+        <script>
+// photo updatedr and deleter
+function pUpdate(divz, photo){
+ $('#'+divz).empty()
+ $.post('editHandler.php', {photoPath: photo, tableName: "ad", pid: "<?php echo $uidx ?>"}, 
+   function(returnedData){
+     $('#'+divz).append(returnedData)        
+ })
+}
+
+</script>
+<?php
+$i = 0;
+$pp = $admin->photoSplit($adRow['photoPath1']);
+if(!empty($adRow['photoPath1'])){
+foreach($pp as $photo){
+  ?>
+       <div id="<?php echo $i ?>">
+       <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       </div>
+  <?php
+  $i ++;
+}
+}else{
+ ?>
+       <form method="POST" enctype="multipart/form-data" >
+       <input hidden name="pid" value="<?php echo $uidx; ?>">
+       <input hidden name="tName" value="ad">
+       <div class="row">
+       <div id="registerBox">
+       <label for="exampleInputEmail1">Upload Photo  </label>
+       <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+       </div>
+       </div>
+
+       <input type="submit" value="Change Photo">
+       </form>
+ 
+ <?php
+}
+?>
+
         
         <?php
       }
@@ -525,7 +581,9 @@ require_once "../php/adminCrude.php";
       ?>
       
       <?php
-    }elseif($_GET['type'] == 'car'){
+    }
+    ////////////////////////////////////////////////////////////
+    elseif($_GET['type'] == 'car'){
       $carE = $admin->carPostDataLister($uidx);
       $carRow = $carE->fetch_assoc();
       ?>
@@ -674,47 +732,62 @@ require_once "../php/adminCrude.php";
           aria-describedby="emailHelp" name="info2" placeholder="location"> <?php echo $carRow['info'] ?> </textarea>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-<script>
-  $(document).ready(function(){
 
-    $('#carPB1').click(function(){
-      $('#carF1').load('divTags.php #carCform1')
-    })
-    
-    $('#carPB2').click(function(){
-      $('#carF2').load('divTags.php #carCform2')
-    })
+        <input type="submit" onclick="x()" value="Save Changes">
+        <div id="alertVacancy"></div>
 
-    $('#carPB3').click(function(){
-      $('#carF3').load('divTags.php #carCform3')
-    })
-
-  })
+        <script>
+//photo updater and deleter
+function pUpdate(divz, photo){
+ $('#'+divz).empty()
+ $.post('editHandler.php', {photoPath: photo, tableName: "car", pid: "<?php echo $uidx ?>"}, 
+   function(returnedData){
+     $('#'+divz).append(returnedData)        
+ })
+}
 
 </script>
+<?php
+$i = 0;
+$pp = $admin->photoSplit($carRow['photoPath1']);
+if(!empty($carRow['photoPath1'])){
+foreach($pp as $photo){
+  ?>
+       <div id="<?php echo $i ?>">
+       <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       </div>
+  <?php
+  $i ++;
+}
+}else{
+ ?>
+       <form method="POST" enctype="multipart/form-data" >
+       <input hidden name="pid" value="<?php echo $uidx; ?>">
+       <input hidden name="tName" value="car">
+       <div class="row">
+       <div id="registerBox">
+       <label for="exampleInputEmail1">Upload Photo  </label>
+       <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+       </div>
+       </div>
 
-   
-          <div id="carF1">
-          <img class="img-thumbnail" src="<?php echo $carRow['photoPath1'] ?>" alt="Card">
-                <button type="button" id="carPB1" class="btn btn-dark">Change Photo</button>
-          </div>
-          <div id="carF2">
-          <img class="img-thumbnail" src="<?php echo $carRow['photoPath2'] ?>" alt="Card">
-                <button type="button" id="carPB2" class="btn btn-dark">Change Photo</button>
-          </div>
-          <div id="carF3">
-          <img class="img-thumbnail" src="<?php echo $carRow['photoPath3'] ?>" alt="Card">
-                <button type="button" id="carPB3" class="btn btn-dark">Change Photo</button>
-          </div>
-        
+       <input type="submit" value="Change Photo">
+       </form>
+ 
+ <?php
+}
+?>
 
 
 
-        <input type="submit" onclick="x()" value="POST">
-        <div id="alertVacancy"></div>
+
           </form>
       <?php
-    }elseif($_GET['type'] == 'house'){
+    }
+    //////////////////////////////////////////////////////////////////////
+    elseif($_GET['type'] == 'house'){
       $houseOut = $admin->singleHousePostLister($uidx);
       $houseRow = $houseOut->fetch_assoc();
       ?>
@@ -919,106 +992,67 @@ require_once "../php/adminCrude.php";
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <?php
-         $houseOut = $admin->singleHousePostLister($uidx);
-         $houseRow = $houseOut->fetch_assoc();
-         $p = $admin->photoSplit($houseRow['photoPath1']);  
-         if(!empty($p[0])){
-          $p1 = $p[0];
-      }
-        
-          if(!empty($p[1])){
-              $p2 = $p[1];
-          }
-          if(!empty($p[2])){
-             $p3 = $p[2];
-          }
-       
-         
-        //  echo $p1;
-         
-         
-         ?>
+        <input type="submit" value="Save Changes">
+        <div id="alertVacancy"></div>
 
          <script>
-           $(document).ready(function(){
-            $("#hPB1").on("click", function(e){
-              $('#hF1').empty()
-              $.post('editHandler.php', {photoPath:"<?php echo $p1 ?>", tableName: "housesell", pid: "<?php echo $uidx ?>"}, 
-                function(returnedData){
-                  $('#hF1').append(returnedData)
-                })
-            })
-            
-            $("#hPB2").on("click", function(e){
-              $('#hF2').empty()
-              $.post('editHandler.php', {photoPath:"<?php echo $p2 ?>", tableName: "housesell", pid: "<?php echo $uidx ?>"}, 
-                function(returnedData){
-                  $('#hF2').append(returnedData)
-               })
-            })
-            
-            $("#hPB3").on("click", function(e){
-              $('#hF3').empty()
-            $.post('editHandler.php', {photoPath:"<?php echo $p3  ?>", tableName: "housesell", pid: "<?php echo $uidx ?>"}, 
+// photo updater and deleter
+           function pUpdate(divz, photo){
+            $('#'+divz).empty()
+            $.post('editHandler.php', {photoPath: photo, tableName: "housesell", pid: "<?php echo $uidx ?>"}, 
               function(returnedData){
-                $('#hF3').append(returnedData)        
+                $('#'+divz).append(returnedData)        
             })
-            })
-
-
-           })
+           }
 
          </script>
-  <div id="px">
-    <?php
-      if(!empty($p[0])){
-        ?>
-          <div id="hF1">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($houseRow['photoPath1']); echo $p[0] ;?>" alt="Card">  
-                <button type="button" id="hPB1" class="btn btn-dark">1Delete Photo</button>
-          </div>
-        <?php
-      }
-    ?>
-          <?php
-          if(!empty($p[1])){
+           <?php
+           $i = 0;
+           $pp = $admin->photoSplit($houseRow['photoPath1']);
+           if(!empty($houseRow['photoPath1'])){
+           foreach($pp as $photo){
+             ?>
+                  <div id="<?php echo $i ?>">
+                  <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
+                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+                  </div>
+             <?php
+             $i ++;
+           }
+          }else{
             ?>
-          <div id="hF2">
-          <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($houseRow['photoPath1']); echo $p[1] ;?>" alt="Card">
-                <button type="button" id="hPB2" class="btn btn-dark">2Delete Photo</button>
-          </div>
+                  <form method="POST" enctype="multipart/form-data" >
+                  <input hidden name="pid" value="<?php echo $uidx; ?>">
+                  <input hidden name="tName" value="housesell">
+                  <div class="row">
+                  <div id="registerBox">
+                  <label for="exampleInputEmail1">Upload Photo  </label>
+                  <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  </div>
+                  </div>
+
+                  <input type="submit" value="Change Photo">
+                  </form>
+            
             <?php
           }
+           ?>
 
-          ?>
 
-        <?php
-          if(!empty($p[2])){
-            ?>
-          <div id="hF3">
-          <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($houseRow['photoPath1']); echo $p[2] ;?>" alt="Card">
-                <button type="button" id="hPB3" class="btn btn-dark">3Delete Photo</button>
-          </div>
-            <?php
-          }
-
-          ?>
-  </div>
-
-        <input type="submit" value="Post">
-        <div id="alertVacancy"></div>
              </form>
              
 
       <?php
-    }elseif($_GET['type'] == 'electronics'){
+    }
+    //////////////////////////////////////////////////////////
+    elseif($_GET['type'] == 'electronics'){
       $elcEdit = $admin->elecSinglePostViewer($uidx);
       $elecRow = $elcEdit->fetch_assoc();
 
       ?>
       
-      <h5>Post Electronics Items</h5>
+      <h5>Edit Electronics Items</h5>
       <form  method="POST" enctype="multipart/form-data" >
       <input hidden name="posterId" value="<?php echo $uidx; ?>">
 
@@ -1138,56 +1172,156 @@ require_once "../php/adminCrude.php";
 
 
 
+        <input type="submit" onclick="x()" value="Save Changes">
+    <div id="alertVacancy"></div>
 
         <script>
-  $(document).ready(function(){
 
-    $('#carPB1').click(function(){
-      $('#carF1').load('divTags.php #elecp1')
-    })
-    
-    $('#carPB2').click(function(){
-      $('#carF2').load('divTags.php #elecp2')
-    })
-
-    $('#carPB3').click(function(){
-      $('#carF3').load('divTags.php #elecp3')
-    })
-
-  })
+function pUpdate(divz, photo){
+ $('#'+divz).empty()
+ $.post('editHandler.php', {photoPath: photo, tableName: "electronics", pid: "<?php echo $uidx ?>"}, 
+   function(returnedData){
+     $('#'+divz).append(returnedData)        
+ })
+}
 
 </script>
+<?php
+$i = 0;
+$pp = $admin->photoSplit($elecRow['photoPath1']);
+if(!empty($elecRow['photoPath1'])){
+foreach($pp as $photo){
+  ?>
+       <div id="<?php echo $i ?>">
+       <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       </div>
+  <?php
+  $i ++;
+}
+}else{
+ ?>
+       <form method="POST" enctype="multipart/form-data" >
+       <input hidden name="pid" value="<?php echo $uidx; ?>">
+       <input hidden name="tName" value="electronics">
+       <div class="row">
+       <div id="registerBox">
+       <label for="exampleInputEmail1">Upload Photo  </label>
+       <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+       </div>
+       </div>
 
-   
-          <div id="carF1">
-          <img class="img-thumbnail" src="<?php echo $elecRow['photoPath1'] ?>" alt="Card">
-                <button type="button" id="carPB1" class="btn btn-dark">Change Photo</button>
-          </div>
-          <div id="carF2">
-          <img class="img-thumbnail" src="<?php echo $elecRow['photoPath2'] ?>" alt="Card">
-                <button type="button" id="carPB2" class="btn btn-dark">Change Photo</button>
-          </div>
-          <div id="carF3">
-          <img class="img-thumbnail" src="<?php echo $elecRow['photoPath3'] ?>" alt="Card">
-                <button type="button" id="carPB3" class="btn btn-dark">Change Photo</button>
-          </div>
+       <input type="submit" value="Change Photo">
+       </form>
+ 
+ <?php
+}
+?>
 
 
-    <div class="form-group">
-      <label for="exampleInputEmail1">Describtion</label>
-      <textarea type="text" class="form-control" id="des2" 
-      aria-describedby="emailHelp" name="info" placeholder="Detailed Info"><?php echo $elecRow['info'] ?></textarea>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
 
-    <div class="row">
 
-    </div>
-
-    <input type="submit" onclick="x()" value="POST">
-    <div id="alertVacancy"></div>
       </form>
       
+      <?php
+    }
+  }
+  /////////////////////////////////////////////////////////
+  if(isset($_GET['type'])){
+    if($_GET['type'] == 'charity'){
+      $out = $admin->aSinglePostView($uidx, 'charity');
+      $cRow = $out->fetch_assoc();
+
+      ?>
+<form  method="POST" enctype="multipart/form-data">
+
+<input hidden name="posterId" value="<?php echo $uidx; ?>">
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Charity Title</label>
+  <input type="text" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="title" placeholder="Title"
+  value="<?php echo $cRow['title'] ?>">
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1"> Address  </label>
+  <input type="text" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="location" placeholder="address"
+  value="<?php echo $cRow['location'] ?>">
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Phone no:</label>
+  <input type="text" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="phone" placeholder="phone" value="<?php echo $cRow['phone'] ?>" >
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+
+<div class="form-group">
+<label for="exampleInputEmail1">Describtion</label>
+<textarea type="text" class="form-control" id="des2" 
+aria-describedby="emailHelp" name="info" placeholder="Detailed Info"><?php echo $cRow['info'] ?></textarea>
+<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+
+<div id="alertVacancy"></div>
+<input type="submit"  value="Save Changes">
+
+<script>
+
+function pUpdate(divz, photo){
+ $('#'+divz).empty()
+ $.post('editHandler.php', {photoPath: photo, tableName: "charity", pid: "<?php echo $uidx ?>"}, 
+   function(returnedData){
+     $('#'+divz).append(returnedData)        
+ })
+}
+
+</script>
+<?php
+$i = 0;
+$pp = $admin->photoSplit($cRow['photoPath1']);
+if(!empty($cRow['photoPath1'])){
+foreach($pp as $photo){
+  ?>
+       <div id="<?php echo $i ?>">
+       <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       </div>
+  <?php
+  $i ++;
+}
+}else{
+ ?>
+       <form method="POST" enctype="multipart/form-data" >
+       <input hidden name="pid" value="<?php echo $uidx; ?>">
+       <input hidden name="tName" value="charity">
+       <div class="row">
+       <div id="registerBox">
+       <label for="exampleInputEmail1">Upload Photo  </label>
+       <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+       </div>
+       </div>
+
+       <input type="submit" value="Change Photo">
+       </form>
+ 
+ <?php
+}
+?>
+
+
+
+
+
+</form>
+
       <?php
     }
   }

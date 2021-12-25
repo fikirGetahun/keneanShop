@@ -124,6 +124,11 @@
         $('#postBox').load('./viewPost.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
 
+      $('#viewCharity').click(function(e){
+        e.preventDefault()
+        $('#postBox').load('./viewPost.php?'+$.param({type: "charity", uid: '<?php echo $uid; ?>'}))
+      })
+
       $('#adCategory').click(function(){
         $('#postBox').load('addCategory.php', {type: 'ad'})
       })
@@ -463,6 +468,11 @@
           <li>
             <a id="viewHouse" href="#viewHousePost">
               <i class="bi bi-circle"></i><span>View House PostS</span>
+            </a>
+          </li>
+          <li>
+            <a id="viewCharity" href="viewPost.php?type=charity&uid=<?php echo $uid ?>">
+              <i class="bi bi-circle"></i><span>View Charity Post</span>
             </a>
           </li>
         </ul>
