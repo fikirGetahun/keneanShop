@@ -276,7 +276,7 @@
               <div class="card mb-4 box-shadow">
                 <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
                 <div class="card-body">
-                  <p class="card-text"><?php echo $cars['type'] ?></p>
+                  <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">

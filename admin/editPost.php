@@ -1470,7 +1470,7 @@ foreach($pp as $photo){
                   <div class="row">
                   <div id="registerBox">
                   <label for="exampleInputEmail1">Upload Photo  </label>
-                  <input type="file" class="form-control" id="photo" name="photo" multiple >
+                  <input type="file" class="form-control" id="photo" name="photo[]" multiple >
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                   </div>
                   </div>

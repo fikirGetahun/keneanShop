@@ -360,7 +360,7 @@
         //cars post viewer
         function carPostLister(){
             include "connect.php";
-            $q = "SELECT * FROM `car` ORDER BY RAND() LIMIT 8 ";
+            $q = "SELECT * FROM `car` WHERE 1 ";
             $ask = $mysql->query($q);
 
             return $ask;
@@ -928,7 +928,7 @@
 
 
 
-                    if($fileSize > 150000000){
+                    if($fileSize > 15000000){
                         $error[] = 'File size exided the limited size.';
                     }
                 
@@ -967,6 +967,7 @@
                     $mimeArr = explode('/', $fileVar['type'][$i]);
                     $mimeType = $mimeArr[0];
                     $mimeExt = $mimeArr[1];
+                    echo 'thiszzzzzzzzzzzzzzzzzzzzz '.$fileVar['type'][$i];
                     $tmpLoc[] = $fileVar['tmp_name'][$i];
                     $fileSize[] = $fileVar['size'][$i];
                     $uploadName = md5(microtime()).'.'.$fileExt;
@@ -1019,7 +1020,10 @@
                     }
 
                     if($tableName == 'jobhometutor'){
-                        $uploadPath= '../uploads/homeTutor/'.$uploadName;
+                        $uploadPath[]= '../uploads/homeTutor/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
 
                         $dbPath .= '../uploads/homeTutor/'.$uploadName;
                     }
@@ -1067,6 +1071,121 @@
                 echo 'You can only post 3 images';
             }
         }
+
+
+        function singlePhotoUpdater($tableName, $pid, $fileVar){
+            require_once "auth.php";
+            include "connect.php";
+            //  echo 'idddddddddd'.$fileVar['name'];
+            $dbPath = '';
+            $allowedType = array('jpeg', 'png', 'jpg');
+            $error = array();
+            $fileName = explode('.',$fileVar['name']);
+            $fileExt = $fileName[1];
+            $mimeArr = explode('/', $fileVar['type']);
+            $mimeType = $mimeArr[0];
+            $mimeExt = $mimeArr[1];
+            $tmpLoc = $fileVar['tmp_name'];
+            $fileSize = $fileVar['size'];
+            $uploadName = md5(microtime()).'.'.$fileExt;
+            if($tableName == 'ad'){
+                $uploadPath = '../uploads/adPostsPhoto/'.$uploadName;
+                if($i != 0){
+                    $dbPath .= ',';
+                }
+                $dbPath .= '../uploads/adPostsPhoto/'.$uploadName;
+            }
+            
+            if($tableName == 'electronics'){
+                $uploadPath = '../uploads/electronicsPhoto/'.$uploadName;
+                if($i != 0){
+                    $dbPath .= ',';
+                }
+                $dbPath .= '../uploads/vacancyPhoto/'.$uploadName;
+            }
+
+            if($tableName == 'car'){
+                $uploadPath = '../uploads/CarPostsPhoto/'.$uploadName;
+                if($i != 0){
+                    $dbPath .= ',';
+                }
+                $dbPath .= '../uploads/CarPostsPhoto/'.$uploadName;
+            }
+
+            if($tableName == 'housesell'){
+                $uploadPath = '../uploads/houseOrLandPhotos/'.$uploadName;
+                if($i != 0){
+                    $dbPath .= ',';
+                }
+                $dbPath .= '../uploads/houseOrLandPhotos/'.$uploadName;
+            }
+
+            if($tableName == 'tender'){
+                $uploadPath = '../uploads/tenderPhotos/'.$uploadName;
+                if($i != 0){
+                    $dbPath .= ',';
+                }
+                $dbPath .= '../uploads/tenderPhotos/'.$uploadName;
+            }
+
+            if($tableName == 'charity'){
+                $uploadPath = '../uploads/charityPhoto/'.$uploadName;
+                if($i != 0){
+                    $dbPath .= ',';
+                }
+                $dbPath .= '../uploads/charityPhoto/'.$uploadName;
+            }
+
+            if($tableName == 'jobhometutor'){
+                $uploadPath= '../uploads/homeTutor/'.$uploadName;
+                if($i != 0){
+                    $dbPath .= ',';
+                }
+
+                $dbPath .= '../uploads/homeTutor/'.$uploadName;
+            }
+
+
+            if(!in_array($fileExt, $allowedType)){
+                $error[] = 'File Extention must be png, jpg, jpeg';
+            }
+
+            if($mimeType != 'image'){
+                $error[] = 'File must be an Image';
+            }
+
+            if($mimeType != $fileExt && ($mimeExt == 'jpeg' && $fileExt != 'jpg')){
+                $error[] = 'File extention does not match file';
+            }
+
+            if($fileSize[$i] > 150000000){
+                $error[] = 'File size exided the limited size.';
+            }
+        
+        $total = array();
+
+        if(!empty($error)){
+            $total[0]= $error[0].''.$error[1].''.$error[2].''.$error[3];
+            $total[1] = 'error';
+            return $total;
+        }else{
+            for($i=0;$i<=$count-1;$i++){
+                $up = $auth->compress($tmpLoc, $uploadPath, 75 );
+                $q = "UPDATE `$tableName` SET `photoPath1` = '$dbPath' WHERE  `$tableName`.`id` = '$pid'  ";
+                $ask = $mysql->query($q);
+                if($ask){
+                    echo 'Photo Updated!';
+                }else{
+                    echo 'Db Error';
+                }
+            }
+            $total[0] = $dbPath;
+            $total[1] = 'work';
+            return $total;
+        }
+    }
+        
+    
 
         //to split all the photos from db photo path
         function photoSplit($dbPath){

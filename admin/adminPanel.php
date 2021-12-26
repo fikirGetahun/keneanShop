@@ -143,9 +143,6 @@
         $('#postBox').load('addCategory.php', {type: 'ad'})
       })
 
-      $('#elecView').click(function(){
-        $('#postBox').load('./viewPost.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
-      })
 
 
     })
@@ -465,6 +462,23 @@
               <i class="bi bi-circle"></i><span>View AD PostS</span>
             </a>
           </li>
+
+          <script>
+            $(document).ready(function(){
+
+              if(window.location.href=== "http://localhost/shop2/admin/viewPost/electronics") {
+        alert('wiork')
+     }
+                $('#elecView').click(function(){
+
+                $('#postBox').load('./viewPost.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
+                // history.pushState({type: 'electronics'},'', './viewPost.php?type=electronics&uid=<?php echo $uid; ?>')
+                history.pushState({type: 'electronics'},'', './viewPost/electronics')
+                })
+
+            })
+          </script>
+
           <li>
             <a id="elecView" href="#viewElectronicsPost">
               <i class="bi bi-circle"></i><span>View Electronics PostS</span>

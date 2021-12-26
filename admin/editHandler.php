@@ -312,27 +312,24 @@ if(isset(
             $roww = $out->fetch_assoc();
           }
 
+          $dbPath = null;
 
           $path = $roww['photoPath1'];
           $j=$_POST['photoPath'];
           $parr = explode(',', $path);
           $count = count($parr);
-          if($count <=2){
-          for($i=0;$i<$count-1;$i++ ){
+          // echo 'this count SSSSSS '.$count;
+          if($count <=3){
+          for($i=0;$i<$count;$i++ ){
             if($parr[$i] == $j){
                 unset($parr[$i]);
+                unlink($parr[$i]); //for deleteing the file
                 $dbPath = implode(',', $parr);
                 break;
             }
           }
-        }elseif($count == 1){
-          unset($parr[0]);
-          $dbPath = " ";
         }
-
-        if(empty($dbPath)){
-          $dbPath = NULL;
-        }
+        
           
       
           // to delete the selected photo
