@@ -759,7 +759,6 @@
             $allowedType = array('jpeg', 'png', 'jpg');
             $error = array();
             $count = count($fileVar['name']);
-            echo 'c---c---'.$count;
             if($count <=3 ){
                 for($i=0;$i<=$count-1;$i++){
                     $fileName = explode('.',$fileVar['name'][$i]);
@@ -919,6 +918,13 @@
                         $dbPath .= '../uploads/homeTutor/'.$uploadName;
                     }
 
+                    if($tableName == 'zebegna'){
+                        $uploadPath= '../uploads/zebegnaPhoto/'.$uploadName;
+
+                        $dbPath .= '../uploads/zebegnaPhoto/'.$uploadName;
+                    }
+
+
 
 
                     if(!in_array($fileExt, $allowedType)){
@@ -967,7 +973,6 @@
                     $mimeArr = explode('/', $fileVar['type'][$i]);
                     $mimeType = $mimeArr[0];
                     $mimeExt = $mimeArr[1];
-                    echo 'thiszzzzzzzzzzzzzzzzzzzzz '.$fileVar['type'][$i];
                     $tmpLoc[] = $fileVar['tmp_name'][$i];
                     $fileSize[] = $fileVar['size'][$i];
                     $uploadName = md5(microtime()).'.'.$fileExt;
@@ -1028,6 +1033,16 @@
                         $dbPath .= '../uploads/homeTutor/'.$uploadName;
                     }
 
+                    if($tableName == 'hotelhouse'){
+                        $uploadPath[]= '../uploads/homeWorker/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+
+                        $dbPath .= '../uploads/homeWorker/'.$uploadName;
+                    }
+
+                    
 
                     if(!in_array($fileExt, $allowedType)){
                         $error[] = 'File Extention must be png, jpg, jpeg';
@@ -1146,6 +1161,17 @@
             }
 
 
+            if($tableName == 'hotelhouse'){
+                $uploadPath= '../uploads/homeTutor/'.$uploadName;
+                if($i != 0){
+                    $dbPath .= ',';
+                }
+
+                $dbPath .= '../uploads/homeTutor/'.$uploadName;
+            }
+
+
+
             if(!in_array($fileExt, $allowedType)){
                 $error[] = 'File Extention must be png, jpg, jpeg';
             }
@@ -1260,8 +1286,47 @@ $ask = $mysql->query($q);
 
         }
 
-        //all posts single post viewing api dynamicaly
 
+
+        //house keeper and hotel worker data updater
+        function hotelHouseDataUpdater($name, $sex, $age, $religion, $field, $address, $wType,
+        $price, $experience, $bid, $cAddress, $agentInfo, $pid){
+            include "connect.php";
+            $q = "UPDATE `hotelhouse` SET `name`= '$name', `sex`='$sex', `age`='$age',
+             `religion`='$religion', `field`='$field',`address`='$address', `workType`='$wType',
+             `price`='$price', `experience`= '$experience',`bidingPerson`='$bid',
+             `currentAddress`='$cAddress', `agentInfo`='$agentInfo', `edited`='EDITED' WHERE  `id` = '$pid'";
+
+            
+
+            $ask = $mysql->query($q);
+            return $ask;
+
+        }
+
+        //a single coloumn data lister this means it lists all the data based on condition
+        function allPostColumenView($columen, $tableName, $conditionData){
+            include "connect.php";
+            $q = "SELECT * FROM `$tableName` WHERE `$columen` = '$conditionData'";
+
+            $ask = $mysql->query($q);
+            
+            if($ask){
+            if($ask->num_rows == 0){
+                echo ' no data in db';
+            }
+            else{
+                return $ask;
+            }
+            }else{
+                echo 'error db';
+            }
+
+            
+        }
+
+
+        //all posts single post viewing api dynamicaly
         function aSinglePostView($pid, $tableName){
             include "connect.php";
             $q = "SELECT * FROM `$tableName` WHERE `id` = '$pid'";
@@ -1286,6 +1351,18 @@ $ask = $mysql->query($q);
             include "connect.php";
             $q = "SELECT * FROM `ad` WHERE `bigDiscount` = 'ACTIVE'";
 
+            $ask = $mysql->query($q);
+
+            return $ask;
+        }
+
+
+        //zebegna insert
+        function zebegnaPostAdder($name, $sex, $age, $address, $phone, $photo, $workStat, $posterId){
+            include "connect.php";
+            $postedDate = date('Y-m-d H:i:s');
+            $q = "INSERT INTO `zebegna`( `name`, `sex`, `age`, `address`, `phone`, `photoPath1`, `workStat`, `postedDate`, `posterId`) 
+            VALUES ('$name', '$sex', '$age', '$address', '$phone', '$photo', '$workStat', '$postedDate', '$posterId')";
             $ask = $mysql->query($q);
 
             return $ask;

@@ -1443,6 +1443,96 @@ $('#tCategory').on('change', function(){
         }
       }
     }
+
+    /////////////////////////////////////////////
+    if(isset($_GET['type'])){
+      if($_GET['type'] == 'zebegna'){
+        ?>
+        
+
+        <form  method="POST" enctype="multipart/form-data">
+          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Full Name</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="name" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+
+          <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+        </div>
+        <select class="custom-select" name="sex" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Male">Mele</option>
+          <option value="Female">Female</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Age</label>
+          <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="age" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Address</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="address" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Work Status</label>
+        </div>
+        <select class="custom-select" name="workStat" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Company">Company</option>
+          <option value="Full Day">Private</option>
+          <option value="House">House</option>
+          <option value="Hotel">Hotel</option>
+          <option value="Banks">Banks</option>
+
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Phone:</label>
+          <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="Full Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+
+        <div class="row">
+        <div id="registerBox">
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file"  class="form-control" id="photo" name="photo" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+
+
+
+
+          
+
+
+          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          <div id="alertVacancy"></div>
+          </form>
+        
+        
+        
+        <?php
+      }
+    }
 ?>
 
 

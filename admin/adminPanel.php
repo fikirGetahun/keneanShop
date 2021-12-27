@@ -100,6 +100,11 @@
       $('#hotelWorker').click(function(){
         $('#postBox').load('./postPage.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
       })
+
+      $('#zebegnaWorker').click(function(){
+        $('#postBox').load('./postPage.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
+      })
+      
       
 
       $('#carPost').click(function(){
@@ -123,7 +128,11 @@
       })
 
       $('#viewAd2').click(function(){
-        $('#postBox').load('./viewPost.php?'+$.param({type: "bigDiscount ", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('./viewPost.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
+      })
+
+      $('#houseKeeper').click(function(){
+        $('#postBox').load('./viewPost.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewCar').click(function(){
@@ -138,6 +147,12 @@
         e.preventDefault()
         $('#postBox').load('./viewPost.php?'+$.param({type: "charity", uid: '<?php echo $uid; ?>'}))
       })
+
+      $('#viewHotelPerson').click(function(e){
+        e.preventDefault()
+        $('#postBox').load('./viewPost.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
+      })
+      
 
       $('#adCategory').click(function(){
         $('#postBox').load('addCategory.php', {type: 'ad'})
@@ -465,10 +480,13 @@
 
           <script>
             $(document).ready(function(){
+              document.addEventListener("DOMContentLoaded", function (){
+                if(window.location.href=== "http://localhost/shop2/admin/viewPost/electronics") {
 
-              if(window.location.href=== "http://localhost/shop2/admin/viewPost/electronics") {
-        alert('wiork')
-     }
+alert('wiork')
+}
+              });
+
                 $('#elecView').click(function(){
 
                 $('#postBox').load('./viewPost.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
@@ -507,7 +525,19 @@
 
           <li>
             <a id="viewHomeTutorPerson" href="#">
-              <i class="bi bi-circle"></i><span>Home Tutor Peole </span>
+              <i class="bi bi-circle"></i><span>Home Tutor Pepole </span>
+            </a>
+          </li>
+
+          <li>
+            <a id="viewHotelPerson" href="#">
+              <i class="bi bi-circle"></i><span>Hotel Worker Pepole </span>
+            </a>
+          </li>
+
+          <li>
+            <a id="houseKeeper" href="#">
+              <i class="bi bi-circle"></i><span>House Worker Pepole </span>
             </a>
           </li>
         </ul>
@@ -660,6 +690,12 @@
           <li>
             <a id="hotelWorker" href="#viewVacancyPost">
               <i class="bi bi-circle"></i><span>Hotel Worker [Upload Your Portoflio]</span>
+            </a>
+          </li>
+
+          <li>
+            <a id="zebegnaWorker" href="#viewVacancyPost">
+              <i class="bi bi-circle"></i><span>Security Gaurd[Upload Your Portoflio]</span>
             </a>
           </li>
           <li>

@@ -312,6 +312,12 @@ if(isset(
             $roww = $out->fetch_assoc();
           }
 
+          if($tn == 'hotelhouse'){
+            $out = $admin->aSinglePostView($pid, 'hotelhouse');
+            $roww = $out->fetch_assoc();
+          }
+
+
           $dbPath = null;
 
           $path = $roww['photoPath1'];
@@ -322,12 +328,14 @@ if(isset(
           if($count <=3){
           for($i=0;$i<$count;$i++ ){
             if($parr[$i] == $j){
-                unset($parr[$i]);
                 unlink($parr[$i]); //for deleteing the file
+                unset($parr[$i]);
                 $dbPath = implode(',', $parr);
                 break;
             }
           }
+        }else{
+
         }
         
           
@@ -441,9 +449,50 @@ $phone = $_POST['phone'];
 $out = $admin->homeTutoreUpdate($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
 $phone, $cinfo, $info);
 
-echo 'in hometutor';
 
 
 }
+
+//edit hotel and house worker api
+if(isset(
+  $_POST['name'], $_POST['sex'], 
+  $_POST['age'],$_POST['address'],$_POST['workType'],
+  $_POST['price'], $_POST['experience'], $_POST['cAddress'],
+  $_POST['bidp'], $_POST['agentInfo'],$_POST['postId'])){
+
+$pid = $_POST['postId'];
+$name =$_POST['name'];
+$sex =  $_POST['sex'];
+$price =  $_POST['price'];
+$experience = $_POST['experience'];
+$bid = $_POST['bidp'];
+$address = $_POST['address'];
+$age =  $_POST['age'];
+$cAddress = $_POST['cAddress'];
+$wType = $_POST['workType'];
+$agentInfo = $_POST['agentInfo'];
+
+$religion = " ";
+$field = " ";
+
+if(isset($_POST['religion'])){
+  $religion = $_POST['religion'];
+}
+if(isset( $_POST['field'])){
+  $field =  $_POST['field'] ;
+}
+
+$out = $admin->hotelHouseDataUpdater($name, $sex, $age, $religion, $field, $address, $wType,
+$price, $experience, $bid, $cAddress, $agentInfo, $pid);
+
+if($out){
+  echo 'Edit Succesfull';
+}else{
+  echo 'error';
+}
+echo 'inhottellz';
+
+}
+
 
 ?>

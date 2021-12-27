@@ -356,8 +356,42 @@ if($up[4] == 'error'){
 
 
 
+
 }
 
+///////////////////////////////////////////
+//zebegna post adder handler api
+if(isset(
+  $_POST['name'], $_POST['sex'], $_POST['age'],
+   $_POST['address'], $_POST['workStat'], $_POST['phone'], $_FILES['photo'], $_POST['posterId']
+)){
+
+  $name =$_POST['name'];
+  $sex=$_POST['sex'];
+  $age=$_POST['age'];
+  $address=$_POST['address'];
+  $phone=$_POST['phone'];
+  $fileVar = $_FILES['photo'];
+  $pid = $_POST['posterId'];
+  $workStat=$_POST['workStat'];
+  
+  $up = $admin->uploadSinglePhoto('zebegna', $fileVar);
+
+  if($up[4] == 'error'){
+    echo 'error file';
+    print_r($up);
+  }else{
+
+    $out = $admin->zebegnaPostAdder($name, $sex, $age, $address, $phone, $up[0], $workStat, $pid);
+    if($out){
+      echo 'Post Success';
+    }else{
+      echo 'Error on posting';
+    }
+
+  }
+
+}
 
 
 ?>
