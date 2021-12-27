@@ -6,7 +6,7 @@
             include("connect.php");
             $postStatus = 'ACTIVE';
             $today = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `vacancy`( `type`, `positionType`, `companyName`, `positionTitle`, `sex`, `location`, `deadLine`, `posterId`, `positionNum`, `info`, `postedDate`, `postStatus`) 
+            $q = "INSERT INTO `vacancy`( `type`, `positionType`, `companyName`, `title`, `sex`, `location`, `deadLine`, `posterId`, `positionNum`, `info`, `postedDate`, `postStatus`) 
             VALUES ( '$type', ' $poitionType', '$companyName', '$positionTitle', '$sex', '$location', '$deadLine', '$posterId', '$positionNum', '$info', '$today', '$postStatus' )";
 
             $ask = $mysql->query($q);
@@ -66,7 +66,7 @@
             $edited = 'YES';
             $q = "UPDATE `vacancy` SET 
           `type`='$jobType',`positionType`='$positionType',
-            `companyName`='$companyName',`positionTitle`='$jobTitle',
+            `companyName`='$companyName',`title`='$jobTitle',
             `location`='$location',`deadLine`='$Deadline',
             `positionNum`='$reqNo',`info`='$info',`postedDate`= '$date', `edited` = '$edited' WHERE `vacancy`.`id` = '$id'";
 
@@ -1042,6 +1042,15 @@
                         $dbPath .= '../uploads/homeWorker/'.$uploadName;
                     }
 
+                    if($tableName == 'zebegna'){
+                        $uploadPath[]= '../uploads/zebegnaPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+
+                        $dbPath .= '../uploads/zebegnaPhoto/'.$uploadName;
+                    }
+
                     
 
                     if(!in_array($fileExt, $allowedType)){
@@ -1246,7 +1255,7 @@ $ask = $mysql->query($q);
         $phone, $cinfo, $info, $photo){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `jobhometutor`( `posterId`, `Name`, `sex`, `eduBackground`, `clientRange`,
+            $q = "INSERT INTO `jobhometutor`( `posterId`, `name`, `sex`, `eduBackground`, `clientRange`,
              `paymentStatus`, `Price`, `address`, `phone`, `companyInfo`, `info`, `postedDate`, `photoPath1` )
             VALUES ('$pid', '$name', '$sex', '$edu', '$range', '$payStatus', '$price', '$address',
                    '$phone', '$cinfo', '$info', '$postDate', '$photo'   )";
@@ -1259,7 +1268,7 @@ $ask = $mysql->query($q);
         function homeTutoreUpdate($pid,$name, $sex, $edu, $range, $payStatus, $price, $address,
         $phone, $cinfo, $info){
             include "connect.php";
-            $q = "UPDATE `jobhometutor` SET `Name`='$name',`sex`= '$sex',`eduBackground`= '$edu',
+            $q = "UPDATE `jobhometutor` SET `name`='$name',`sex`= '$sex',`eduBackground`= '$edu',
             `clientRange`= '$range',`paymentStatus`= '$payStatus',`Price`= '$price' ,`address`= '$address',
             `phone`= '$phone',`companyInfo`= '$cinfo',`info`= '$info' , `edited`= 'EDITED'
              WHERE `jobhometutor`.`id` = '$pid'";
@@ -1363,6 +1372,18 @@ $ask = $mysql->query($q);
             $postedDate = date('Y-m-d H:i:s');
             $q = "INSERT INTO `zebegna`( `name`, `sex`, `age`, `address`, `phone`, `photoPath1`, `workStat`, `postedDate`, `posterId`) 
             VALUES ('$name', '$sex', '$age', '$address', '$phone', '$photo', '$workStat', '$postedDate', '$posterId')";
+            $ask = $mysql->query($q);
+
+            return $ask;
+        }
+
+
+        //zebegna update
+        function zebegnaPostUpdate($name, $sex, $age, $address, $phone, $workStat, $postId){
+            include "connect.php";
+            $q = "UPDATE `zebegna` SET  `name`='$name', `sex`='$sex', `age`='$age', `address`='$address',
+             `phone`='$phone', `workStat`='$workStat', `edited`= 'EDITED' WHERE `zebegna`.`id` = '$postId'";
+
             $ask = $mysql->query($q);
 
             return $ask;

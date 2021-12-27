@@ -317,6 +317,11 @@ if(isset(
             $roww = $out->fetch_assoc();
           }
 
+          if($tn == 'zebegna'){
+            $out = $admin->aSinglePostView($pid, 'zebegna');
+            $roww = $out->fetch_assoc();
+          }
+
 
           $dbPath = null;
 
@@ -494,5 +499,32 @@ echo 'inhottellz';
 
 }
 
+
+///////////////////////////////////////////////////////////
+//zebegna edit handler api
+if(isset(
+  $_POST['name'], $_POST['sex'], $_POST['age'],
+   $_POST['address'], $_POST['workStat'], $_POST['phone'], $_POST['postId']
+)){
+
+  $name =$_POST['name'];
+  $sex=$_POST['sex'];
+  $age=$_POST['age'];
+  $address=$_POST['address'];
+  $phone=$_POST['phone'];
+  $pid = $_POST['postId'];
+  $workStat=$_POST['workStat'];
+  
+
+    $out = $admin->zebegnaPostUpdate($name, $sex, $age, $address, $phone, $workStat, $pid);
+    if($out){
+      echo 'Post Success';
+    }else{
+      echo 'Error on posting';
+    }
+
+  
+
+}
 
 ?>

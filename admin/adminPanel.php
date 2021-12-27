@@ -153,9 +153,16 @@
         $('#postBox').load('./viewPost.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
       })
       
+      $('#zebegnaView').click(function(){
+        $('#postBox').load('./viewPost.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
+      })
 
       $('#adCategory').click(function(){
         $('#postBox').load('addCategory.php', {type: 'ad'})
+      })
+
+      $('#viewYourPost').click(function(){
+        $('#postBox').load('userPostViewPage.php', {id: '<?php echo $uid; ?>' })
       })
 
 
@@ -429,6 +436,11 @@
               <i class="bi bi-circle"></i><span>View Profile</span>
             </a>
           </li>
+          <li>
+            <a href="#" id="viewYourPost" >
+              <i class="bi bi-circle"></i><span>View Your Posts</span>
+            </a>
+          </li>
 
         </ul>
       </li><!-- End Components Nav -->  
@@ -538,6 +550,12 @@ alert('wiork')
           <li>
             <a id="houseKeeper" href="#">
               <i class="bi bi-circle"></i><span>House Worker Pepole </span>
+            </a>
+          </li>
+
+          <li>
+            <a id="zebegnaView" href="#">
+              <i class="bi bi-circle"></i><span>Security Gaurd Pepole </span>
             </a>
           </li>
         </ul>

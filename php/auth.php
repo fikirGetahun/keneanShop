@@ -44,12 +44,21 @@ class auth{
             }
 
     //users post collection lister
-    function userPostsLister($uid){
+    function userPostsLister($uid, $tableName){
         include "connect.php";
-        $q = "SELECT `ad`.id, `car`.id, `electronics`.id,
-        `housesell`.id , `tender`.id, `vacancy`.id 
-        FROM `ad`, `car`, `electronics`, 
-        WHERE `ad`.posterId = '$uid';";
+        $item = array('zebegna', 'jobhometutor', 'hotelhouse' );
+        // if(!in_array($tableName, $item)){
+        // $q = "SELECT `title` FROM `$tableName` WHERE `posterId` = '$uid'";
+        // }else{
+        // $q = "SELECT `name` FROM `$tableName` WHERE `posterId` = '$uid'";
+        // }
+        $q = "SELECT * FROM `$tableName` WHERE `posterId` = '$uid'";
+
+
+        $ask = $mysql->query($q);
+
+        return $ask;
+
     }
 
 
@@ -77,6 +86,10 @@ class auth{
         return $uploadPath;
 
     }
+
+
+
+
 
 }
 

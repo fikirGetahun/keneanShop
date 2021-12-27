@@ -622,6 +622,60 @@ if(isset($_GET['type'])){
     
   }
 }
+
+//////////////////////////////////////////////
+if(isset($_GET['type'])){
+  if($_GET['type'] == 'zebegna'){
+
+    $out = $admin->allPostsLister('zebegna');
+
+    ?>
+    
+    <script>
+        function elcView(id){
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+
+        }
+
+        function editElc(id){
+          $('#allin').load('editPost.php?'+$.param({type: 'zebegna', pid: id})) 
+
+        }
+
+      </script>
+      <div class="row">
+      <?php
+      while(  $row = $out->fetch_assoc()){
+          ?>
+          
+              
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <p class="card-text">Name: <?php echo $row['name'] ?></p>
+                <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
+                <p class="card-text">phone : <?php echo $row['phone'] ?> Birr</p>
+                <h6> : <?php echo $row['address']  ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </div>
+                  <small class="text-muted">9 mins</small>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+  <?php
+}
+
+
+    
+ 
+  }
+}
     
     
     ?>
