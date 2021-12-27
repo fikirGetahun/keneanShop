@@ -164,6 +164,10 @@
       $('#viewYourPost').click(function(){
         $('#postBox').load('userPostViewPage.php', {id: '<?php echo $uid; ?>' })
       })
+      
+      $('#elecCategory').click(function(){
+        $('#postBox').load('addCategory.php', {type: 'electronics' })
+      })
 
 
 
@@ -635,6 +639,10 @@ alert('wiork')
           <li>
             <a id="postElectronics" href='#'>
               <i class="bi bi-circle"></i><span>Post Electronics</span>
+            </a>
+            <a id="elecCategory" style="padding-left: 60px;" href="#vacancyCatagory">
+              <i class="
+              bi bi-circle"></i><span>Add Electronics Category</span>
             </a>
           </li>
 

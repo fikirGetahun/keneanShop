@@ -43,7 +43,7 @@
 
       // $(window).scroll(function(){
       //   // alert(($(window).height() - $(document).height()))
-      //   if($(window).scrollTop() == ($(document).height() - $(window).height())){
+      //   if($(window).scrollTop() + $(window).height() > $(document).height() - 100){
       //     // alert('scroll')
       //     $.ajax({
       //       url:'scrollView.php',
@@ -55,6 +55,12 @@
       //     })
       //   }
       // })
+
+      $(window).scroll(function() {
+   if($(window).scrollTop() >= $('#postBox').offset().top + $('#postBox').outerHeight() - window.innerHeight +100) {
+       alert($(window).scrollTop());
+   }
+});
 
     })
 

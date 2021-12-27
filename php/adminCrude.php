@@ -239,7 +239,7 @@
         //ads category lister
         function adsCategoryLister(){
             include "connect.php";
-            $q = "SELECT * FROM `adCategory` WHERE 1";
+            $q = "SELECT * FROM `adCategory` WHERE `category` = 'ad' ";
 
             $ask = $mysql->query($q);
 
@@ -737,9 +737,34 @@
         }
 
 
-        //electronics category
-        function electronicsCategoryAdder($cat, $table){
+        //all category adder
+        function allCategoryAdder($cat, $table){
+            include "connect.php";
+            $q = "INSERT INTO `adcategory`(`category`, `tableName`) VALUES ('$cat','$table')";
+            $ask = $mysql->query($q);
 
+            return $ask;  
+        }
+
+        //all category lister
+        function allCategoryLister($tableName){
+            include "connect.php";
+            $q = "SELECT * FROM `adcategory` WHERE `tableName` = '$tableName'";
+
+            $ask = $mysql->query($q);
+
+            return $ask;  
+        }
+
+
+        //all category updater
+        function allCategoryUpdater($cat, $tableName){
+            include "connect.php";
+            $q = "UPDATE `adcategory` SET `category`= '$cat' WHERE  `tableName`= '$tableName' ";
+            
+            $ask = $mysql->query($q);
+
+            return $ask;  
         }
 
 
@@ -1388,6 +1413,9 @@ $ask = $mysql->query($q);
 
             return $ask;
         }
+
+
+        //ad category electronics
 
     
     }

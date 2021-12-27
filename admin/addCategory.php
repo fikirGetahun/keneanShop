@@ -22,6 +22,11 @@ if(isset($_POST['houseC'])){
     $out = $admin->houseCategoryAdder($cat);
 }
 
+if(isset($_POST['elc'])){
+    $cat = $_POST['elc'];
+    $out = $admin->allCategoryAdder($cat, 'electronics');
+}
+
 
 
 ?>
@@ -339,7 +344,7 @@ if(isset($_POST['type'])){
 <input class="btn btn-light" type="submit" onclick="updateVacancy()" value="Add Category">
 </form>
         <?php
-    }if($_POST['type'] == 'house'){
+    }elseif($_POST['type'] == 'house'){
         ?>
                 <h3>Current house Category</h3>
 
@@ -405,6 +410,76 @@ if(isset($_POST['type'])){
 <input class="btn btn-light" type="submit" onclick="updateHouse()" value="Add Category">
 </form>
 
+        <?php
+    }elseif($_POST['type'] == 'electronics'){
+        ?>
+        
+        
+        <h3>Current house Category</h3>
+
+<div id="xxh">
+
+
+<table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+
+
+      <?php
+      $out = $admin->allCategoryLister('electronics');
+      while($row = $out->fetch_assoc()){
+
+              ?>
+            <tr>
+            <th scope="row"><?php echo $row['id'] ?></th>
+            <td id="editAd<?php echo $row['id'] ?>">
+            <?php echo $row['category'] ?>
+
+            <?php
+                if($row['category'] != 'OTHER' ){
+                    ?>
+             <button onclick="editHouse(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
+            <button onclick="houseDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+                    <?php
+                }
+            ?>
+
+
+            </td>
+
+            </tr>
+              <?php            
+          }
+      
+      
+      ?>
+<script>
+
+
+</script>
+
+  </tbody>
+</table>
+</div>
+<form id="adC" method="POST">
+<div id="registerBox">
+    <label for="exampleInputEmail1">Add Category</label>
+    <input type="text" class="form-control" id="adCategory" 
+          aria-describedby="emailHelp" name="elc" placeholder="Job">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    
+</div><br>
+<input class="btn btn-light" type="submit" onclick="updateHouse()" value="Add Category">
+</form>
+
+        
         <?php
     }
 }
