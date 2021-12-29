@@ -1,6 +1,9 @@
 <?php
     require_once "../php/adminCrude.php";
 
+    $_SESSION['scroll_on'] = 'OFF';
+
+
     if(isset($_POST['pid'])){
         $pid = $_POST['pid'];
     }

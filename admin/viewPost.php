@@ -10,6 +10,7 @@
     ob_start();
     session_start();
     $_SESSION['scroll'] = array();
+    $_SESSION['type'] = $t;
     
 ?>
 <div id="allin">
@@ -37,9 +38,12 @@
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <!-- <script src="../assets/js/scroll.js"></script> -->
+
 
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.0
@@ -50,32 +54,31 @@
   <script src="../assets/jquery.js"></script>
   <script type="text/javascript" language="javascript">
     $(document).ready(function(){
-      var p 
-
-
+      window.scrollTo(0, 0);
       
 
-    
       $(window).scroll(function(){
-        // alert(($(window).height() - $(document).height()))
-        if($(window).scrollTop() >= $('#postBox').offset().top + $('#postBox').outerHeight() - window.innerHeight +100){
-          // alert('scroll')
+    if($(window).scrollTop() >= $('#postBox').offset().top + $('#postBox').outerHeight() - window.innerHeight +100 ){
+      // alert('scroll')
 
 
-    
 
-          $.ajax({
-            url:'scrollView.php',
-            type: 'GET',
-            data:{
-              type : 'vacancy',
-            }, 
-            success: function(data){
-              $('#allin').append(data)
-            }
-          })
+
+      $.ajax({
+        url:'scrollView.php',
+        type: 'GET',
+        data:{
+          type : '<?php echo $_SESSION['type']; ?>', //echo the type of the post to be viewd
+        }, 
+        success: function(data){
+          $('#vac1').append(data)
         }
       })
+    }
+  })
+
+    
+
 
       $(window).scroll(function() {
    if($(window).scrollTop() >= $('#postBox').offset().top + $('#postBox').outerHeight() - window.innerHeight +100) {
@@ -87,25 +90,31 @@
 
 
       function edit(uid){
+        $('#allin').empty()
         $('#allin').load('editPost.php?'+$.param({type: 'editVacancy', pid: uid}))
       }
 
       function editTender(uid){
+        $('#allin').empty()
         $('#allin').load('editPost.php?'+$.param({type: 'editTender', pid: uid}))
       }
 
       function adEdit(uid){
+        $('#allin').empty()
         $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: uid}))
       }
 
       function editCar(pid){
+        $('#allin').empty()
         $('#allin').load('editPost.php?'+$.param({type: 'car', pid: pid}))
       }
 
       function editHouse(pid){
+        $('#allin').empty()
         $('#postBox').load('editPost.php?'+$.param({type: 'house', pid: pid}))
       }
       function adView(id){
+        $('#allin').empty()
                   $('#allin').load('discriptionPage.php', {type: 'ad',pid: id})
                 }
 

@@ -58,11 +58,13 @@
       })
 
     $('#editTender').click(function(){
+      $('#vac1').empty()
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
         $('#postBox').load('viewPost.php?'+$.param({type: 'tender'}))
       })
 
       $('#editVacancy').click(function(){
+        $('#vac1').empty()
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
         $('#postBox').load('viewPost.php?'+$.param({type: 'vacancy'}))
       })
@@ -120,22 +122,27 @@
       })
 
       $('#housePost').click(function(){
+        
         $('#postBox').load('./postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewAd').click(function(){
+        $('#vac1').empty()
         $('#postBox').load('./viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewAd2').click(function(){
+        $('#vac1').empty()
         $('#postBox').load('./viewPost.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#houseKeeper').click(function(){
+        $('#vac1').empty()
         $('#postBox').load('./viewPost.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewCar').click(function(){
+        $('#vac1').empty()
         $('#postBox').load('./viewPost.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
       })
 
@@ -145,6 +152,7 @@
 
       $('#viewCharity').click(function(e){
         e.preventDefault()
+        $('#vac1').empty()
         $('#postBox').load('./viewPost.php?'+$.param({type: "charity", uid: '<?php echo $uid; ?>'}))
       })
 
@@ -154,6 +162,7 @@
       })
       
       $('#zebegnaView').click(function(){
+        $('#vac1').empty()
         $('#postBox').load('./viewPost.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
       })
 

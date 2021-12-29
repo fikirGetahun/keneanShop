@@ -9,6 +9,10 @@
    <!-- </script> -->
    <?php
    require_once "../php/adminCrude.php";
+   ob_start();
+   session_start();
+   $_SESSION['scroll_on'] = 'OFF';
+
    if(isset($_GET['pid'])){ //pid is post id to be edited
     $uidx = $_GET['pid'];
   }
