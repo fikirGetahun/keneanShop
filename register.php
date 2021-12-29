@@ -2,7 +2,32 @@
 include "includes/header.php";
 ?>
 <body style=" background-color: #F9F9F9;">
-  
+
+<script src="assets/jquery.js" ></script>
+  <script>
+$(document).ready(function(){
+      
+  $('form').on('submit', function(e){
+          e.preventDefault()
+          $.ajax({
+            url: 'user/userApi.php',
+            type: 'post',
+            data:  new FormData( this ),
+            success : function(data){
+              $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text(data)
+              // $('#alertVacancy').delay(5200).fadeOut(300);
+            },
+            processData: false,
+        contentType: false
+          })
+          
+
+    })
+})
+  </script>
 
 <div class="container" style="width: 700px;">
 
@@ -13,11 +38,11 @@ include "includes/header.php";
     </div>
           <div class="container mx-auto">
         <h4 class="mb-3">Register</h4>
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation"  method="POST" enctype="multipart/form-data" novalidate>
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+              <input type="text" class="form-control" name="firstName" id="firstName" placeholder="" value="" required>
               <div class="invalid-feedback">
                 Valid first name is required.
               </div>
@@ -25,27 +50,34 @@ include "includes/header.php";
 
             <div class="col-sm-6">
               <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+              <input type="text" class="form-control" name="lastName" id="lastName" placeholder="" value="" required>
               <div class="invalid-feedback">
                 Valid last name is required.
               </div>
             </div>
 
             <div class="col-sm-6">
-              <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <label for="email" class="form-label">Email <span class="text-muted">(Username)</span></label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="you@example.com">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
+
             <div class="col-sm-6">
-              <label for="address" class="form-label">Phone number</label>
-              <input type="text" class="form-control" id="address" placeholder="09..." required>
+              <label for="address" class="form-label"> Phone number  </label>
+              <input type="text" class="form-control" name="phoneNumber"  id="address" placeholder="09..." required>
               <div class="invalid-feedback">
                 Please enter your Valid phone number.
               </div>
             </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Password</label>
+              <input type="password" class="form-control" name="password" id="lastName" placeholder="" value="" required>
+            </div>
+
             <div class="col-sm-6">
               <label for="country" class="form-label">Location</label>
               <select class="form-select" id="country" required>
@@ -55,9 +87,17 @@ include "includes/header.php";
               <div class="invalid-feedback">
                 Please select a valid country.
               </div>
+
             </div>
+            <div id="registerBox">
+          <label for="exampleInputEmail1">Upload Profile Photo</label>
+          <input type="file" class="form-control" id="photo" 
+           name="photoq" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
             <hr class="my-4">
           <button class="w-50 btn btn-primary mx-auto " type="submit">Continue to checkout</button>
+          <div id="alertVacancy" ></div>
           </div>
 
           

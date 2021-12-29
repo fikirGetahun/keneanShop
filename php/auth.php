@@ -25,9 +25,9 @@ class auth{
     }
 
     //FOR CHECKING A USER IS IN DATABASE OR NOT
-    function loginAuth($username, $password){
+    function loginAuth($username){
         include('connect.php');
-        $q = "SELECT  * FROM `user` WHERE `username` LIKE '$username' AND `password` LIKE '$password'";
+        $q = "SELECT  * FROM `user` WHERE `username` = '$username' ";
 
         $ask = $mysql->query($q);
 

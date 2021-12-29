@@ -77,7 +77,11 @@ if(isset(
 
 
     $ask = $admin->addVacancyPost($jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info, $sex  );
-
+    if($ask){
+      echo 'Post Successfull.!';
+    }else{
+      echo 'Error Posting';
+    }
   }
 
   //tender post data handler block
@@ -86,9 +90,11 @@ if(isset(
     $_POST['Deadline2'],
      $_POST['initialCost'],
      $_POST['location2'],
-     $_POST['description2'],$_POST['uid'], $_POST['title'], $_FILES['photo']
+     $_POST['description2'],$_POST['uid'], $_POST['title']
      )
      ){
+
+      $up = array('');
 
       $tenderType = $_POST['tenderType'];
       $startingDate = $_POST['startDate'];
@@ -98,13 +104,17 @@ if(isset(
       $info = $_POST['description2'];
       $id2 = $_POST['uid'];
       $title = $_POST['title'];
-      $fileName1 = $_FILES['photo'];
 
-      $up = $admin->uploadPhotos('tender', $fileName1);
+      if(isset($_FILES['photo']) && !empty($_FILES['photo'])){
+        $fileName1 = $_FILES['photo'];
+
+        $up = $admin->uploadSinglePhoto('tender', $fileName1);
+      }
+
 
 
       if($up[4] == 'error'){
-        echo $up[0];
+        print_r($up);
       }else{
         $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, $up[0]   );
         echo 'Post Succesfully!';
@@ -265,7 +275,11 @@ if(isset(
     
     
               $db = $admin->charityUpload($title, $up[0], $info, $loc, $phone, $pid);
-    
+              if($db){
+                echo 'Post Successfull';
+              }else{
+                echo 'Posting Error';
+              }
     
             }
 

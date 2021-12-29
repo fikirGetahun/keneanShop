@@ -54,9 +54,27 @@ function nav(nav){
       <a class="p-2 text-muted" href="#">Blog</a>
             <!-- Button trigger modal -->
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
+
+<?php 
+ob_start();
+session_start();
+if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
+  ?>
+<a href="login.php">  <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
+  Post
+</button></a>
+  <?php
+}else{
+  ?>
+    <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
   Post
 </button>
+  <?php
+}
+
+
+?>
+
    </nav>  </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -137,21 +155,21 @@ function nav(nav){
       <div id="realInput" class="modal-body">
 
         <div class="row">
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('house')">House </button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('house')">House or Land</button></p></div>
        <div class="col"> <p><button type="button" class="btn btn-light btn-sm col">Real Estate </button></p></div>
         <div id="ts" class="col" onclick="nav('car')" ><p><button type="button" class="btn btn-light btn-sm" > car </button></p></div>
           </div>
         <hr>
         <div class="row">
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm">land</button></p></div>
-        <div class="col"><p><button type="button" class="btn btn-light btn-sm" >job vacancy</button></p></div>
-        <div class="col"><p><button type="button" class="btn btn-light btn-sm">electronics</button></p></div></div>
+        <div class="col"><p><button type="button" onclick="nav('vacancy')" class="btn btn-light btn-sm" >job vacancy</button></p></div>
+        <div class="col"><p><button type="button" onclick="nav('tender')" class="btn btn-light btn-sm" >Tender</button></p></div>
+        <div class="col"><p><button type="button" onclick="nav('electronics')" class="btn btn-light btn-sm">electronics</button></p></div></div>
         <hr>
 
         <div class="row">
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm">product & service ads</button></p></div>
-        <div class="col"><p><button type="button" class="btn btn-light btn-sm">charity organization</button></p></div>
-        <div class="col"><p><button type="button" class="btn btn-light btn-sm">big discount sponsored</button></p></div>
+          <div class="col"><p><button type="button" onclick="nav('ad')" class="btn btn-light btn-sm">product & service ads</button></p></div>
+        <div class="col"><p><button type="button" onclick="nav('charity')" class="btn btn-light btn-sm">charity organization</button></p></div>
+        <div class="col"><p><button type="button" onclick="nav('big')" class="btn btn-light btn-sm">big discount sponsored</button></p></div>
         <div class="col"><p><button type="button" class="btn btn-light btn-sm">Cv for work and seeker</button></p></div>
         </div>
       </div>

@@ -102,7 +102,7 @@ if(isset($_GET['uid'])){
                     this.reset();
               });
               $('#alertVacancy').text(data)
-              // $('#alertVacancy').delay(5200).fadeOut(300);
+              $('#alertVacancy').delay(5200).fadeOut(300);
             },
             processData: false,
         contentType: false

@@ -10,6 +10,7 @@
             VALUES ( '$type', ' $poitionType', '$companyName', '$positionTitle', '$sex', '$location', '$deadLine', '$posterId', '$positionNum', '$info', '$today', '$postStatus' )";
 
             $ask = $mysql->query($q);
+            return $ask;
         }
 
         //insert tender post
@@ -21,7 +22,7 @@
              VALUES ( '$title' ,'$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date', '$postStatus', '$photo' )";
 
              $ask = $mysql->query($q);
-
+             return $ask;
         }
 
         //edit vacancy post placeholder method
@@ -71,6 +72,7 @@
             `positionNum`='$reqNo',`info`='$info',`postedDate`= '$date', `edited` = '$edited' WHERE `vacancy`.`id` = '$id'";
 
             $ask = $mysql->query($q);
+            return $ask;
         }
 
         //tender post editor lister placeholder method
@@ -92,6 +94,7 @@
             `initialCost`='$initialCost',`info`='$info',`postedDate`='$date', `title`= '$title', `edited` = '$edited' WHERE `tender`.`id` = '$id2' ";
 
             $ask = $mysql->query($q);
+            return $ask;
         }
 
 
@@ -105,6 +108,8 @@
              VALUES ('$username', '$password', '$firstName', '$lastName', '$phone', '$auth', '$photoPath', '$date', '$job', '$about' )";
 
              $ask = $mysql->query($q);
+
+             return $ask;
 
         }
 
@@ -183,6 +188,7 @@
              VALUES ('$big','$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$postStatus', '$ship')";
             
             $ask = $mysql->query($q);
+            return $ask;
         }
 
 
@@ -234,6 +240,7 @@
             $q = "INSERT INTO `adCategory`( `category`) VALUES ('$data')";
 
             $ask = $mysql->query($q);
+            return $ask;
         } 
 
         //ads category lister
@@ -252,6 +259,7 @@
             $q ="UPDATE `adcategory` SET `category` = '$cat' WHERE `adCategory`.`id` = '$id' ";
 
             $ask = $mysql->query($q);
+            return $ask;
             
         }
 
@@ -271,7 +279,7 @@
 
             $ask = $mysql->query($q);
 
-            
+            return $ask;
             
         }
 
@@ -322,7 +330,7 @@
         '$info', '$posterId', '$fName1', '$postDate', '$postStatus', '$ob')";
 
         $ask = $mysql->query($q);
-            
+        return $ask;
         }
 
 
@@ -393,7 +401,7 @@
             `phone` = '$phone',`for`= '$for',`title`= '$title', `info`= '$info', `edited` = '$edited' WHERE `ad`.`id` = '$postId' ";
 
             $ask = $mysql->query($q);
-
+            return $ask;
 
         }
 
@@ -1263,6 +1271,7 @@
             VALUES ( '$title', '$photo', '$info', '$location', '$phone', '$posterId', '$postDate', '$postStatus' )";
         
         $ask = $mysql->query($q);
+        return $ask;
         }
 
 // charity update
@@ -1273,6 +1282,8 @@ function charityUpdate($title, $info, $location, $phone, $posterId){
      WHERE `charity`.`id` = '$posterId'";
 
 $ask = $mysql->query($q);
+return $ask;
+
 }
 
         //home tutor upload
@@ -1286,6 +1297,8 @@ $ask = $mysql->query($q);
                    '$phone', '$cinfo', '$info', '$postDate', '$photo'   )";
 
             $ask = $mysql->query($q);
+            return $ask;
+
         }
         
 
@@ -1299,6 +1312,8 @@ $ask = $mysql->query($q);
              WHERE `jobhometutor`.`id` = '$pid'";
 
             $ask = $mysql->query($q);
+            return $ask;
+
         }
 
 
@@ -1317,6 +1332,8 @@ $ask = $mysql->query($q);
             
 
             $ask = $mysql->query($q);
+            return $ask;
+
 
         }
 
