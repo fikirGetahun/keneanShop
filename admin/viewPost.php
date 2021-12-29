@@ -1,6 +1,16 @@
 <?php
     require_once "../php/adminCrude.php";
 
+    if(isset($_GET['type'])){
+      $t = $_GET['type'];
+    }
+
+    //array of post ids that are posted on this current page
+
+    ob_start();
+    session_start();
+    $_SESSION['scroll'] = array();
+    
 ?>
 <div id="allin">
 <!-- <head>
@@ -38,27 +48,38 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   <script src="../assets/jquery.js"></script>
-  <script>
+  <script type="text/javascript" language="javascript">
     $(document).ready(function(){
+      var p 
 
-      // $(window).scroll(function(){
-      //   // alert(($(window).height() - $(document).height()))
-      //   if($(window).scrollTop() + $(window).height() > $(document).height() - 100){
-      //     // alert('scroll')
-      //     $.ajax({
-      //       url:'scrollView.php',
-      //       type: 'GET',
-      //       data:'type=vacancy',
-      //       success: function(data){
-      //         $('#vac1').append(data)
-      //       }
-      //     })
-      //   }
-      // })
+
+      
+
+    
+      $(window).scroll(function(){
+        // alert(($(window).height() - $(document).height()))
+        if($(window).scrollTop() >= $('#postBox').offset().top + $('#postBox').outerHeight() - window.innerHeight +100){
+          // alert('scroll')
+
+
+    
+
+          $.ajax({
+            url:'scrollView.php',
+            type: 'GET',
+            data:{
+              type : 'vacancy',
+            }, 
+            success: function(data){
+              $('#allin').append(data)
+            }
+          })
+        }
+      })
 
       $(window).scroll(function() {
    if($(window).scrollTop() >= $('#postBox').offset().top + $('#postBox').outerHeight() - window.innerHeight +100) {
-       alert($(window).scrollTop());
+      //  alert($(window).scrollTop());
    }
 });
 
@@ -119,16 +140,18 @@
   </head>
   <div id="vac1">
     <?php
-
+    
     if(isset($_GET['type'])){
         if($_GET['type'] == 'vacancy'){
             $data = $admin->vacancyPostLister();
             while($row = $data->fetch_assoc()){
+
+              
                 ?>
                 <h6>Vacancy Post</h6>
 
 
-                <div  class="card mb-3" style="max-width: 540px;">
+                <div id="sc"  class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
                         <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
@@ -148,7 +171,8 @@
                 </div>
 
                 <?php
-                
+                array_push($_SESSION['scroll'], $row['id']) ;
+            
             }
         }elseif($_GET['type'] == 'tender'){
             $data = $admin->tenderPostCounter();

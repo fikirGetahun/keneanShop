@@ -123,6 +123,10 @@ if(isset($_POST['elc'])){
         $('#xxh').load('divTags.php #houseCat')
             }
 
+            function updateElc(){
+                
+            }
+
 
     </script>
 </head>
@@ -476,7 +480,7 @@ if(isset($_POST['type'])){
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     
 </div><br>
-<input class="btn btn-light" type="submit" onclick="updateHouse()" value="Add Category">
+<input class="btn btn-light" type="submit" onclick="updateElc()" value="Add Category">
 </form>
 
         

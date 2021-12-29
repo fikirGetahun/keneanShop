@@ -1,45 +1,72 @@
 <?php
-    include('./includes/header.php');
+include "includes/header.php";
 ?>
-  <script src="../assets/jquery.js" type="text/javascript"></script>
+<body style=" background-color: #F9F9F9;">
+  
 
-  <form action="register.php" method="POST">
-    <div id="registerBox">
-    <label for="exampleInputEmail1">First Name</label>
-          <input type="text" class="form-control" id="firstName" 
-          aria-describedby="emailHelp" name="firstName" placeholder="First Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+<div class="container" style="width: 700px;">
+
+<main>
+    <div class="py-5 text-center">
+      <h2 class="text-primary">Please Sign In</h2>
+     
     </div>
+          <div class="container mx-auto">
+        <h4 class="mb-3">Register</h4>
+        <form class="needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">First name</label>
+              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
 
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Last Name</label>
-          <input type="text" class="form-control" id="lastName" 
-          aria-describedby="emailHelp" name="lastName" placeholder="Last Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Last name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
 
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Phone Number</label>
-          <input type="number" class="form-control" id="phoneNumber" 
-          aria-describedby="emailHelp" name="phoneNumber" placeholder="phoneNumber">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
+            <div class="col-sm-6">
+              <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
 
-    <div id="registerBox">
-    <label for="exampleInputEmail1">UserName</label>
-          <input type="email" class="form-control" id="username" 
-          aria-describedby="emailHelp" name="username" placeholder="Username">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
+            <div class="col-sm-6">
+              <label for="address" class="form-label">Phone number</label>
+              <input type="text" class="form-control" id="address" placeholder="09..." required>
+              <div class="invalid-feedback">
+                Please enter your Valid phone number.
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="country" class="form-label">Location</label>
+              <select class="form-select" id="country" required>
+                <option value="">Choose...</option>
+                <option>United States</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country.
+              </div>
+            </div>
+            <hr class="my-4">
+          <button class="w-50 btn btn-primary mx-auto " type="submit">Continue to checkout</button>
+          </div>
 
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Password</label>
-          <input type="text" class="form-control" id="password" 
-          aria-describedby="emailHelp" name="password" placeholder="password">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
+          
+          </div>
 
-    <button type="submit" class="btn btn-primary">Regester</button>
-  </form>
-    
-  </div>
+          
+        </form>
+      </div>
+
+  </main>
+</div>
+</body>
