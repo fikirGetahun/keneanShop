@@ -23,25 +23,25 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="admin/assets/img/favicon.png" rel="icon">
+  <link href="admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
   
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="admin/assets/css/style.css" rel="stylesheet">
   <!-- <script src="../assets/js/scroll.js"></script> -->
 
 
@@ -51,7 +51,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <script src="../assets/jquery.js"></script>
+  <script src="assets/jquery.js"></script>
   <script type="text/javascript" language="javascript">
     $(document).ready(function(){
       window.scrollTo(0, 0);
@@ -65,7 +65,7 @@
 
 
       $.ajax({
-        url:'scrollView.php',
+        url:'admin/scrollView.php',
         type: 'GET',
         data:{
           type : '<?php echo $_SESSION['type']; ?>', //echo the type of the post to be viewd
@@ -91,39 +91,39 @@
 
       function edit(uid){
         $('#allin').empty()
-        $('#allin').load('editPost.php?'+$.param({type: 'editVacancy', pid: uid}))
+        $('#allin').load('admin/editPost.php?'+$.param({type: 'vacancy', pid: uid}))
       }
 
       function editTender(uid){
         $('#allin').empty()
-        $('#allin').load('editPost.php?'+$.param({type: 'editTender', pid: uid}))
+        $('#allin').load('admin/editPost.php?'+$.param({type: 'tender', pid: uid}))
       }
 
       function adEdit(uid){
         $('#allin').empty()
-        $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: uid}))
+        $('#allin').load('admin/editPost.php?'+$.param({type: 'ad', pid: uid}))
       }
 
       function editCar(pid){
         $('#allin').empty()
-        $('#allin').load('editPost.php?'+$.param({type: 'car', pid: pid}))
+        $('#allin').load('admin/editPost.php?'+$.param({type: 'car', pid: pid}))
       }
 
       function editHouse(pid){
         $('#allin').empty()
-        $('#postBox').load('editPost.php?'+$.param({type: 'house', pid: pid}))
+        $('#postBox').load('admin/editPost.php?'+$.param({type: 'house', pid: pid}))
       }
       function adView(id){
         $('#allin').empty()
-                  $('#allin').load('discriptionPage.php', {type: 'ad',pid: id})
+                  $('#allin').load('admin/discriptionPage.php', {type: 'ad',pid: id})
                 }
 
       function viewCar(id){
-        $('#allin').load('discriptionPage.php', {type: 'car',pid: id})
+        $('#allin').load('admin/discriptionPage.php', {type: 'car',pid: id})
                 
       }
       function houseView(id){
-        $('#allin').load('discriptionPage.php', {type: 'house',pid: id})
+        $('#allin').load('admin/discriptionPage.php', {type: 'house',pid: id})
 
       }
 
@@ -145,7 +145,7 @@
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="./assets/album.css" rel="stylesheet">
+    <link href="admin/assets/album.css" rel="stylesheet">
   </head>
   <div id="vac1">
     <?php
@@ -375,12 +375,12 @@
       ?>
       <script>
         function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'electronics', pid: id}))
+          $('#allin').load('admin/editPost.php?'+$.param({type: 'electronics', pid: id}))
 
         }
 
@@ -422,12 +422,12 @@ elseif($_GET['type'] == 'charity'){
   ?>
         <script>
         function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'charity', pid: id}))
+          $('#allin').load('admin/editPost.php?'+$.param({type: 'charity', pid: id}))
 
         }
 
@@ -465,12 +465,12 @@ elseif($_GET['type'] == 'bigDiscount'){
   ?>
         <script>
         function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: id})) 
+          $('#allin').load('admin/editPost.php?'+$.param({type: 'ad', pid: id})) 
 
         }
 
@@ -513,12 +513,12 @@ elseif($_GET['type'] == 'homeTutor'){
 
   <script>
         function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'homeTutor', pid: id})) 
+          $('#allin').load('admin/editPost.php?'+$.param({type: 'homeTutor', pid: id})) 
 
         }
 
@@ -566,12 +566,12 @@ if(isset($_GET['type'])){
     
     <script>
         function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'hotel', pid: id})) 
+          $('#allin').load('admin/editPost.php?'+$.param({type: 'hotel', pid: id})) 
 
         }
 
@@ -618,12 +618,12 @@ if(isset($_GET['type'])){
     
     <script>
         function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'houseKeeper', pid: id})) 
+          $('#allin').load('admin/editPost.php?'+$.param({type: 'houseKeeper', pid: id})) 
 
         }
 
@@ -672,12 +672,12 @@ if(isset($_GET['type'])){
     
     <script>
         function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'zebegna', pid: id})) 
+          $('#allin').load('admin/editPost.php?'+$.param({type: 'zebegna', pid: id})) 
 
         }
 

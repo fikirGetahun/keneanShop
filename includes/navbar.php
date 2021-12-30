@@ -32,32 +32,46 @@
 }</style>
 <script src="assets/jquery.js"  ></script>
 <script>
-function nav(nav){
 
-  $('#uploadDiv').load("user/postPage.php?type="+nav)
-}
-
-function postViewNav(table, columen, args, label){
-  $('#showBox').load('maincat.php?cat='+table+'&status='+columen+'&off='+args+'&label='+label);
-  history.pushState({ cat : cat,
-                      status : columen,
-                      off : args,
-                      label : label  }, '', './maincat.php?cat='+table+'&status='+columen+'&off='+args+'&label='+label)
-}
 
 $(document).ready(function(){
 
   /// this is the main important block of the code which makes the back button work to navigate in a singlepage
   /// application what it does is it sees that the objects{ cat, staus,off,label} given in history.pushstate then it loads them as it change happens 
     window.onpopstate = function (event) {
-        $('#showBox').load('maincat.php?cat='+event.state.table+'&status='+event.state.columen+'&off='+event.state.args+'&label='+event.state.label)
-        history.pushState({ cat : cat,
+      // alert(event.state.cat)  
+      $('#showBox').empty()
+      $('#showBox').load('maincat.php?'+$.param({ cat : event.state.cat,
+                    status : event.state.status,
+                    off : event.state.off,
+                    label :event.state.label  })+' #view,#loop');
+      history.pushState({ cat : cat,
                       status : columen,
                       off : args,
-                      label : label  }, '', './maincat.php?cat='+event.state.table+'&status='+event.state.columen+'&off='+event.state.args+'&label='+event.state.label)
+                      label : label  }, '', './maincat.php?cat='+event.state.cat+'&status='+event.state.status+'&off='+event.state.off+'&label='+event.state.label)
       }
 
+
 })
+
+
+function nav(nav){
+
+$('#uploadDiv').load("user/postPage.php?type="+nav)
+}
+
+function postViewNav(table, columen, args, label){
+  // alert('inxc')
+
+$('#showBox').load('maincat.php?'+$.param({ cat : table,
+                    status : columen,
+                    off : args,
+                    label : label  })+' #view,#loop');
+history.pushState({ cat : table,
+                    status : columen,
+                    off : args,
+                    label : label  }, '', './maincat.php?cat='+table+'&status='+columen+'&off='+args+'&label='+label)
+                  }
 
 
 
@@ -69,17 +83,17 @@ $(document).ready(function(){
   <div class="container nav-scrollers py-1 mb-2">
     
     <nav class="nav d-flex justify-content-between">
-      <a class="p-2 text-muted" href="#">Language</a>
-      <a class="p-2 text-muted" href="#">Eth</a>
-      <a class="p-2 text-muted" href="#">Membership</a>
+      <a class="p-2 text-muted" >Language</a>
+      <a class="p-2 text-muted" >Eth</a>
+      <a class="p-2 text-muted" >Membership</a>
      
-      <a class="p-2 text-muted" href="#">Blog</a>
+      <a class="p-2 text-muted" >Blog</a>
       <?php 
       ob_start();
       session_start();
       if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
         ?>
-      <a class="p-2 text-muted" href="#">Account</a>
+      <a class="p-2 text-muted" >Account</a>
       <a class="p-2 text-muted" href="./user/logout.php">Log Out</a>
         <?php
       }
@@ -117,11 +131,11 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" onclick="postViewNav('ad', 'bigDiscount', 'ACTIVE', 'Big Discount Advertisment')"  aria-current="page" href="#">Sponsored big discount</a>
+          <a class="nav-link active" onclick="postViewNav('ad', 'bigDiscount', 'ACTIVE', 'Big Discount Advertisment')"  aria-current="page" >Sponsored big discount</a>
         </li>
         
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="small">House</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -130,19 +144,19 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="small">Cars
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" onclick="postViewNav('car', 'forRentOrSell', 'For Sell', 'Cars For Sell')" >To buy</a></li>
-            <li><a class="dropdown-item" onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Sell')" >To rent</a></li>
+            <li><a class="dropdown-item" onclick="postViewNav('car', 'forRentOrSell', 'For Sell', 'Cars For Sell')"  >To buy</a></li>
+            <li><a class="dropdown-item" onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Rent')"  >To rent</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="maincat.php"><span class="small">Real Estate</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="small">Land</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -157,16 +171,16 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           <a class="nav-link active" href="maincat.php"><span class="small">Cv Work / Vacancy</span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active" href="maincat.php"><span class="small">Products / Services</span></a>
+          <a class="nav-link active"  onclick="postViewNav('ad', ' ', ' ', 'Ads Post')"><span class="small">Products / Services</span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active" href="maincat.php"><span class="small">Electronics</span></a>
+          <a class="nav-link active" onclick="postViewNav('electronics', ' ', ' ', 'Electronics Post')"><span class="small">Electronics</span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active" href="#"><span class="small">Tenders</span></a>
+          <a class="nav-link active" onclick="postViewNav('tender', ' ', ' ', 'Tender Post')"  ><span class="small">Tenders</span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active" href="maincat.php"><span class="small">Charity organization</span></a>
+          <a class="nav-link active" onclick="postViewNav('charity', ' ', ' ', 'Charity Post')"><span class="small">Charity organization</span></a>
         </li>
       </ul>
       <form class="d-flex">
@@ -206,7 +220,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
       
         <ul class="navbar-nav" >
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
           <p><button type="button" class="btn btn-light btn-sm">Cv for work and seeker</button></p>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -244,9 +258,9 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
   <div class="nav-scroller py-1 fixed-bottom bg-primary d-block d-sm-none navbar-dark">
     <nav class="nav d-flex justify-content-between">
       <a class="p-2 link-secondary text-white" href="index.php">Home</a>
-      <a class="p-2 link-secondary text-white" href="#">favorite</a>
-      <a class="p-2 link-secondary text-white" href="#">Posts</a>
-      <a class="p-2 link-secondary text-white" href="#">Orders</a>
-      <a class="p-2 link-secondary text-white" href="#">about us</a>
+      <a class="p-2 link-secondary text-white" >favorite</a>
+      <a class="p-2 link-secondary text-white" >Posts</a>
+      <a class="p-2 link-secondary text-white" >Orders</a>
+      <a class="p-2 link-secondary text-white" >about us</a>
     </nav>
   </div>

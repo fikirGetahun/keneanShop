@@ -27,24 +27,24 @@ if(isset($_GET['uid'])){
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="admin/assets/img/favicon.png" rel="icon">
+  <link href="admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="admin/assets/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.0
@@ -53,7 +53,7 @@ if(isset($_GET['uid'])){
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-<script src="../assets/jquery.js"></script>
+<script src="assets/jquery.js"></script>
 <script>
   $(document).ready(function(){
     // $('#vacancyForm').on('submit', function(e){
@@ -94,7 +94,7 @@ if(isset($_GET['uid'])){
     $('form').on('submit', function(e){
           e.preventDefault()
           $.ajax({
-            url: 'postHandler.php',
+            url: 'admin/postHandler.php',
             type: 'post',
             data:  new FormData( this ),
             success : function(data){
@@ -102,7 +102,7 @@ if(isset($_GET['uid'])){
                     this.reset();
               });
               $('#alertVacancy').text(data)
-              $('#alertVacancy').delay(5200).fadeOut(300);
+              // $('#alertVacancy').delay(5200).fadeOut(300);
             },
             processData: false,
         contentType: false
@@ -113,7 +113,7 @@ if(isset($_GET['uid'])){
 
     $('#city').on('change',function(){
       if(this.value == "otherCity"){
-        $('#cityBox').load('divTags.php #otherCity')
+        $('#cityBox').load('admin/divTags.php #otherCity')
  
       }
    
@@ -121,21 +121,21 @@ if(isset($_GET['uid'])){
 
     $('#subCity').on('change',function(){
       if(this.value == "otherSubCity"){
-        $('#subCityBox').load('divTags.php #otherSubCity')
+        $('#subCityBox').load('admin/divTags.php #otherSubCity')
       }
       
     })
 
     $('#HorL').on('change', function(){
       if(this.value == "HOUSE"){
-        $('#houseTypeLoader').load("divTags.php #houseType")
-        $('#bedOrBath').load('divTags.php #bedBath')
+        $('#houseTypeLoader').load("admin/divTags.php #houseType")
+        $('#bedOrBath').load('admin/divTags.php #bedBath')
       }
     })
 
     $('#sCar').on('change', function(){
       if(this.value == "OTHER"){
-        $('#typeC').load("divTags.php #typeCar")
+        $('#typeC').load("admin/divTags.php #typeCar")
       }
     })
 
@@ -189,7 +189,7 @@ if(isset($_GET['uid'])){
             $(document).ready(function(){
               $('#jobTT').on('change', function(){
                 if(this.value == 'OTHER'){
-                  $('#jt').load('divTags.php #jobType')
+                  $('#jt').load('admin/divTags.php #jobType')
                 }
                 
               })
@@ -396,14 +396,14 @@ if(isset($_GET['uid'])){
 $(document).ready(function(){
 $('#tCategory').on('change', function(){
   if(this.value == "Cloth and Shoe"){
-    $('#targetLoader').load('divTags.php #targetFor')
+    $('#targetLoader').load('admin/divTags.php #targetFor')
   }
  
 })
 
 $('#tCategory').on('change', function(){
   if(this.value == "OTHER"){
-    $('#adTy').load('divTags.php #otherAd')
+    $('#adTy').load('admin/divTags.php #otherAd')
   }
  
 })
@@ -676,7 +676,7 @@ $('#tCategory').on('change', function(){
       $('#selHouseType').on('change',function(){
         alert('inhh')
         if(this.value == 'OTHER'){
-          $('#houseTypeLoader').load('divTags.php #houseTypeOther')
+          $('#houseTypeLoader').load('admin/divTags.php #houseTypeOther')
         }
       })
     })
@@ -817,7 +817,7 @@ $('#tCategory').on('change', function(){
 $(document).ready(function(){
 $('#sElc').on('change', function(){
   if(this.value == 'Computer Laptop'){
-    $('#computer').load('divTags.php #sizeInch,#proc,#storage,#core,#ram')
+    $('#computer').load('admin/divTags.php #sizeInch,#proc,#storage,#core,#ram')
   }
 })
 })
@@ -969,14 +969,14 @@ $('#sElc').on('change', function(){
 $(document).ready(function(){
 $('#tCategory').on('change', function(){
   if(this.value == "Cloth and Shoe"){
-    $('#targetLoader').load('divTags.php #targetFor')
+    $('#targetLoader').load('admin/divTags.php #targetFor')
   }
  
 })
 
 $('#tCategory').on('change', function(){
   if(this.value == "OTHER"){
-    $('#adTy').load('divTags.php #otherAd')
+    $('#adTy').load('admin/divTags.php #otherAd')
   }
  
 })

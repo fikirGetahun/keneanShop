@@ -1,6 +1,6 @@
 <?php
 
-  require_once "../php/adminCrude.php";
+  require_once "php/adminCrude.php";
 
   $url = $_SERVER['REQUEST_URI'];
 
@@ -19,17 +19,17 @@
   <meta content="" name="keywords">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  <script src="../assets/jquery.js" type="text/javascript"></script>
+  <link href="admin/assets/css/style.css" rel="stylesheet">
+  <script src="assets/jquery.js" type="text/javascript"></script>
   <script>
     $(document).ready(function(){
       var currentUrl = '<?php echo $url; ?>'
@@ -49,29 +49,29 @@
 
 
     $('#homeTutor').click(function(){
-        $('#postBox').load('./postPage.php?'+$.param({type: "home", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "home", uid: '<?php echo $uid; ?>'}))
       })
 
     $('#addUser').click(function(){
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
-        $('#postBox').load('adminRegister.php');
+        $('#postBox').load('admin/adminRegister.php');
       })
 
     $('#editTender').click(function(){
       $('#vac1').empty()
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
-        $('#postBox').load('viewPost.php?'+$.param({type: 'tender'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: 'tender'}))
       })
 
       $('#editVacancy').click(function(){
         $('#vac1').empty()
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
-        $('#postBox').load('viewPost.php?'+$.param({type: 'vacancy'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: 'vacancy'}))
       })
 
       $('#viewHomeTutorPerson').click(function(){
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
-        $('#postBox').load('viewPost.php?'+$.param({type: 'homeTutor'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: 'homeTutor'}))
       })
 
       
@@ -79,103 +79,103 @@
       $('#postVacancy').click(function(){
         
       
-          $('#postBox').load('postPage.php?'+$.param({type: "postVacancy", uid: '<?php echo $uid; ?>'}))
+          $('#postBox').load('admin/postPage.php?'+$.param({type: "postVacancy", uid: '<?php echo $uid; ?>'}))
           // history.pushState('vacancy', 'Post Vacancy', currentUrl+'postVacancy')
       })
 
       $('#postTender').click(function(){
-        $('#postBox').load('postPage.php?'+$.param({type: "tender", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "tender", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewPtag').click(function(){
-        $('#postBox').load('profileViewPanel.php?'+$.param({uid: '<?php echo $uid;  ?>'}))
+        $('#postBox').load('admin/profileViewPanel.php?'+$.param({uid: '<?php echo $uid;  ?>'}))
       })
 
       $('#postAd').click(function(){
-        $('#postBox').load('./postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#houseKeeper').click(function(){
-        $('#postBox').load('./postPage.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#hotelWorker').click(function(){
-        $('#postBox').load('./postPage.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#zebegnaWorker').click(function(){
-        $('#postBox').load('./postPage.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
       })
       
       
 
       $('#carPost').click(function(){
-        $('#postBox').load('./postPage.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#postCharity').click(function(){
-        $('#postBox').load('./postPage.php?'+$.param({type: "big", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "big", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#postBig').click(function(){
-        $('#postBox').load('./postPage.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#housePost').click(function(){
         
-        $('#postBox').load('./postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewAd').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('./viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewAd2').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('./viewPost.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#houseKeeper').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('./viewPost.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewCar').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('./viewPost.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewHouse').click(function(){
-        $('#postBox').load('./viewPost.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewCharity').click(function(e){
         e.preventDefault()
         $('#vac1').empty()
-        $('#postBox').load('./viewPost.php?'+$.param({type: "charity", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: "charity", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewHotelPerson').click(function(e){
         e.preventDefault()
-        $('#postBox').load('./viewPost.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
       })
       
       $('#zebegnaView').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('./viewPost.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#adCategory').click(function(){
-        $('#postBox').load('addCategory.php', {type: 'ad'})
+        $('#postBox').load('admin/addCategory.php', {type: 'ad'})
       })
 
       $('#viewYourPost').click(function(){
-        $('#postBox').load('userPostViewPage.php', {id: '<?php echo $uid; ?>' })
+        $('#postBox').load('admin/userPostViewPage.php', {id: '<?php echo $uid; ?>' })
       })
       
       $('#elecCategory').click(function(){
-        $('#postBox').load('addCategory.php', {type: 'electronics' })
+        $('#postBox').load('admin/addCategory.php', {type: 'electronics' })
       })
 
 
@@ -314,7 +314,7 @@
 
         <li class="message-item">
           <a href="#">
-            <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
+            <img src="admin/assets/img/messages-1.jpg" alt="" class="rounded-circle">
             <div>
               <h4>Maria Hudson</h4>
               <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -328,7 +328,7 @@
 
         <li class="message-item">
           <a href="#">
-            <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
+            <img src="admin/assets/img/messages-2.jpg" alt="" class="rounded-circle">
             <div>
               <h4>Anna Nelson</h4>
               <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -342,7 +342,7 @@
 
         <li class="message-item">
           <a href="#">
-            <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
+            <img src="admin/assets/img/messages-3.jpg" alt="" class="rounded-circle">
             <div>
               <h4>David Muldon</h4>
               <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -514,9 +514,8 @@ alert('wiork')
 
                 $('#elecView').click(function(){
 
-                $('#postBox').load('./viewPost.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
+                $('#postBox').load('admin/viewPost.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
                 // history.pushState({type: 'electronics'},'', './viewPost.php?type=electronics&uid=<?php echo $uid; ?>')
-                history.pushState({type: 'electronics'},'', './viewPost/electronics')
                 })
 
             })
@@ -610,11 +609,11 @@ alert('wiork')
 
 
                 $('#vacancyCategory').click(function(){
-                  $('#postBox').load('addCategory.php', {type: 'vacancy'})
+                  $('#postBox').load('admin/addCategory.php', {type: 'vacancy'})
                 })
 
                 $('#houseCategory').click(function(){
-                  $('#postBox').load('./addCategory.php', {type: 'house'})
+                  $('#postBox').load('admin/addCategory.php', {type: 'house'})
                 })
 
 
@@ -948,17 +947,17 @@ alert('wiork')
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.min.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="admin/assets/vendor/chart.js/chart.min.js"></script>
+  <script src="admin/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="admin/assets/vendor/quill/quill.min.js"></script>
+  <script src="admin/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="admin/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="admin/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="admin/assets/js/main.js"></script>
 
 </body>
 

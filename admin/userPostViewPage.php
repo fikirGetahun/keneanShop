@@ -1,6 +1,6 @@
 <?php
 
-require_once "../php/auth.php";
+require_once "php/auth.php";
 if(isset($_POST['id'])){
   $uid = $_POST['id'];
 }

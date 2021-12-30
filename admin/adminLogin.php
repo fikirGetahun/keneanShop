@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    require_once('../includes/header.php');
-    require_once('../php/auth.php');
+    require_once('includes/header.php');
+    require_once('php/auth.php');
 
 
     $login = '';

@@ -1,5 +1,5 @@
 <html>
-    <script src="../assets/jquery.js"></script>  
+    <script src="assets/jquery.js"></script>  
   
    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     
@@ -25,39 +25,39 @@
 
 
 
-    $('#editV').on('submit', function(e){
-      e.preventDefault()
-      $.ajax({
-        url: 'editPost.php',
-        type: 'post',
-        data: $('#editV').serialize(),
-        success : function(){
-          $('#alertVacancy').text('Edit SUCCESSFULL!  ')
-        }
-      })
-      return false;
+    // $('#editV').on('submit', function(e){
+    //   e.preventDefault()
+    //   $.ajax({
+    //     url: 'admin/editHandler.php',
+    //     type: 'post',
+    //     data: $('#editV').serialize(),
+    //     success : function(){
+    //       $('#alertVacancy').text('Edit SUCCESSFULL!  ')
+    //     }
+    //   })
+    //   return false;
 
-    })
+    // })
 
-    $('#editT').on('submit', function(e){
-      e.preventDefault()
-      $.ajax({
-        url: 'editPost.php',
-        type: 'post',
-        data: $('#editT').serialize(),
-        success : function(){
-          $('#alertVacancy').text('Edit SUCCESSFULL!  ')
-        }
-      })
-      return false;
+    // $('#editT').on('submit', function(e){
+    //   e.preventDefault()
+    //   $.ajax({
+    //     url: 'admin/editHandler.php',
+    //     type: 'post',
+    //     data: $('#editT').serialize(),
+    //     success : function(){
+    //       $('#alertVacancy').text('Edit SUCCESSFULL!  ')
+    //     }
+    //   })
+    //   return false;
 
-    })
+    // })
 
 
     $('form').on('submit', function(e){
           e.preventDefault()
           $.ajax({
-            url: 'editHandler.php',
+            url: 'admin/editHandler.php',
             type: 'post',
             data:  new FormData( this ),
             success : function(data){
@@ -388,7 +388,7 @@ require_once "../php/adminCrude.php";
 // photo updater and deleter
 function pUpdate(divz, photo){
  $('#'+divz).empty()
- $.post('editHandler.php', {photoPath: photo, tableName: "tender", pid: "<?php echo $uidx ?>"}, 
+ $.post('admin/editHandler.php', {photoPath: photo, tableName: "tender", pid: "<?php echo $uidx ?>"}, 
    function(returnedData){
      $('#'+divz).append(returnedData)        
  })
@@ -539,7 +539,7 @@ foreach($pp as $photo){
 // photo updatedr and deleter
 function pUpdate(divz, photo){
  $('#'+divz).empty()
- $.post('editHandler.php', {photoPath: photo, tableName: "ad", pid: "<?php echo $uidx ?>"}, 
+ $.post('admin/editHandler.php', {photoPath: photo, tableName: "ad", pid: "<?php echo $uidx ?>"}, 
    function(returnedData){
      $('#'+divz).append(returnedData)        
  })
@@ -745,7 +745,7 @@ foreach($pp as $photo){
 //photo updater and deleter
 function pUpdate(divz, photo){
  $('#'+divz).empty()
- $.post('editHandler.php', {photoPath: photo, tableName: "car", pid: "<?php echo $uidx ?>"}, 
+ $.post('admin/editHandler.php', {photoPath: photo, tableName: "car", pid: "<?php echo $uidx ?>"}, 
    function(returnedData){
      $('#'+divz).append(returnedData)        
  })
@@ -1004,7 +1004,7 @@ foreach($pp as $photo){
 // photo updater and deleter
            function pUpdate(divz, photo){
             $('#'+divz).empty()
-            $.post('editHandler.php', {photoPath: photo, tableName: "housesell", pid: "<?php echo $uidx ?>"}, 
+            $.post('admin/editHandler.php', {photoPath: photo, tableName: "housesell", pid: "<?php echo $uidx ?>"}, 
               function(returnedData){
                 $('#'+divz).append(returnedData)        
             })
@@ -1184,7 +1184,7 @@ foreach($pp as $photo){
 
 function pUpdate(divz, photo){
  $('#'+divz).empty()
- $.post('editHandler.php', {photoPath: photo, tableName: "electronics", pid: "<?php echo $uidx ?>"}, 
+ $.post('admin/editHandler.php', {photoPath: photo, tableName: "electronics", pid: "<?php echo $uidx ?>"}, 
    function(returnedData){
      $('#'+divz).append(returnedData)        
  })
@@ -1281,7 +1281,7 @@ aria-describedby="emailHelp" name="info" placeholder="Detailed Info"><?php echo 
 
 function pUpdate(divz, photo){
  $('#'+divz).empty()
- $.post('editHandler.php', {photoPath: photo, tableName: "charity", pid: "<?php echo $uidx ?>"}, 
+ $.post('admin/editHandler.php', {photoPath: photo, tableName: "charity", pid: "<?php echo $uidx ?>"}, 
    function(returnedData){
      $('#'+divz).append(returnedData)        
  })
@@ -1447,7 +1447,7 @@ foreach($pp as $photo){
 // photo updater and deleter
            function pUpdate(divz, photo){
             $('#'+divz).empty()
-            $.post('editHandler.php', {photoPath: photo, tableName: "jobhometutor", pid: "<?php echo $uidx ?>"}, 
+            $.post('admin/editHandler.php', {photoPath: photo, tableName: "jobhometutor", pid: "<?php echo $uidx ?>"}, 
               function(returnedData){
                 $('#'+divz).append(returnedData)        
             })
@@ -1610,7 +1610,7 @@ foreach($pp as $photo){
 // photo updater and deleter
            function pUpdate(divz, photo){
             $('#'+divz).empty()
-            $.post('editHandler.php', {photoPath: photo, tableName: "hotelhouse", pid: "<?php echo $uidx ?>"}, 
+            $.post('admin/editHandler.php', {photoPath: photo, tableName: "hotelhouse", pid: "<?php echo $uidx ?>"}, 
               function(returnedData){
                 $('#'+divz).append(returnedData)        
             })
@@ -1783,7 +1783,7 @@ if(isset($_GET['type'])){
 // photo updater and deleter
            function pUpdate(divz, photo){
             $('#'+divz).empty()
-            $.post('editHandler.php', {photoPath: photo, tableName: "hotelhouse", pid: "<?php echo $uidx ?>"}, 
+            $.post('admin/editHandler.php', {photoPath: photo, tableName: "hotelhouse", pid: "<?php echo $uidx ?>"}, 
               function(returnedData){
                 $('#'+divz).append(returnedData)        
             })
@@ -1900,7 +1900,7 @@ if(isset($_GET['type'])){
 // photo updater and deleter
            function pUpdate(divz, photo){
             $('#'+divz).empty()
-            $.post('editHandler.php', {photoPath: photo, tableName: "zebegna", pid: "<?php echo $uidx ?>"}, 
+            $.post('admin/editHandler.php', {photoPath: photo, tableName: "zebegna", pid: "<?php echo $uidx ?>"}, 
               function(returnedData){
                 $('#'+divz).append(returnedData)        
             })

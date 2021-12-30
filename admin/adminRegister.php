@@ -1,5 +1,5 @@
 <?php
-    include('../includes/header.php');
+    include('includes/header.php');
     require_once "../php/adminCrude.php";
 
     if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'], $_POST['username'],
@@ -36,7 +36,7 @@
      
 
 ?>
-  <script src="../assets/jquery.js" type="text/javascript"></script>
+  <script src="assets/jquery.js" type="text/javascript"></script>
   <script>
       $(document).ready(function(){
         $('#registerBox').on('submit', function(e){

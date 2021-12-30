@@ -84,6 +84,13 @@ if(isset(
 
     $ask = $admin->updateVacancyPost($jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info  );
 
+    if($ask){
+      echo 'Posted Successfully';
+    }
+    else{
+      echo 'error';
+    }
+
   }
 
   //tender post data handler block
@@ -106,6 +113,13 @@ if(isset(
       $title = $_POST['title'];
 
       $db = $admin->updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title   );
+
+      if($db){
+        echo 'Posted Successfully';
+      }
+      else{
+        echo 'error';
+      }
 
      }
 
@@ -153,7 +167,12 @@ if(isset(
       
 
       $adEdit = $admin->updateAdPost( $type, $price, $address, $phone, $for, $title, $info, $postId);
-
+      if($adEdit){
+        echo 'Posted Successfully';
+      }
+      else{
+        echo 'error';
+      }
 
     }
 
@@ -203,6 +222,14 @@ if(isset(
 
       $out12 = $admin->updateCarPost($title,$type, $status, $fuleKind, $postId,
        $fixidOrN,$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob );
+
+       if($out12){
+        echo 'Posted Successfully';
+      }
+      else{
+        echo 'error';
+      }
+
     }
 
 
@@ -266,7 +293,13 @@ if(isset(
           $outH = $admin->updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
           $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId, $ob );
           
-    
+          if($outH){
+            echo 'Posted Successfully';
+          }
+          else{
+            echo 'error';
+          }
+
         }
 
         //deleting photo api
