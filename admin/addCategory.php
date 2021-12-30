@@ -124,7 +124,10 @@ if(isset($_POST['elc'])){
             }
 
             function updateElc(){
-                
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
             }
 
 
@@ -421,7 +424,7 @@ if(isset($_POST['type'])){
         
         <h3>Current house Category</h3>
 
-<div id="xxh">
+<div id="xxh2">
 
 
 <table class="table" >

@@ -37,7 +37,7 @@ class auth{
             //last loged in date
             function lastLoged($uid){
                 include "connect.php";
-                $date = date('Y/m/d');
+                $date = date('Y-m-d H:i:s');
                 $q = "UPDATE `user` SET `lastLogedIn`= '$date' WHERE `user`.`id` = $uid";
     
                 $ask = $mysql->query($q);

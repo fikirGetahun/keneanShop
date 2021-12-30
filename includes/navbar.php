@@ -37,6 +37,28 @@ function nav(nav){
   $('#uploadDiv').load("user/postPage.php?type="+nav)
 }
 
+function postViewNav(table, columen, args, label){
+  $('#showBox').load('maincat.php?cat='+table+'&status='+columen+'&off='+args+'&label='+label);
+  history.pushState({ cat : cat,
+                      status : columen,
+                      off : args,
+                      label : label  }, '', './maincat.php?cat='+table+'&status='+columen+'&off='+args+'&label='+label)
+}
+
+$(document).ready(function(){
+
+  /// this is the main important block of the code which makes the back button work to navigate in a singlepage
+  /// application what it does is it sees that the objects{ cat, staus,off,label} given in history.pushstate then it loads them as it change happens 
+    window.onpopstate = function (event) {
+        $('#showBox').load('maincat.php?cat='+event.state.table+'&status='+event.state.columen+'&off='+event.state.args+'&label='+event.state.label)
+        history.pushState({ cat : cat,
+                      status : columen,
+                      off : args,
+                      label : label  }, '', './maincat.php?cat='+event.state.table+'&status='+event.state.columen+'&off='+event.state.args+'&label='+event.state.label)
+      }
+
+})
+
 
 
 
@@ -50,14 +72,24 @@ function nav(nav){
       <a class="p-2 text-muted" href="#">Language</a>
       <a class="p-2 text-muted" href="#">Eth</a>
       <a class="p-2 text-muted" href="#">Membership</a>
-      <a class="p-2 text-muted" href="#">Account</a>
+     
       <a class="p-2 text-muted" href="#">Blog</a>
-            <!-- Button trigger modal -->
+      <?php 
+      ob_start();
+      session_start();
+      if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
+        ?>
+      <a class="p-2 text-muted" href="#">Account</a>
+      <a class="p-2 text-muted" href="./user/logout.php">Log Out</a>
+        <?php
+      }
+      
+      ?>
+            <!-- Button trigger modal --> 
 <!-- Button trigger modal -->
 
 <?php 
-ob_start();
-session_start();
+
 if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
   ?>
 <a href="login.php">  <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
@@ -85,7 +117,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Sponsored big discount</a>
+          <a class="nav-link active" onclick="postViewNav('ad', 'bigDiscount', 'ACTIVE', 'Big Discount Advertisment')"  aria-current="page" href="#">Sponsored big discount</a>
         </li>
         
         <li class="nav-item dropdown">
@@ -93,7 +125,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
             <span class="small">House</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="maincat.php">To buy</a></li>
+            <li><a class="dropdown-item" onclick="" href="maincat.php">To buy</a></li>
             <li><a class="dropdown-item" href="vacdescription.php">To rent</a></li>
           </ul>
         </li>
@@ -102,8 +134,8 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
             <span class="small">Cars
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="maincat.php">To buy</a></li>
-            <li><a class="dropdown-item" href="maincat.php">To rent</a></li>
+            <li><a class="dropdown-item" onclick="postViewNav('car', 'forRentOrSell', 'For Sell', 'Cars For Sell')" >To buy</a></li>
+            <li><a class="dropdown-item" onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Sell')" >To rent</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -170,8 +202,23 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           <div class="col"><p><button type="button" onclick="nav('ad')" class="btn btn-light btn-sm">product & service ads</button></p></div>
         <div class="col"><p><button type="button" onclick="nav('charity')" class="btn btn-light btn-sm">charity organization</button></p></div>
         <div class="col"><p><button type="button" onclick="nav('big')" class="btn btn-light btn-sm">big discount sponsored</button></p></div>
-        <div class="col"><p><button type="button" class="btn btn-light btn-sm">Cv for work and seeker</button></p></div>
-        </div>
+        <div class="col"></div>
+      
+        <ul class="navbar-nav" >
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+          <p><button type="button" class="btn btn-light btn-sm">Cv for work and seeker</button></p>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" >Home Tutor Job Applicaion</a></li>
+            <li><a class="dropdown-item" >Hotel Worker Job Application</a></li>
+            <li><a class="dropdown-item" >Home Keeper Job Application</a></li>
+            <li><a class="dropdown-item" >Security Gaurd Job Application</a></li>
+
+          </ul>
+        </li>
+        </ul>
+      </div>
       </div>
     </div>
   </div>

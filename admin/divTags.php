@@ -413,3 +413,57 @@
        name="elc3" >
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
+
+
+<div id="elecCat">
+
+
+<table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+
+
+      <?php
+      $out = $admin->allCategoryLister('electronics');
+      while($row = $out->fetch_assoc()){
+
+              ?>
+            <tr>
+            <th scope="row"><?php echo $row['id'] ?></th>
+            <td id="editAd<?php echo $row['id'] ?>">
+            <?php echo $row['category'] ?>
+
+            <?php
+                if($row['category'] != 'OTHER' ){
+                    ?>
+             <button onclick="editHouse(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
+            <button onclick="houseDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+                    <?php
+                }
+            ?>
+
+
+            </td>
+
+            </tr>
+              <?php            
+          }
+      
+      
+      ?>
+<script>
+
+
+</script>
+
+  </tbody>
+</table>
+
+</div>

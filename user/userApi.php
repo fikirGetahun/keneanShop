@@ -59,39 +59,6 @@ $_POST['password'],$_POST['email'])){
 
 }
 
-//////////////////LOGIN USER //////////////////////////
-
-if(isset($_POST['username'], $_POST['password'])){
-    echo 'in login';
-    $us = $_POST['username'];
-    $pa = $_POST['password'];
-    $check = $auth->loginAuth($us);
-    // $check = $auth->loginAuth()
-    if($check->num_rows == 0){
-        $login = 'Not valid password or Username';
-        echo $login;
-
-    }else{
-        
-
-        $row = $check->fetch_assoc();
-            
-           echo password_verify($pa, $row['password']);
-            if(password_verify($pa, $row['password'])){
-                ob_start();
-                session_start();
-                $_SESSION['userId'] = $row['id'];
-                
-                header('Location: ../index.php');
-            }else{
-                echo 'password not correct';
-            }
-
-        
-
-    }
-    
-}
 
 
 

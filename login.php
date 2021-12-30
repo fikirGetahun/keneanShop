@@ -1,5 +1,8 @@
 <?php
 include "includes/header.php";
+require_once "./php/auth.php";
+
+
 ?>
     <style>
       .bd-placeholder-img {
@@ -23,23 +26,20 @@ $(document).ready(function(){
       
   $('form').on('submit', function(e){
           e.preventDefault()
+          $('form').on('submit', function(){
           $.ajax({
-            url: 'user/userApi.php',
-            type: 'post',
-            data:  new FormData( this ),
-            success : function(data){
-              $( 'form' ).each(function(){
-                    this.reset();
-              });
-              $('#alertVacancy').text(data)
-              // $('#alertVacancy').delay(5200).fadeOut(300);
-            },
-            processData: false,
-        contentType: false
+              url: 'login.php',
+              type: 'post',
+              data: $('form').serialize(),
+              success: function(data){
+                // alert(data)
+              }
           })
+          return false;
+      })
+    })
           
 
-    })
 })
   </script>
     <!-- Custom styles for this template -->
@@ -69,6 +69,44 @@ $(document).ready(function(){
     </div>
    <a href="./register.php"><label>Register</label></a>
    <button class="w-50 btn btn-primary mx-auto " type="submit">Continue to checkout</button>
+   <?php
+   
+   //////////////////LOGIN USER //////////////////////////
+
+if(isset($_POST['username'], $_POST['password'])){
+  // echo 'in login';
+  $us = $_POST['username'];
+  $pa = $_POST['password'];
+  $check = $auth->loginAuth($us);
+  // $check = $auth->loginAuth()
+  if($check->num_rows == 0){
+      $login = 'Not valid password or Username';
+      echo $login;
+
+  }else{
+      
+
+      $row = $check->fetch_assoc();
+          
+         echo password_verify($pa, $row['password']);
+          if(password_verify($pa, $row['password'])){
+              ob_start();
+              session_start();
+              $_SESSION['userId'] = $row['id'];
+              
+              header('Location: index.php');
+          }else{
+              echo 'password not correct';
+          }
+
+      
+
+  }
+  
+}
+
+   
+   ?>
 
     <!-- <a class="w-100 btn btn-lg btn-primary" type="submit">Sign in</a> -->
     <div id="alertVacancy" ></div>
