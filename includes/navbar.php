@@ -167,9 +167,19 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
         <li class="nav-item">
           <a class="nav-link active" href="./maincat.php?cat=vacancy"><span class="small">Vacancy</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="maincat.php"><span class="small">Cv Work / Vacancy</span></a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="small">Cv Work Seekers</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item"  href="./maincat.php?cat=jobhometutor&type=homeTutor&label=Home Tutor"  >Home Tutor Job Applicaion</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=hotelhouse&type=hotelWorker&label=Hotel Job Seeker"   >Hotel Worker Job Application</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=hotelhouse&type=houseWorker&label=Home Keeper Seeker"   >Home Keeper Job Application</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=zebegna&type=zebegna&label=Security Gaurd Job Seeker"  >Security Gaurd Job Application</a></li>
+          </ul>
         </li>
+
+
          <li class="nav-item">
           <a class="nav-link active" 
           href="./maincat.php?cat=ad&status=bigDiscount&off=NOT&label=Advertisment Post"><span class="small">Products / Services</span></a>
@@ -227,10 +237,10 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           <p><button type="button" class="btn btn-light btn-sm">Cv for work and seeker</button></p>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" >Home Tutor Job Applicaion</a></li>
-            <li><a class="dropdown-item" >Hotel Worker Job Application</a></li>
-            <li><a class="dropdown-item" >Home Keeper Job Application</a></li>
-            <li><a class="dropdown-item" >Security Gaurd Job Application</a></li>
+            <li><a class="dropdown-item" onclick="nav('homeTutor')"  >Home Tutor Job Applicaion</a></li>
+            <li><a class="dropdown-item" onclick="nav('hotelWorker')" >Hotel Worker Job Application</a></li>
+            <li><a class="dropdown-item" onclick="nav('houseWorker')" >Home Keeper Job Application</a></li>
+            <li><a class="dropdown-item" onclick="nav('zebegna')" >Security Gaurd Job Application</a></li>
 
           </ul>
         </li>

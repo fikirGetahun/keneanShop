@@ -732,7 +732,7 @@ if($_GET['cat'] == 'vacancy'){
                   <?php echo $row['type'] ?>
                   <?php 
                     $date = $get->time_elapsed_string($row['postedDate']);
-                    $sdate = $get->time_elapsed_string($row['startingDate']);
+                    // $sdate = $get->time_elapsed_string($row['startingDate']);
                     $dt = new DateTime($row['postedDate']);
 
                     $now = new DateTime();
@@ -813,7 +813,7 @@ if($_GET['cat'] == 'tender'){
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
+        <h5 class=" text-center"><?php echo $row['title'] ?></h5>
         <div class="card">
                 <div class="card-header">
                   <?php echo $row['type'] ?>
@@ -825,12 +825,12 @@ if($_GET['cat'] == 'tender'){
                     $now = new DateTime();
                     $future_date = new DateTime($row['postedDate']);
                     $future_date2 = new DateTime($row['startingDate']);
-
+                    $sinterval = $future_date2->diff($snow);
                     $snow = new DateTime();
 
                     $interval = $future_date->diff($now);
 
-                    $sinterval = $future_date2->diff($snow);
+                    
 
                     ;
                   ?>
@@ -874,7 +874,79 @@ if($_GET['cat'] == 'tender'){
 }
 
 
+if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
+  if($_GET['type'] == 'homeTutor'){
+    $cat = $_GET['cat'];
+    $type = $_GET['type'];
+    $pid = $_GET['postId'];
+    $label = $_GET['label'];
+    $viewadd = $get->viewAdder($cat, $pid);
+
+    ?>
+    
+    <div class="container"> 
+    <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol  class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div  class="carousel-inner">
+                            <div class="carousel-item active">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            </div>
+                        </div>
+
+      </div>
+  </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title text-center">Full Name: <?php echo $row['name'] ?></h5>
+
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Gender :</label> <?php echo $row['sex'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Educational Background :</label> <?php echo $row['eduBackground'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Range Grade: </label><?php echo $row['clientRange'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Payment:</label>< <?php echo $row['paymentStatus'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Price: </label><?php echo $row['Price'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Agent Info: </label> <?php echo $row['companyInfo'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
+          <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
+          <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $row['phone'] ?></span> </p>
+          <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
+          </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <?php
+              $date = $get->time_elapsed_string($row['postedDate']);
+              ?>
+              <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
+                <small class="text-muted"><?php echo $row['view'] ?> Views</small>
+                </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    <?php
+
   }
+}
+
+
+  }
+
+?>
+
+<?php
+
+if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender'){
+
 
 ?>
 
@@ -960,6 +1032,7 @@ if($_GET['cat'] == 'tender'){
 
           
        }
+      }
        
        ?>
       </div>

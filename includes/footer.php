@@ -1,7 +1,7 @@
 <div class="container">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-   <!-- <footer class="pt-4 my-md-5 pt-md-5 border-top "> -->
+   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md">
         <img class="mb-2" src="cuslogo/web logo.png" alt="" width="74" height="40">
@@ -53,4 +53,4 @@
       </div>
     </div>
   </div>
-  <!-- </footer> -->
+  </footer>

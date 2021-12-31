@@ -315,6 +315,11 @@ if($o[4] == 'error'){
 }else{
   $out = $admin->homeTutoreAdder($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
 $phone, $cinfo, $info, $o[0]);
+if($out){
+  echo 'Post Successfull';
+}else{
+  echo 'ERROR';
+}
 
 }
 
@@ -365,8 +370,12 @@ if($up[4] == 'error'){
 }else{
   $out = $admin->hotelHouseDataAdder($hotelOrHouse,$name, $sex, $age, $religion, $field, $address, $wType,
   $price, $experience, $bid, $cAddress, $agentInfo, $up[0], $pid);
-  echo 'Post Succesfull!';
-
+  if($out){
+    echo 'Post Successfull';
+  }else{
+    echo 'ERROR';
+  }
+  
 }
 
 

@@ -37,6 +37,7 @@ if(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
 
 	?>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="assets/jquery.js" ></script>  
 <script>
 $(document).ready(function(){
@@ -51,26 +52,29 @@ $(document).ready(function(){
 
 
 
-      $.ajax({
-        url:'user/userScrollView.php',
-        type: 'GET', 
-        data : 'types=good',
-        success: function(data){
-          $('#loop').append(data)
-        }
-      })
+      // $.ajax({
+      //   url:'user/userScrollView.php',
+      //   type: 'GET', 
+      //   data : 'types=good',
+      //   success: function(data){
+      //     $('#all').append(data)
+      //   }
+      // })
     }
   })
 
 })
 
 </script>
+
+
 </head>
 <body>
 
 <div id="all" class="container">
 <div class="row">
-<div class="col-2">
+  <!-- <div class=".d-sm-none .d-md-block"> -->
+<div id="sideNav" class="col-2">
 			<ul class="nav flex-column">
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="#">Active</a>
@@ -85,7 +89,8 @@ $(document).ready(function(){
     <a class="nav-link disabled">Disabled</a>
   </li>
 </ul>
-		</div>
+<!-- </div> -->
+  </div>
   <div id="loop" class="col-md-8">
     <?Php
 
@@ -104,11 +109,11 @@ $(document).ready(function(){
           
 ?>
 <br>
-  <div class="jumbotron">
+ 
   <div  class="container">
       <h5><?php echo $label ?></h5>
   </div>
-    </div>
+    
     <br>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
 
@@ -122,11 +127,12 @@ $(document).ready(function(){
             
 
       
-        <div class="col-5">
+        <div class="col-4">
           <div class="card shadow-sm">
           <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
+
               <h5 class="card-title">  <?php echo $row['title'] ?></h5>
               <?php 
               if($cat != 'charity'){
@@ -165,6 +171,94 @@ $(document).ready(function(){
 
 
       }
+
+      ///////////////cv seekers
+      if(isset($_GET['cat'], $_GET['type'], $_GET['label'])){
+        $cat = $_GET['cat'];
+        $type = $_GET['type'];
+        $label = $_GET['label'];
+
+        if($type == "homeTutor" || $type == 'zebegna'){
+          $fetchPost = $get->allPostListerOnTable($cat);
+        }elseif($type == "houseWorker"){
+          $fetchPost = $get->allPostListerOnColumen($cat, 'hotelOrHouse', 'HOUSE');
+        }elseif($type == "hotelWorker"){
+          $fetchPost = $get->allPostListerOnColumen($cat, 'hotelOrHouse', 'HOTEL');
+        }
+
+        
+        ?>
+        <br>
+        <div  class="container">
+            <h5><?php echo $label ?></h5>
+        </div>
+          
+          <br>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+        <?php
+        
+ 
+
+       
+
+        while($row = $fetchPost->fetch_assoc()){
+          
+
+          if(!in_array($row['id'], $_SESSION['userScroll'])){
+            $pid = $row['id'];
+          ?>
+          
+
+    
+      <div class="col-4">
+        <div class="card shadow-sm">
+        <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $type ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+
+          <div class="card-body">
+
+            <h4 class="card-title">  <?php echo $row['name'] ?></h4>
+            <h5> Sex: <?php $row['sex'] ?></h5>
+            <?php 
+              if($type == 'hometTutor'){
+                ?>
+                <h5> <h5><?php echo $row['Price'] ?></h5>  <?php $row['paymentStatus'] ?></h5>
+                <?php
+              }
+              if($type == 'houseKeeper'){
+                ?> <h3>Religion: <?php echo $row['religion'] ?></h3> <?php
+              }
+            ?>
+            <?php 
+
+            $date = $get->time_elapsed_string($row['postedDate']);
+            
+            ?>
+            
+            <div class="d-flex justify-content-between align-items-center">
+                <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
+               <!-- <a href="<?php echo './Description.php?cat='.$cat.'&postId='.$row['id'] ?>">View</a> -->
+
+            </div>
+            <span class="text-danger small"><?php echo $date ?></span>
+            <span class="text-danger float-right"><?php echo $row['view'] ?> views</span>
+          </div>
+        </div>
+      </div>
+   
+  
+
+
+          <?php
+          array_push($_SESSION['userScroll'], $row['id']);
+          }
+        }
+        
+        
+
+      }
+
+
+      
 
       if(isset($_GET['cat'])){
         if($_GET['cat'] == 'vacancy'){
@@ -242,7 +336,7 @@ $(document).ready(function(){
                     $now = new DateTime();
                     $future_date = new DateTime($row['postedDate']);
                     $future_date2 = new DateTime($row['startingDate']);
-                    $sinterval = $future_date2->diff($snow);
+                    $sinterval = $future_date2->diff($now);
                     $snow = new DateTime();
 
                     $interval = $future_date->diff($now);
@@ -252,7 +346,7 @@ $(document).ready(function(){
                   ?>
                     <small class="text-muted">Posted: <span class="text-success"><?php echo $date; ?></span></small>
                   </div>
-                  <label>Starteing Date : <?php echo $sdate; ?> or <?php echo $sinterval->format("%a days, %h hours")  ?></label>
+                  <label>Starting Date : <?php echo $sdate; ?> or <?php echo $sinterval->format("%a days, %h hours")  ?></label>
                   
                   <p class="card-text"><span class="fw-bolder">Job Description: </span><?php echo $row['info'] ?></p>
                   <p><small class="text-muted">Location: <?php echo $row['address'] ?></small></p>
@@ -289,11 +383,10 @@ $(document).ready(function(){
           
 ?>
 <br>
-  <div class="jumbotron">
   <div  class="container">
       <h5><?php echo $label ?></h5>
   </div>
-    </div>
+    
     <br>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
 
@@ -306,7 +399,7 @@ $(document).ready(function(){
             
 
       
-        <div class="col">
+        <div class="col-3">
           <div class="card shadow-sm">
           <a href="./Description.php?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
@@ -361,10 +454,9 @@ $(document).ready(function(){
           
 ?>
 <br>
-  <div class="jumbotron">
   <div  class="container">
       <h5><?php echo $label ?></h5>
-  </div>
+  
     </div>
     <br>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
@@ -378,7 +470,7 @@ $(document).ready(function(){
             
 
       
-        <div class="col">
+        <div class="col-3">
           <div class="card shadow-sm">
           <a href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
@@ -421,12 +513,18 @@ $(document).ready(function(){
     ?>
     <div style="clear:both;"></div>
    </div>
+
    <div style="clear:both;"></div>
 </div>
 <div style="clear:both;"></div>
+
 </div>
 <div style="clear:both;"></div>
       <?php
-      include 'includes/footer.php';
+      
   ?>
 </body>
+<?php
+
+include 'includes/footer.php';
+?>
