@@ -45,16 +45,19 @@ require_once "php/fetchApi.php";
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <?php 
 
-  if(isset($_GET['cat'], $_GET['postId'])){
+  if(isset($_GET['cat'], $_GET['postId'], $_GET['label'])){
     $type = $_GET['cat'];
     $pid = $_GET['postId'];
+    $label = $_GET['label'];
     $fetch = $get->aSinglePostView($pid, $type);
 
     while($row = $fetch->fetch_assoc()){
 
       ?>
       <?php
-      
+      ?> 
+        <h2><?php echo $label; ?></h2>
+      <?php
 
       /////////////////////////////////////car post description ///////////////
       if($_GET['cat'] == 'car'){
@@ -114,6 +117,8 @@ require_once "php/fetchApi.php";
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
+              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">For Rent or Sell: </label> <?php echo $row['forRentOrSell'] ?></p>
+
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Item Provider :</label> <?php echo $row['ownerBroker'] ?></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Status: </label><?php echo $row['status'] ?></p>
@@ -147,7 +152,7 @@ require_once "php/fetchApi.php";
       }
 
       //////////////////////////////ad post 
-      if($_GET['cat'] == 'ad'){
+      if($_GET['cat'] == 'ad' && $_GET['label'] != 'Big Discount Advertisment'){
         // to add aview count to this post
         $viewadd = $get->viewAdder($type, $pid);
 
@@ -205,17 +210,16 @@ require_once "php/fetchApi.php";
             <div class="card-body">
               <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Item Provider :</label> <?php echo $row['ownerBroker'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Status: </label><?php echo $row['status'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Fule Kind:</label>< <?php echo $row['fuleKind'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Transmission: </label><?php echo $row['transmission'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">KM: </label> <?php echo $row['km'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Body Status: </label> <?php echo $row['bodyStatus'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Fixed or Negossioable: </label> <?php echo $row['fixidOrN'] ?></p>
+              <?php 
+              if($row['for'] != ' '){
+                ?> <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">For :</label> <?php echo $row['for'] ?></p><?php
+              }
+              ?>
+               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Phone :</label> <?php echo $row['phone'] ?></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
               <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-              <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
+              <p class="card-text">Phone No:<span class="fw-bolder"><?php echo $row['phone'] ?></span> </p>
               <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
               </div>
@@ -243,6 +247,187 @@ require_once "php/fetchApi.php";
 
     }
 
+  /////////////big discount
+  if($_GET['label'] == 'Big Discount Advertisment'){
+    // to add aview count to this post
+    $viewadd = $get->viewAdder($type, $pid);
+
+    ?>
+    
+  <div class="container"> 
+    <div class="card mb-3">
+    <div class="row g-0 w-150 p-3">
+      <div class="col-md-4">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol  class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div  class="carousel-inner">
+                            <div class="carousel-item w-200 p-3 active">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            </div>
+
+                            <?php
+                            $p = $admin->photoSplit($row['photoPath1']);
+                            if(!empty($p[1])){
+                                ?>
+                            <div class="carousel-item w-200 p-3">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            </div>
+                                <?php
+                            }
+                            ?>
+
+                            <?php
+                            $p = $admin->photoSplit($row['photoPath1']);
+                            if(!empty($p[2])){
+                                ?>
+                            <div class="carousel-item w-200 p-3">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            </div>
+                                <?php
+                            }
+                            ?>
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        </div>  
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
+          <?php 
+          if($row['for'] != ' '){
+            ?> <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">For :</label> <?php echo $row['for'] ?></p><?php
+          }
+          ?>
+           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Phone :</label> <?php echo $row['phone'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
+          <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
+          <p class="card-text">Phone No:<span class="fw-bolder"><?php echo $row['phone'] ?></span> </p>
+          <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
+          </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <?php
+              $date = $get->time_elapsed_string($row['postedDate']);
+              ?>
+              <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
+                <small class="text-muted"><?php echo $row['view'] ?> Views</small>
+                </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <?php
+  }
+
+
+  //////////////////house post
+  if($_GET['type'] == 'house'){
+    // to add aview count to this post
+    $viewadd = $get->viewAdder($type, $pid);
+
+    ?>
+    
+  <div class="container"> 
+    <div class="card mb-3">
+    <div class="row g-0 w-150 p-3">
+      <div class="col-md-4">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol  class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div  class="carousel-inner">
+                            <div class="carousel-item w-200 p-3 active">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            </div>
+
+                            <?php
+                            $p = $admin->photoSplit($row['photoPath1']);
+                            if(!empty($p[1])){
+                                ?>
+                            <div class="carousel-item w-200 p-3">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            </div>
+                                <?php
+                            }
+                            ?>
+
+                            <?php
+                            $p = $admin->photoSplit($row['photoPath1']);
+                            if(!empty($p[2])){
+                                ?>
+                            <div class="carousel-item w-200 p-3">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            </div>
+                                <?php
+                            }
+                            ?>
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        </div>  
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">For Rent or Sell: </label> <?php echo $row['forRentOrSell'] ?></p>
+
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Item Provider :</label> <?php echo $row['ownerBroker'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">City: </label><?php echo $row['city'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Wereda:</label>< <?php echo $row['wereda'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Area: </label><?php echo $row['area'] ?> MeterSquare</p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Bed Room:</label> <?php echo $row['bedRoomNo'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Bath Room: </label> <?php echo $row['bathRoomNo'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Fixed or Negossioable: </label> <?php echo $row['fixidOrN'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
+          <p class="card-text"> <?php echo $row['cost'] ?><small class="text-muted">Br</small></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
+          <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
+          <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
+          </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <?php
+              $date = $get->time_elapsed_string($row['postedDate']);
+              ?>
+              <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
+                <small class="text-muted"><?php echo $row['view'] ?> Views</small>
+                </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <?php
+  }
 
   }
 
@@ -250,7 +435,7 @@ require_once "php/fetchApi.php";
 
 <hr>
 
-<h2>Related Posts</h2>
+<h2>Related <?php echo $label ?></h2>
 <hr>
 
  <div class="album py-5 bg-light">
@@ -296,7 +481,7 @@ require_once "php/fetchApi.php";
                   
                 </div>
                 <span class="text-danger small"><?php echo $date ?></span><br> <span class="text-right float-right"><?php echo $row2['view'] ?>Views</span>
-                <a href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>"> view</a>
+                <a href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>"> view</a>
               </div>
             </div>
           </div>

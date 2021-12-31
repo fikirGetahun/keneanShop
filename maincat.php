@@ -122,7 +122,7 @@ $(document).ready(function(){
       
         <div class="col">
           <div class="card shadow-sm">
-          <a > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
               <h5 class="card-title">  <?php echo $row['title'] ?></h5>
@@ -141,7 +141,6 @@ $(document).ready(function(){
                   <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
                  <!-- <a href="<?php echo './Description.php?cat='.$cat.'&postId='.$row['id'] ?>">View</a> -->
 
-                 <a href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>">View</a>
               </div>
               <span class="text-danger small"><?php echo $date ?></span>
             </div>
@@ -250,7 +249,7 @@ $(document).ready(function(){
       
         <div class="col">
           <div class="card shadow-sm">
-          <a href="description.php" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a href="./Description.php?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
               <h5 class="card-title">  <?php echo $row['title'] ?></h5>
