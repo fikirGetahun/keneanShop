@@ -913,7 +913,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Price: </label><?php echo $row['Price'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Agent Info: </label> <?php echo $row['companyInfo'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
-          <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
+          <p class="card-text"> <?php echo $row['Price'] ?><small class="text-muted">Br</small></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
           <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $row['phone'] ?></span> </p>
           <div class="btn-group">
@@ -987,14 +987,29 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender'){
             }
             ?>
               <div class="card-body">
-                <h5 class="card-title text-center">  <?php echo $row2['title'] ?></h5>
+                <?php 
+                if($type != 'homeTutor' && $type != 'zebegna' && $type != 'hotelWorker' && $type != 'houseWorker'){
+
+                  ?>
+                  <h5 class="card-title text-center">  <?php echo $row2['title'] ?></h5>
+
+                  <?php
+                }elseif($type == 'homeTutor' || $type =='zebegna' || $type == 'hotelWorker' || $type ==='houseWorker'){
+
+                  ?> 
+                  <h5 class="card-title text-center">  <?php echo $row2['name'] ?></h5>
+                  <?php
+                }
+               
+                
+                ?>
                 <?php 
                 if($cat != 'charity' && !isset($_GET['type'])){
   ?>
                 <h6 class="card-text"><span class="text-danger small"><?php echo $row2['price'] ?> Birr</span> </h6>
   
   <?php
-                }elseif(isset($_GET['type'])){
+                }elseif(isset($_GET['type']) && $type == 'house' || $type == 'land'){
                   ?>
                   <h6 class="card-text"><span class="text-danger small"><?php echo $row2['cost'] ?> Birr</span> </h6>
                   
