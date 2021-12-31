@@ -31,7 +31,7 @@ if(isset($_POST['elc'])){
 
 ?>
 <head>
-    <script src="../assets/jquery.js"></script>
+    <script src="assets/jquery.js"></script>
     <script>
         $(document).ready(function(){
 
@@ -39,7 +39,7 @@ if(isset($_POST['elc'])){
                 e.preventDefault()
                 
                 $.ajax({
-                    url: 'addCategory.php',
+                    url: 'admin/addCategory.php',
                     type: 'post',
                     data: $('form').serialize(),
                     success: function(){

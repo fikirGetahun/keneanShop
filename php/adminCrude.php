@@ -18,7 +18,7 @@
             include('connect.php');
             $postStatus = 'ACTIVE';
             $date = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `tender`( `title`,`tenderType`, `startingDate`, `deadLine`, `address`, `initialCost`, `info`, `posterId`, `postedDate`, `postStatus`, `photoPath1`)
+            $q = "INSERT INTO `tender`( `title`,`type`, `startingDate`, `deadLine`, `address`, `initialCost`, `info`, `posterId`, `postedDate`, `postStatus`, `photoPath1`)
              VALUES ( '$title' ,'$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date', '$postStatus', '$photo' )";
 
              $ask = $mysql->query($q);
@@ -89,7 +89,7 @@
             include "connect.php";
             $date = date('Y-m-d H:i:s');
             $edited = 'YES';
-            $q = "UPDATE `tender` SET `tenderType`='$tenderType',
+            $q = "UPDATE `tender` SET `type`='$tenderType',
             `startingDate`='$startingDate',`deadLine`='$deadLine',`address`='$location',
             `initialCost`='$initialCost',`info`='$info',`postedDate`='$date', `title`= '$title', `edited` = '$edited' WHERE `tender`.`id` = '$id2' ";
 
@@ -258,6 +258,7 @@
             include "connect.php";
             $q ="UPDATE `adcategory` SET `category` = '$cat' WHERE `adCategory`.`id` = '$id' ";
 
+
             $ask = $mysql->query($q);
             return $ask;
             
@@ -326,7 +327,7 @@
              `bedRoomNo`, `bathRoomNo`, `cost`, `fixedOrN`, `forRentOrSell`, `info`, `posterId`,
               `photoPath1`, `postedDate`, `postStatus`, `ownerBroker`)
              VALUES ('$title','$type','$houseOrLand', '$city', '$subCity', '$wereda',
-        '$forRentOrSell', '$area', '$bedRoomNo', '$bathRoomNo', '$price', '$fixidOrN', 
+         '$area', '$bedRoomNo', '$bathRoomNo', '$price', '$fixidOrN', '$forRentOrSell',
         '$info', '$posterId', '$fName1', '$postDate', '$postStatus', '$ob')";
 
         $ask = $mysql->query($q);
@@ -766,9 +767,18 @@
 
 
         //all category updater
-        function allCategoryUpdater($cat, $tableName){
+        function allCategoryUpdater($cat, $table, $id){
             include "connect.php";
-            $q = "UPDATE `adcategory` SET `category`= '$cat' WHERE  `tableName`= '$tableName' ";
+
+            $q3 = "SELECT `category` FROM `adcategory` WHERE `id` = '$id'";
+            $ask3 = $mysql->query($q3);
+            $row = $ask3->fetch_assoc();
+            $tobeupdated = $row['category'];
+
+            $q2 ="UPDATE `$tableName` SET `type` =" ;
+            $q = "UPDATE `adcategory` SET `category`= '$cat' WHERE  `adCategory`.`id` = '$id' ";
+
+       
             
             $ask = $mysql->query($q);
 
@@ -807,7 +817,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/adPostsPhoto/'.$uploadName;
+                        $dbPath .= './uploads/adPostsPhoto/'.$uploadName;
                     }
                     
                     if($tableName == 'electronics'){
@@ -815,7 +825,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/vacancyPhoto/'.$uploadName;
+                        $dbPath .= './uploads/vacancyPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'car'){
@@ -823,7 +833,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/CarPostsPhoto/'.$uploadName;
+                        $dbPath .= './uploads/CarPostsPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'housesell'){
@@ -831,7 +841,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/houseOrLandPhotos/'.$uploadName;
+                        $dbPath .= './uploads/houseOrLandPhotos/'.$uploadName;
                     }
 
                     if($tableName == 'tender'){
@@ -839,7 +849,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/tenderPhotos/'.$uploadName;
+                        $dbPath .= './uploads/tenderPhotos/'.$uploadName;
                     }
 
                     if($tableName == 'charity'){
@@ -847,7 +857,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/charityPhoto/'.$uploadName;
+                        $dbPath .= './uploads/charityPhoto/'.$uploadName;
                     }
 
 
@@ -905,56 +915,56 @@
 
                     if($tableName == 'ad'){
                         $uploadPath = '../uploads/adPostsPhoto/'.$uploadName;
-                        $dbPath .= '/uploads/adPostsPhoto/'.$uploadName;
+                        $dbPath .= './uploads/adPostsPhoto/'.$uploadName;
                     }
                     
                     if($tableName == 'electronics'){
                         $uploadPath = '../uploads/electronicsPhoto/'.$uploadName;
-                        $dbPath .= '/uploads/vacancyPhoto/'.$uploadName;
+                        $dbPath .= './uploads/vacancyPhoto/'.$uploadName;
                     }
                     
 
                     if($tableName == 'car'){
                         $uploadPath = '../uploads/CarPostsPhoto/'.$uploadName;
 
-                        $dbPath .= '/uploads/CarPostsPhoto/'.$uploadName;
+                        $dbPath .= './uploads/CarPostsPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'housesell'){
                         $uploadPath = '../uploads/houseOrLandPhotos/'.$uploadName;
 
-                        $dbPath .= '/uploads/houseOrLandPhotos/'.$uploadName;
+                        $dbPath .= './uploads/houseOrLandPhotos/'.$uploadName;
                     }
 
                     if($tableName == 'tender'){
                         $uploadPath = '../uploads/tenderPhotos/'.$uploadName;
 
-                        $dbPath .= '/uploads/tenderPhotos/'.$uploadName;
+                        $dbPath .= './uploads/tenderPhotos/'.$uploadName;
                     }
 
                     if($tableName == 'charity'){
                         $uploadPath= '../uploads/charityPhoto/'.$uploadName;
 
-                        $dbPath .= '/uploads/charityPhoto/'.$uploadName;
+                        $dbPath .= './uploads/charityPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'hotelHouse'){
                         $uploadPath= '../uploads/homeWorker/'.$uploadName;
 
-                        $dbPath .= '/uploads/homeWorker/'.$uploadName;
+                        $dbPath .= './uploads/homeWorker/'.$uploadName;
                     }
 
                     
                     if($tableName == 'jobhometutor'){
                         $uploadPath= '../uploads/homeTutor/'.$uploadName;
 
-                        $dbPath .= '/uploads/homeTutor/'.$uploadName;
+                        $dbPath .= './uploads/homeTutor/'.$uploadName;
                     }
 
                     if($tableName == 'zebegna'){
                         $uploadPath= '../uploads/zebegnaPhoto/'.$uploadName;
 
-                        $dbPath .= '/uploads/zebegnaPhoto/'.$uploadName;
+                        $dbPath .= './uploads/zebegnaPhoto/'.$uploadName;
                     }
 
 
@@ -1014,7 +1024,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/adPostsPhoto/'.$uploadName;
+                        $dbPath .= './uploads/adPostsPhoto/'.$uploadName;
                     }
                     
                     if($tableName == 'electronics'){
@@ -1022,7 +1032,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/vacancyPhoto/'.$uploadName;
+                        $dbPath .= './uploads/vacancyPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'car'){
@@ -1030,7 +1040,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/CarPostsPhoto/'.$uploadName;
+                        $dbPath .= './uploads/CarPostsPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'housesell'){
@@ -1038,7 +1048,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/houseOrLandPhotos/'.$uploadName;
+                        $dbPath .= './uploads/houseOrLandPhotos/'.$uploadName;
                     }
 
                     if($tableName == 'tender'){
@@ -1046,7 +1056,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/tenderPhotos/'.$uploadName;
+                        $dbPath .= './uploads/tenderPhotos/'.$uploadName;
                     }
 
                     if($tableName == 'charity'){
@@ -1054,7 +1064,7 @@
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= '/uploads/charityPhoto/'.$uploadName;
+                        $dbPath .= './uploads/charityPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'jobhometutor'){
@@ -1063,7 +1073,7 @@
                             $dbPath .= ',';
                         }
 
-                        $dbPath .= '/uploads/homeTutor/'.$uploadName;
+                        $dbPath .= './uploads/homeTutor/'.$uploadName;
                     }
 
                     if($tableName == 'hotelhouse'){
@@ -1072,7 +1082,7 @@
                             $dbPath .= ',';
                         }
 
-                        $dbPath .= '/uploads/homeWorker/'.$uploadName;
+                        $dbPath .= './uploads/homeWorker/'.$uploadName;
                     }
 
                     if($tableName == 'zebegna'){
@@ -1081,7 +1091,7 @@
                             $dbPath .= ',';
                         }
 
-                        $dbPath .= '/uploads/zebegnaPhoto/'.$uploadName;
+                        $dbPath .= './uploads/zebegnaPhoto/'.$uploadName;
                     }
 
                     
@@ -1150,7 +1160,7 @@
                 if($i != 0){
                     $dbPath .= ',';
                 }
-                $dbPath .= '/uploads/adPostsPhoto/'.$uploadName;
+                $dbPath .= './uploads/adPostsPhoto/'.$uploadName;
             }
             
             if($tableName == 'electronics'){
@@ -1158,7 +1168,7 @@
                 if($i != 0){
                     $dbPath .= ',';
                 }
-                $dbPath .= '/uploads/vacancyPhoto/'.$uploadName;
+                $dbPath .= './uploads/vacancyPhoto/'.$uploadName;
             }
 
             if($tableName == 'car'){
@@ -1166,7 +1176,7 @@
                 if($i != 0){
                     $dbPath .= ',';
                 }
-                $dbPath .= '/uploads/CarPostsPhoto/'.$uploadName;
+                $dbPath .= './uploads/CarPostsPhoto/'.$uploadName;
             }
 
             if($tableName == 'housesell'){
@@ -1174,7 +1184,7 @@
                 if($i != 0){
                     $dbPath .= ',';
                 }
-                $dbPath .= '/uploads/houseOrLandPhotos/'.$uploadName;
+                $dbPath .= './uploads/houseOrLandPhotos/'.$uploadName;
             }
 
             if($tableName == 'tender'){
@@ -1182,7 +1192,7 @@
                 if($i != 0){
                     $dbPath .= ',';
                 }
-                $dbPath .= '/uploads/tenderPhotos/'.$uploadName;
+                $dbPath .= './uploads/tenderPhotos/'.$uploadName;
             }
 
             if($tableName == 'charity'){
@@ -1190,7 +1200,7 @@
                 if($i != 0){
                     $dbPath .= ',';
                 }
-                $dbPath .= '/uploads/charityPhoto/'.$uploadName;
+                $dbPath .= './uploads/charityPhoto/'.$uploadName;
             }
 
             if($tableName == 'jobhometutor'){
@@ -1199,7 +1209,7 @@
                     $dbPath .= ',';
                 }
 
-                $dbPath .= '/uploads/homeTutor/'.$uploadName;
+                $dbPath .= './uploads/homeTutor/'.$uploadName;
             }
 
 
@@ -1209,7 +1219,7 @@
                     $dbPath .= ',';
                 }
 
-                $dbPath .= '/uploads/homeTutor/'.$uploadName;
+                $dbPath .= './uploads/homeTutor/'.$uploadName;
             }
 
 
@@ -1268,7 +1278,7 @@
             include "connect.php";
             $postStatus = "ACTIVE";
             $postDate = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `charity` ( `title`, `photoPath1`, `info`, `location`, `phone`, `posterId`, `postedDate`, `postStatus`) 
+            $q = "INSERT INTO `charity` ( `title`, `photoPath1`, `info`, `address`, `phone`, `posterId`, `postedDate`, `postStatus`) 
             VALUES ( '$title', '$photo', '$info', '$location', '$phone', '$posterId', '$postDate', '$postStatus' )";
         
         $ask = $mysql->query($q);
@@ -1279,7 +1289,7 @@
 function charityUpdate($title, $info, $location, $phone, $posterId){
     include "connect.php";
     $q = "UPDATE `charity` SET `title`='$title',`info`= '$info',
-    `location`= '$location',`phone`= '$phone',`edited`= 'EDITED'
+    `address`= '$location',`phone`= '$phone',`edited`= 'EDITED'
      WHERE `charity`.`id` = '$posterId'";
 
 $ask = $mysql->query($q);
@@ -1324,7 +1334,7 @@ return $ask;
             include "connect.php";
             $postedDate = date('Y-m-d H:i:s');
             $q = "INSERT INTO `hotelHouse`
-            ( `name`, `sex`, `age`, `religion`, `field`, `address`, `workType`,
+            ( `name`, `sex`, `age`, `religion`, `field`, `address`, `type`,
              `price`, `experience`, `bidingPerson`, `currentAddress`, `agentInfo`,
               `photoPath1`, `posterId`, `postedDate`, `hotelOrHouse`) 
             VALUES ('$name', '$sex', '$age', '$religion', '$field', '$address', '$wType',
@@ -1345,7 +1355,7 @@ return $ask;
         $price, $experience, $bid, $cAddress, $agentInfo, $pid){
             include "connect.php";
             $q = "UPDATE `hotelhouse` SET `name`= '$name', `sex`='$sex', `age`='$age',
-             `religion`='$religion', `field`='$field',`address`='$address', `workType`='$wType',
+             `religion`='$religion', `field`='$field',`address`='$address', `type`='$wType',
              `price`='$price', `experience`= '$experience',`bidingPerson`='$bid',
              `currentAddress`='$cAddress', `agentInfo`='$agentInfo', `edited`='EDITED' WHERE  `id` = '$pid'";
 

@@ -8,7 +8,6 @@ require_once "../php/auth.php";
 if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
 $_POST['password'],$_POST['email'])){
 
- echo 'in';
     $firstName =$_POST['firstName'] ;
     $lastName =$_POST['lastName'] ;
     $username =$_POST['email'] ;

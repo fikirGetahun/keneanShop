@@ -38,18 +38,18 @@ $(document).ready(function(){
 
   /// this is the main important block of the code which makes the back button work to navigate in a singlepage
   /// application what it does is it sees that the objects{ cat, staus,off,label} given in history.pushstate then it loads them as it change happens 
-    window.onpopstate = function (event) {
-      // alert(event.state.cat)  
-      $('#showBox').empty()
-      $('#showBox').load('maincat.php?'+$.param({ cat : event.state.cat,
-                    status : event.state.status,
-                    off : event.state.off,
-                    label :event.state.label  })+' #view,#loop');
-      history.pushState({ cat : cat,
-                      status : columen,
-                      off : args,
-                      label : label  }, '', './maincat.php?cat='+event.state.cat+'&status='+event.state.status+'&off='+event.state.off+'&label='+event.state.label)
-      }
+    // window.onpopstate = function (event) {
+    //   // alert(event.state.cat)  
+    //   $('#showBox').empty()
+    //   $('#showBox').load('maincat.php?'+$.param({ cat : event.state.cat,
+    //                 status : event.state.status,
+    //                 off : event.state.off,
+    //                 label :event.state.label  })+' #view,#loop');
+    //   history.pushState({ cat : cat,
+    //                   status : columen,
+    //                   off : args,
+    //                   label : label  }, '', './maincat.php?cat='+event.state.cat+'&status='+event.state.status+'&off='+event.state.off+'&label='+event.state.label)
+    //   }
 
 
 })
@@ -60,18 +60,18 @@ function nav(nav){
 $('#uploadDiv').load("user/postPage.php?type="+nav)
 }
 
-function postViewNav(table, columen, args, label){
-  // alert('inxc')
+// function postViewNav(table, columen, args, label){
+//   // alert('inxc')
 
-$('#showBox').load('maincat.php?'+$.param({ cat : table,
-                    status : columen,
-                    off : args,
-                    label : label  })+' #view,#loop');
-history.pushState({ cat : table,
-                    status : columen,
-                    off : args,
-                    label : label  }, '', './maincat.php?cat='+table+'&status='+columen+'&off='+args+'&label='+label)
-                  }
+// $('#showBox').load('maincat.php?'+$.param({ cat : table,
+//                     status : columen,
+//                     off : args,
+//                     label : label  })+' #view,#loop');
+// history.pushState({ cat : table,
+//                     status : columen,
+//                     off : args,
+//                     label : label  }, '', './maincat.php?cat='+table+'&status='+columen+'&off='+args+'&label='+label)
+//                   }
 
 
 
@@ -131,7 +131,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" onclick="postViewNav('ad', 'bigDiscount', 'ACTIVE', 'Big Discount Advertisment')"  aria-current="page" >Sponsored big discount</a>
+          <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment"  aria-current="page"  >Sponsored big discount</a>
         </li>
         
         <li class="nav-item dropdown">
@@ -139,8 +139,8 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
             <span class="small">House</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" onclick="" href="maincat.php">To buy</a></li>
-            <li><a class="dropdown-item" href="vacdescription.php">To rent</a></li>
+            <li><a class="dropdown-item" onclick="" href="./maincat.php?cat=housesell&type=house&arg=For Sell&label=House For Sell">To buy</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=house&arg=For Rent&label=House For Rent">To rent</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -148,8 +148,8 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
             <span class="small">Cars
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" onclick="postViewNav('car', 'forRentOrSell', 'For Sell', 'Cars For Sell')"  >To buy</a></li>
-            <li><a class="dropdown-item" onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Rent')"  >To rent</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars For Sell"    >To buy</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Rent&label=Cars For Rent"  onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Rent')"  >To rent</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -160,27 +160,30 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
             <span class="small">Land</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="maincat.php">To buy</a></li>
-            <li><a class="dropdown-item" href="maincat.php">To rent</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Sell&label=Land For Sell">To buy</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Rent&label=Land For Rent">To rent</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="vacancy.php"><span class="small">Vacancy</span></a>
+          <a class="nav-link active" href="./maincat.php?cat=vacancy"><span class="small">Vacancy</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="maincat.php"><span class="small">Cv Work / Vacancy</span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active"  onclick="postViewNav('ad', ' ', ' ', 'Ads Post')"><span class="small">Products / Services</span></a>
+          <a class="nav-link active" 
+          href="./maincat.php?cat=ad&status=bigDiscount&off=NOT&label=Advertisment Post"><span class="small">Products / Services</span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active" onclick="postViewNav('electronics', ' ', ' ', 'Electronics Post')"><span class="small">Electronics</span></a>
+          <a class="nav-link active"
+          href="./maincat.php?cat=electronics&status= &off= &label=Electronics Post"><span class="small">Electronics</span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active" onclick="postViewNav('tender', ' ', ' ', 'Tender Post')"  ><span class="small">Tenders</span></a>
+          <a class="nav-link active"   ><span class="small">Tenders</span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active" onclick="postViewNav('charity', ' ', ' ', 'Charity Post')"><span class="small">Charity organization</span></a>
+          <a class="nav-link active"
+          href="./maincat.php?cat=charity&status= &off= &label=Charity Post"><span class="small">Charity organization</span></a>
         </li>
       </ul>
       <form class="d-flex">
