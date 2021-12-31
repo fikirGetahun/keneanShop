@@ -69,7 +69,7 @@ if(isset(
     $_POST['companyName'], $_POST['jobType'], 
     $_POST['jobTitle'], $_POST['positionType'],
     $_POST['Deadline'], $_POST['reqNo'], $_POST['location'],
-    $_POST['description'],$_POST['pid']
+    $_POST['description'],$_POST['pid'], $_POST['phone']
   )){
     $companyName = $_POST['companyName'];
     $jobType =$_POST['jobType'];
@@ -80,9 +80,10 @@ if(isset(
     $location=$_POST['location'];
     $info=$_POST['description']; 
     $id = $_POST['pid'];
+    $phone = $_POST['phone'];
 
 
-    $ask = $admin->updateVacancyPost($jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info  );
+    $ask = $admin->updateVacancyPost($phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info  );
 
     if($ask){
       echo 'Posted Successfully';

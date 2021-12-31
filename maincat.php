@@ -8,6 +8,8 @@ require_once "php/fetchApi.php";
 unset($_SESSION['cat'], $_SESSION['status'], $_SESSION['off'], $_SESSION['label'], $_SESSION['type'], $_SESSION['arg']);
 //// this all part is for recording the navigation for the adaptive scroll page can scroll new content from this session variables
 
+
+
 if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'])){
   $_SESSION['cat'] = $_GET['cat'];
   $_SESSION['status'] = $_GET['status'];
@@ -115,12 +117,12 @@ $(document).ready(function(){
           while($row = $fetchPost->fetch_assoc()){
 
             if(!in_array($row['id'], $_SESSION['userScroll'])){
-
+              $pid = $row['id'];
             ?>
             
 
       
-        <div class="col">
+        <div class="col-5">
           <div class="card shadow-sm">
           <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
@@ -134,7 +136,7 @@ $(document).ready(function(){
 <?php
               }
               $date = $get->time_elapsed_string($row['postedDate']);
-              $pid = $row['id'];
+              
               ?>
               
               <div class="d-flex justify-content-between align-items-center">
@@ -200,7 +202,64 @@ $(document).ready(function(){
                   <p><small class="text-muted">Phone:</small></p>
                   <div class="d-flex justify-content-between align-items-center">
                               <div class="btn-group">
-                                <a href="vacdescription.php" type="button" class="btn btn-sm btn-outline-primary">View</a>
+                                <a href="./Description.php?cat=vacancy&label=Vacancy Post&postId=<?php echo $row['id'] ?>" type="button" class="btn btn-sm btn-outline-primary">View</a>
+                                <a type="button" class="btn btn-sm btn-outline-warning">Fav</a>
+                              </div>
+                              <small class="text-muted">Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></small>
+                            </div>
+                </div>
+              </div>
+          <?php
+                      array_push($_SESSION['userScroll'], $row['id']);
+                    }
+          }
+        }
+      }
+
+      ////tender
+      if(isset($_GET['cat'])){
+        if($_GET['cat'] == 'tender'){
+          $cat = $_GET['cat'];
+          $fetchPost = $get->allPostListerOnTable($cat);
+
+          while($row = $fetchPost->fetch_assoc()){
+            if(!in_array($row['id'], $_SESSION['userScroll'])){
+          ?>
+       			<div class="card">
+                <div class="card-header">
+                  <?php echo $row['title'] ?>
+                </div>
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h5 class="card-title"><?php echo $row['type'] ?></h5>
+                  </div>
+                  <?php 
+                    $date = $get->time_elapsed_string($row['postedDate']);
+                    $sdate = $get->time_elapsed_string($row['startingDate']);
+                    $dt = new DateTime($row['postedDate']);
+
+                    $now = new DateTime();
+                    $future_date = new DateTime($row['postedDate']);
+                    $future_date2 = new DateTime($row['startingDate']);
+                    $sinterval = $future_date2->diff($snow);
+                    $snow = new DateTime();
+
+                    $interval = $future_date->diff($now);
+
+
+                    ;
+                  ?>
+                    <small class="text-muted">Posted: <span class="text-success"><?php echo $date; ?></span></small>
+                  </div>
+                  <label>Starteing Date : <?php echo $sdate; ?> or <?php echo $sinterval->format("%a days, %h hours")  ?></label>
+                  
+                  <p class="card-text"><span class="fw-bolder">Job Description: </span><?php echo $row['info'] ?></p>
+                  <p><small class="text-muted">Location: <?php echo $row['address'] ?></small></p>
+                  <p><small class="text-muted">Phone:</small></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                              <div class="btn-group">
+                                <a href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>" type="button" class="btn btn-sm btn-outline-primary">View</a>
                                 <a type="button" class="btn btn-sm btn-outline-warning">Fav</a>
                               </div>
                               <small class="text-muted">Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></small>
@@ -321,7 +380,7 @@ $(document).ready(function(){
       
         <div class="col">
           <div class="card shadow-sm">
-          <a href="description.php" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
               <h5 class="card-title">  <?php echo $row['title'] ?></h5>

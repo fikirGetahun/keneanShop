@@ -62,7 +62,7 @@ if(isset(
     $_POST['companyName'], $_POST['jobType'], 
     $_POST['jobTitle'], $_POST['positionType'],
     $_POST['Deadline'], $_POST['reqNo'], $_POST['location'],
-    $_POST['description'],$_POST['uid'], $_POST['sex']
+    $_POST['description'],$_POST['uid'], $_POST['sex'], $_POST['phone']
   )){
     $companyName = $_POST['companyName'];
     $jobType =$_POST['jobType'];
@@ -74,9 +74,10 @@ if(isset(
     $info=$_POST['description']; 
     $id = $_POST['uid'];
     $sex = $_POST['sex'];
+    $phone = $_POST['phone'];
 
 
-    $ask = $admin->addVacancyPost($jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info, $sex  );
+    $ask = $admin->addVacancyPost($phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info, $sex  );
     if($ask){
       echo 'Post Successfull.!';
     }else{

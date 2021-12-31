@@ -223,6 +223,21 @@ require_once "../php/adminCrude.php";
       >
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
+
+    <div class="form-group">
+          <label for="exampleInputEmail1">Phone Number</label>
+          <input type="number" class="form-control" id="jobTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="phone number"
+          value="<?php 
+                $p = $admin->editVacancyPost($uidx);
+                $row = $p->fetch_assoc();
+                echo $row['phone']; 
+      ?>"
+          >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
     <div class="form-group">
       <label for="exampleInputEmail1">Location :</label>
       <textarea type="text" class="form-control" id="location" 

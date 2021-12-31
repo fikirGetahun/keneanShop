@@ -179,7 +179,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           href="./maincat.php?cat=electronics&status= &off= &label=Electronics Post"><span class="small">Electronics</span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active"   ><span class="small">Tenders</span></a>
+          <a class="nav-link active" href="./maincat.php?cat=tender"  ><span class="small">Tenders</span></a>
         </li>
          <li class="nav-item">
           <a class="nav-link active"

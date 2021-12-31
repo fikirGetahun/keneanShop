@@ -2,12 +2,12 @@
     class adminPhp{
 
         //insert vacancy post
-        function addVacancyPost(  $type, $poitionType, $companyName, $positionTitle, $location, $deadLine, $posterId, $positionNum, $info, $sex   ){
+        function addVacancyPost( $phone, $type, $poitionType, $companyName, $positionTitle, $location, $deadLine, $posterId, $positionNum, $info, $sex   ){
             include("connect.php");
             $postStatus = 'ACTIVE';
             $today = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `vacancy`( `type`, `positionType`, `companyName`, `title`, `sex`, `address`, `deadLine`, `posterId`, `positionNum`, `info`, `postedDate`, `postStatus`) 
-            VALUES ( '$type', ' $poitionType', '$companyName', '$positionTitle', '$sex', '$location', '$deadLine', '$posterId', '$positionNum', '$info', '$today', '$postStatus' )";
+            $q = "INSERT INTO `vacancy`(`phone`, `type`, `positionType`, `companyName`, `title`, `sex`, `address`, `deadLine`, `posterId`, `positionNum`, `info`, `postedDate`, `postStatus`) 
+            VALUES ( '$phone', '$type', ' $poitionType', '$companyName', '$positionTitle', '$sex', '$location', '$deadLine', '$posterId', '$positionNum', '$info', '$today', '$postStatus' )";
 
             $ask = $mysql->query($q);
             return $ask;
@@ -61,12 +61,12 @@
         }
 
         //vacancy edit
-        function updateVacancyPost($jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info){
+        function updateVacancyPost($phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info){
             include "connect.php";
             $date = date('Y-m-d H:i:s');
             $edited = 'YES';
             $q = "UPDATE `vacancy` SET 
-          `type`='$jobType',`positionType`='$positionType',
+          `type`='$jobType',`positionType`='$positionType', `phone` = '$phone'
             `companyName`='$companyName',`title`='$jobTitle',
             `address`='$location',`deadLine`='$Deadline',
             `positionNum`='$reqNo',`info`='$info',`postedDate`= '$date', `edited` = '$edited' WHERE `vacancy`.`id` = '$id'";

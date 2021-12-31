@@ -267,7 +267,7 @@ if(isset($_SESSION['cat'])){
   $fetch23 = $get->allPostListerOnTable($cat);
   while($row2 = $fetch23->fetch_assoc()){
 
-    if(!in_array($row2['id'], $_SESSION['recentScroll'])){
+    if(!in_array($row2['id'], $_SESSION['userScroll'])){
 
       ?>
       
@@ -305,7 +305,7 @@ if(isset($_SESSION['cat'])){
 
 
       <?php
-      array_push($_SESSION['recentScroll'], $row2['id']);
+      array_push($_SESSION['userScroll'], $row2['id']);
       }
 
   }
