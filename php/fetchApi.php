@@ -36,6 +36,16 @@ class fetch{
 
     }
 
+    //// to fetch data from a tabel and 3 colomen condition
+    function allPostListerOn3Columen($table, $columen, $args, $columen2, $args2, $columen3, $args3){
+        include "connect.php";
+        $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' ORDER BY RAND() LIMIT 12 ";
+
+        $ask = $mysql->query($q);
+
+        return $ask;
+    }
+
 
     //// time ago string outputer
     function time_elapsed_string($datetime, $full = false) {
@@ -91,6 +101,17 @@ class fetch{
         $ask = $mysql->query($q);
 
         return $ask;
+    }
+
+
+    //select category from tabels
+    function categorySelecter($table, $columen){
+        include "connect.php";
+        $q = "SELECT DISTINCT `$columen` FROM `$table` WHERE 1";
+
+        $ask = $mysql->query($q);
+
+        return $ask;        
     }
 
 }

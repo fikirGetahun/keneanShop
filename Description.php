@@ -789,6 +789,7 @@ if($_GET['cat'] == 'vacancy'){
 ///////////tender////////
 if($_GET['cat'] == 'tender'){
   // to add aview count to this post
+  // $type = $_GET['cat'];
   $viewadd = $get->viewAdder($type, $pid);
 
   ?>
@@ -821,12 +822,12 @@ if($_GET['cat'] == 'tender'){
                     $date = $get->time_elapsed_string($row['postedDate']);
                     $sdate = $get->time_elapsed_string($row['startingDate']);
                     $dt = new DateTime($row['postedDate']);
-
+                    $snow = new DateTime();
                     $now = new DateTime();
                     $future_date = new DateTime($row['postedDate']);
                     $future_date2 = new DateTime($row['startingDate']);
                     $sinterval = $future_date2->diff($snow);
-                    $snow = new DateTime();
+                   
 
                     $interval = $future_date->diff($now);
 
@@ -936,6 +937,205 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     <?php
 
   }
+
+
+  ////// zebegna
+  if($_GET['type'] == 'zebegna'){
+    $cat = $_GET['cat'];
+    $type = $_GET['type'];
+    $pid = $_GET['postId'];
+    $label = $_GET['label'];
+    $viewadd = $get->viewAdder($cat, $pid);
+
+    ?>
+    
+    <div class="container"> 
+    <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol  class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div  class="carousel-inner">
+                            <div class="carousel-item active">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            </div>
+                        </div>
+
+      </div>
+  </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title text-center">Full Name: <?php echo $row['name'] ?></h5>
+
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Gender :</label> <?php echo $row['sex'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Age :</label> <?php echo $row['age'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Work Status: </label><?php echo $row['workStat'] ?></p>
+          <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Agent Info: </label> <?php echo $row['companyInfo'] ?></p> -->
+          <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p> -->
+          <!-- <p class="card-text"> <?php echo $row['Price'] ?><small class="text-muted">Br</small></p> -->
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
+          <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $row['phone'] ?></span> </p>
+          <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
+          </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <?php
+              $date = $get->time_elapsed_string($row['postedDate']);
+              ?>
+              <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
+                <small class="text-muted"><?php echo $row['view'] ?> Views</small>
+                </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    <?php
+
+  }
+
+  //////hotel job seeker
+  if($_GET['type'] == 'hotelWorker'){
+    $cat = $_GET['cat'];
+    $type = $_GET['type'];
+    $pid = $_GET['postId'];
+    $label = $_GET['label'];
+    $viewadd = $get->viewAdder($cat, $pid);
+
+    ?>
+    
+    <div class="container"> 
+    <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol  class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div  class="carousel-inner">
+                            <div class="carousel-item active">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            </div>
+                        </div>
+
+      </div>
+  </div>
+  <?php 
+  $getphone = $get->allPostListerOnColumen('user', 'id', $_SESSION['userId'] );
+  $phoneU = $getphone->fetch_assoc();
+  
+  ?>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title text-center">Full Name: <?php echo $row['name'] ?></h5>
+
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Gender :</label> <?php echo $row['sex'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Age :</label> <?php echo $row['age'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Work Type: </label><?php echo $row['type'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Field :</label>< <?php echo $row['field'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Experience: </label><?php echo $row['experience'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Agent Info: </label> <?php echo $row['agentInfo'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Can You Provide Biding Person ?  ANSWER: </label><?php echo $row['bidingPerson'] ?></p>
+          <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
+          <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $phoneU['phone'] ?></span> </p>
+          <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
+          </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <?php
+              $date = $get->time_elapsed_string($row['postedDate']);
+              ?>
+              <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
+                <small class="text-muted"><?php echo $row['view'] ?> Views</small>
+                </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    <?php
+
+  }
+
+  /////// house worker
+  if($_GET['type'] == 'houseWorker'){
+    $cat = $_GET['cat'];
+    $type = $_GET['type'];
+    $pid = $_GET['postId'];
+    $label = $_GET['label'];
+    $viewadd = $get->viewAdder($cat, $pid);
+
+    ?>
+    
+    <div class="container"> 
+    <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol  class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div  class="carousel-inner">
+                            <div class="carousel-item active">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            </div>
+                        </div>
+
+      </div>
+  </div>
+  <?php 
+  $getphone = $get->allPostListerOnColumen('user', 'id', $_SESSION['userId'] );
+  $phoneU = $getphone->fetch_assoc();
+  
+  ?>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title text-center">Full Name: <?php echo $row['name'] ?></h5>
+
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Gender :</label> <?php echo $row['sex'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Age :</label> <?php echo $row['age'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Work Type: </label><?php echo $row['type'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Religion :</label>< <?php echo $row['religion'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Experience: </label><?php echo $row['experience'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Agent Info: </label> <?php echo $row['agentInfo'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Can You Provide Biding Person ?  ANSWER: </label><?php echo $row['bidingPerson'] ?></p>
+          <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
+          <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $phoneU['phone'] ?></span> </p>
+          <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
+          </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <?php
+              $date = $get->time_elapsed_string($row['postedDate']);
+              ?>
+              <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
+                <small class="text-muted"><?php echo $row['view'] ?> Views</small>
+                </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    <?php
+
+  }
+
 }
 
 

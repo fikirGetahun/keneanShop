@@ -73,15 +73,12 @@ if(isset($_GET['type'],$_SESSION['userId'])){
               <label for="exampleInputEmail1">Title</label>
               <input type="text" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="title" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
               <div id="typeC" class="input-group mb-3">
-            <div  class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01"> Car Type: </label>
-            </div>
             <select id="sCar" class="custom-select" name="type2" id="inputGroupSelect01">
-              <option selected>Choose...</option>
+              <option selected>Type</option>
               <?php
                 $carCat = $admin->carCategoryLister();
                 while($carCatRow = $carCat->fetch_assoc()){
@@ -95,53 +92,40 @@ if(isset($_GET['type'],$_SESSION['userId'])){
             </div>
 
             <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Status Of Car: </label>
-        </div>
         <select class="custom-select" name="status2" id="inputGroupSelect01">
-          <option selected>Choose...</option>
+          <option selected>New or old</option>
           <option value="NEW">New</option>
           <option value="OLD">Old</option>
         </select>
         </div>
-
+        
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
-        </div>
         <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
+          <option>Owner Or Broker</option>
           <option value="Owner">Owner</option>
           <option value="Broker">Broker</option>
         </select>
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
-        </div>
         <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
-          <option selected>Choose...</option>
+          <option selected>Rent or sell</option>
           <option value="For Rent">For Rent</option>
           <option value="For Sell">For Sell</option>
         </select>
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Fule Kind: </label>
-        </div>
         <select class="custom-select" name="fuleKind" id="inputGroupSelect01">
-          <option selected>Choose...</option>
+          <option selected>fule Type</option>
           <option value="Benzene">Benzene</option>
           <option value="Diesel">Diesel</option>
         </select>
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Transmission Type: </label>
-        </div>
         <select class="custom-select" name="transmission" id="inputGroupSelect01">
+          <option selected>Transmission</option>
           <option value="automatic">Automatic</option>
           <option value="manual">Manual</option>
         </select>
@@ -162,11 +146,8 @@ if(isset($_GET['type'],$_SESSION['userId'])){
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
-        </div>
         <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
-          <option selected>Choose...</option>
+          <option selected>Price type</option>
           <option value="Fixed">Fixed</option>
           <option value="Negotiatable">Negotiatable</option>
           <option value="Negotiatable">Slightly Negotiable</option>
@@ -174,16 +155,15 @@ if(isset($_GET['type'],$_SESSION['userId'])){
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Price : </label>
           <input type="number" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="price2" placeholder="Company Name">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
+          <label for="exampleInputEmail1">Description</label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info2" placeholder="location"></textarea>
+          aria-describedby="emailHelp" name="info2" placeholder="Description"></textarea>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 

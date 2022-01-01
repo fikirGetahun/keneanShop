@@ -8,20 +8,18 @@ require_once "php/fetchApi.php";
 unset($_SESSION['cat'], $_SESSION['status'], $_SESSION['off'], $_SESSION['label'], $_SESSION['type'], $_SESSION['arg']);
 //// this all part is for recording the navigation for the adaptive scroll page can scroll new content from this session variables
 
-
+$_SESSION['userScroll'] = array();
 
 if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'])){
   $_SESSION['cat'] = $_GET['cat'];
   $_SESSION['status'] = $_GET['status'];
   $_SESSION['off'] = $_GET['off'];
   $_SESSION['label'] = $_GET['label'];
-  $_SESSION['userScroll'] = array();
 }
 
 ////for vacancy
 if(isset($_GET['type'])){
   $_SESSION['type'] = $_GET['type'];
-  $_SESSION['userScroll'] = array();
 }
 
 
@@ -68,26 +66,75 @@ $(document).ready(function(){
 </script>
 
 
+
 </head>
 <body>
 
-<div id="all" class="container">
+<div id="all" class="container-fluid">
 <div class="row">
+
   <!-- <div class=".d-sm-none .d-md-block"> -->
+      <h4>Categories</h4>
+
 <div id="sideNav" class="col-2">
-			<ul class="nav flex-column">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled">Disabled</a>
-  </li>
+<ul class="nav flex-column">
+<?php 
+  if(isset($_GET['cat'])){
+    // this category lister exclude the hometutor and zebegna because thy dont have the type colomen
+    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity'){
+      $tab = $_GET['cat'];
+      
+      $category = $get->categorySelecter($tab, 'type');
+      while($rowc = $category->fetch_assoc()){
+
+      
+      ?>
+      
+      <?php
+          if(isset($_GET['status'], $_GET['off'], $_GET['label'])){
+            ?>
+              <li class="nav-item">
+              <a class="nav-link" aria-current="page" 
+              href="./Description.php?cat<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
+              </li> 
+            <?php
+          }elseif(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
+            ?>
+              <li class="nav-item">
+              <a class="nav-link" aria-current="page" 
+              href="./Description.php?cat<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
+              </li> 
+            <?php
+          }else{
+            ?>
+              <li class="nav-item">
+              <a class="nav-link" aria-current="page" 
+              href="./Description.php?cat<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $rowc['type'] ?>"><?php echo $rowc['type'] ?></a>
+              </li>             
+            <?php
+          }
+      ?>
+
+
+
+
+      <?php
+    }
+
+    }else{
+
+      ?>
+      
+      
+      
+      <?php
+
+
+    }
+  }
+
+?>
+
 </ul>
 <!-- </div> -->
   </div>
@@ -102,9 +149,12 @@ $(document).ready(function(){
           if($status == ' '){
             // echo 'elc';
             $fetchPost = $get->allPostListerOnTable($cat);
-          }else{
+          }elseif($status != ' '){
             // echo 'sdf--- '.$off;
             $fetchPost = $get->allPostListerOnColumen($cat, $status, $off);
+          }elseif($status == ' ' && isset($_GET['dbType'])){
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOnColumen($cat, 'type', $dbType );
           }
           
 ?>
@@ -127,7 +177,7 @@ $(document).ready(function(){
             
 
       
-        <div class="col-4">
+        <div class="col-3 w-25 p-3">
           <div class="card shadow-sm">
           <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
@@ -511,10 +561,8 @@ $(document).ready(function(){
       }
     
     ?>
-    <div style="clear:both;"></div>
    </div>
 
-   <div style="clear:both;"></div>
 </div>
 <div style="clear:both;"></div>
 
