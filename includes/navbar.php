@@ -93,7 +93,7 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
       session_start();
       if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
         ?>
-      <a class="p-2 text-muted" >Account</a>
+      <a href="./Account.php?yourPost=true" class="p-2 text-muted" >Account</a>
       <a class="p-2 text-muted" href="./user/logout.php">Log Out</a>
         <?php
       }

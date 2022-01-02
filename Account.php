@@ -12,6 +12,16 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 $user = $get->aSinglePostView($_SESSION['userId'], 'user');
 $urow = $user->fetch_assoc();
 ?>
+<script src="assets/jquery.js" ></script>
+<script>
+  $(document).ready(function(){
+
+  })
+
+  function editNav(type, pid){
+    $('#cont').load('admin/editPost.php?type='+type+'&pid='+pid);
+  }
+</script>
 
 <div class="container">
 	<div class="row">
@@ -39,10 +49,10 @@ $urow = $user->fetch_assoc();
 </nav>
 </div>
     </div>
-
+  <div id="cont">
     <?php 
     
-    // if(isset($_GET['yourPost'])){
+    if(isset($_GET['yourPost'])){
 
       ?>
       
@@ -67,10 +77,10 @@ foreach($dbTables as $posts){
                   <p class="card-text"><?php echo $row['title'] ?></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="#viewDiscription" onclick="adView(<?php echo $row['id'] ?>)"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
-                      <button type="button" onclick="adEdit(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <a href="#viewDiscription"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+                      <button type="button" onclick="editNav('<?php echo $posts ?>', '<?php echo $row['id'] ?>')" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted"><?php echo $row['view'] ?> views</small>
                   </div>
                 </div>
               </div>
@@ -87,7 +97,12 @@ foreach($dbTables as $posts){
       
       <?php
 
-    // }
+    }
+
+    if(isset($_GET['edit'])){
+
+
+    }
     
     ?>
 

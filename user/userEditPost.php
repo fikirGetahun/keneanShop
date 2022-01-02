@@ -9,9 +9,7 @@
    <!-- </script> -->
    <?php
    require_once "../php/adminCrude.php";
-   ob_start();
-   session_start();
-   $_SESSION['scroll_on'] = 'OFF';
+
 
    if(isset($_GET['pid'])){ //pid is post id to be edited
     $uidx = $_GET['pid'];
@@ -410,21 +408,19 @@ function pUpdate(divz, photo){
 }
 
 </script>
-<div class="row">
 <?php
 $i = 0;
 $pp = $admin->photoSplit($row['photoPath1']);
 if(!empty($row['photoPath1'])){
 foreach($pp as $photo){
   ?>
-       <div id="<?php echo $i ?>" class="col-1" >
+       <div id="<?php echo $i ?>">
        <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
        <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
        </div>
   <?php
   $i ++;
 }
-?></div><?php
 }else{
  ?>
        <form method="POST" enctype="multipart/form-data" >

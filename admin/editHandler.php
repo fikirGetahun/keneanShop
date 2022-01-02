@@ -367,7 +367,7 @@ if(isset(
           if($count <=3){
           for($i=0;$i<$count;$i++ ){
             if($parr[$i] == $j){
-                unlink($parr[$i]); //for deleteing the file
+                unlink('.'.$parr[$i]); //for deleteing the file
                 unset($parr[$i]);
                 $dbPath = implode(',', $parr);
                 break;

@@ -123,8 +123,7 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 <div id="allin" >
 <?php
 
-$u = count($dbTables);
-$i = 0;
+
 foreach($dbTables as $posts){  
     $oneTablePostList = $auth->userPostsLister($uid, $posts);
     
@@ -156,7 +155,6 @@ foreach($dbTables as $posts){
 
       }
     
-$i++; 
     
 }
 
