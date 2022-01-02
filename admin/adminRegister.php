@@ -1,5 +1,5 @@
 <?php
-    include('includes/header.php');
+    include('../includes/header.php');
     require_once "../php/adminCrude.php";
 
     if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'], $_POST['username'],
@@ -14,6 +14,7 @@
          $auth =$_POST['auth'] ;
          $job = $_POST['jobt'];
          $about =$_POST['about'];
+         $password = password_hash($password, PASSWORD_DEFAULT);
 
 
 
@@ -42,7 +43,7 @@
         $('#registerBox').on('submit', function(e){
       e.preventDefault()
       $.ajax({
-        url: 'adminRegister.php',
+        url: 'admin/adminRegister.php',
         type: 'post',
         data:  new FormData( this ),
         success : function(){

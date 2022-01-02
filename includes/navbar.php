@@ -131,7 +131,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment"  aria-current="page"  >Sponsored big discount</a>
+          <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment"  aria-current="page"  >Big discount</a>
         </li>
         
         <li class="nav-item dropdown">
@@ -153,7 +153,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="maincat.php"><span class="small">Real Estate</span></a>
+          <a class="nav-link active" href="maincat.php"><span class="small">Real Estate(Sponserd)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -200,6 +200,16 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-warning" type="submit">Search</button>
       </form>
+
+  <?php 
+  if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
+    ?>
+<a href="./login.php" class="btn btn-dark">LogIn</a>
+    <?php
+  }
+  
+  ?>
+      
     </div>
   </div>
 </nav>

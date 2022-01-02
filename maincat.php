@@ -74,14 +74,17 @@ $(document).ready(function(){
 <div class="row">
 
   <!-- <div class=".d-sm-none .d-md-block"> -->
-      <h4>Categories</h4>
+      
 
 <div id="sideNav" class="col-2">
 <ul class="nav flex-column">
 <?php 
   if(isset($_GET['cat'])){
     // this category lister exclude the hometutor and zebegna because thy dont have the type colomen
-    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity'){
+    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse'){
+      ?>
+      <h4>Categories</h4>
+      <?php
       $tab = $_GET['cat'];
       
       $category = $get->categorySelecter($tab, 'type');
@@ -95,22 +98,29 @@ $(document).ready(function(){
             ?>
               <li class="nav-item">
               <a class="nav-link" aria-current="page" 
-              href="./Description.php?cat<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
               </li> 
             <?php
           }elseif(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
             ?>
               <li class="nav-item">
               <a class="nav-link" aria-current="page" 
-              href="./Description.php?cat<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
               </li> 
+            <?php
+          }elseif(isset($_GET['type'])){
+            ?>
+              <li class="nav-item">
+              <a class="nav-link" aria-current="page" 
+              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>">"><?php echo $rowc['type'] ?></a>
+              </li>             
             <?php
           }else{
             ?>
               <li class="nav-item">
               <a class="nav-link" aria-current="page" 
-              href="./Description.php?cat<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $rowc['type'] ?>"><?php echo $rowc['type'] ?></a>
-              </li>             
+              href="./maincat.php?cat=<?php echo $tab ?>&dbType=<?php echo $rowc['type'] ?>">"><?php echo $rowc['type'] ?></a>
+              </li>               
             <?php
           }
       ?>
@@ -124,9 +134,11 @@ $(document).ready(function(){
     }else{
 
       ?>
-      
-      
-      
+      <h4>Cv Work Seekers</h4>
+      <li><a class="dropdown-item"  href="./maincat.php?cat=jobhometutor&type=homeTutor&label=Home Tutor"  >Home Tutor Job Applicaion</a></li>
+            <li><a class="nav-link" aria-current="page"  href="./maincat.php?cat=hotelhouse&type=hotelWorker&label=Hotel Job Seeker"   >Hotel Worker Job Application</a></li>
+            <li><a class="nav-link" aria-current="page"  href="./maincat.php?cat=hotelhouse&type=houseWorker&label=Home Keeper Seeker"   >Home Keeper Job Application</a></li>
+            <li><a class="nav-link" aria-current="page"  href="./maincat.php?cat=zebegna&type=zebegna&label=Security Gaurd Job Seeker"  >Security Gaurd Job Application</a></li>
       <?php
 
 
@@ -155,13 +167,16 @@ $(document).ready(function(){
           }elseif($status == ' ' && isset($_GET['dbType'])){
             $dbType = $_GET['dbType'];
             $fetchPost = $get->allPostListerOnColumen($cat, 'type', $dbType );
+          }elseif($status != ' ' && isset($_GET['dbType'])){
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOn2Columen($cat, $status, $off, 'type', $dbType);
           }
           
 ?>
 <br>
  
-  <div  class="container">
-      <h5><?php echo $label ?></h5>
+  <div  class="container row">
+      <h5><?php echo $label ?></h5> <h6><?php if(isset($_GET['dbType'])){ echo $_GET['dbType']; } ?></h6>
   </div>
     
     <br>
@@ -177,9 +192,10 @@ $(document).ready(function(){
             
 
       
-        <div class="col-3 w-25 p-3">
-          <div class="card shadow-sm">
-          <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+            <div  class="col-md-4">
+          <div class="card mb-4 box-shadow">
+          
+          <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
 
@@ -194,13 +210,13 @@ $(document).ready(function(){
               $date = $get->time_elapsed_string($row['postedDate']);
               
               ?>
-              
+              <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
               <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
-                 <!-- <a href="<?php echo './Description.php?cat='.$cat.'&postId='.$row['id'] ?>">View</a> -->
-
-              </div>
+                  
               <span class="text-danger small"><?php echo $date ?></span>
+              <small class="text-muted"><?php echo $row['view'] ?> views</small>
+              </div>
+              
             </div>
           </div>
         </div>
@@ -229,7 +245,12 @@ $(document).ready(function(){
       elseif(isset($_GET['cat'])){
         if($_GET['cat'] == 'vacancy'){
           $cat = $_GET['cat'];
-          $fetchPost = $get->allPostListerOnTable($cat);
+          if(isset($_GET['dbType'])){
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOnColumen($cat, 'type', $dbType );
+          }else{
+            $fetchPost = $get->allPostListerOnTable($cat);
+          }
 
           while($row = $fetchPost->fetch_assoc()){
             if(!in_array($row['id'], $_SESSION['userScroll'])){
@@ -279,7 +300,12 @@ $(document).ready(function(){
       ////tender
         if($_GET['cat'] == 'tender'){
           $cat = $_GET['cat'];
-          $fetchPost = $get->allPostListerOnTable($cat);
+          if(isset($_GET['dbType'])){
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOnColumen($cat, 'type', $dbType );
+          }else{
+            $fetchPost = $get->allPostListerOnTable($cat);
+          }
 
           while($row = $fetchPost->fetch_assoc()){
             if(!in_array($row['id'], $_SESSION['userScroll'])){
@@ -343,7 +369,13 @@ $(document).ready(function(){
           $arg = $_GET['arg'];
           $label = $_GET['label'];
 
+         
+          if(isset($_GET['dbType'])){
+          $dbType = $_GET['dbType'];
+          $fetchPost = $get->allPostListerOn3Columen($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType); 
+          }else{
           $fetchPost = $get->allPostListerOn2Columen($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg);
+          }
           
           
 ?>
@@ -364,9 +396,10 @@ $(document).ready(function(){
             
 
       
-        <div class="col-3">
-          <div class="card shadow-sm">
-          <a href="./Description.php?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <div  class="col-md-3">
+              <div class="card mb-4 box-shadow">
+          
+          <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
               <h5 class="card-title">  <?php echo $row['title'] ?></h5>
@@ -379,12 +412,13 @@ $(document).ready(function(){
               }
               $date = $get->time_elapsed_string($row['postedDate']);
               ?>
-              
+               <h6 class="card-text"> Location:  <?php echo $row['city'] ?></h6>
               <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text"> <?php echo $row['city'] ?></h6>
-                <small class="text-primary">View</small>
-              </div>
               <span class="text-danger small"><?php echo $date ?></span>
+                  <small class="text-muted"><?php echo $row['view'] ?> views</small>
+
+              </div>
+              
             </div>
           </div>
         </div>
@@ -413,8 +447,12 @@ $(document).ready(function(){
           $arg = $_GET['arg'];
           $label = $_GET['label'];
 
-          $fetchPost = $get->allPostListerOn2Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg);
-          
+          if(isset($_GET['dbType'])){
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOn3Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType); 
+          }else{
+            $fetchPost = $get->allPostListerOn2Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg);
+          }
           
 ?>
 <br>
@@ -434,9 +472,10 @@ $(document).ready(function(){
             
 
       
-        <div class="col-3">
-          <div class="card shadow-sm">
-          <a href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <div  class="col-md-3">
+              <div class="card mb-4 box-shadow">
+          
+          <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
               <h5 class="card-title">  <?php echo $row['title'] ?></h5>
@@ -450,11 +489,12 @@ $(document).ready(function(){
               $date = $get->time_elapsed_string($row['postedDate']);
               ?>
               
+              <h6 class="card-text"> Location:  <?php echo $row['city'] ?></h6>
               <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text"> <?php echo $row['city'] ?></h6>
-                <small class="text-primary">View</small>
-              </div>
               <span class="text-danger small"><?php echo $date ?></span>
+                  <small class="text-muted"><?php echo $row['view'] ?> views</small>
+
+              </div>
             </div>
           </div>
         </div>
@@ -513,14 +553,15 @@ $(document).ready(function(){
           
 
     
-      <div class="col-4">
-        <div class="card shadow-sm">
-        <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $type ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                <div  class="col-md-3">
+              <div class="card mb-4 box-shadow">
+        
+        <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $type ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
           <div class="card-body">
 
-            <h4 class="card-title">  <?php echo $row['name'] ?></h4>
-            <h5> Sex: <?php $row['sex'] ?></h5>
+            <p class="card-text">Name:  <?php echo $row['name'] ?></p>
+            <p> Sex: <?php $row['sex'] ?></p>
             <?php 
               if($type == 'hometTutor'){
                 ?>
@@ -536,14 +577,13 @@ $(document).ready(function(){
             $date = $get->time_elapsed_string($row['postedDate']);
             
             ?>
-            
+             <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
             <div class="d-flex justify-content-between align-items-center">
-                <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
-               <!-- <a href="<?php echo './Description.php?cat='.$cat.'&postId='.$row['id'] ?>">View</a> -->
+            <span class="text-danger small"><?php echo $date ?></span>
+            <span class="text-muted"><?php echo $row['view'] ?> views</span>         
 
             </div>
-            <span class="text-danger small"><?php echo $date ?></span>
-            <span class="text-danger float-right"><?php echo $row['view'] ?> views</span>
+
           </div>
         </div>
       </div>

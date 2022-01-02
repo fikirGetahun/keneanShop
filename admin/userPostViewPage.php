@@ -1,6 +1,7 @@
 <?php
 
-require_once "php/auth.php";
+require_once "../php/auth.php";
+require_once "../php/adminCrude.php";
 if(isset($_POST['id'])){
   $uid = $_POST['id'];
 }
@@ -122,22 +123,41 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 <div id="allin" >
 <?php
 
-
-
-foreach($dbTables as $posts){    
+$u = count($dbTables);
+$i = 0;
+foreach($dbTables as $posts){  
     $oneTablePostList = $auth->userPostsLister($uid, $posts);
     
     ?>
 
       <div class="row">
+        <h2><?php echo $dbTables[$i] ?></h2>
       <?php
       while($row = $oneTablePostList->fetch_assoc()){  
   
-        echo 'zs';
+        ?>
+          <div id="adVieww" class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+                <div class="card-body">
+                  <p class="card-text"><?php echo $row['title'] ?></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href="#viewDiscription" onclick="adView(<?php echo $row['id'] ?>)"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+                      <button type="button" onclick="adEdit(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+        <?php
 
       }
-
-
+    
+$i++; 
+    
 }
 
 ?>

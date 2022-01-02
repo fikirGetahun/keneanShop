@@ -141,11 +141,12 @@
             $q = "SELECT * FROM `user` WHERE 1";
             $ask = $mysql->query($q);
             $num = $ask->num_rows;
-            $location = "..../uploads/adminPhoto/";
-
+            $location = "../uploads/adminPhoto/";
+            $real = "./uploads/adminPhoto/";
             if(move_uploaded_file($tempName, $location.$num.$fileName)){
                 echo $location.$fileName.$num;
-                return $location.$num.$fileName;
+                $location = $real.$num.$fileName;
+                return $location;
             }else{
                 return 'FILE_NOT_UPLOADED';
             }
@@ -168,10 +169,13 @@
         //update userphoto path and file
         function updateUserPhoto($fileName, $tempName, $uid){
             include "connect.php";
-            $location = "..../uploads/adminPhoto/";
+            $location = "../uploads/adminPhoto/";
             $x = rand(2, 20000);
             $path = $location.'a'.$x.$fileName;
             move_uploaded_file($tempName, $path);
+            $real = "./uploads/adminPhoto/";
+            $location = $real;
+            $path = $location.'a'.$x.$fileName;
             $q = "UPDATE `user` SET `photoPath`= '$path' WHERE `user`.`id` = '$uid'";
             $ask = $mysql->query($q);
 

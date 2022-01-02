@@ -38,15 +38,15 @@ if(isset($_GET['uid'])){
 
 ?>
 
-<script src="../assets/jquery.js" type="text/javascript"></script>
+<script src="assets/jquery.js" type="text/javascript"></script>
 <script>
     $(document).ready(function(){
         $('#viewp').click(function(){
-            $('#viewBox').load('pageViewPage.php')
+            $('#main').load('admin/profileViewPanel.php')
         })
 
         $('#editP').click(function(){
-            $('#viewBox').load('editProfile.php',{  uid2: '<?php echo $userId; ?>'})
+            $('#viewBox').load('admin/editProfile.php',{uid2: '<?php echo $userId; ?>'})
         })
         
     })

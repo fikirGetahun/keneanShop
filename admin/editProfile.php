@@ -55,7 +55,7 @@
   <link href="admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="admin/assets/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.0
@@ -69,7 +69,7 @@
         $('form').on('submit', function(e){
           e.preventDefault()
           $.ajax({
-            url: 'editProfile.php',
+            url: 'admin/editProfile.php',
             type: 'post',
             data:  new FormData( this ),
             success : function(){
@@ -84,7 +84,7 @@
     })
 
     $('#cp').click(function(){
-        $('#photoChange').load('divTags.php #changeProfile')
+        $('#photoChange').load('admin/divTags.php #changeProfile')
     })
 
       })
