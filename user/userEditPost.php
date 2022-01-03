@@ -176,7 +176,7 @@ require_once "../php/adminCrude.php";
       value="<?php 
                 $p = $admin->editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
-                echo $row['positionTitle']; 
+                echo $row['title']; 
       ?>"
       >
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>

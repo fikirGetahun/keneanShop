@@ -115,6 +115,31 @@ class fetch{
     }
 
 
+    /// favourites adder
+    function favouritesAdder($postId, $uid, $table){
+        include "connect.php";
+        $fav = ','.$postId.',';
+        $q = "UPDATE `$table` SET `fav` = `fav`+'$fav' WHERE `$table`.`id` = '$uid'";
+        $ask = $mysql->query($q);
+
+        return $ask; 
+        
+    }
+
+
+    //// favouites selecter for a user
+    function favouritesSelector($table, $uid){
+        include "connect.php";
+        $q = "SELECT `fav`
+        FROM `$table`
+        WHERE `fav` LIKE '%,'$uid',%' ";
+
+        $ask = $mysql->query($q);
+
+        return $ask; 
+    }
+
+
 
 
 }

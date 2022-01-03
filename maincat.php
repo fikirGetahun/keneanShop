@@ -153,7 +153,7 @@ $(document).ready(function(){
   <div id="loop" class="col-md-8">
     <?Php
 
-      if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'])){
+      if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){
           $cat = $_GET['cat'];
           $status = $_GET['status'];
           $off = $_GET['off'];
@@ -195,7 +195,7 @@ $(document).ready(function(){
             <div  class="col-md-4">
           <div class="card mb-4 box-shadow">
           
-          <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $_GET['type'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
 

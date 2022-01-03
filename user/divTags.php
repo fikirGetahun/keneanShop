@@ -526,3 +526,20 @@
     </div>
 
 </div>
+
+<?php 
+  require_once "../php/fetchApi.php";
+
+  if(isset($_GET['postId'], $_GET['uid'], $_GET['table'])){
+    $pid = $_GET['postId'];
+    $uid = $_GET['uid'];
+    $table = $_GET['table'];
+    $fav = $get->favouritesAdder($pid, $uid, $table);
+    if($fav){
+      echo "Added to Fav";
+    }else{
+      echo "error";
+    }
+
+  }
+?>

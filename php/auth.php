@@ -47,11 +47,14 @@ class auth{
     function userPostsLister($uid, $tableName){
         include "connect.php";
         $item = array('zebegna', 'jobhometutor', 'hotelhouse' );
-        // if(!in_array($tableName, $item)){
-        // $q = "SELECT `title` FROM `$tableName` WHERE `posterId` = '$uid'";
-        // }else{
-        // $q = "SELECT `name` FROM `$tableName` WHERE `posterId` = '$uid'";
-        // }
+        if(!in_array($tableName, $item)){
+        $q = "SELECT `title` FROM `$tableName` WHERE `posterId` = '$uid'";
+        }elseif($tableName == 'hotelhouse'){
+        $q = "SELECT `name`,`hotelOrHouse` FROM `$tableName` WHERE `posterId` = '$uid'";
+        }
+        else{
+        $q = "SELECT `name` FROM `$tableName` WHERE `posterId` = '$uid'";
+        }
         $q = "SELECT * FROM `$tableName` WHERE `posterId` = '$uid'";
 
 

@@ -131,7 +131,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment"  aria-current="page"  >Big discount</a>
+          <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  >Big discount</a>
         </li>
         
         <li class="nav-item dropdown">
@@ -148,8 +148,8 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
             <span class="small">Cars
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars For Sell"    >To buy</a></li>
-            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Rent&label=Cars For Rent"  onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Rent')"  >To rent</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars For Sell&type= "    >To buy</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Rent&label=Cars For Rent&type= "  onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Rent')"  >To rent</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -182,18 +182,18 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 
          <li class="nav-item">
           <a class="nav-link active" 
-          href="./maincat.php?cat=ad&status=bigDiscount&off=NOT&label=Advertisment Post"><span class="small">Products / Services</span></a>
+          href="./maincat.php?cat=ad&status=bigDiscount&off=NOT&label=Advertisment Post&type=product"><span class="small">Products / Services</span></a>
         </li>
          <li class="nav-item">
           <a class="nav-link active"
-          href="./maincat.php?cat=electronics&status= &off= &label=Electronics Post"><span class="small">Electronics</span></a>
+          href="./maincat.php?cat=electronics&status= &off= &label=Electronics Post&type= "><span class="small">Electronics</span></a>
         </li>
          <li class="nav-item">
           <a class="nav-link active" href="./maincat.php?cat=tender"  ><span class="small">Tenders</span></a>
         </li>
          <li class="nav-item">
           <a class="nav-link active"
-          href="./maincat.php?cat=charity&status= &off= &label=Charity Post"><span class="small">Charity organization</span></a>
+          href="./maincat.php?cat=charity&status= &off= &label=Charity Post&type= "><span class="small">Charity organization</span></a>
         </li>
       </ul>
       <form class="d-flex">

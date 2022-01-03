@@ -86,10 +86,10 @@ if(isset(
     $ask = $admin->updateVacancyPost($phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info  );
 
     if($ask){
-      echo 'Posted Successfully';
+      echo 'Edited Successfully';
     }
     else{
-      echo 'error';
+      echo 'errord'.$ask;
     }
 
   }

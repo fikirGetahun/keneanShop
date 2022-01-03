@@ -7,7 +7,9 @@ require_once "php/auth.php";
 require_once "php/adminCrude.php";
 
 $dbTables = array('ad', 'car', 'charity', 'electronics',
-'housesell', 'tender', 'vacancy');
+'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse' );
+
+$excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
 
 $user = $get->aSinglePostView($_SESSION['userId'], 'user');
 $urow = $user->fetch_assoc();
@@ -18,9 +20,7 @@ $urow = $user->fetch_assoc();
 
   })
 
-  function editNav(type, pid){
-    $('#cont').load('admin/editPost.php?type='+type+'&pid='+pid);
-  }
+
 </script>
 
 <div class="container">
@@ -42,14 +42,27 @@ $urow = $user->fetch_assoc();
       <h5 class="float-left">Name : <?php echo $urow['firstName'].' '.$urow['lastName'] ?></h5>
   <div class="card-header">
   <nav class="nav nav-pills nav-justified">
-  <a class="nav-item nav-link active" href="#">Your Posts</a>
+    <?php 
+      if(isset($_GET['yourPost'])){
+        ?>
+        <a class="nav-item nav-link active" href="#">Your Posts</a>
+        <?php
+      }else{
+        ?>
+        <a class="nav-item nav-link" href="#">Your Posts</a>
+        <?php
+      }
+    
+    ?>
+  <a class="nav-item nav-link" href="#">Favourite</a>
   <a class="nav-item nav-link" href="#">Messages</a>
   <a class="nav-item nav-link" href="#">Settings</a>
-  <a class="nav-item nav-link disabled" href="#">Disabled</a>
+ 
 </nav>
 </div>
     </div>
   <div id="cont">
+  <div class="row">
     <?php 
     
     if(isset($_GET['yourPost'])){
@@ -64,21 +77,81 @@ foreach($dbTables as $posts){
     
     ?>
 
-      <!-- <div class="row"> -->
+     
         
       <?php
       while($row = $oneTablePostList->fetch_assoc()){  
   
         ?>
-          <div  class="col-md-4 float-left">
-              <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+          <div  class="col-md-3">
+              <div class="card mb-4 box-shadow ">
+                <?php 
+                
+                if($posts == 'car' || $posts =='electronics' || $posts == 'charity' || $posts == 'ad'){
+                  if($posts == 'ad'){
+                    if($row['bigDiscount'] == 'ACTIVE'){
+?>
+          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Big Discount Ads&type=big" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+<?php
+                    }else{
+?>
+          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+
+<?php                     
+                    }                    
+                  }elseif($posts == 'car' || $posts =='electronics' || $posts == 'charity'){
+                    ?>
+            <a class="img-thumbnail " 
+            href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label= &type= " > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+  
+                    <?php
+                  }
+                }if($posts == 'housesell'){
+                  if($row['houseOrLand'] == 'HOUSE'){
+                    ?>
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Posts&type=house" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                        <?php
+                  }else{
+                    ?>
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Land Posts&type=land" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                          <?php                  
+                  }
+
+                }
+                ?>
+
                 <div class="card-body">
-                  <p class="card-text"><?php echo $row['title'] ?></p>
+                  <?php
+                  if(!in_array($posts, $excluded)){
+                    ?>
+                    <p class="card-text"><?php echo $row['title'] ?></p>
+                    <?php
+                  }else{
+                    ?>
+                    <p class="card-text"><?php echo $row['name'] ?></p>        
+                    <?php
+                  }
+                  ?>
+                  
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="#viewDiscription"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
-                   <a href= "Account.php?edit=true&type=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>">   <button type="button"  class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                   <?php 
+                   if($posts == 'hotelhouse'){
+                     if($row['hotelOrHouse'] == 'HOUSE'){
+                      ?>
+                      <a href= "Account.php?edit=true&type=house&pid=<?php echo $row['id'] ?>">   <button type="button"  class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                     <?php
+                     }elseif($row['hotelOrHouse'] == 'HOTEL'){
+                       ?>
+                      <a href= "Account.php?edit=true&type=hotel&pid=<?php echo $row['id'] ?>">   <button type="button"  class="btn btn-sm btn-outline-secondary">Edit</button></a> 
+                       <?php
+                     }
+                   }else{
+                    ?>
+                  <a href="Account.php?edit=true&type=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>">   <button type="button"  class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                    <?php
+                  }
+                   ?>
                     </div>
                     <small class="text-muted"><?php echo $row['view'] ?> views</small>
                   </div>
@@ -94,6 +167,7 @@ foreach($dbTables as $posts){
 }
 
 ?>
+</div>
       
       <?php
 
@@ -246,7 +320,7 @@ require_once "php/adminCrude.php";
       value="<?php 
                 $p = $admin->editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
-                echo $row['positionTitle']; 
+                echo $row['title']; 
       ?>"
       >
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -310,25 +384,25 @@ require_once "php/adminCrude.php";
       <label for="exampleInputEmail1">Location :</label>
       <textarea type="text" class="form-control" id="location" 
       aria-describedby="emailHelp" name="location" placeholder="location" 
-      value="<?php 
+      value=""
+      ><?php 
                 $p = $admin->editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
-                echo $row['location']; 
-      ?>"
-      ></textarea>
+                echo $row['address']; 
+      ?></textarea>
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Describtion</label>
       <textarea type="text" class="form-control" id="des" 
       aria-describedby="emailHelp" name="description" placeholder="location" 
-      value= "<?php 
+      value= ""
+      
+      ><?php 
                 $p = $admin->editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['info']; 
-      ?>"
-      
-      ></textarea>
+      ?></textarea>
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
       <input type="submit" onclick="x()" value="POST">
@@ -2057,7 +2131,7 @@ if(isset($_GET['type'])){
 
 
 
-    <!-- </div> -->
+    
   </div>
     </div>
 		

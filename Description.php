@@ -45,10 +45,11 @@ require_once "php/fetchApi.php";
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <?php 
 
-  if(isset($_GET['cat'], $_GET['postId'], $_GET['label'])){
+  if(isset($_GET['cat'], $_GET['postId'], $_GET['label'], $_GET['type'])){
     $type = $_GET['cat'];
     $pid = $_GET['postId'];
     $label = $_GET['label'];
+    $tt = $_GET['type'];
     $fetch = $get->aSinglePostView($pid, $type);
 
     $row = $fetch->fetch_assoc();
@@ -152,7 +153,7 @@ require_once "php/fetchApi.php";
       }
 
       //////////////////////////////ad post 
-      if($_GET['cat'] == 'ad' && $_GET['label'] != 'Big Discount Advertisment'){
+      if($_GET['type'] == 'product'){
         // to add aview count to this post
         $viewadd = $get->viewAdder($type, $pid);
 
@@ -248,7 +249,7 @@ require_once "php/fetchApi.php";
     // }
 
   /////////////big discount
-  if($_GET['label'] == 'Big Discount Advertisment'){
+  if($_GET['type'] == 'big'){
     // to add aview count to this post
     $viewadd = $get->viewAdder($type, $pid);
 

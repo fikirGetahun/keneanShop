@@ -66,7 +66,7 @@
             $date = date('Y-m-d H:i:s');
             $edited = 'YES';
             $q = "UPDATE `vacancy` SET 
-          `type`='$jobType',`positionType`='$positionType', `phone` = '$phone'
+          `type`='$jobType',`positionType`='$positionType', `phone` = '$phone',
             `companyName`='$companyName',`title`='$jobTitle',
             `address`='$location',`deadLine`='$Deadline',
             `positionNum`='$reqNo',`info`='$info',`postedDate`= '$date', `edited` = '$edited' WHERE `vacancy`.`id` = '$id'";
