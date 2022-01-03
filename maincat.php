@@ -22,6 +22,8 @@ if(isset($_GET['type'])){
   $_SESSION['type'] = $_GET['type'];
 }
 
+$userId = $_SESSION['userId'];
+echo $userId;
 
 ///for house land
 if(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
@@ -62,6 +64,15 @@ $(document).ready(function(){
   })
 
 })
+function fav(pid, id, table){
+  $.ajax({
+    url: 'user/userApi.php',
+    data: 'postId='+pid+'&uid='+'<?php echo $_SESSION['userId'] ?>'+'&table='+table,
+    success: function(data){
+      $('#fav'+pid).text(data)
+    }
+  })
+}
 
 </script>
 
@@ -219,6 +230,21 @@ $(document).ready(function(){
               
             </div>
           </div>
+          <?php
+          $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+          // $row = $faz->fetch_assoc();
+          // echo $row['fav'];
+            if($faz->num_rows > 0){
+              ?>
+              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+              <?php
+            }else{
+              ?>
+             <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+              <?php
+            }
+          
+          ?>
         </div>
      
     
@@ -283,8 +309,22 @@ $(document).ready(function(){
                   <p><small class="text-muted">Phone:</small></p>
                   <div class="d-flex justify-content-between align-items-center">
                               <div class="btn-group">
-                                <a href="./Description.php?cat=vacancy&label=Vacancy Post&postId=<?php echo $row['id'] ?>" type="button" class="btn btn-sm btn-outline-primary">View</a>
-                                <a type="button" class="btn btn-sm btn-outline-warning">Fav</a>
+                                <a href="./Description.php?cat=vacancy&label=Vacancy Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">View</a>
+                                <?php
+          $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+          // $row = $faz->fetch_assoc();
+          // echo $row['fav'];
+            if($faz->num_rows > 0){
+              ?>
+              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+              <?php
+            }else{
+              ?>
+             <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+              <?php
+            }
+          
+          ?>
                               </div>
                               <small class="text-muted">Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></small>
                             </div>
@@ -344,9 +384,22 @@ $(document).ready(function(){
                   <p><small class="text-muted">Phone:</small></p>
                   <div class="d-flex justify-content-between align-items-center">
                               <div class="btn-group">
-                                <a href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>" type="button" class="btn btn-sm btn-outline-primary">View</a>
-                                <a type="button" class="btn btn-sm btn-outline-warning">Fav</a>
-                              </div>
+                                <a href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">View</a>
+                                <?php
+          $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+          // $row = $faz->fetch_assoc();
+          // echo $row['fav'];
+            if($faz->num_rows > 0){
+              ?>
+              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+              <?php
+            }else{
+              ?>
+             <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+              <?php
+            }
+          
+          ?>                              </div>
                               <small class="text-muted">Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></small>
                             </div>
                 </div>
@@ -421,6 +474,21 @@ $(document).ready(function(){
               
             </div>
           </div>
+          <?php
+          $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+          // $row = $faz->fetch_assoc();
+          // echo $row['fav'];
+            if($faz->num_rows > 0){
+              ?>
+              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+              <?php
+            }else{
+              ?>
+             <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+              <?php
+            }
+          
+          ?>
         </div>
      
     
@@ -497,6 +565,21 @@ $(document).ready(function(){
               </div>
             </div>
           </div>
+          <?php
+          $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+          // $row = $faz->fetch_assoc();
+          // echo $row['fav'];
+            if($faz->num_rows > 0){
+              ?>
+              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+              <?php
+            }else{
+              ?>
+             <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+              <?php
+            }
+          
+          ?>
         </div>
      
     
@@ -586,6 +669,21 @@ $(document).ready(function(){
 
           </div>
         </div>
+        <?php
+          $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+          // $row = $faz->fetch_assoc();
+          // echo $row['fav'];
+            if($faz->num_rows > 0){
+              ?>
+              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+              <?php
+            }else{
+              ?>
+             <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+              <?php
+            }
+          
+          ?>
       </div>
    
   

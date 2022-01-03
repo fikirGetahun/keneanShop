@@ -60,6 +60,24 @@ $_POST['password'],$_POST['email'])){
 
 
 
+/////// favourites page
+  require_once "../php/fetchApi.php";
+ob_start();
+session_start();
+  if(isset($_GET['postId'], $_GET['uid'], $_GET['table'])){
+    echo 'innnx';
+    $pid = $_GET['postId'];
+    $uid = $_SESSION['userId'];
+    $table = $_GET['table'];
+    $fav = $get->favouritesAdder($pid, $uid, $table);
+    if($fav){
+      echo "Added to Fav";
+    }else{
+      echo "error";
+    }
+
+  }
+
 
 
 

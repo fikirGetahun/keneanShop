@@ -1,36 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-    require_once('includes/header.php');
-    require_once('php/auth.php');
 
-
-    $login = '';
-    if(isset($_POST['username'], $_POST['password'])){
-        $us = $_POST['username'];
-        $pa = $_POST['password'];
-        $check = $auth->loginAuth($us, $pa);
-        if($check->num_rows == 0){
-            echo 'no';
-            $login = 'NOT_USER';
-
-        }else if($check->num_rows > 0){
-            
-
-            while($row = $check->fetch_assoc()){
-                if($row['username'] == $us && $row['password'] == $pa){
-                    $_SESSION['idz'] = $row['id'];
-                    
-                    header('Location: admin.php');
-                }
-
-            }
-
-        }
-        
-    }
-
-?>
   <script src="../assets/jquery.js" type="text/javascript"></script>
   <script>
       document.getElementById('status').innerHTML = notLoged
@@ -109,7 +79,42 @@
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
-                    <div id="status"></div>
+                    <div id="status">
+
+                    <?php
+    require_once('includes/header.php');
+    require_once('php/auth.php');
+
+
+    $login = '';
+    if(isset($_POST['username'], $_POST['password'])){
+        $us = $_POST['username'];
+        $pa = $_POST['password'];
+        $check = $auth->loginAuth($us);
+        if($check->num_rows == 0){
+            echo 'Wrong User Name';
+            $login = 'NOT_USER';
+
+        }elseif($check->num_rows > 0){
+            
+
+            while($row = $check->fetch_assoc()){
+                if($pa == password_verify($pa, $row['password'])){
+                    $_SESSION['idz'] = $row['id'];
+                    
+                    header('Location: admin.php');
+                }else{
+                  echo 'Password Incorrect';
+                }
+
+            }
+
+        }
+        
+    }
+
+?>
+                    </div>
           
                   </form>
 

@@ -118,8 +118,17 @@ class fetch{
     /// favourites adder
     function favouritesAdder($postId, $uid, $table){
         include "connect.php";
-        $fav = ','.$postId.',';
-        $q = "UPDATE `$table` SET `fav` = `fav`+'$fav' WHERE `$table`.`id` = '$uid'";
+        $fav = $uid.',';
+        $q2 ="SELECT `fav`
+        FROM `$table`
+        WHERE `id` = '$postId'  ";
+        $ask2 = $mysql->query($q2);
+        $row = $ask2->fetch_assoc();
+        $pre = $row['fav'];
+        $new = $pre.','.$uid;
+        echo 'is pre---- '.$pre;
+        echo 'is uid---- '.$uid;
+        $q = "UPDATE `$table` SET `fav` = '$new'  WHERE `$table`.`id` = '$postId'";
         $ask = $mysql->query($q);
 
         return $ask; 
@@ -128,11 +137,26 @@ class fetch{
 
 
     //// favouites selecter for a user
-    function favouritesSelector($table, $uid){
+    function favouritesSelector($table, $uid, $pid){
         include "connect.php";
-        $q = "SELECT `fav`
-        FROM `$table`
-        WHERE `fav` LIKE '%,'$uid',%' ";
+        $sl = ','.$uid;
+        $q = "SELECT `fav` FROM `$table` WHERE `fav` LIKE  '%$sl%' AND `id` = '$pid' ";
+
+        $ask = $mysql->query($q);
+
+        // if($ask){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+        return $ask;
+    }
+
+    /// select faverite post list for a user
+    function selectFavLister($table, $uid){
+        include "connect.php";
+        $sl = ','.$uid;
+        $q = "SELECT * FROM `$table` WHERE `fav` LIKE  '%$sl%' ";
 
         $ask = $mysql->query($q);
 
