@@ -7,7 +7,7 @@ if(isset($_POST['id'])){
 }
 
 $dbTables = array('ad', 'car', 'charity', 'electronics',
-'housesell', 'tender', 'vacancy');
+'housesell', 'tender', 'vacancy', 'blog');
 
 
 
@@ -46,8 +46,8 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <script src="../assets/jquery.js"></script>
-  <script>
+  <!-- <script src="../assets/jquery.js"></script> -->
+  <!-- <script>
     $(document).ready(function(){
 
       // $(window).scroll(function(){
@@ -101,24 +101,25 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
       }
 
 
-  </script>
+  </script> -->
 </head> -->
-<script src="../assets/jquery.js"></script>
-    <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: '<?php echo $posts ?>',pid: id})
+<script src="assets/jquery.js" type="text/javascript"></script>
+
+<script>
+        function allView(id, tb){
+          alert('sdfsdf')
+          $('#allin').load('admin/discriptionPage.php?', {type: tb,pid: id})
 
         }
 
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: '<?php echo $posts ?>', pid: id})) 
+        function allEdit(id,tb){
+          alert('sdfsdf')
+          $('#allin').load('admin/editPost.php?'+$.param({type: tb, pid: id})) 
 
         }
 
         
       </script>
-
-
 
 <div id="allin" >
 <?php
@@ -130,11 +131,13 @@ foreach($dbTables as $posts){
     ?>
 
       <div class="row">
-        <h2><?php echo $dbTables[$i] ?></h2>
+        
       <?php
       while($row = $oneTablePostList->fetch_assoc()){  
   
         ?>
+      
+      <h2><?php echo $posts ?></h2>
           <div id="adVieww" class="col-md-4">
               <div class="card mb-4 box-shadow">
                 <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
@@ -142,8 +145,8 @@ foreach($dbTables as $posts){
                   <p class="card-text"><?php echo $row['title'] ?></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="#viewDiscription" onclick="adView(<?php echo $row['id'] ?>)"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
-                      <button type="button" onclick="adEdit(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <a href="#viewDiscription" onclick="allView('<?php echo $row['id'] ?>', '<?php echo $posts ?>')"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+                      <button type="button" onclick="allEdit('<?php echo $row['id'] ?>', '<?php echo $posts ?>')" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
                   </div>

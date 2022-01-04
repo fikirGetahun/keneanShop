@@ -88,22 +88,13 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
       <a class="p-2 text-muted" >Membership</a>
      
       <a class="p-2 text-muted" >Blog</a>
-      <?php 
-      ob_start();
-      session_start();
-      if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
-        ?>
-      <a href="./Account.php?yourPost=true" class="p-2 text-muted" >Account</a>
-      <a class="p-2 text-muted" href="./user/logout.php">Log Out</a>
-        <?php
-      }
-      
-      ?>
+
             <!-- Button trigger modal --> 
 <!-- Button trigger modal -->
 
 <?php 
-
+      ob_start();
+      session_start();
 if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
   ?>
 <a href="login.php">  <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
@@ -123,7 +114,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 
    </nav>  </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="height: min-content;">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -195,23 +186,51 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           <a class="nav-link active"
           href="./maincat.php?cat=charity&status= &off= &label=Charity Post&type= "><span class="small">Charity organization</span></a>
         </li>
+
       </ul>
+
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-warning" type="submit">Search</button>
       </form>
-
   <?php 
   if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     ?>
 <a href="./login.php" class="btn btn-dark">LogIn</a>
-    <?php
+<?php
+    
   }
-  
+if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
   ?>
+
+
+<div class="" style="width:3%; float:right;  padding:0px;  "> 
+<div class="dropdown p-0" style=" padding:1px; margin:0px; " >
+<p class="dropdown-toggle" style="background: none;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<img  src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle" style="width:50%; height:50%; padding: 0px; margin:0px" >  </a>
+
+</p>
+<div class="dropdown-menu" style="width: 40%; margin:0px; padding:0px;" aria-labelledby="dropdownMenuButton">
+<a class="dropdown-item" href="./user/logout.php">Log Out</a>
+<a class="dropdown-item" href="#">Another action</a>
+</div>
+</div>
+<div>
+<?php
+      }
       
+      ?>
+
+
     </div>
+    
+
+      
+
   </div>
+
+
+
 </nav>
 
 <div class="modal fade" id="uploadDiv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

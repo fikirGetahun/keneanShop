@@ -1541,6 +1541,72 @@ $('#tCategory').on('change', function(){
         <?php
       }
     }
+
+
+    if(isset($_GET['type'])){
+      if($_GET['type'] == 'blog'){
+
+
+?>
+
+
+<form  method="POST" enctype="multipart/form-data">
+          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Front Label Of Blog</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="frontLabel" placeholder="Front Label here">
+          <small id="emailHelp" class="form-text text-muted">This is the frontal name of the blog that people see to click on</small>
+          </div>
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Title Of Blog</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="title" placeholder="Title here">
+          <small id="emailHelp" class="form-text text-muted">Title must be clear and simple</small>
+          </div>
+
+
+
+
+
+
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Content of Blog.</label>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <textarea type="text" class="form-control rounded-0" style="width:90%; height:800px;"  id="des2" 
+          aria-describedby="emailHelp" name="content" placeholder="Copy Paste or write your content here"></textarea>
+        </div>
+
+
+        <div class="row">
+        <div id="registerBox">
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file"  class="form-control" id="photo" name="photo[]" multiple>
+          <small id="emailHelp" class="form-text text-muted">photos that describe your blog post</small>
+        </div>
+
+
+
+
+
+
+          
+
+
+          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          <div id="alertVacancy"></div>
+          </form>
+
+
+<?php
+
+
+      }
+
+    }
 ?>
 
 

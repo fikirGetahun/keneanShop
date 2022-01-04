@@ -806,7 +806,11 @@
             $allowedType = array('jpeg', 'png', 'jpg');
             $error = array();
             $count = count($fileVar['name']);
-            if($count <=3 ){
+            $amount = 3;
+            if($tableName == 'blog'){
+                $amount = 6;
+            }
+            if($count <= $amount ){
                 for($i=0;$i<=$count-1;$i++){
                     $fileName = explode('.',$fileVar['name'][$i]);
                     $fileExt = $fileName[1];
@@ -864,6 +868,14 @@
                         $dbPath .= './uploads/charityPhoto/'.$uploadName;
                     }
 
+                    if($tableName == 'blog'){
+                        $uploadPath[] = '../uploads/blogPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= './uploads/blogPhoto/'.$uploadName;
+                    }
+
 
                     if(!in_array($fileExt, $allowedType)){
                         $error[] = 'File Extention must be png, jpg, jpeg';
@@ -897,7 +909,7 @@
             }
 
             }else{
-                echo 'You can only post 3 images';
+                echo 'You can only post '.$amount.' images';
             }
 
         }
@@ -1013,7 +1025,11 @@
             $allowedType = array('jpeg', 'png', 'jpg');
             $error = array();
             $count = count($fileVar['name']);
-            if($count <=3 ){
+            $amount = $count;
+            if($tableName == 'blog'){
+                $amount = 6;
+            }
+            if($count <= $amount ){
                 for($i=0;$i<=$count-1;$i++){
                     $fileName = explode('.',$fileVar['name'][$i]);
                     $fileExt = $fileName[1];
@@ -1099,6 +1115,16 @@
                     }
 
                     
+                    if($tableName == 'blog'){
+                        $uploadPath[]= '../uploads/blogPhoto/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+
+                        $dbPath .= './uploads/blogPhoto/'.$uploadName;
+                    }
+
+                    
 
                     if(!in_array($fileExt, $allowedType)){
                         $error[] = 'File Extention must be png, jpg, jpeg';
@@ -1139,7 +1165,7 @@
                 }
 
             }else{
-                echo 'You can only post 3 images';
+                echo 'You can only post '.$amount.' images';
             }
         }
 
@@ -1447,7 +1473,30 @@ return $ask;
         }
 
 
-        //ad category electronics
+       ////blog uploader
+       function blogAdder($title, $frontLabel, $content, $posterId, $photo){
+           include "connect.php";
+           $postedDate = date('Y-m-d H:i:s');
+           $q = "INSERT INTO `blog`( `title`, `frontLabel`, `postedDate`, `content`, `posterId`, `photoPath1`)
+            VALUES ('$title', '$frontLabel', '$postedDate', '$content', '$posterId', '$photo' )";
+
+            $ask = $mysql->query($q);
+
+            return $ask;
+       }
+
+
+       ////blog update
+       function blogUpdater($title, $frontLabel, $content, $pid){
+        include "connect.php";
+        $e = 'EDITED';
+        $q = "UPDATE `blog` SET `title`= '$title', `frontLabel`= '$frontLabel', `content`= '$content',
+         `edited` = '$e'  WHERE `blog`.`id` = '$pid' ";
+
+         $ask = $mysql->query($q);
+
+         return $ask;
+    }       
 
     
     }

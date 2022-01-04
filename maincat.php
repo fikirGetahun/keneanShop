@@ -23,7 +23,7 @@ if(isset($_GET['type'])){
 }
 
 $userId = $_SESSION['userId'];
-echo $userId;
+// echo $userId;
 
 ///for house land
 if(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){

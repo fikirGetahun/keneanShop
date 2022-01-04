@@ -126,6 +126,11 @@
         $('#postBox').load('admin/postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
 
+      $('#postBlog').click(function(){
+        
+        $('#postBox').load('admin/postPage.php?'+$.param({type: "blog", uid: '<?php echo $uid; ?>'}))
+      })
+
       $('#viewAd').click(function(){
         $('#vac1').empty()
         $('#postBox').load('admin/viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
@@ -591,9 +596,9 @@ alert('wiork')
                 $('#postElectronics').click(function(e){
                   e.preventDefault()
                   // history.pushState({type: 'electronics'}, '', 'http://localhost/shop2/admin/admin.php/post')
-                  $('#postBox').load('http://localhost/shop2/admin/postPage.php?type=electronics&uid=89')
+                  // $('#postBox').load('http://localhost/shop2/admin/postPage.php?type=electronics&uid=89')
                   // window.location.href = 'postPage.php?type=electronics&uid=<?php echo $uid ?>'
-                  // $('#postBox').load('postPage.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
+                  $('#postBox').load('postPage.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
                 })
                 // window.onpopstate = function (event) {
                   
@@ -602,10 +607,7 @@ alert('wiork')
                 //   } 
                 // }
                
-
-                  if(event.state.type == 'electronics'){
-                    $('#postBox').load('http://localhost/shop2/admin/postPage.php?type=electronics&uid=89')
-                  }                 
+          
 
 
                 $('#vacancyCategory').click(function(){
@@ -642,6 +644,11 @@ alert('wiork')
           <li>
             <a id="postTender" href="#tenderPost">
               <i class="bi bi-circle"></i><span>Post Tender</span>
+            </a>
+          </li>
+          <li>
+            <a id="postBlog" href="#tenderPost">
+              <i class="bi bi-circle"></i><span>Post Blog</span>
             </a>
           </li>
           <li>
@@ -778,11 +785,23 @@ alert('wiork')
                     </li>
 
                     <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">All</a></li>
                     <li><a class="dropdown-item" href="#">This Year</a></li>
                   </ul>
                 </div>
-
+<script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'user'},
+      success: function(data){
+        $('#adminC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
 
 
 
@@ -795,11 +814,8 @@ alert('wiork')
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <?php
-                        $count = $admin->userNumber('ADMIN');
-                        $num = $count->num_rows;
-                      ?>
-                      <h6><?php echo $num; ?></h6>
+         
+                      <h6 id="adminC" ></h6>
                      
 
                     </div>
@@ -814,11 +830,20 @@ alert('wiork')
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <?php
-                        $count = $admin->userNumber('USER');
-                        $num = $count->num_rows;
-                      ?>
-                      <h6><?php echo $num; ?></h6>
+                    <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'user', selecter: 'auth', arg: 'USER' },
+      success: function(data){
+        $('#userC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="userC"></h6>
                      
 
                     </div>
@@ -835,11 +860,20 @@ alert('wiork')
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <?php
-                        $count = $admin->userNumber('EDITOR');
-                        $num = $count->num_rows;
-                      ?>
-                      <h6><?php echo $num; ?></h6>
+                    <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'user', selecter: 'auth', arg: 'EDITOR' },
+      success: function(data){
+        $('#editorC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="editorC"></h6>
                      
 
                     </div>
@@ -867,21 +901,30 @@ alert('wiork')
                     </li>
 
                     <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">All</a></li>
                     <li><a class="dropdown-item" href="#">This Year</a></li>
                   </ul>
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Tender Posts <span>| This Month</span></h5>
+                  <h5 class="card-title">Tender Posts <span>| All</span></h5>
 
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
-                      <?php
-                        $count = $admin->tenderPostCounter();
-                        $num = $count->num_rows;
-                      ?>
-                      <h6><?php echo $num; ?></h6>
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'tender' },
+      success: function(data){
+        $('#tenderC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="tenderC"></h6>
                      
 
                     </div>
@@ -890,15 +933,24 @@ alert('wiork')
 
                 
                 <div class="card-body">
-                  <h5 class="card-title">Vacancy Posts <span>| This Month</span></h5>
+                  <h5 class="card-title">Vacancy Posts <span>| All</span></h5>
 
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
-                      <?php
-                        $count = $admin->vacancyPostCounter();
-                        $num = $count->num_rows;
-                      ?>
-                      <h6><?php echo $num; ?></h6>
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'vacancy'},
+      success: function(data){
+        $('#vaCC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="vaCC" ></h6>
                      
 
                     </div>
@@ -906,15 +958,230 @@ alert('wiork')
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Advertisment Posts <span>| This Month</span></h5>
+                  <h5 class="card-title">Advertisment Posts <span>| All</span></h5>
 
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
-                      <?php
-                        $count = $admin->postAdShower();
-                        $num = $count->num_rows;
-                      ?>
-                      <h6><?php echo $num; ?></h6>
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'ad'},
+      success: function(data){
+        $('#adC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="adC" ></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="card-body">
+                  <h5 class="card-title">Electronics Posts <span>| All</span></h5>
+
+                  <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'electronics'},
+      success: function(data){
+        $('#elccC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="elccC" ></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="card-body">
+                  <h5 class="card-title">House Posts <span>| All</span></h5>
+
+                  <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'housesell', selecter: 'houseOrLand', arg: 'HOUSE'},
+      success: function(data){
+        $('#houseC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="houseC" ></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="card-body">
+                  <h5 class="card-title">Land Posts <span>| All</span></h5>
+
+                  <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'housesell', selecter: 'houseOrLand', arg: 'Land'},
+      success: function(data){
+        $('#landC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="landC" ></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="card-body">
+                  <h5 class="card-title">Cars Posts <span>| All</span></h5>
+
+                  <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'car'},
+      success: function(data){
+        $('#carC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="carC" ></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="card-body">
+                  <h5 class="card-title">Cv Work Seekers Posts <span>| Home Tutor</span></h5>
+
+                  <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'jobhometutor'},
+      success: function(data){
+        $('#hometutorC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="hometutorC" ></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Cv Work Seekers Posts <span>| Hotel Worker</span></h5>
+
+                  <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'hotelhouse', selecter: 'hotelOrHouse', arg: 'HOTEL'},
+      success: function(data){
+        $('#hotelcC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="hotelcC" ></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="card-body">
+                  <h5 class="card-title">Cv Work Seekers Posts <span>| Home Worker</span></h5>
+
+                  <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'hotelhouse', selecter: 'hotelOrHouse', arg: 'HOUSE'},
+      success: function(data){
+        $('#houseWC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="houseWC" ></h6>
+                     
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Cv Work Seekers Posts <span>| Security Gaurd</span></h5>
+
+                  <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                  <script>
+  setInterval(() => {
+    $.ajax({
+      url: 'admin/editHandler.php',
+      type: 'POST',
+      data: {count: 'true', table: 'zebegna'},
+      success: function(data){
+        $('#zebegnaC').text(data)
+      }
+    })
+    
+  }, 3000);
+</script>
+                      <h6 id="zebegnaC" ></h6>
                      
 
                     </div>

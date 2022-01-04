@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 
 require_once "../php/adminCrude.php";
 
@@ -414,6 +416,35 @@ if(isset(
     }
 
   }
+
+}
+
+
+//////////////////blog 
+
+if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_FILES['photo'], $_POST['posterId'])){
+  $frontLabel = $_POST['frontLabel'];
+  $title = $_POST['title'];
+  $content = $_POST['content'];
+  $fileVar = $_FILES['photo'];
+  $posterId = $_POST['posterId']; 
+
+  $up = $admin->uploadPhotos('blog', $fileVar);
+  if($up[4] == 'error'){
+    foreach($up as $val){
+      echo $val;
+    }
+  }elseif($up[4] == 'work'){
+    $enter = $admin->blogAdder($title, $frontLabel, $content, $posterId, $up[0]);
+    if($enter){
+      echo 'Posted Successfully.';
+    }else{
+      echo 'Error';
+    }
+  }
+
+  
+
 
 }
 

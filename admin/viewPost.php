@@ -174,7 +174,6 @@
                             <p class="card-text">Job Type :<?php echo $row['info'] ?></p>
                             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                         </div>
-                        <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="edit('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
                         </div>
                     </div>
                 </div>
@@ -223,7 +222,6 @@
                             <p class="card-text"><?php echo $row['info'] ?></p>
                             <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
                         </div>
-                        <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="editTender('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
                         </div>
                     </div>
                     </div>
@@ -259,7 +257,6 @@
                             <p class="card-text"><?php echo $row['info'] ?></p>
                             <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
                         </div>
-                        <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="editTender('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
                         </div>
                     </div>
                 </div>
@@ -288,7 +285,6 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="#viewDiscription" onclick="adView(<?php echo $row['id'] ?>)"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
-                      <button type="button" onclick="adEdit(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
                   </div>
@@ -320,7 +316,6 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" onclick="viewCar(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" onclick="editCar(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
                   </div>
@@ -356,7 +351,6 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" onclick="houseView(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" onclick="editHouse(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">9 mins</small>
                   </div>
@@ -402,7 +396,6 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" onclick="elcView(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                   </div>
                   <small class="text-muted">9 mins</small>
                 </div>
@@ -449,7 +442,6 @@ elseif($_GET['type'] == 'charity'){
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                   </div>
                   <small class="text-muted">9 mins</small>
                 </div>
@@ -492,7 +484,6 @@ elseif($_GET['type'] == 'bigDiscount'){
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                   </div>
                   <small class="text-muted">9 mins</small>
                 </div>
@@ -540,7 +531,6 @@ elseif($_GET['type'] == 'homeTutor'){
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                   </div>
                   <small class="text-muted">9 mins</small>
                 </div>
@@ -593,7 +583,6 @@ if(isset($_GET['type'])){
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                   </div>
                   <small class="text-muted">9 mins</small>
                 </div>
@@ -645,7 +634,6 @@ if(isset($_GET['type'])){
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                   </div>
                   <small class="text-muted">9 mins</small>
                 </div>
@@ -699,7 +687,6 @@ if(isset($_GET['type'])){
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
                   </div>
                   <small class="text-muted">9 mins</small>
                 </div>

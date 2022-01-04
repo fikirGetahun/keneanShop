@@ -1,6 +1,41 @@
 <?php
 
 require_once "../php/adminCrude.php";
+require_once "../php/fetchApi.php";
+
+
+////////live post counter
+if(isset($_POST['count'], $_POST['table'])){
+  $table = $_POST['table'];
+  if(isset($_POST['selecter'], $_POST['arg'])){
+    $select = $_POST['selecter'];
+    $arg = $_POST['arg'];
+    $counter = $admin->allPostColumenView($select, $table, $arg);
+  }else{
+    $counter = $admin->allPostsLister($table);
+  }
+
+  $num = $counter->num_rows;
+
+  if($num > 0){
+    echo $num;
+  }else{
+    echo 'no data';
+  }
+ 
+ 
+}
+
+////////////////post deleter api//////////
+
+if(isset($_POST['delete'],$_POST['table'], $_POST['postId'])){
+
+}
+
+
+
+
+
 
 if(isset($_POST['titleElc'],
     $_POST['type'],
@@ -356,6 +391,12 @@ if(isset(
             $roww = $out->fetch_assoc();
           }
 
+          if($tn == 'blog'){
+            $out = $admin->aSinglePostView($pid, 'blog');
+            $roww = $out->fetch_assoc();
+          }
+
+
 
           $dbPath = null;
 
@@ -364,7 +405,11 @@ if(isset(
           $parr = explode(',', $path);
           $count = count($parr);
           // echo 'this count SSSSSS '.$count;
-          if($count <=3){
+          $amount = 3;
+          if($tn == 'blog'){
+            $amount = 6;
+          }
+          if($count <=$amount){
           for($i=0;$i<$count;$i++ ){
             if($parr[$i] == $j){
                 unlink('.'.$parr[$i]); //for deleteing the file
@@ -391,7 +436,7 @@ if(isset(
                 $('form').on('submit', function(e){
           e.preventDefault()
           $.ajax({
-            url: 'editHandler.php',
+            url: 'admin/editHandler.php',
             type: 'post',
             data:  new FormData( this ),
             success : function(data){
@@ -558,6 +603,26 @@ if(isset(
     }
 
   
+
+}
+
+
+////////////BLOG
+if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_POST['postId'])){
+  $frontLabel = $_POST['frontLabel'];
+  $title = $_POST['title'];
+  $content = $_POST['content'];
+  $postId = $_POST['postId']; 
+
+  // $up = $admin->uploadPhotos('blog', $fileVar);
+
+  $enter = $admin->blogUpdater($title, $frontLabel, $content, $postId);
+  
+  if($enter){
+    echo 'Saved Changes';
+  }else{
+    echo 'Error';
+  }
 
 }
 

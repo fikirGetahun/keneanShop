@@ -1971,6 +1971,103 @@ if(isset($_GET['type'])){
   }
 }
 
+///////////////////blog
+if(isset($_GET['type'])){
+  if($_GET['type'] == 'blog'){
+
+    $out = $admin->aSinglePostView($uidx, 'blog');
+    $row = $out->fetch_assoc();
+    ?>
+    
+    
+<form  method="POST" enctype="multipart/form-data">
+          <input hidden name="postId" value="<?php echo $uidx; ?>">
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Front Label Of Blog</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="frontLabel" placeholder="Front Label here" 
+          value="<?php echo $row['frontLabel'] ?>">
+          <small id="emailHelp" class="form-text text-muted">This is the frontal name of the blog that people see to click on</small>
+          </div>
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Title Of Blog</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="title" placeholder="Title here" value="<?php echo $row['title'] ?>">
+          <small id="emailHelp" class="form-text text-muted">Title must be clear and simple</small>
+          </div>
+
+
+
+
+
+
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Content of Blog.</label>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <textarea type="text" class="form-control rounded-0" style="width:90%; height:800px;"  id="des2" 
+          aria-describedby="emailHelp" name="content" placeholder="Copy Paste or write your content here">
+          <?php echo $row['content'] ?>
+        </textarea>
+        </div>
+
+        <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+
+
+        <script>
+// photo updater and deleter
+           function pUpdate(divz, photo){
+            $('#'+divz).empty()
+            $.post('admin/editHandler.php', {photoPath: photo, tableName: "blog", pid: "<?php echo $uidx ?>"}, 
+              function(returnedData){
+                $('#'+divz).append(returnedData)        
+            })
+           }
+
+         </script>
+           <?php
+           $i = 0;
+           $pp = $admin->photoSplit($row['photoPath1']);
+           if(!empty($row['photoPath1'])){
+           foreach($pp as $photo){
+             ?>
+                  <div id="<?php echo $i ?>">
+                  <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
+                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+                  </div>
+             <?php
+             $i ++;
+           }
+          }else{
+            ?>
+                  <form method="POST" enctype="multipart/form-data" >
+                  <input hidden name="pid" value="<?php echo $uidx; ?>">
+                  <input hidden name="tName" value="blog">
+                  <div class="row">
+                  <div id="registerBox">
+                  <label for="exampleInputEmail1">Upload Photo  </label>
+                  <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  </div>
+                  </div>
+
+                  <input type="submit" value="Change Photo">
+
+
+          
+
+
+          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          </form>
+    
+    <?php
+  }
+  ?>          <div id="alertVacancy"></div>
+  <?php
+}
+}
 
 ?>
 
