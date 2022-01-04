@@ -429,18 +429,21 @@ function fav(pid, id, table){
         while($row = $fetchPost->fetch_assoc()){
           if(!in_array($row['id'], $_SESSION['userScroll'])){
         ?>
-           <div class="card">
+           <div class="card" >
               <div class="card-header">
                 <?php echo $row['frontLabel'] ?>
               </div>
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
-                    <h5 class="card-title"><?php echo $row['type'] ?></h5>
+                    <h5 class="card-title"><?php echo $row['title'] ?></h5>
                 </div>
                 <?php 
 
                   $dt = new DateTime($row['postedDate']);
+                  $date = $get->time_elapsed_string($row['postedDate']);
+                  $c = date_create($row['postedDate']);
+                  $PD = date_format($c, "Y/m/d");
 
                   $now = new DateTime();
                   $future_date = new DateTime($row['postedDate']);
@@ -452,33 +455,18 @@ function fav(pid, id, table){
 
                   ;
                 ?>
-                  <small class="text-muted">Posted: <span class="text-success"><?php echo $date; ?></span></small>
-                </div>
-                <label>Starting Date : <?php echo $sdate; ?> or <?php echo $sinterval->format("%a days, %h hours")  ?></label>
+                  <small class="text-muted">Posted: <span class="text-success"><?php echo $PD; ?></span></small>
+</div>
                 
-                <p class="card-text"><span class="fw-bolder"> </span><?php echo $row['content'] ?></p>
+                <p class="card-text"  style="height:8%; overflow:hidden; text-overflow: ellipsis; "> <?php echo $row['content'] ?></p>
                 <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                              <a href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">View</a>
-                              <?php
-        $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
-        // $row = $faz->fetch_assoc();
-        // echo $row['fav'];
-          if($faz->num_rows > 0){
-            ?>
-            <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
-            <?php
-          }else{
-            ?>
-           <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
-            <?php
-          }
-        
-        ?>                              </div>
-                            <small class="text-muted">Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></small>
+
                           </div>
               </div>
             </div>
+            <div class="btn-group">
+                              <a href="./Description.php?cat=blog&label=Blog Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">Read More...</a>
+                             </div>
         <?php
                     array_push($_SESSION['userScroll'], $row['id']);
                   }

@@ -429,6 +429,8 @@ if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_FILES['phot
   $fileVar = $_FILES['photo'];
   $posterId = $_POST['posterId']; 
 
+  $content = addslashes($content);
+
   $up = $admin->uploadPhotos('blog', $fileVar);
   if($up[4] == 'error'){
     foreach($up as $val){

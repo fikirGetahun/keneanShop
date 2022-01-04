@@ -1091,7 +1091,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
                             </div>
                         </div>
 
@@ -1140,13 +1140,128 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
 }
 
 
+////////////////blog
+if($_GET['cat'] == 'blog'){
+  $tab = $_GET['cat'];
+  $pid = $_GET['postId'];
+
+
+
+  $blog = $get->allPostListerOnColumen('blog','id',$pid);
+  $row = $blog->fetch_assoc();
+
+  $c = date_create($row['postedDate']);
+  $PD = date_format($c, "Y/m/d");
+
+  $recent = $get->allPostListerOnTable('blog');
+  ?>
+  
+  <div class="container">
+    <div class="row row-sm-10">
+    <div class="col-10 row-col-sm-12">
+      <br>
+
+      <small>Posted: <?php echo $PD ?></small>
+
+      <hr>
+      <h1><?php echo $row['frontLabel'] ?></h1>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
+    </div>
+    <?php if(!empty($p[1])){
+      ?>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Second slide">
+    </div>  
+      <?php
+    } ?>
+
+<?php if(!empty($p[2])){
+      ?>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Second slide">
+    </div>  
+      <?php
+    } ?>
+
+
+<?php if(!empty($p[3])){
+      ?>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[3] ;?>" alt="Second slide">
+    </div>  
+      <?php
+    } ?>
+
+<?php if(!empty($p[4])){
+      ?>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[4] ;?>" alt="Second slide">
+    </div>  
+      <?php
+    } ?>
+
+<?php if(!empty($p[5])){
+      ?>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[5] ;?>" alt="Second slide">
+    </div>  
+      <?php
+    } ?>
+
+
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+    <h2><?php echo $row['title'] ?></h2>
+
+    <p>
+
+    <?php echo $row['content'] ?>
+    </p>
+
+    </div>
+    <div class="col-2 d-lg-none d-xl-block">
+      <br>
+      <br>
+      <hr>
+
+    <h4 class="text-center" >Recent Posts</h4>
+      <?php
+        while($r = $recent->fetch_assoc()){
+          ?>
+          <a href="./Description.php?cat=blog&label=Blog Post&postId=<?php echo $r['id'] ?>&type= "><h6><?php echo $r['title']; ?></h6></a>
+          <?php
+        }
+      
+      ?>
+      
+    </div>
+  </div>
+  </div>
+  
+  
+  <?php
+}
+
+
   }
 
 ?>
 
 <?php
 
-if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender'){
+if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blog'){
 
 
 ?>
