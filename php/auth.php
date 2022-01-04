@@ -94,7 +94,28 @@ class auth{
     }
 
 
+    //////////post deleter
+    function postDeleter($table, $postId){
+        include "connect.php";
 
+        if($table != 'vacancy'){
+            $q1 = "SELECT * FROM `$table` WHERE `id` = '$postId'";
+            $ask1 = $mysql->query($q1);
+            $row = $ask1->fetch_assoc();
+            $file = $row['photoPath1'];
+            $singl = explode(',',$file);
+            foreach($singl as $s){
+                unlink('.'.$s);
+            }
+            
+        }
+
+        $q = "DELETE FROM `$table` WHERE `$table`.`id` = '$postId'";
+        $ask = $mysql->query($q);
+
+        return $ask;
+
+    }
 
 
 }

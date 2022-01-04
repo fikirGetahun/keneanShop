@@ -92,7 +92,7 @@ function fav(pid, id, table){
 <?php 
   if(isset($_GET['cat'])){
     // this category lister exclude the hometutor and zebegna because thy dont have the type colomen
-    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse'){
+    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog'){
       ?>
       <h4>Categories</h4>
       <?php
@@ -105,11 +105,11 @@ function fav(pid, id, table){
       ?>
       
       <?php
-          if(isset($_GET['status'], $_GET['off'], $_GET['label'])){
+          if(isset($_GET['status'], $_GET['off'], $_GET['label'], $_GET['type'])){
             ?>
               <li class="nav-item">
               <a class="nav-link" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>&type=<?php echo $_GET['type'] ?>"><?php echo $rowc['type'] ?></a>
               </li> 
             <?php
           }elseif(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
@@ -134,6 +134,8 @@ function fav(pid, id, table){
               </li>               
             <?php
           }
+
+
       ?>
 
 
@@ -142,6 +144,8 @@ function fav(pid, id, table){
       <?php
     }
 
+    }    elseif($_GET['cat'] == 'blog'){
+      echo 'not yet';
     }else{
 
       ?>
@@ -338,7 +342,7 @@ function fav(pid, id, table){
       
 
       ////tender
-        if($_GET['cat'] == 'tender'){
+        elseif($_GET['cat'] == 'tender'){
           $cat = $_GET['cat'];
           if(isset($_GET['dbType'])){
             $dbType = $_GET['dbType'];
@@ -409,6 +413,80 @@ function fav(pid, id, table){
                     }
           }
         }
+
+
+      //////////////blog post view
+      if(isset($_GET['cat']) && $_GET['cat'] == 'blog'){
+        echo 'yer';
+        $cat = $_GET['cat'];
+        if(isset($_GET['dbType'])){
+          $dbType = $_GET['dbType'];
+          $fetchPost = $get->allPostListerOnColumen($cat, '', $dbType );
+        }else{
+          $fetchPost = $get->allPostListerOnTable($cat);
+        }
+
+        while($row = $fetchPost->fetch_assoc()){
+          if(!in_array($row['id'], $_SESSION['userScroll'])){
+        ?>
+           <div class="card">
+              <div class="card-header">
+                <?php echo $row['frontLabel'] ?>
+              </div>
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="card-title"><?php echo $row['type'] ?></h5>
+                </div>
+                <?php 
+
+                  $dt = new DateTime($row['postedDate']);
+
+                  $now = new DateTime();
+                  $future_date = new DateTime($row['postedDate']);
+                  $sinterval = $future_date->diff($now);
+                  $snow = new DateTime();
+
+                  $interval = $future_date->diff($now);
+
+
+                  ;
+                ?>
+                  <small class="text-muted">Posted: <span class="text-success"><?php echo $date; ?></span></small>
+                </div>
+                <label>Starting Date : <?php echo $sdate; ?> or <?php echo $sinterval->format("%a days, %h hours")  ?></label>
+                
+                <p class="card-text"><span class="fw-bolder"> </span><?php echo $row['content'] ?></p>
+                <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                              <a href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">View</a>
+                              <?php
+        $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+        // $row = $faz->fetch_assoc();
+        // echo $row['fav'];
+          if($faz->num_rows > 0){
+            ?>
+            <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+            <?php
+          }else{
+            ?>
+           <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+            <?php
+          }
+        
+        ?>                              </div>
+                            <small class="text-muted">Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></small>
+                          </div>
+              </div>
+            </div>
+        <?php
+                    array_push($_SESSION['userScroll'], $row['id']);
+                  }
+        }
+    }
+
+
+
       }
 
       /////////// house post view
@@ -449,7 +527,7 @@ function fav(pid, id, table){
             
 
       
-                  <div  class="col-md-3">
+                  <div  class="row-col-3 row-col-sm-12 row-col-md-3">
               <div class="card mb-4 box-shadow">
           
           <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -540,7 +618,7 @@ function fav(pid, id, table){
             
 
       
-                  <div  class="col-md-3">
+                  <div  class="row-col-3 row-col-sm-12 row-col-md-3">
               <div class="card mb-4 box-shadow">
           
           <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -599,7 +677,7 @@ function fav(pid, id, table){
 
       
       ///////////////cv seekers
-      elseif(isset($_GET['cat'], $_GET['type'], $_GET['label'])){
+      if(isset($_GET['cat'], $_GET['type'], $_GET['label'])){
         $cat = $_GET['cat'];
         $type = $_GET['type'];
         $label = $_GET['label'];
@@ -693,10 +771,16 @@ function fav(pid, id, table){
           array_push($_SESSION['userScroll'], $row['id']);
           }
         }
+
+        
         
         
 
       }
+
+
+
+
     
     ?>
    </div>

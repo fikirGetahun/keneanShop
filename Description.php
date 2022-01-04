@@ -1155,11 +1155,11 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender'){
 <h2>Related <?php echo $label ?></h2>
 <hr>
 
- <div class="album py-5 bg-light">
-    <div id="recent" class="container-fluid">
+ <div class="album py-5 bg-light ">
+    <div id="recent" class="container-fluid ">
       
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+      <div class="row  row-cols-md-4 ">
        <?php 
 
 
@@ -1174,7 +1174,7 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender'){
               
   
         
-          <div class="col-2">
+          <div class="row-col-sm-12 row-col-md-6 row-col-3">
             <div class="card shadow-sm">
             <?php 
             if(!isset($_GET['type'])){

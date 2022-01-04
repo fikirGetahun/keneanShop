@@ -87,7 +87,7 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
       <a class="p-2 text-muted" >Eth</a>
       <a class="p-2 text-muted" >Membership</a>
      
-      <a class="p-2 text-muted" >Blog</a>
+      <a href="./maincat.php?cat=blog&label=Blog" class="p-2 text-muted" >Blog</a>
 
             <!-- Button trigger modal --> 
 <!-- Button trigger modal -->
@@ -203,16 +203,14 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
   ?>
 
-
+<a class="btn btn-dark" href="./Account.php?yourPost=true" style="color: #f4f4f4; margin-left: 5px; background: black; border:1px #f4f4f4 solid; padding:3px; " >Account</a>
 <div class="" style="width:3%; float:right;  padding:0px;  "> 
-<div class="dropdown p-0" style=" padding:1px; margin:0px; " >
+<div class="dropdown p-0" style="padding:1px; margin:0px; " >
 <p class="dropdown-toggle" style="background: none;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<img  src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle" style="width:50%; height:50%; padding: 0px; margin:0px" >  </a>
-
+<a style="width:20%;"></a>
 </p>
-<div class="dropdown-menu" style="width: 40%; margin:0px; padding:0px;" aria-labelledby="dropdownMenuButton">
+<div class="dropdown-menu" style="width: 30%; margin-left:10px; padding:0px;" aria-labelledby="dropdownMenuButton">
 <a class="dropdown-item" href="./user/logout.php">Log Out</a>
-<a class="dropdown-item" href="#">Another action</a>
 </div>
 </div>
 <div>

@@ -64,6 +64,23 @@ $urow = $user->fetch_assoc();
   <a class="nav-item nav-link" href="#">Settings</a>
  
 </nav>
+<script>
+  
+  function del(pid, table){
+          
+          if(confirm("Are You Sure You Want to Delete This Post?") == true){
+            $.ajax({
+              url: 'admin/editHandler.php',
+              type: 'POST',
+              data: {delete: true, table: table, postId: pid},
+              success: function(data){
+                alert(data)
+                location.reload()
+              }
+            })
+          }
+        }
+</script>
 </div>
     </div>
   <div id="cont">
@@ -157,6 +174,8 @@ foreach($dbTables as $posts){
                     <?php
                   }
                    ?>
+                 <a onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">   <button type="button"  class="btn btn-sm btn-outline-secondary">Delete</button></a>
+
                     </div>
                     <small class="text-muted"><?php echo $row['view'] ?> views</small>
                   </div>

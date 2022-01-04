@@ -1577,7 +1577,7 @@ $('#tCategory').on('change', function(){
           <label for="exampleInputEmail1">Content of Blog.</label>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           <textarea type="text" class="form-control rounded-0" style="width:90%; height:800px;"  id="des2" 
-          aria-describedby="emailHelp" name="content" placeholder="Copy Paste or write your content here"></textarea>
+           name="content" placeholder="Copy Paste or write your content here"></textarea>
         </div>
 
 

@@ -118,6 +118,20 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 
         }
 
+        function del(pid, table){
+          
+          if(confirm("Are You Sure You Want to Delete This Post?") == true){
+            $.ajax({
+              url: 'admin/editHandler.php',
+              type: 'POST',
+              data: {delete: true, table: table, postId: pid},
+              success: function(data){
+                alert(data)
+              }
+            })
+          }
+        }
+
         
       </script>
 
@@ -147,6 +161,7 @@ foreach($dbTables as $posts){
                     <div class="btn-group">
                       <a href="#viewDiscription" onclick="allView('<?php echo $row['id'] ?>', '<?php echo $posts ?>')"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
                       <button type="button" onclick="allEdit('<?php echo $row['id'] ?>', '<?php echo $posts ?>')" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" onclick="del('<?php echo $row['id'] ?>', '<?php echo $posts ?>')" class="btn btn-sm btn-outline-secondary">Delete</button>
                     </div>
                     <small class="text-muted">9 mins</small>
                   </div>

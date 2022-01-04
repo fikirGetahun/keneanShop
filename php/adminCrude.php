@@ -1477,7 +1477,7 @@ return $ask;
        function blogAdder($title, $frontLabel, $content, $posterId, $photo){
            include "connect.php";
            $postedDate = date('Y-m-d H:i:s');
-           $q = "INSERT INTO `blog`( `title`, `frontLabel`, `postedDate`, `content`, `posterId`, `photoPath1`)
+           $q = "INSERT INTO `blog` (`title`, `frontLabel`, `postedDate`, `content`, `posterId`, `photoPath1`)
             VALUES ('$title', '$frontLabel', '$postedDate', '$content', '$posterId', '$photo' )";
 
             $ask = $mysql->query($q);
@@ -1496,7 +1496,10 @@ return $ask;
          $ask = $mysql->query($q);
 
          return $ask;
-    }       
+    }
+    
+    
+
 
     
     }

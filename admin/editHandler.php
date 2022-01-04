@@ -29,7 +29,16 @@ if(isset($_POST['count'], $_POST['table'])){
 ////////////////post deleter api//////////
 
 if(isset($_POST['delete'],$_POST['table'], $_POST['postId'])){
+  require_once "../php/auth.php";
+  $tab = $_POST['table'];
+  $pid = $_POST['postId'];
+  $del = $auth->postDeleter($tab, $pid);
 
+  if($del){
+    echo 'post deleted';
+  }else{
+    echo 'error';
+  }
 }
 
 
