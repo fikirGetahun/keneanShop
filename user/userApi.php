@@ -2,11 +2,12 @@
 
 require_once "../php/adminCrude.php";
 require_once "../php/auth.php";
+require_once "../php/fetchApi.php";
 
 
 ////////////Register A uSER ///////////////////////
 if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
-$_POST['password'],$_POST['email'])){
+$_POST['password'],$_POST['email'], $_POST['address'])){
 
     $firstName =$_POST['firstName'] ;
     $lastName =$_POST['lastName'] ;
@@ -16,7 +17,7 @@ $_POST['password'],$_POST['email'])){
     $authr ='USER';
     $job = ' ';
     $phoneNumber= $_POST['phoneNumber'];
-    $about =$_POST['email'];
+    $about =$_POST['address'];
 
     $u = $auth->loginAuth($username);
     $num = $u->num_rows;
@@ -79,5 +80,25 @@ session_start();
 
 
 
+
+/////////////user ban
+if(isset($_POST['ban'], $_POST['id'])){
+    $uid =$_POST['id'];
+    if($_POST['ban'] == 'BAN'){
+    $ban = $get->userBan($uid);
+    if($ban){
+        echo 'USER BANNED!';
+    }else{
+        echo 'ERROR';
+    }
+    }elseif($_POST['ban'] == 'UNBAN'){
+        $ban = $get->unBanuser($uid);
+        if($ban){
+            echo 'USER UNBANNED!';
+        }else{
+            echo 'ERROR';
+        }
+    }
+}
 
 ?>

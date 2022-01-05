@@ -7,10 +7,7 @@ require_once "php/fetchApi.php";
 require_once "php/auth.php";
 require_once "php/adminCrude.php";
 
-$dbTables = array('ad', 'car', 'charity', 'electronics',
-'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse' );
 
-$excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
 
 $user = $get->aSinglePostView($_SESSION['userId'], 'user');
 $urow = $user->fetch_assoc();
@@ -88,7 +85,10 @@ $urow = $user->fetch_assoc();
     <?php 
     
     if(isset($_GET['yourPost'])){
-
+      $dbTables = array('ad', 'car', 'charity', 'electronics',
+      'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse' );
+      
+      $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
       ?>
       
       <?php

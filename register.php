@@ -78,15 +78,15 @@ $(document).ready(function(){
               <input type="password" class="form-control" name="password" id="lastName" placeholder="" value="" required>
             </div>
 
-            <!-- <div class="col-sm-6">
+            <div class="col-sm-6">
               <label for="country" class="form-label">Location</label>
-              <select class="form-select" id="country" required>
+              <select class="form-select" id="country" name="address" required>
                 <option value="">Choose...</option>
                 <option>United States</option>
               </select>
               <div class="invalid-feedback">
                 Please select a valid country.
-              </div> -->
+              </div>
 
             </div>
             <div id="registerBox">

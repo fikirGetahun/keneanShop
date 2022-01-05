@@ -19,7 +19,7 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <script src="../assets/jquery.js"></script>
+        <script src="assets/jquery.js"></script>
         <link href="css/styles.css" rel="stylesheet" />
         <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -28,12 +28,22 @@
     </head>
         <!-- Navigation-->
 
+        <script>
+            $(document).ready(function(){
+
+            })
+
+            function uinfo(id){
+                $('#ud').load('admin/userInfo.php', {poster: id})
+            }
+        </script>
+<div id="ud">
         <!-- Product section-->
         <?php
         if(isset($_POST['type'])){
             if($_POST['type'] == 'ad'){
                 $adView = $admin->adEditDataLister($pid);
-                $adRow = $adView->fetch_assoc();
+                $row = $adView->fetch_assoc();
                 ?>
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                             <ol  class="carousel-indicators">
@@ -43,26 +53,26 @@
                             </ol>
                             <div  class="carousel-inner">
                                 <div class="carousel-item active">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($adRow['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                                 </div>
 
                                 <?php
-                                $p = $admin->photoSplit($adRow['photoPath1']);
+                                $p = $admin->photoSplit($row['photoPath1']);
                                 if(!empty($p[1])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($adRow['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
                                 ?>
 
                                 <?php
-                                $p = $admin->photoSplit($adRow['photoPath1']);
+                                $p = $admin->photoSplit($row['photoPath1']);
                                 if(!empty($p[2])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($adRow['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -88,18 +98,18 @@
                             </a>
                             </div>         
                         <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder"><?php echo $adRow['title'] ?></h1>
+                        <h1 class="display-5 fw-bolder"><?php echo $row['title'] ?></h1>
                         <div class="fs-5 mb-5">
                             <span class="text-decoration-line-through"></span>
-                            <span><?php echo $adRow['price'] ?> Brr</span>
+                            <span><?php echo $row['price'] ?> Brr</span>
                         </div>
-                        <label class="lable" for="exampleInputEmail1">Category: <?php echo $adRow['type'] ?></label>
-                        <label for="exampleInputEmail1">Offer Shipping: <?php echo $adRow['shipping'] ?></label>
-                        <label for="exampleInputEmail1">Location:  <?php echo $adRow['address'] ?></label>
-                        <p class="lead"> Info:  <?php echo $adRow['info'] ?> </p>
+                        <label class="lable" for="exampleInputEmail1">Category: <?php echo $row['type'] ?></label>
+                        <label for="exampleInputEmail1">Offer Shipping: <?php echo $row['shipping'] ?></label>
+                        <label for="exampleInputEmail1">Location:  <?php echo $row['address'] ?></label>
+                        <p class="lead"> Info:  <?php echo $row['info'] ?> </p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"  type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 View User
                             </button>
@@ -111,7 +121,7 @@
                 <?php
             }elseif($_POST['type'] == 'car'){
                 $carView = $admin->carPostDataLister($pid);
-                $carRow = $carView->fetch_assoc();
+                $row = $carView->fetch_assoc();
                 ?>
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
@@ -124,26 +134,26 @@
                             </ol>
                             <div  class="carousel-inner">
                                 <div class="carousel-item active">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($carRow['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                                 </div>
 
                                 <?php
-                                $p = $admin->photoSplit($carRow['photoPath1']);
+                                $p = $admin->photoSplit($row['photoPath1']);
                                 if(!empty($p[1])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($carRow['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
                                 ?>
 
                                 <?php
-                                $p = $admin->photoSplit($carRow['photoPath1']);
+                                $p = $admin->photoSplit($row['photoPath1']);
                                 if(!empty($p[2])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($carRow['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -160,23 +170,23 @@
                             </a>
                             </div>         
                         <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder"><?php echo $carRow['title'] ?></h1>
+                        <h1 class="display-5 fw-bolder"><?php echo $row['title'] ?></h1>
                         <div class="fs-5 mb-5">
                             <span class="text-decoration-line-through"></span>
-                            <span><?php echo $carRow['price'] ?> Brr</span>
+                            <span><?php echo $row['price'] ?> Brr</span>
                         </div>
-                        <label for="exampleInputEmail1">For: <?php echo $carRow['forRentOrSell'] ?></label>
+                        <label for="exampleInputEmail1">For: <?php echo $row['forRentOrSell'] ?></label>
 
-                        <label for="exampleInputEmail1">Type: <?php echo $carRow['type'] ?></label>
-                        <label for="exampleInputEmail1">Status: <?php echo $carRow['status'] ?></label>
-                        <label for="exampleInputEmail1">Fule Kind: <?php echo $carRow['fuleKind'] ?></label>
-                        <label for="exampleInputEmail1">Price Status: <?php echo $carRow['fixidOrN'] ?></label>
+                        <label for="exampleInputEmail1">Type: <?php echo $row['type'] ?></label>
+                        <label for="exampleInputEmail1">Status: <?php echo $row['status'] ?></label>
+                        <label for="exampleInputEmail1">Fule Kind: <?php echo $row['fuleKind'] ?></label>
+                        <label for="exampleInputEmail1">Price Status: <?php echo $row['fixidOrN'] ?></label>
 
 
-                        <p class="lead"><?php echo $carRow['info'] ?></p>
+                        <p class="lead"><?php echo $row['info'] ?></p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"  type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 View User
                             </button>
@@ -187,7 +197,7 @@
                 <?php
             }elseif($_POST['type'] == 'house'){
                 $carView = $admin->singleHousePostLister($pid);
-                $carRow = $carView->fetch_assoc();
+                $row = $carView->fetch_assoc();
                 ?>
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
@@ -200,26 +210,26 @@
                             </ol>
                             <div  class="carousel-inner">
                                 <div class="carousel-item active">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($carRow['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                                 </div>
 
                                 <?php
-                                $p = $admin->photoSplit($carRow['photoPath1']);
+                                $p = $admin->photoSplit($row['photoPath1']);
                                 if(!empty($p[1])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($carRow['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
                                 ?>
 
                                 <?php
-                                $p = $admin->photoSplit($carRow['photoPath1']);
+                                $p = $admin->photoSplit($row['photoPath1']);
                                 if(!empty($p[2])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($carRow['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -236,29 +246,29 @@
                             </a>
                             </div>        
                         <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder"><?php echo $carRow['title'] ?></h1>
+                        <h1 class="display-5 fw-bolder"><?php echo $row['title'] ?></h1>
                         <div class="fs-5 mb-5">
                             <span class="text-decoration-line-through"></span>
-                            <span><?php echo $carRow['cost'] ?> Brr</span>
+                            <span><?php echo $row['cost'] ?> Brr</span>
                         </div>
-                        <label for="exampleInputEmail1">House Or Land :  <?php echo $carRow['houseOrLand'] ?></label>
+                        <label for="exampleInputEmail1">House Or Land :  <?php echo $row['houseOrLand'] ?></label>
 
-                        <label for="exampleInputEmail1">For: <?php echo $carRow['forRentOrSell'] ?></label>
-                        <label for="exampleInputEmail1">City: <?php echo $carRow['city'] ?></label>
-                        <label for="exampleInputEmail1">SubCity: <?php echo $carRow['subCity'] ?></label>
-                        <label for="exampleInputEmail1">Wereda/Kebele: <?php echo $carRow['wereda'] ?></label>
-                        <label for="exampleInputEmail1">Area: <?php echo $carRow['area'] ?> MeterSquare </label>
+                        <label for="exampleInputEmail1">For: <?php echo $row['forRentOrSell'] ?></label>
+                        <label for="exampleInputEmail1">City: <?php echo $row['city'] ?></label>
+                        <label for="exampleInputEmail1">SubCity: <?php echo $row['subCity'] ?></label>
+                        <label for="exampleInputEmail1">Wereda/Kebele: <?php echo $row['wereda'] ?></label>
+                        <label for="exampleInputEmail1">Area: <?php echo $row['area'] ?> MeterSquare </label>
 
-                        <label for="exampleInputEmail1">No of Bed Room: <?php echo $carRow['bedRoomNo'] ?></label>
+                        <label for="exampleInputEmail1">No of Bed Room: <?php echo $row['bedRoomNo'] ?></label>
 
-                        <label for="exampleInputEmail1">Type: <?php echo $carRow['type'] ?></label>
-                        <label for="exampleInputEmail1">Price Status: <?php echo $carRow['fixedOrN'] ?></label>
+                        <label for="exampleInputEmail1">Type: <?php echo $row['type'] ?></label>
+                        <label for="exampleInputEmail1">Price Status: <?php echo $row['fixedOrN'] ?></label>
 
 
-                        <p class="lead"><?php echo $carRow['info'] ?></p>
+                        <p class="lead"><?php echo $row['info'] ?></p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"  type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 View User
                             </button>
@@ -269,7 +279,7 @@
                 <?php
             }elseif($_POST['type'] == 'electronics'){
                 $carView = $admin->elecSinglePostViewer($pid);
-                $carRow = $carView->fetch_assoc();
+                $row = $carView->fetch_assoc();
                 ?>
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
@@ -282,26 +292,26 @@
                             </ol>
                             <div  class="carousel-inner">
                                 <div class="carousel-item active">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($carRow['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                                 </div>
 
                                 <?php
-                                $p = $admin->photoSplit($carRow['photoPath1']);
+                                $p = $admin->photoSplit($row['photoPath1']);
                                 if(!empty($p[1])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($carRow['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
                                 ?>
 
                                 <?php
-                                $p = $admin->photoSplit($carRow['photoPath1']);
+                                $p = $admin->photoSplit($row['photoPath1']);
                                 if(!empty($p[2])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($carRow['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                                <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -318,19 +328,19 @@
                             </a>
                             </div>         
                         <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder"><?php echo $carRow['title'] ?></h1>
+                        <h1 class="display-5 fw-bolder"><?php echo $row['title'] ?></h1>
                         <div class="fs-5 mb-5">
                             <span class="text-decoration-line-through"></span>
-                            <span><?php echo $carRow['price'] ?> Brr</span>
+                            <span><?php echo $row['price'] ?> Brr</span>
                         </div>
 
-                        <label for="exampleInputEmail1">Type: <?php echo $carRow['type'] ?></label>
-                        <label for="exampleInputEmail1">Address: <?php echo $carRow['address'] ?></label>
+                        <label for="exampleInputEmail1">Type: <?php echo $row['type'] ?></label>
+                        <label for="exampleInputEmail1">Address: <?php echo $row['address'] ?></label>
 
-                        <p class="lead"><?php echo $carRow['info'] ?></p>
+                        <p class="lead"><?php echo $row['info'] ?></p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"  type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 View User
                             </button>
@@ -343,7 +353,7 @@
         }
         
         ?>
-
+            </div>
         <!-- Related items section-->
  
             <!-- <div class="container px-4 px-lg-5 mt-5">

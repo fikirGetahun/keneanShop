@@ -165,6 +165,25 @@ class fetch{
 
 
 
+    ////// user ban
+    function userBan($id){
+        include "connect.php";
+        $q = "UPDATE `user` SET `userStatus` = 'BAN' WHERE `user`.`id` = '$id'";
+        $ask = $mysql->query($q);
+
+        return $ask; 
+    }
+
+
+    ///// unban user
+    function unBanuser($id){
+        include "connect.php";
+        $q = "UPDATE `user` SET `userStatus` = ' ' WHERE `user`.`id` = '$id'";
+        $ask = $mysql->query($q);
+
+        return $ask; 
+    }
+
 
 }
 
