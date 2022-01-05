@@ -14,19 +14,19 @@ $_POST['password'],$_POST['email'])){
     $password =$_POST['password'] ;
     $password = password_hash($password, PASSWORD_DEFAULT);
     $authr ='USER';
-    $job = '';
+    $job = ' ';
     $phoneNumber= $_POST['phoneNumber'];
     $about =$_POST['email'];
 
     $u = $auth->loginAuth($username);
     $num = $u->num_rows;
-
+    $up = ' ';
     if($num >= 1){
         echo 'Username alrady exist! please change';
     }
 
 
-    
+
 
 
 
@@ -37,21 +37,21 @@ $_POST['password'],$_POST['email'])){
      $fileName = $_FILES['photoq']['name'];
                //to upload photo
                $up = $admin->uploadPhoto($fileName, $tempName);
-               $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, $up, $job, $about ); 
+               $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, $up, $about ); 
 
                if($out){
                    echo "Registerd Succesfully!";
                }else{
-                   echo 'Register Unsuccesfull db ERROR';
+                   echo 'Register Unsuccesfull db ERROR1';
                }
    }else{
     //to add user data
-    $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, '', $job, $about); 
+    $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, ' ', $job, $about); 
 
     if($out){
         echo "Registerd Succesfully!";
     }else{
-        echo 'Register Unsuccesfull db ERROR';
+        echo 'Register Unsuccesfull db ERROR2';
     }
    }
 

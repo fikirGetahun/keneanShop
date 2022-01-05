@@ -99,16 +99,16 @@
 
 
         //USER ADDER AS 'ADMIN' OR 'EDITOR'
-        function userAdder($firstName, $lastName, $phone, $username, $password, $auth, $photoPath, $job, $about){
+        function userAdder($firstName, $lastName, $phone, $username, $password, $auth, $photoPath, $about){
             include "connect.php";
             $date = date('Y-m-d H:i:s');
 
 
-            $q ="INSERT INTO `user`( `username`, `password`, `firstName`, `lastName`, `phone`, `auth`,`photoPath`,`lastLogedIn` , `job`, `about`)
-             VALUES ('$username', '$password', '$firstName', '$lastName', '$phone', '$auth', '$photoPath', '$date', '$job', '$about' )";
+            $q ="INSERT INTO `user`( `username`, `password`, `firstName`, `lastName`, `phone`, `auth`,`photoPath1`,`lastLogedIn` ,  `about`)
+             VALUES ('$username', '$password', '$firstName', '$lastName', '$phone', '$auth', '$photoPath', '$date',  '$about' )";
 
              $ask = $mysql->query($q);
-
+echo $mysql->error;
              return $ask;
 
         }
@@ -140,11 +140,11 @@
             //to count the files uloaded so that to attach the filename.numberofphoto
             $q = "SELECT * FROM `user` WHERE 1";
             $ask = $mysql->query($q);
-            $num = $ask->num_rows;
+            $num = md5(microtime());
             $location = "../uploads/adminPhoto/";
             $real = "./uploads/adminPhoto/";
             if(move_uploaded_file($tempName, $location.$num.$fileName)){
-                echo $location.$fileName.$num;
+                // echo $location.$fileName.$num;
                 $location = $real.$num.$fileName;
                 return $location;
             }else{
@@ -156,7 +156,7 @@
         function updateUserData($uid, $password, $firstName, $lastName, $phone, $about, $job){
             include "connect.php";
             $q = "UPDATE `user` SET `password`= '$password',`firstName`= '$firstName',
-            `lastName`= '$lastName' ,`phone`= '$phone',`about`= '$about' ,`job`= '$job'  WHERE `user`.`id` = '$uid'";
+            `lastName`= '$lastName' ,`phone`= '$phone',`about`= '$about'   WHERE `user`.`id` = '$uid'";
 
             $ask = $mysql->query($q);
             if($ask){
