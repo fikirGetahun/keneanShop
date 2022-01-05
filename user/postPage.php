@@ -709,6 +709,18 @@ elseif($_GET['type'] == 'house'){
 <div id="houseTypeLoader"></div>
 
 
+<div id="subCityBox" class="input-group mb-3">
+        <div class="input-group-prepend">
+        </div>
+        <select id="subCity" class="custom-select" name="type" id="inputGroupSelect01">
+          <option value=" ">Land Type</option>
+          <option value="women">Jemo</option>
+          <option value="men">4 kilo</option>
+          <option value="otherSubCity">Other</option>          
+        </select>
+        </div>
+
+
 <div class="col-sm-6">
               <select class="form-select" id="country" name="city" required>
                 <option>Address</option>
