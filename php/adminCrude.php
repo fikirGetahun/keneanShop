@@ -271,16 +271,16 @@ echo $mysql->error;
 
         //car post data inserter
         function carPostAdder($title, $type, $status, $fuleKind, $posterId, $fixedOrN,
-         $photoPath1,$price,$info,$forRentOrSell,$transmission, $bodyStatus, $km, $ob ){
+         $photoPath1,$price,$info,$forRentOrSell,$transmission, $bodyStatus, $km, $ob, $forWho, $rentStatus, $whyRent ){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $postStatus = 'ACTIVE';
             $q ="INSERT INTO `car`( `title`,`type`, `status`, `fuleKind`, `posterId`, `fixidOrN`,
              `photoPath1`,  `price`, `info`, `forRentOrSell`,
-              `postStatus`, `postedDate`, `transmission`, `bodyStatus`, `km`, `ownerBroker`  )
+              `postStatus`, `postedDate`, `transmission`, `bodyStatus`, `km`, `ownerBroker` ,`forWho`,`rentStatus`,`whyRent`  )
              VALUES ( '$title','$type', '$status', '$fuleKind', '$posterId', '$fixedOrN', '$photoPath1', 
              '$price','$info','$forRentOrSell', '$postStatus', '$postDate',
-             '$transmission', '$bodyStatus', '$km', '$ob' )";
+             '$transmission', '$bodyStatus', '$km', '$ob', '$forWho', '$rentStatus', '$whyRent' )";
 
             $ask = $mysql->query($q);
 

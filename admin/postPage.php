@@ -7,6 +7,7 @@
 // use function PHPSTORM_META\elementType;
 
 require_once "../php/adminCrude.php";
+require_once "../php/fetchApi.php";
 
 if(isset($_GET['uid'])){
   $uidx = $_GET['uid'];
@@ -269,12 +270,32 @@ if(isset($_GET['uid'])){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Location :</label>
-          <textarea type="text" class="form-control" id="location" 
-          aria-describedby="emailHelp" name="location" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+        
+            <div class="col-sm-6">
+              <label for="country" class="form-label">Location</label>
+              <select class="form-select" id="country" name="location" required>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
+
+
         <div class="form-group">
           <label for="exampleInputEmail1">Describtion</label>
           <textarea type="text" class="form-control" id="des" 
@@ -350,12 +371,31 @@ if(isset($_GET['uid'])){
           aria-describedby="emailHelp" name="initialCost" placeholder="Company Name">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Location :</label>
-          <textarea type="text" class="form-control" id="location2" 
-          aria-describedby="emailHelp" name="location2" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+
+        <div class="col-sm-6">
+              <label for="country" class="form-label">Location</label>
+              <select class="form-select" id="country" name="location2" required>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
+
         <div class="form-group">
           <label for="exampleInputEmail1">Describtion</label>
           <textarea type="text" class="form-control" id="des2" 
@@ -455,13 +495,29 @@ $('#tCategory').on('change', function(){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address </label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+        <div class="col-sm-6">
+              <label for="country" class="form-label">Location</label>
+              <select class="form-select" id="country" name="address" required>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
 
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Phone Number</label>
           <input type="text" class="form-control" id="nameTitle" 
@@ -577,6 +633,41 @@ $('#tCategory').on('change', function(){
           <option value="For Sell">For Sell</option>
         </select>
         </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Rent Status: </label>
+        </div>
+        <select class="custom-select" name="rentStatus" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="With Driver">With Driver</option>
+          <option value="Car Only">Car Only</option>
+        </select>
+        </div>
+
+        <div class="col-sm-6">
+              <label for="country" class="form-label">Location</label>
+              <select class="form-select" id="country" name="address" required>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">

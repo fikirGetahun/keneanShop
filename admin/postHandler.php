@@ -128,7 +128,7 @@ if(isset(
 
     //car post handler
     if(isset($_POST['type2'],$_POST['status2'],$_POST['forRentOrSell'],$_POST['fuleKind'],$_POST['fixidOrN'],$_POST['price2'],$_POST['info2'],$_POST['posterId2'],
-      $_FILES['photo'], $_POST['title'],
+      $_FILES['photo'], $_POST['title'], $_POST['address'],$_POST['rentStatus'], $_POST['forWho'], $_POST['whyRent'],
        $_POST['transmission'], $_POST['bodyStatus'], $_POST['km'], $_POST['ownerBroker'])){
       echo 'inx';
       $title = $_POST['title'];
@@ -139,6 +139,21 @@ if(isset(
       $fuleKind = $_POST['fuleKind'];
       $price = $_POST['price2'];
       $info = $_POST['info2'];
+
+      if($_POST['rentStatus'] != ' ' && $_POST['forWho'] != ' ' && $_POST['whyRent'] != ' '){
+        $rentStatus = $_POST['rentStatus'];
+        $forWho = $_POST['forWho'];
+        $whyRent = $_POST['whyRent'];
+      }
+      else{
+        $rentStatus = ' ';
+        $forWho = ' ';
+        $whyRent = ' ';
+  
+      }
+
+
+
 
       $transmission = $_POST['transmission'];
       $bodyStatus = $_POST['bodyStatus'];
@@ -154,7 +169,7 @@ if(isset(
         echo $up[0];
       }else{
         $out12 = $admin->carPostAdder($title,$type, $status,
-        $fuleKind, $posterId, $fixidOrN, $up[0],$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob );
+        $fuleKind, $posterId, $fixidOrN, $up[0],$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob, $forWho, $rentStatus, $whyRent );
         
         echo 'Post Succesfully!';
       }

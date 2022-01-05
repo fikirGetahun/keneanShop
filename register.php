@@ -85,10 +85,15 @@ $(document).ready(function(){
               <label for="country" class="form-label">Location</label>
               <select class="form-select" id="country" name="address" required>
               <?php 
-                $locc= $get->allPostListerOnColumen('adcategory', 'tableName', 'CITY');
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
                   ?>
-                  <option value="<?php echo $rowLoc['category'] ?>"> <?php echo $rowLoc['category'] ?> </option>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
                   <?php
                 }
               ?>                

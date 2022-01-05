@@ -13,6 +13,17 @@ class fetch{
         return $ask;
     }
 
+    /// order by accending
+        ///// to fetch data from a 'table and condition(columen) with the argument
+        function allPostListerOnColumenORDER($table, $columen, $args){
+            include "connect.php";
+            $q = "SELECT * FROM `$table` WHERE `$columen` LIKE '$args' ORDER BY `$columen` DESC ";
+    
+            $ask = $mysql->query($q);
+    
+            return $ask;
+        }
+
 
     ///// to fetch data for a table with out any condition
     function allPostListerOnTable($table){
@@ -182,6 +193,10 @@ class fetch{
 
         return $ask; 
     }
+
+
+    ////// search from
+    // function 
 
 
 }

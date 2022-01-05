@@ -1,4 +1,7 @@
-<script src="assets/jquery.js" ></script>
+<!-- <script src="assets/jquery.js" ></script>
+ -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
 $(document).ready(function(){
         
@@ -13,7 +16,7 @@ $(document).ready(function(){
                     this.reset();
               });
               $('#alertVacancy').text(data)
-              $('#alertVacancy').delay(5200).fadeOut(300);
+              // $('#alertVacancy').delay(5200).fadeOut(300);
             },
             processData: false,
         contentType: false
@@ -28,6 +31,7 @@ $(document).ready(function(){
 <?php
 include "../includes/header.php";
 require_once "../php/adminCrude.php";
+require_once "../php/fetchApi.php";
 
 ob_start();
 session_start();
@@ -47,13 +51,29 @@ if(isset($_GET['type'],$_SESSION['userId'])){
 
 
 
-<script src="assets/jquery.js"  ></script>
 <script>
+
     $(document).ready(function(){
     $('#cl').click(function(){
     location.reload();
 
     })
+    $('#rentS').hide()
+  $('#forWho').hide()
+  $('#whyRent').hide();
+$('#forRentOrSell').on('change', function(){
+    if(this.value == 'For Rent'){
+      $('#rentS').show();
+      $('#forWho').show();
+      $('#whyRent').show();
+    }else{
+      $('#rentS').hide()
+      $('#forWho').hide()
+      $('#whyRent').hide();
+    }
+  
+})
+
 
     })
 </script>
@@ -76,8 +96,17 @@ if(isset($_GET['type'],$_SESSION['userId'])){
               
             </div>
 
+
+        <div class="input-group mb-3">
+        <select class="custom-select" name="forRentOrSell" id="forRentOrSell">
+          <option selected>Rent or sell</option>
+          <option value="For Rent">For Rent</option>
+          <option value="For Sell">For Sell</option>
+        </select>
+        </div>
+
               <div id="typeC" class="input-group mb-3">
-            <select id="sCar" class="custom-select" name="type2" id="inputGroupSelect01">
+            <select id="sCar" class="form-select" name="type2" id="inputGroupSelect01">
               <option selected>Type</option>
               <?php
                 $carCat = $admin->carCategoryLister();
@@ -91,9 +120,66 @@ if(isset($_GET['type'],$_SESSION['userId'])){
             </select>
             </div>
 
+
+            <div class="col-sm-6">
+              <select class="form-select" id="country" name="address" required>
+                <option>Address</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
+
+
+
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="rentStatus" id="rentS">
+          <option value=" " >Rent Status</option>
+          <option value="With Driver">With Driver</option>
+          <option value="Car Only">Car Only</option>
+        </select>
+        </div>
+
+        
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="forWho" id="forWho">
+          <option value=" " >Rent For ?</option>
+          <option value="All">All</option>
+          <option value="Private">Private</option>
+          <option value="Govormental Offices">Govormental Offices</option>
+          <option value="Private Company">Private Company</option>
+          <option value="NGO">NGO</option>
+        </select>
+        </div>
+
+        
+        <div class="form-group" id="whyRent">
+          <label for="exampleInputEmail1">Where Do you Want to Rent ?</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="whyRent" placeholder="Description"></textarea>
+          <small id="emailHelp" class="form-text text-muted">Describe where you want to rent this car.</small>
+        </div>
+
+
+
             <div class="input-group mb-3">
         <select class="custom-select" name="status2" id="inputGroupSelect01">
-          <option selected>New or old</option>
+          <option >New or old</option>
           <option value="NEW">New</option>
           <option value="OLD">Old</option>
         </select>
@@ -107,13 +193,7 @@ if(isset($_GET['type'],$_SESSION['userId'])){
         </select>
         </div>
 
-        <div class="input-group mb-3">
-        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
-          <option selected>Rent or sell</option>
-          <option value="For Rent">For Rent</option>
-          <option value="For Sell">For Sell</option>
-        </select>
-        </div>
+
 
         <div class="input-group mb-3">
         <select class="custom-select" name="fuleKind" id="inputGroupSelect01">
@@ -176,7 +256,7 @@ if(isset($_GET['type'],$_SESSION['userId'])){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <input type="submit" onclick="x()" value="POST">
+        <input type="submit" value="POST">
         <div id="alertVacancy"></div>
           </form>
             </div>
@@ -317,7 +397,7 @@ $('#tCategory').on('change', function(){
 
 
 
-        <input type="submit" onclick="x()" value="POST">
+        <input type="submit" value="POST">
         <div id="alertVacancy"></div>
         </form>
       </div>
@@ -668,7 +748,7 @@ $('#tCategory').on('change', function(){
     </div>
         </div> -->
 
-        <input type="submit" onclick="x()" value="POST">
+        <input type="submit" value="POST">
         <div id="alertVacancy"></div>
         </form>
 
@@ -793,7 +873,7 @@ $('#sElc').on('change', function(){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
-    <input type="submit" onclick="x()" value="POST">
+    <input type="submit" value="POST">
     <div id="alertVacancy"></div>
       </form>
 
@@ -1028,8 +1108,8 @@ if($_GET['type'] == 'vacancy'){
           aria-describedby="emailHelp" name="description" placeholder="location"></textarea>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-          <input type="submit" onclick="x()" value="POST">
-        <!-- <button type="submit" onclick="x()" class="btn btn-primary">Submit</button> -->
+          <input type="submit" value="POST">
+        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
         </form>
         </div>
         <div id="alertVacancy"></div>
@@ -1133,7 +1213,7 @@ if($_GET['type'] == 'tender'){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <input type="submit" onclick="x()" value="POST">
+        <input type="submit" value="POST">
         <div id="alertVacancy"></div>
         </form>
         </div>
@@ -1277,7 +1357,7 @@ if($_GET['type'] == 'homeTutor'){
 
 
 
-<input type="submit" onclick="x()" value="POST">
+<input type="submit" value="POST">
 <div id="alertVacancy"></div>
 </form>
 
@@ -1429,7 +1509,7 @@ if($_GET['type'] == 'houseWorker'){
           
 
 
-          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          <input class="btn btn-dark" type="submit" value="POST">
           <div id="alertVacancy"></div>
           </form>
    
@@ -1582,7 +1662,7 @@ if($_GET['type'] == 'hotelWorker'){
           
 
 
-          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          <input class="btn btn-dark" type="submit" value="POST">
           <div id="alertVacancy"></div>
           </form>
 
@@ -1691,7 +1771,7 @@ if($_GET['type'] == 'zebegna'){
           
 
 
-          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          <input class="btn btn-dark" type="submit" value="POST">
           <div id="alertVacancy"></div>
           </form>
 
