@@ -126,8 +126,7 @@ class fetch{
         $row = $ask2->fetch_assoc();
         $pre = $row['fav'];
         $new = $pre.','.$uid;
-        echo 'is pre---- '.$pre;
-        echo 'is uid---- '.$uid;
+
         $q = "UPDATE `$table` SET `fav` = '$new'  WHERE `$table`.`id` = '$postId'";
         $ask = $mysql->query($q);
 

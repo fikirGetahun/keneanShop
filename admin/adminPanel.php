@@ -591,14 +591,14 @@ alert('wiork')
 
               $(document).ready(function(){
                 $('#carCategory').click(function(){
-                  $('#postBox').load('addCategory.php', {type: 'car'})
+                  $('#postBox').load('admin/addCategory.php', {type: 'car'})
                 })
                 $('#postElectronics').click(function(e){
                   e.preventDefault()
                   // history.pushState({type: 'electronics'}, '', 'http://localhost/shop2/admin/admin.php/post')
                   // $('#postBox').load('http://localhost/shop2/admin/postPage.php?type=electronics&uid=89')
                   // window.location.href = 'postPage.php?type=electronics&uid=<?php echo $uid ?>'
-                  $('#postBox').load('postPage.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
+                  $('#postBox').load('admin/postPage.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
                 })
                 // window.onpopstate = function (event) {
                   

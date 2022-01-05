@@ -2,9 +2,15 @@
 
 require_once "../php/adminCrude.php";
 
-if(isset($_POST['adCat'])){
-    $cat = $_POST['adCat'];
+if(isset($_POST['adCatw'])){
+    // echo 'innnn';
+    $cat = $_POST['adCatw'];
     $out = $admin->adsCategoryAdder($cat);
+    if($out){
+        echo 'yes';
+    }else{
+        echo 'no';
+    }
 }
 
 if(isset($_POST['carC'])){
@@ -188,11 +194,11 @@ if(isset($_POST['type'])){
   </tbody>
 </table>
 </div>
-<form id="adC" method="POST">
+<form  action="admin/addCategory.php" method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>
     <input type="text" class="form-control" id="adCategory" 
-          aria-describedby="emailHelp" name="adCat" placeholder="Job">
+          aria-describedby="emailHelp" name="adCatw" placeholder="Job">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     
 </div><br>
@@ -406,7 +412,7 @@ if(isset($_POST['type'])){
   </tbody>
 </table>
 </div>
-<form id="adC" method="POST">
+<form id="adzC" method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>
     <input type="text" class="form-control" id="adCategory" 

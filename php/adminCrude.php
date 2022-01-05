@@ -241,7 +241,7 @@ echo $mysql->error;
         // ads category adder
         function adsCategoryAdder($data){
             include "connect.php";
-            $q = "INSERT INTO `adCategory`( `category`) VALUES ('$data')";
+            $q = "INSERT INTO `adCategory`( `category` ,`tableName`) VALUES ('$data', 'ad')";
 
             $ask = $mysql->query($q);
             return $ask;
@@ -250,7 +250,7 @@ echo $mysql->error;
         //ads category lister
         function adsCategoryLister(){
             include "connect.php";
-            $q = "SELECT * FROM `adCategory` WHERE `category` = 'ad' ";
+            $q = "SELECT * FROM `adCategory` WHERE `tableName` = 'ad' ";
 
             $ask = $mysql->query($q);
 

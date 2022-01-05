@@ -1,5 +1,8 @@
 <?php
 include "includes/header.php";
+require_once "php/adminCrude.php";
+require_once "php/auth.php";
+require_once "php/fetchApi.php";
 ?>
 <body style=" background-color: #F9F9F9;">
 
@@ -81,11 +84,18 @@ $(document).ready(function(){
             <div class="col-sm-6">
               <label for="country" class="form-label">Location</label>
               <select class="form-select" id="country" name="address" required>
-                <option value="">Choose...</option>
-                <option>United States</option>
+              <?php 
+                $locc= $get->allPostListerOnColumen('adcategory', 'tableName', 'CITY');
+                while($rowLoc = $locc->fetch_assoc()){
+                  ?>
+                  <option value="<?php echo $rowLoc['category'] ?>"> <?php echo $rowLoc['category'] ?> </option>
+                  <?php
+                }
+              ?>                
+
               </select>
               <div class="invalid-feedback">
-                Please select a valid country.
+                Please select a valid country. 
               </div>
 
             </div>
