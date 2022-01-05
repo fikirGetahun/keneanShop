@@ -2,12 +2,12 @@
     class adminPhp{
 
         //insert vacancy post
-        function addVacancyPost( $phone, $type, $poitionType, $companyName, $positionTitle, $location, $deadLine, $posterId, $positionNum, $info, $sex   ){
+        function addVacancyPost($appStart, $salaryStatus, $salary, $phone, $type, $positionType, $companyName, $positionTitle, $location, $deadLine, $posterId, $positionNum, $info, $sex   ){
             include("connect.php");
             $postStatus = 'ACTIVE';
             $today = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `vacancy`(`phone`, `type`, `positionType`, `companyName`, `title`, `sex`, `address`, `deadLine`, `posterId`, `positionNum`, `info`, `postedDate`, `postStatus`) 
-            VALUES ( '$phone', '$type', ' $poitionType', '$companyName', '$positionTitle', '$sex', '$location', '$deadLine', '$posterId', '$positionNum', '$info', '$today', '$postStatus' )";
+            $q = "INSERT INTO `vacancy`(  `appStart`, `salaryStatus`, `salary`, `phone`, `type`, `positionType`, `companyName`, `title`, `sex`, `address`, `deadLine`, `posterId`, `positionNum`, `info`, `postedDate`, `postStatus`) 
+            VALUES ( '$appStart', '$salaryStatus', '$salary', '$phone', '$type', '$positionType', '$companyName', '$positionTitle', '$sex', '$location', '$deadLine', '$posterId', '$positionNum', '$info', '$today', '$postStatus' )";
 
             $ask = $mysql->query($q);
             return $ask;

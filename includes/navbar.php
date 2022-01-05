@@ -30,7 +30,7 @@
   padding-bottom: .75rem;
   font-size: .875rem;
 }</style>
-<script src="assets/jquery.js"  ></script>
+<!-- <script src="assets/jquery.js"  ></script> -->
 <script>
 
 
@@ -241,7 +241,9 @@ if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
       <div id="realInput" class="modal-body">
 
         <div class="row">
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('house')">House or Land</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('house')">House</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('land')">Land</button></p></div>
+
        <div class="col"> <p><button type="button" class="btn btn-light btn-sm col">Real Estate </button></p></div>
         <div id="ts" class="col" onclick="nav('car')" ><p><button type="button" class="btn btn-light btn-sm" > car </button></p></div>
           </div>

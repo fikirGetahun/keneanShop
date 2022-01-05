@@ -1,4 +1,4 @@
-<!-- <script src="assets/jquery.js" ></script>
+<!-- <!-- <script src="assets/jquery.js" ></script> -->
  -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -464,19 +464,238 @@ elseif($_GET['type'] == 'house'){
       <div class="modal-body">
       <h5>House Ad Post</h5>
              <form id="car" action="postPage.php" method="POST" enctype="multipart/form-data" >
-             <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
+             <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">    
+             <input hidden name="houseOrLand" value="HOUSE">
 
-             <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">House Or Land </label>
-        </div>
-        <select id="HorL"  class="custom-select" name="houseOrLand" id="inputGroupSelect01">
-          <option selected value=" "></option>
-          <option value="HOUSE">House</option>
-          <option value="LAND">Land</option>
-        </select>
+
+        <div class="form-group">
+              <label for="exampleInputEmail1">Title</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="title" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <script src="../assets/jquery.js"></script>
+
         
+<div id="houseTypeLoader"></div>
+
+<div id="houseType" class="input-group mb-3">
+  
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Type : </label>
         </div>
+        <select class="custom-select" name="type" id="selHouseType">
+          <option selected>Choose...</option>
+<?php
+    require_once "../php/adminCrude.php";
+    $house = $admin->houseCategoryLister();
+    while($houseRow = $house->fetch_assoc()){
+      ?>
+      <option value="<?php echo $houseRow['category'] ?>"><?php echo $houseRow['category'] ?></option>
+      <?php
+    }
+
+?>
+        </select>
+</div>
+
+
+<div class="col-sm-6">
+              <select class="form-select" id="country" name="city" required>
+                <option>Address</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
+
+        <div id="subCityBox" class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> SubCity : </label>
+        </div>
+        <select id="subCity" class="custom-select" name="subCity" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="women">Jemo</option>
+          <option value="men">4 kilo</option>
+          <option value="otherSubCity">Other</option>          
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
+        </div>
+        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
+          <option value="Owner">Owner</option>
+          <option value="Broker">Broker</option>
+        </select>
+        </div>
+        
+
+             <div class="form-group">
+              <label for="exampleInputEmail1">Wereda :</label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="wereda" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
+        </div>
+        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="For Rent">For Rent</option>
+          <option value="For Sell">For Sell</option>
+        </select>
+        </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Area :</Title></label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="area" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div id="bedOrBath">
+
+            </div>
+
+            <div id="bedBath">
+<div class="form-group">
+              <label for="exampleInputEmail1">Number Of BedRoom :</Title></label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="bedRoomNo" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Bath Of BedRoom :</Title></label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="bathRoomNo" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+</div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Price :</Title></label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="cost" placeholder="Company Name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
+        </div>
+        <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Fixed">Fixed</option>
+          <option value="Negotiatable">Negotiatable</option>
+          <option value="Negotiatable">Slightly Negotiable</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Describtion</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+      
+        <div class="row">
+        <div id="registerBox">
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+        <input type="submit" value="Post">
+        <div id="alertVacancy"></div>
+             </form>
+      </div>
+</div>
+</div>
+
+
+    <?php
+}elseif($_GET['type'] == 'land'){
+  ?>
+  
+  <script>
+    $(document).ready(function(){
+    $('#cl').click(function(){
+    location.reload();
+
+    })
+
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+      $('#selHouseType').on('change',function(){
+        alert('inhh')
+        if(this.value == 'OTHER'){
+          $('#houseTypeLoader').load('admin/divTags.php #houseTypeOther')
+        }
+      })
+
+      $('#city').on('change',function(){
+      if(this.value == "otherCity"){
+        $('#cityBox').load('admin/divTags.php #otherCity')
+ 
+      }
+   
+    })
+
+    $('#subCity').on('change',function(){
+      if(this.value == "otherSubCity"){
+        $('#subCityBox').load('admin/divTags.php #otherSubCity')
+      }
+      
+    })
+
+    $('#HorL').on('change', function(){
+      if(this.value == "HOUSE"){
+        $('#houseTypeLoader').load("admin/divTags.php #houseType")
+        $('#bedOrBath').load('admin/divTags.php #bedBath')
+      }
+    })
+
+    })
+  </script>
+<div id="cont" class="modal-dialog">
+<div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+      <div class="modal-body">
+      <h5>Land Ad Post</h5>
+             <form id="car" action="postPage.php" method="POST" enctype="multipart/form-data" >
+             <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
+             <input hidden name="houseOrLand" value="LAND">
+
 
         <div class="form-group">
               <label for="exampleInputEmail1">Title</label>
@@ -490,18 +709,29 @@ elseif($_GET['type'] == 'house'){
 <div id="houseTypeLoader"></div>
 
 
-        <div id="cityBox" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> City :</label>
-        </div>
-        <select class="custom-select" name="city" id="city">
-          <option selected>Choose...</option>
-          <option value="women">Addis Ababa</option>
-          <option value="men">Gonder</option>
-          <option value="both">BahirDar</option>
-          <option value="otherCity">Other</option>
-        </select>
-        </div>
+<div class="col-sm-6">
+              <select class="form-select" id="country" name="city" required>
+                <option>Address</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
 
         <div id="subCityBox" class="input-group mb-3">
         <div class="input-group-prepend">
@@ -558,7 +788,7 @@ elseif($_GET['type'] == 'house'){
 
 
             <div class="form-group">
-              <label for="exampleInputEmail1">Price :</Title></label>
+              <label for="exampleInputEmail1">Price :</label>
               <input type="number" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="cost" placeholder="Company Name">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -601,8 +831,8 @@ elseif($_GET['type'] == 'house'){
 </div>
 </div>
 
-
-    <?php
+  
+  <?php
 }
 
 ////big discount post//////////////
@@ -769,7 +999,7 @@ if($_GET['type'] == 'electronics'){
 
 
 
-<script src="assets/jquery.js"  ></script>
+<!-- <script src="assets/jquery.js"  ></script> -->
 <script>
     $(document).ready(function(){
     $('#cl').click(function(){
@@ -891,7 +1121,7 @@ if($_GET['type'] == 'charity'){
     ?>
     
     
-<script src="assets/jquery.js"  ></script>
+<!-- <script src="assets/jquery.js"  ></script> -->
 <script>
     $(document).ready(function(){
     $('#cl').click(function(){
@@ -969,7 +1199,7 @@ aria-describedby="emailHelp" name="info" placeholder="Detailed Info"></textarea>
 if($_GET['type'] == 'vacancy'){
     ?>
     
-    <script src="assets/jquery.js"  ></script>
+    <!-- <script src="assets/jquery.js"  ></script> -->
 <script>
     $(document).ready(function(){
     $('#cl').click(function(){
@@ -1016,7 +1246,7 @@ if($_GET['type'] == 'vacancy'){
             $(document).ready(function(){
               $('#jobTT').on('change', function(){
                 if(this.value == 'OTHER'){
-                  $('#jt').load('divTags.php #jobType')
+                  $('#jt').load('admin/divTags.php #jobType')
                 }
                 
               })
@@ -1069,11 +1299,18 @@ if($_GET['type'] == 'vacancy'){
           <label class="input-group-text" for="inputGroupSelect01">Gender</label>
         </div>
         <select class="custom-select" name="sex" id="inputGroupSelect01">
-          <option selected>Choose...</option>
+          <option value=" ">Gender</option>
           <option value="Male">Mele</option>
           <option value="Female">Female</option>
           <option value="Both">Both</option>
         </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Application Start Date:</label>
+          <input type="date" class="form-control" id="Deadline" 
+          aria-describedby="emailHelp" name="appStart" placeholder="Company Name">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group">
@@ -1097,14 +1334,56 @@ if($_GET['type'] == 'vacancy'){
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Location :</label>
-          <textarea type="text" class="form-control" id="location" 
-          aria-describedby="emailHelp" name="location" placeholder="location"></textarea>
+          <label for="exampleInputEmail1">Salary: </label>
+          <input type="number" class="form-control" id="jobTitle" 
+          aria-describedby="emailHelp" name="salary" placeholder="phone number">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+        </div>
+        <select class="custom-select" name="salaryStatus" id="inputGroupSelect01">
+          <option value=" ">Salary Type</option>
+          <option value="Fixed">Fixed</option>
+          <option value="Negotiatable">Negotiatable</option>
+          <option value="Negotiatable">Slightly Negotiable</option>
+        </select>
+        </div>
+
+
+
+        <div class="col-sm-6">
+              <select class="form-select" id="country" name="location" required>
+                <option value=" ">Address</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
+
+
+
+
         <div class="form-group">
           <label for="exampleInputEmail1">Describtion</label>
-          <textarea type="text" class="form-control" id="des" 
+          <textarea type="text" class="form-control" style="width: 100%; height: 80%;" id="des" 
           aria-describedby="emailHelp" name="description" placeholder="location"></textarea>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
@@ -1127,7 +1406,7 @@ if($_GET['type'] == 'vacancy'){
 if($_GET['type'] == 'tender'){
     ?>
     
-    <script src="assets/jquery.js"  ></script>
+    <!-- <script src="assets/jquery.js"  ></script> -->
 <script>
     $(document).ready(function(){
     $('#cl').click(function(){
@@ -1235,7 +1514,7 @@ if($_GET['type'] == 'tender'){
 if($_GET['type'] == 'homeTutor'){
   ?>
   
-  <script src="assets/jquery.js"  ></script>
+  <!-- <script src="assets/jquery.js"  ></script> -->
 <script>
   $(document).ready(function(){
   $('#cl').click(function(){
@@ -1375,7 +1654,7 @@ if($_GET['type'] == 'homeTutor'){
 if($_GET['type'] == 'houseWorker'){
   ?>
   
-  <script src="assets/jquery.js"  ></script>
+  <!-- <script src="assets/jquery.js"  ></script> -->
 <script>
   $(document).ready(function(){
   $('#cl').click(function(){
@@ -1528,7 +1807,7 @@ if($_GET['type'] == 'houseWorker'){
 if($_GET['type'] == 'hotelWorker'){
   ?>
   
-  <script src="assets/jquery.js"  ></script>
+  <!-- <script src="assets/jquery.js"  ></script> -->
 <script>
   $(document).ready(function(){
   $('#cl').click(function(){
@@ -1678,7 +1957,7 @@ if($_GET['type'] == 'hotelWorker'){
 if($_GET['type'] == 'zebegna'){
   ?>
   
-  <script src="assets/jquery.js"  ></script>
+  <!-- <script src="assets/jquery.js"  ></script> -->
 <script>
   $(document).ready(function(){
   $('#cl').click(function(){

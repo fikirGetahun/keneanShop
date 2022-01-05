@@ -63,8 +63,8 @@ if(isset($_POST['titleElc'],
 if(isset(
     $_POST['companyName'], $_POST['jobType'], 
     $_POST['jobTitle'], $_POST['positionType'],
-    $_POST['Deadline'], $_POST['reqNo'], $_POST['location'],
-    $_POST['description'],$_POST['uid'], $_POST['sex'], $_POST['phone']
+    $_POST['Deadline'], $_POST['reqNo'], $_POST['location'], $_POST['appStart'],
+    $_POST['description'],$_POST['uid'], $_POST['sex'], $_POST['phone'], $_POST['salary'], $_POST['salaryStatus']
   )){
     $companyName = $_POST['companyName'];
     $jobType =$_POST['jobType'];
@@ -77,9 +77,11 @@ if(isset(
     $id = $_POST['uid'];
     $sex = $_POST['sex'];
     $phone = $_POST['phone'];
+    $salary = $_POST['salary'];
+    $salaryStatus= $_POST['salaryStatus'];
+    $appStart = $_POST['appStart'];
 
-
-    $ask = $admin->addVacancyPost($phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info, $sex  );
+    $ask = $admin->addVacancyPost($appStart,$salaryStatus, $salary, $phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info, $sex  );
     if($ask){
       echo 'Post Successfull.!';
     }else{
