@@ -1,3 +1,9 @@
+  
+  <?php
+  
+  ob_start();
+  session_start();
+  ?>
   <style type="text/css">
     @media (min-width: 768px) {
   .display-4 {
@@ -93,8 +99,7 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
 <!-- Button trigger modal -->
 
 <?php 
-      ob_start();
-      session_start();
+      
 if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
   ?>
 <a href="login.php">  <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
@@ -194,6 +199,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
         <button class="btn btn-warning" type="submit">Search</button>
       </form>
   <?php 
+
   if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     ?>
 <a href="./login.php" class="btn btn-dark">LogIn</a>
@@ -204,15 +210,8 @@ if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
   ?>
 
 <a class="btn btn-dark" href="./Account.php?yourPost=true" style="color: #f4f4f4; margin-left: 5px; background: black; border:1px #f4f4f4 solid; padding:3px; " >Account</a>
-<div class="" style="width:3%; float:right;  padding:0px;  "> 
-<div class="dropdown p-0" style="padding:1px; margin:0px; " >
-<p class="dropdown-toggle" style="background: none;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<a style="width:20%;"></a>
-</p>
-<div class="dropdown-menu" style="width: 30%; margin-left:10px; padding:0px;" aria-labelledby="dropdownMenuButton">
-<a class="dropdown-item" href="./user/logout.php">Log Out</a>
-</div>
-</div>
+<a class="btn btn-dark" style="width: 4%; font-size:70%; margin-left:4px; "  href="./user/logout.php"   >Log Out</a>
+
 <div>
 <?php
       }
@@ -257,7 +256,6 @@ if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
         <div class="row">
           <div class="col"><p><button type="button" onclick="nav('ad')" class="btn btn-light btn-sm">product & service ads</button></p></div>
         <div class="col"><p><button type="button" onclick="nav('charity')" class="btn btn-light btn-sm">charity organization</button></p></div>
-        <div class="col"><p><button type="button" onclick="nav('big')" class="btn btn-light btn-sm">big discount sponsored</button></p></div>
         <div class="col"></div>
       
         <ul class="navbar-nav" >

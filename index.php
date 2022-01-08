@@ -1,8 +1,12 @@
+
+<!-- <head> -->
 <?php
 include "includes/header.php";
 include "includes/navbar.php";
 	?>
 
+<!-- </head> -->
+<body>
 <main class="container-fluid">
   
   <div class="row">
@@ -494,6 +498,9 @@ include "includes/navbar.php";
       </div>
     </div>
 </main>
+
 	<?php
 include "includes/footer.php";
 ?>
+</body>
+</html>

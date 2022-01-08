@@ -124,6 +124,7 @@ $('#forRentOrSell').on('change', function(){
             <div class="col-sm-6">
               <select class="form-select" id="country" name="address" required>
                 <option>Address</option>
+                <option selected>Addis Ababa</option>
               <?php 
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
@@ -325,10 +326,10 @@ $('#tCategory').on('change', function(){
 
         <div id="adTy"  class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
           </div>
           <select id="tCategory" class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected>Choose...</option>
+          <option>Type or Catagory</option>
+          <option selected > </option>
             ?><?php
               $out11 = $admin->adsCategoryLister();
               while($r = $out11->fetch_assoc()){
@@ -356,12 +357,30 @@ $('#tCategory').on('change', function(){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address </label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+        <div class="col-sm-6">
+              <select class="form-select" id="country" name="address" required>
+                <option>Address</option>
+                <option selected>Addis Ababa</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
 
         <div class="form-group">
           <label for="exampleInputEmail1">Phone Number</label>
@@ -501,8 +520,9 @@ elseif($_GET['type'] == 'house'){
 
 
 <div class="col-sm-6">
-              <select class="form-select" id="country" name="city" required>
+              <select class="form-select" id="country" name="address" required>
                 <option>Address</option>
+                <option selected>Addis Ababa</option>
               <?php 
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
@@ -721,9 +741,10 @@ elseif($_GET['type'] == 'house'){
         </div>
 
 
-<div class="col-sm-6">
-              <select class="form-select" id="country" name="city" required>
+        <div class="col-sm-6">
+              <select class="form-select" id="country" name="address" required>
                 <option>Address</option>
+                <option selected>Addis Ababa</option>
               <?php 
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
@@ -1046,6 +1067,8 @@ $(document).ready(function(){
 $('#sElc').on('change', function(){
   if(this.value == 'Computer Laptop'){
     $('#computer').load('admin/divTags.php #sizeInch,#proc,#storage,#core,#ram')
+  }else{
+    $('#computer').empty()
   }
 })
 })
@@ -1056,7 +1079,7 @@ $('#sElc').on('change', function(){
         <label class="input-group-text" for="inputGroupSelect01"> Electronics Type: </label>
         </div>
         <select id="sElc" class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected>Choose...</option>
+          <option selected>Electronics Type </option>
           <option value="Computer Laptop">Computer Laptop</option>
           <?php
             $carCat = $admin->carCategoryLister();
@@ -1091,12 +1114,30 @@ $('#sElc').on('change', function(){
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
-    <div class="form-group">
-          <label for="exampleInputEmail1">Address :</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Your Address">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+    <div class="col-sm-6">
+              <select class="form-select" id="country" name="address" required>
+                <option>Address</option>
+                <option selected>Addis Ababa</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
 
 
 
@@ -1164,12 +1205,30 @@ if($_GET['type'] == 'charity'){
   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
-<div class="form-group">
-  <label for="exampleInputEmail1"> Address  </label>
-  <input type="text" class="form-control" id="nameTitle" 
-  aria-describedby="emailHelp" name="location" placeholder="Title">
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+<div class="col-sm-6">
+              <select class="form-select" id="country" name="address" required>
+                <option>Address</option>
+                <option selected>Addis Ababa</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
 
 <div class="form-group">
   <label for="exampleInputEmail1">Phone no:</label>
@@ -1367,8 +1426,9 @@ if($_GET['type'] == 'vacancy'){
 
 
         <div class="col-sm-6">
-              <select class="form-select" id="country" name="location" required>
-                <option value=" ">Address</option>
+              <select class="form-select" id="country" name="address" required>
+                <option>Address</option>
+                <option selected>Addis Ababa</option>
               <?php 
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
@@ -1389,7 +1449,6 @@ if($_GET['type'] == 'vacancy'){
               </div>
 
             </div>
-
 
 
 
@@ -1484,12 +1543,30 @@ if($_GET['type'] == 'tender'){
           aria-describedby="emailHelp" name="initialCost" placeholder="Company Name">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Location :</label>
-          <textarea type="text" class="form-control" id="location2" 
-          aria-describedby="emailHelp" name="location2" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+        <div class="col-sm-6">
+              <select class="form-select" id="country" name="location2" required>
+                <option>Address</option>
+                <option selected>Addis Ababa</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Describtion</label>
           <textarea type="text" class="form-control" id="des2" 
@@ -1617,12 +1694,30 @@ if($_GET['type'] == 'homeTutor'){
   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
-<div class="form-group">
-  <label for="exampleInputEmail1">Address</label>
-  <textarea type="text" class="form-control" id="des2" 
-  aria-describedby="emailHelp" name="address" placeholder="location"></textarea>
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+<div class="col-sm-6">
+              <select class="form-select" id="country" name="location" required>
+                <option>Address</option>
+                <option selected>Addis Ababa</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
 
 <div class="form-group">
   <h6>If you are representing  or if you are Agent, please fill the next form.</h6>
@@ -1721,12 +1816,30 @@ if($_GET['type'] == 'houseWorker'){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+        <div class="col-sm-6">
+              <select class="form-select" id="country" name="address" required>
+                <option>Address</option>
+                <option selected>Addis Ababa</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -1874,12 +1987,30 @@ if($_GET['type'] == 'hotelWorker'){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+        <div class="col-sm-6">
+              <select class="form-select" id="country" name="address" required>
+                <option>Address</option>
+                <option selected>Addis Ababa</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -2016,12 +2147,30 @@ if($_GET['type'] == 'zebegna'){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+        <div class="col-sm-6">
+              <select class="form-select" id="country" name="address" required>
+                <option>Address</option>
+                <option selected>Addis Ababa</option>
+              <?php 
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                foreach($city as $loc){
+                  ?>
+                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  <?php
+                }
+              ?>                
+
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            </div>
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">

@@ -1,7 +1,8 @@
 <?php
 include "includes/header.php";
 require "./php/auth.php";
-
+ob_start();
+session_start();
 
 ?>
     <style>
@@ -93,11 +94,18 @@ if(isset($_POST['username'], $_POST['password'])){
           
          echo password_verify($pa, $row['password']);
           if(password_verify($pa, $row['password'])){
-              ob_start();
-              session_start();
-              $_SESSION['userId'] = $row['id'];
+
               
-              header('Location: ./index.php');
+              // if($row['userStatus'] == 'BAN'){
+              //   header('Location: ./banPage.php');
+              // }else{
+               if($_SESSION['userId'] = $row['id']){
+                header('Location: ./index.php');
+               }
+              
+              // }
+              
+              
           }else{
               echo 'password not correct';
           }

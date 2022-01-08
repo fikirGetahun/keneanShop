@@ -4,11 +4,16 @@ include "includes/navbar.php";
 require_once "php/adminCrude.php";
 require_once "php/fetchApi.php";
 
+if(isset($_SESSION['userId'])){
+  $userId = $_SESSION['userId'];
+  unset($_SESSION['cat'], $_SESSION['status'], $_SESSION['off'], $_SESSION['label'], $_SESSION['type'], $_SESSION['arg']);
+
+}
+$_SESSION['userScroll'] = array();
+
 //// we unset all the sesssions becouse there must be no data when we navigate to other catagory since its all from a single page each time this page reloads, it deletes previious session data
-unset($_SESSION['cat'], $_SESSION['status'], $_SESSION['off'], $_SESSION['label'], $_SESSION['type'], $_SESSION['arg']);
 //// this all part is for recording the navigation for the adaptive scroll page can scroll new content from this session variables
 
-$_SESSION['userScroll'] = array();
 
 if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'])){
   $_SESSION['cat'] = $_GET['cat'];
@@ -22,7 +27,7 @@ if(isset($_GET['type'])){
   $_SESSION['type'] = $_GET['type'];
 }
 
-$userId = $_SESSION['userId'];
+
 // echo $userId;
 
 ///for house land
@@ -235,6 +240,7 @@ function fav(pid, id, table){
             </div>
           </div>
           <?php
+          if(isset($_SESSION['userId'])){
           $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
           // $row = $faz->fetch_assoc();
           // echo $row['fav'];
@@ -247,7 +253,7 @@ function fav(pid, id, table){
              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
               <?php
             }
-          
+          }
           ?>
         </div>
      
@@ -315,6 +321,7 @@ function fav(pid, id, table){
                               <div class="btn-group">
                                 <a href="./Description.php?cat=vacancy&label=Vacancy Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">View</a>
                                 <?php
+         if(isset($_SESSION['userId'])){
           $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
           // $row = $faz->fetch_assoc();
           // echo $row['fav'];
@@ -327,7 +334,7 @@ function fav(pid, id, table){
              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
               <?php
             }
-          
+         }
           ?>
                               </div>
                               <small class="text-muted">Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></small>
@@ -390,6 +397,7 @@ function fav(pid, id, table){
                               <div class="btn-group">
                                 <a href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">View</a>
                                 <?php
+        if(isset($_SESSION['userId'])){
           $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
           // $row = $faz->fetch_assoc();
           // echo $row['fav'];
@@ -402,7 +410,7 @@ function fav(pid, id, table){
              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
               <?php
             }
-          
+        }
           ?>                              </div>
                               <small class="text-muted">Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></small>
                             </div>
@@ -541,6 +549,7 @@ function fav(pid, id, table){
             </div>
           </div>
           <?php
+          if(isset($_SESSION['userId'])){
           $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
           // $row = $faz->fetch_assoc();
           // echo $row['fav'];
@@ -553,7 +562,7 @@ function fav(pid, id, table){
              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
               <?php
             }
-          
+          }
           ?>
         </div>
      
@@ -632,6 +641,7 @@ function fav(pid, id, table){
             </div>
           </div>
           <?php
+          if(isset($_SESSION['userId'])){
           $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
           // $row = $faz->fetch_assoc();
           // echo $row['fav'];
@@ -644,7 +654,7 @@ function fav(pid, id, table){
              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
               <?php
             }
-          
+          }
           ?>
         </div>
      
@@ -736,6 +746,7 @@ function fav(pid, id, table){
           </div>
         </div>
         <?php
+        if(isset($_SESSION['userId'])){
           $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
           // $row = $faz->fetch_assoc();
           // echo $row['fav'];
@@ -748,7 +759,7 @@ function fav(pid, id, table){
              <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
               <?php
             }
-          
+        }
           ?>
       </div>
    
