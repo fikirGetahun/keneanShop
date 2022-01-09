@@ -4,6 +4,9 @@ require_once "../php/adminCrude.php";
 require_once "../php/auth.php";
 require_once "../php/fetchApi.php";
 
+ob_start();
+session_start();
+
 
 ////////////Register A uSER ///////////////////////
 if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
@@ -100,5 +103,14 @@ if(isset($_POST['ban'], $_POST['id'])){
         }
     }
 }
+
+
+
+//// address selecter jiji style
+if(isset($_POST['address'])){
+    $add = $_POST['address'];
+    $_SESSION['address'] = $add;
+}
+
 
 ?>

@@ -132,7 +132,7 @@ if(isset(
     if(isset($_POST['type2'],$_POST['status2'],$_POST['forRentOrSell'],$_POST['fuleKind'],$_POST['fixidOrN'],$_POST['price2'],$_POST['info2'],$_POST['posterId2'],
       $_FILES['photo'], $_POST['title'], $_POST['address'],$_POST['rentStatus'], $_POST['forWho'], $_POST['whyRent'],
        $_POST['transmission'], $_POST['bodyStatus'], $_POST['km'], $_POST['ownerBroker'])){
-      echo 'inx';
+      // echo 'inx';
       $title = $_POST['title'];
       $type = $_POST['type2'];
       $status = $_POST['status2'];
@@ -141,7 +141,7 @@ if(isset(
       $fuleKind = $_POST['fuleKind'];
       $price = $_POST['price2'];
       $info = $_POST['info2'];
-
+      $addr = $_POST['address'];
       if($_POST['rentStatus'] != ' ' && $_POST['forWho'] != ' ' && $_POST['whyRent'] != ' '){
         $rentStatus = $_POST['rentStatus'];
         $forWho = $_POST['forWho'];
@@ -170,7 +170,7 @@ if(isset(
       if($up[4] == 'error'){
         echo $up[0];
       }else{
-        $out12 = $admin->carPostAdder($title,$type, $status,
+        $out12 = $admin->carPostAdder($addr,$title,$type, $status,
         $fuleKind, $posterId, $fixidOrN, $up[0],$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob, $forWho, $rentStatus, $whyRent );
         
         echo 'Post Succesfully!';

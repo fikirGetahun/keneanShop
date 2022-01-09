@@ -1,25 +1,28 @@
 <?php
+// ob_start();
+// session_start();
 include "includes/header.php";
 include "includes/navbar.php";
 require_once "php/adminCrude.php";
 require_once "php/fetchApi.php";
 
-if(isset($_SESSION['userId'])){
+// if(isset($_SESSION['userId'])){
   $userId = $_SESSION['userId'];
   unset($_SESSION['cat'], $_SESSION['status'], $_SESSION['off'], $_SESSION['label'], $_SESSION['type'], $_SESSION['arg']);
 
-}
-$_SESSION['userScroll'] = array();
+// }
+
 
 //// we unset all the sesssions becouse there must be no data when we navigate to other catagory since its all from a single page each time this page reloads, it deletes previious session data
 //// this all part is for recording the navigation for the adaptive scroll page can scroll new content from this session variables
-
+$_SESSION['userScroll'] = array();
 
 if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'])){
   $_SESSION['cat'] = $_GET['cat'];
   $_SESSION['status'] = $_GET['status'];
   $_SESSION['off'] = $_GET['off'];
   $_SESSION['label'] = $_GET['label'];
+
 }
 
 ////for vacancy
@@ -43,32 +46,30 @@ if(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
 	?>
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="assets/jquery.js" ></script>  
 <script>
 $(document).ready(function(){
 
   window.scrollTo(0, 0);
   
 
-      $(window).scroll(function(){
-    if($(window).scrollTop() >= $('#all').offset().top + $('#all').outerHeight() - window.innerHeight +100 ){
+  $(window).scroll(function(){
+    if($(window).scrollTop() >= $('#loop').offset().top + $('#loop').outerHeight() - window.innerHeight +300 ){
       // alert('scroll')
-
-
-
 
       // $.ajax({
       //   url:'user/userScrollView.php',
       //   type: 'GET', 
       //   data : 'types=good',
-      //   success: function(data){
-      //     $('#all').append(data)
+      //   success: function(html){
+      //     $('#loop').append(html);(html)
       //   }
       // })
     }
   })
 
+
 })
+
 function fav(pid, id, table){
   $.ajax({
     url: 'user/userApi.php',
@@ -87,6 +88,7 @@ function fav(pid, id, table){
 <body>
 
 <div id="all" class="container-fluid">
+
 <div class="row">
 
   <!-- <div class=".d-sm-none .d-md-block"> -->
@@ -264,6 +266,10 @@ function fav(pid, id, table){
             array_push($_SESSION['userScroll'], $row['id']);
             }
           }
+
+
+          $pg = $fetchPost->num_rows / 9;
+
           ?>
           </div>
           

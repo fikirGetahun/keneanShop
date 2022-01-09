@@ -36,6 +36,8 @@ require_once "../php/fetchApi.php";
 ob_start();
 session_start();
 
+$_SESSION['address'] = 'Addis Ababa';
+
 // if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 //     echo 'login';
 //     header('Location: login.php');
@@ -74,18 +76,25 @@ $('#forRentOrSell').on('change', function(){
   
 })
 
+$('#ADD').click(function(){
+  $('#z').load('user/divTags.php #jiji')
+})
 
     })
+
+
 </script>
 
-<div id="cont" class="modal-dialog">
+
+
+<div id="contw" class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
         <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
       </div>
       <h5>Car Ads Post</h5>
-            <div class="modal-body">
+            <div id="carVl" class="modal-body">
             <form  method="POST" enctype="multipart/form-data" >
           <input hidden name="posterId2" value="<?php echo $_SESSION['userId'] ?>">
 
@@ -121,25 +130,11 @@ $('#forRentOrSell').on('change', function(){
             </div>
 
 
-            <div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
+            <div class="input-group mb-3">
+              <!-- <select   name="address" required  > -->
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="address" hidden value="x">   
+              <!-- </select> -->
               <div class="invalid-feedback">
                 Please select a valid country. 
               </div>
@@ -262,10 +257,17 @@ $('#forRentOrSell').on('change', function(){
           </form>
             </div>
         </div><!-- /.modal-content -->
+          <!-- /// to select address like jiji style -->
+  <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" >
+
+
+  </div>
     </div><!-- /.modal-dialog -->
         
 <!-- Modal HTML Markup -->
-   
+
+    
+
         <?php
 
     }

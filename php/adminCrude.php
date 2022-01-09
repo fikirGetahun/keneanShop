@@ -270,17 +270,17 @@ echo $mysql->error;
 
 
         //car post data inserter
-        function carPostAdder($title, $type, $status, $fuleKind, $posterId, $fixedOrN,
+        function carPostAdder($ad,$title, $type, $status, $fuleKind, $posterId, $fixedOrN,
          $photoPath1,$price,$info,$forRentOrSell,$transmission, $bodyStatus, $km, $ob, $forWho, $rentStatus, $whyRent ){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $postStatus = 'ACTIVE';
-            $q ="INSERT INTO `car`( `title`,`type`, `status`, `fuleKind`, `posterId`, `fixidOrN`,
+            $q ="INSERT INTO `car`(`title`,`type`, `status`, `fuleKind`, `posterId`, `fixidOrN`,
              `photoPath1`,  `price`, `info`, `forRentOrSell`,
-              `postStatus`, `postedDate`, `transmission`, `bodyStatus`, `km`, `ownerBroker` ,`forWho`,`rentStatus`,`whyRent`  )
+              `postStatus`, `postedDate`, `transmission`, `bodyStatus`, `km`, `ownerBroker` ,`forWho`,`rentStatus`,`whyRent`, `address`  )
              VALUES ( '$title','$type', '$status', '$fuleKind', '$posterId', '$fixedOrN', '$photoPath1', 
              '$price','$info','$forRentOrSell', '$postStatus', '$postDate',
-             '$transmission', '$bodyStatus', '$km', '$ob', '$forWho', '$rentStatus', '$whyRent' )";
+             '$transmission', '$bodyStatus', '$km', '$ob', '$forWho', '$rentStatus', '$whyRent', '$ad' )";
 
             $ask = $mysql->query($q);
 

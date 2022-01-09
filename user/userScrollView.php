@@ -8,7 +8,7 @@ session_start();
 require_once "../php/adminCrude.php";
 require_once "../php/fetchApi.php";
 
-
+include "../includes/header.php";
 
 ?>
 
@@ -29,25 +29,106 @@ if(isset($_SESSION['cat'], $_SESSION['status'],$_SESSION['off'], $_SESSION['labe
     }
     
 ?>
-
+<div  class="container">
+<!-- <div class="row"> -->
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
 
 
 <?php
-    while($row = $fetchPost->fetch_assoc()){
+$i = 0;
+
+      while($row = $fetchPost->fetch_assoc()){
+
+        if($i == 2){
+          break;
+        }
+        if(!in_array($row['id'], $_SESSION['userScroll'])){
+
+
+          ?>
+          
+    
+    
+      <div class="col-4"  >
+        <div class="card shadow-sm">
+        <a href="description.php" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+    
+          <div class="card-body">
+         
+            <?php 
+            if($cat != 'charity'){
+    ?>
+            <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row['price'] ?></span> </h6>
+    
+    <?php
+            }
+            ?>
+            
+            <div class="d-flex justify-content-between align-items-center">
+                <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
+              <small class="text-primary">View</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+    
+          <?php
+          array_push($_SESSION['userScroll'], $row['id']);
+          }
+
+          if(!in_array($row['id'], $_SESSION['userScroll'])){
+
+
+            ?>
+            
+      
+      
+        <div class="col-4"  >
+          <div class="card shadow-sm">
+          <a href="description.php" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+      
+            <div class="card-body">
+           
+              <?php 
+              if($cat != 'charity'){
+      ?>
+              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row['price'] ?></span> </h6>
+      
+      <?php
+              }
+              ?>
+              
+              <div class="d-flex justify-content-between align-items-center">
+                  <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
+                <small class="text-primary">View</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+      
+            <?php
+            array_push($_SESSION['userScroll'], $row['id']);
+            }
 
       if(!in_array($row['id'], $_SESSION['userScroll'])){
+
 
       ?>
       
 
 
-  <div class="col">
+  <div class="col-4"  >
     <div class="card shadow-sm">
     <a href="description.php" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
       <div class="card-body">
-        <h5 class="card-title"> Title : <?php echo $row['title'] ?></h5>
+     
         <?php 
         if($cat != 'charity'){
 ?>
@@ -71,10 +152,14 @@ if(isset($_SESSION['cat'], $_SESSION['status'],$_SESSION['off'], $_SESSION['labe
       <?php
       array_push($_SESSION['userScroll'], $row['id']);
       }
+
+      $i++;
     }
+  
     ?>
     </div>
-    
+</div>
+</div>
     
     <?php
 
@@ -314,3 +399,5 @@ if(isset($_SESSION['cat'])){
 
 
 ?>
+</div>
+</div>
