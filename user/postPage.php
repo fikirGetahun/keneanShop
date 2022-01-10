@@ -1,9 +1,41 @@
 <!-- <!-- <script src="assets/jquery.js" ></script> -->
  -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script>
+  // this function sends the selected address to api. that api sets the address to a session then the session will be
+  // the input to the database
+  function handler(address){
+    $('#jiji').hide();
+    $('#dbad').val(address); 
+    $('#ADD').text(address);
+  }
 
+  function typeHandler(data, apiId, showId, hideId){
+    $('#'+hideId).hide()
+    $('#'+apiId).val(data)
+    $('#'+showId).text(data)
+    if(data == "Cloth and Shoe"){
+    $('#targetLoader').load('admin/divTags.php #targetFor')
+  }else{
+    $('#targetLoader').empty()
+  }
+  }
+
+  // function to load the categoty of post based on the needed div tag from divTags.php provided by onclick event
+  function typeLoader(divId){
+    $('#z').load('user/divTags.php #'+divId)
+  }
+
+
+</script>
 <script>
 $(document).ready(function(){
+
+  /// this will triger the address list for selecting address for all of the forms
+  $('#ADD').click(function(){
+  $('#z').load('user/divTags.php #jiji')
+})
+
         
     $('form').on('submit', function(e){
           e.preventDefault()
@@ -16,7 +48,7 @@ $(document).ready(function(){
                     this.reset();
               });
               $('#alertVacancy').text(data)
-              // $('#alertVacancy').delay(5200).fadeOut(300);
+              $('#alertVacancy').delay(5200).fadeOut(300);
             },
             processData: false,
         contentType: false
@@ -76,9 +108,6 @@ $('#forRentOrSell').on('change', function(){
   
 })
 
-$('#ADD').click(function(){
-  $('#z').load('user/divTags.php #jiji')
-})
 
     })
 
@@ -114,31 +143,17 @@ $('#ADD').click(function(){
         </select>
         </div>
 
-              <div id="typeC" class="input-group mb-3">
-            <select id="sCar" class="form-select" name="type2" id="inputGroupSelect01">
-              <option selected>Type</option>
-              <?php
-                $carCat = $admin->carCategoryLister();
-                while($carCatRow = $carCat->fetch_assoc()){
-                  ?>
-                  <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
-                  <?php
-                }
-              ?>
-              
-            </select>
-            </div>
+
+        <div class="input-group mb-3">
+            <div class="form-select" id="carShow" onclick="typeLoader('carType')" >Car Type</div>      
+            <input id="carApi" name="type2" hidden value=" ">   
+        </div>
+
 
 
             <div class="input-group mb-3">
-              <!-- <select   name="address" required  > -->
                 <div class="form-select" id="ADD" >Address</div>      
-                <input id="dbad" name="address" hidden value="x">   
-              <!-- </select> -->
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
+                <input id="dbad" name="address" hidden value="Addis Ababa">   
             </div>
 
 
@@ -257,12 +272,12 @@ $('#ADD').click(function(){
           </form>
             </div>
         </div><!-- /.modal-content -->
-          <!-- /// to select address like jiji style -->
-  <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" >
+      <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
 
 
-  </div>
-    </div><!-- /.modal-dialog -->
+      
+      </div><!-- /.modal-dialog -->
         
 <!-- Modal HTML Markup -->
 
@@ -304,11 +319,22 @@ $('#ADD').click(function(){
         </div>
 
 <script>
-
-$(document).ready(function(){
-$('#tCategory').on('change', function(){
+  function cloth(){
+    alert('change')
   if(this.value == "Cloth and Shoe"){
     $('#targetLoader').load('admin/divTags.php #targetFor')
+  }else{
+    $('#targetLoader').empty()
+  }
+  }
+
+$(document).ready(function(){
+$('#selchange').on('change', function(){
+  alert('change')
+  if(this.value == "Cloth and Shoe"){
+    $('#targetLoader').load('admin/divTags.php #targetFor')
+  }else{
+    $('#targetLoader').empty()
   }
  
 })
@@ -326,25 +352,12 @@ $('#tCategory').on('change', function(){
 
 </script>
 
-        <div id="adTy"  class="input-group mb-3">
-        <div class="input-group-prepend">
-          </div>
-          <select id="tCategory" class="custom-select" name="type" id="inputGroupSelect01">
-          <option>Type or Catagory</option>
-          <option selected > </option>
-            ?><?php
-              $out11 = $admin->adsCategoryLister();
-              while($r = $out11->fetch_assoc()){
-              ?>
-            
-            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
-            <?php
-              }
-            ?>
+        <div class="input-group mb-3">
+            <div class="form-select" onchange="cloth()" id="adShow" onclick="typeLoader('adType')" >Car Type</div>      
+            <input id="adApi"  name="type" hidden value=" ">   
 
-
-          </select>
         </div>
+
 
         <div id="targetLoader">
 
@@ -359,30 +372,10 @@ $('#tCategory').on('change', function(){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
-            </div>
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="address" hidden value="Addis Ababa">   
+        </div>
 
         <div class="form-group">
           <label for="exampleInputEmail1">Phone Number</label>
@@ -423,6 +416,8 @@ $('#tCategory').on('change', function(){
         </form>
       </div>
 </div>
+      <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
 </div>
         
         <?php
@@ -521,29 +516,9 @@ elseif($_GET['type'] == 'house'){
 </div>
 
 
-<div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
+            <div class="input-group mb-3">
+                <div class="form-select" id="ADD" >City</div>      
+                <input id="dbad" name="city" hidden value="Addis Ababa">   
             </div>
 
         <div id="subCityBox" class="input-group mb-3">
@@ -656,6 +631,8 @@ elseif($_GET['type'] == 'house'){
              </form>
       </div>
 </div>
+      <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
 </div>
 
 
@@ -743,29 +720,9 @@ elseif($_GET['type'] == 'house'){
         </div>
 
 
-        <div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" >City</div>      
+                <input id="dbad" name="city" hidden value="Addis Ababa">   
             </div>
 
         <div id="subCityBox" class="input-group mb-3">
@@ -864,164 +821,12 @@ elseif($_GET['type'] == 'house'){
              </form>
       </div>
 </div>
+      <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
 </div>
 
   
   <?php
-}
-
-////big discount post//////////////
-elseif($_GET['type'] == 'big'){
-    ?>
-    
-    <script>
-    $(document).ready(function(){
-    $('#cl').click(function(){
-    location.reload();
-
-    })
-
-    })
-</script>
-<div id="cont" class="modal-dialog">
-<div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
-        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
-      </div>
-      <div class="modal-body">
-        
-      <h5>Big Discount Post Advertisment</h5>
-        <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
-        <input hidden name="posterId" value="<?php echo $_SESSION['userId'] ?>">
-        <input hidden name="big" value="ACTIVE">
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Title</Title></label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="title" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-<script>
-
-$(document).ready(function(){
-$('#tCategory').on('change', function(){
-  if(this.value == "Cloth and Shoe"){
-    $('#targetLoader').load('admin/divTags.php #targetFor')
-  }
- 
-})
-
-$('#tCategory').on('change', function(){
-  if(this.value == "OTHER"){
-    $('#adTy').load('admin/divTags.php #otherAd')
-  }
- 
-})
-
-
-
-})
-
-</script>
-
-        <div id="adTy"  class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
-          </div>
-          <select id="tCategory" class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-            ?><?php
-              $out11 = $admin->adsCategoryLister();
-              while($r = $out11->fetch_assoc()){
-              ?>
-            
-            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
-            <?php
-              }
-            ?>
-
-
-          </select>
-        </div>
-
-        <div id="targetLoader">
-
-        </div>
-
-
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Price :</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="price" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address </label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Phone Number</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="phone" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Offer Shipping</label>
-        </div>
-        <select class="custom-select" name="shipping" id="inputGroupSelect01">
-          <option value="NO" selected>NO</option>
-          <option value="YES">YES</option>
-
-        </select>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="row">
-        <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
-          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-    <!-- <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 2</label>
-          <input type="file" class="form-control" id="photo" 
-           name="photo2" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 3</label>
-          <input type="file" class="form-control" id="photo" 
-           name="photo3" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-        </div> -->
-
-        <input type="submit" value="POST">
-        <div id="alertVacancy"></div>
-        </form>
-
-      </div>
-</div>
-</div>
-
-    <?php
 }
 
 ///////// electronics/////////////
@@ -1116,30 +921,10 @@ $('#sElc').on('change', function(){
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
-    <div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
-            </div>
+    <div class="input-group mb-3">
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="address" hidden value="Addis Ababa">   
+    </div>
 
 
 
@@ -1165,6 +950,8 @@ $('#sElc').on('change', function(){
 
             </div>
         </div><!-- /.modal-content -->
+              <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
     </div><!-- /.modal-dialog -->
     
     
@@ -1207,29 +994,9 @@ if($_GET['type'] == 'charity'){
   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
-<div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
+<div class="input-group mb-3">
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="address" hidden value="Addis Ababa">   
             </div>
 
 <div class="form-group">
@@ -1261,6 +1028,8 @@ aria-describedby="emailHelp" name="info" placeholder="Detailed Info"></textarea>
 
             </div>
         </div><!-- /.modal-content -->
+              <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
     </div><!-- /.modal-dialog -->
         
     
@@ -1427,30 +1196,10 @@ if($_GET['type'] == 'vacancy'){
 
 
 
-        <div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
-            </div>
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="address" hidden value="Addis Ababa">   
+        </div>
 
 
 
@@ -1470,6 +1219,8 @@ if($_GET['type'] == 'vacancy'){
 
             </div>
         </div><!-- /.modal-content -->
+              <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
     </div><!-- /.modal-dialog -->
     
     <?php
@@ -1545,29 +1296,9 @@ if($_GET['type'] == 'tender'){
           aria-describedby="emailHelp" name="initialCost" placeholder="Company Name">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <div class="col-sm-6">
-              <select class="form-select" id="country" name="location2" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="location2" hidden value="Addis Ababa">   
             </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Describtion</label>
@@ -1593,6 +1324,8 @@ if($_GET['type'] == 'tender'){
 
             </div>
         </div><!-- /.modal-content -->
+              <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
     </div><!-- /.modal-dialog -->
         
     
@@ -1696,29 +1429,9 @@ if($_GET['type'] == 'homeTutor'){
   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
-<div class="col-sm-6">
-              <select class="form-select" id="country" name="location" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
+<div class="input-group mb-3">
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="location" hidden value="Addis Ababa">   
             </div>
 
 <div class="form-group">
@@ -1751,6 +1464,8 @@ if($_GET['type'] == 'homeTutor'){
 
           </div>
       </div><!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
   </div><!-- /.modal-dialog -->
       
   
@@ -1818,29 +1533,9 @@ if($_GET['type'] == 'houseWorker'){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="address" hidden value="Addis Ababa">   
             </div>
 
         <div class="input-group mb-3">
@@ -1922,6 +1617,8 @@ if($_GET['type'] == 'houseWorker'){
 
           </div>
       </div><!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
   </div><!-- /.modal-dialog -->
       
   
@@ -1989,29 +1686,9 @@ if($_GET['type'] == 'hotelWorker'){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="address" hidden value="Addis Ababa">   
             </div>
 
         <div class="input-group mb-3">
@@ -2092,6 +1769,8 @@ if($_GET['type'] == 'hotelWorker'){
 
           </div>
       </div><!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
   </div><!-- /.modal-dialog -->
       
   
@@ -2149,29 +1828,9 @@ if($_GET['type'] == 'zebegna'){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="col-sm-6">
-              <select class="form-select" id="country" name="address" required>
-                <option>Address</option>
-                <option selected>Addis Ababa</option>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" >Address</div>      
+                <input id="dbad" name="address" hidden value="Addis Ababa">   
             </div>
 
         <div class="input-group mb-3">
@@ -2219,6 +1878,8 @@ if($_GET['type'] == 'zebegna'){
 
           </div>
       </div><!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
   </div><!-- /.modal-dialog -->
       
   

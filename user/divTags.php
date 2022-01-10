@@ -51,3 +51,79 @@ include "../includes/header.php";
       </div>
     </div>
 </div>
+
+
+
+
+<div  style="width:100%;" class="modal-dialog">
+
+    <div id="carType" class="modal-content">
+      <div  class="modal-header" >
+      <table class="table container-fluid"  >
+  <thead>
+    <tr>
+      <th scope="col"><h5 class="text-center" >-Select Address-<h5></th>
+    </tr>
+  </thead>
+
+
+<tbody class= "align-middle">
+
+              <?php
+              require_once "../php/adminCrude.php";
+                $carCat = $admin->carCategoryLister();
+                while($carCatRow = $carCat->fetch_assoc()){
+                  ?>
+                  <tr>
+                  <td class="text-center"><a id="<?php echo $i ?>" onclick="typeHandler('<?php echo $carCatRow['category'] ?>', 'carApi', 'carShow', 'carType' )"  > <?php echo $carCatRow['category'] ?></a></td>
+                  </tr>
+                  <?php
+                }
+              ?>
+              
+</tbody>
+</table>
+
+
+            
+      </div>
+    </div>
+</div>
+
+<div  style="width:100%;" class="modal-dialog">
+
+    <div id="adType" class="modal-content">
+      <div  class="modal-header" >
+      <table class="table container-fluid"  >
+  <thead>
+    <tr>
+      <th scope="col"><h5 class="text-center" >-Select AD Category-<h5></th>
+    </tr>
+  </thead>
+
+
+<tbody class= "align-middle">
+
+<?php
+require_once "../php/adminCrude.php";
+              $out11 = $admin->adsCategoryLister();
+              while($r = $out11->fetch_assoc()){
+              ?>
+            <tr>
+            <td class="text-center"><a id="<?php echo $i ?>" onclick="typeHandler('<?php echo $r['category'] ?>', 'adApi', 'adShow', 'adType' )"  > <?php echo $r['category'] ?></a></td><br>
+            </tr>
+            <?php
+              }
+            ?>
+
+
+              
+</tbody>
+</table>
+
+
+            
+      </div>
+    </div>
+</div>
+

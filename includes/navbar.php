@@ -37,36 +37,12 @@
   font-size: .875rem;
 }</style>
 <!-- <script src="assets/jquery.js"  ></script> -->
-<script>
-  // this function sends the selected address to api. that api sets the address to a session then the session will be
-  // the input to the database
-  function handler(address){
-    
-    $.ajax({
-      url: 'user/userApi.php',
-      type: 'POST',
-      data: {address : address},
-      success: function(){
-     
-        $('#jiji').hide();
-        $('#dbad').val(address); 
-        $('#ADD').text(address);
-         
-      }
-    })
-  }
-  $(document).ready(function(){
-    $('#2').live('click', function(){
-      alert('what')
-    })
-      
-    
-  })
-</script>
+
 <script>
 
 
 $(document).ready(function(){
+  
 
   /// this is the main important block of the code which makes the back button work to navigate in a singlepage
   /// application what it does is it sees that the objects{ cat, staus,off,label} given in history.pushstate then it loads them as it change happens 

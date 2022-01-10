@@ -187,9 +187,11 @@ echo $mysql->error;
         function adPostPoster($big, $type, $price, $address, $phone, $for, $title, $posterId, $info, $photoPath1, $ship){
             include "connect.php";
             $postStatus = 'ACTIVE';
+            $postDate = date('Y-m-d H:i:s');
+
             $q = "INSERT INTO `ad`(`bigDiscount`, `type`, `price`, `address`, `phone`, `for`,
-             `title`, `posterId`, `info`, `photoPath1`, `postStatus`, `shipping`)
-             VALUES ('$big','$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$postStatus', '$ship')";
+             `title`, `posterId`, `info`, `photoPath1`, `postStatus`, `shipping`, `postedDate`)
+             VALUES ('$big','$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$postStatus', '$ship', '$postedDate')";
             
             $ask = $mysql->query($q);
             return $ask;
