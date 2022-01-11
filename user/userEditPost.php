@@ -195,23 +195,10 @@ require_once "../php/adminCrude.php";
 
           </script>
 
-      <select class="custom-select" name="jobType" id="jobTT">
-        <option selected>"<?php 
-                $p = $admin->editVacancyPost($uidx);
-                $row = $p->fetch_assoc();
-                echo $row['positionType']; 
-      ?>"</option>
-        <option value="Management & Business Administration ">	Management & Business Administration </option>
-        <?php
-                $vacancyCat = $admin->vacancyCategoryLister();
-                while($vacancyCatRow = $vacancyCat->fetch_assoc()){
-                  ?>
-                  <option value="<?php echo $vacancyCatRow['category'] ?>"><?php echo $vacancyCatRow['category'] ?></option>
-                  <?php
-                }
-              ?>
-        <option value="OTHER">  Other</option>
-      </select>
+        <div class="input-group mb-3">
+            <div class="form-select" id="vac11Show" onclick="typeLoader('vac11Type')" ><?php echo $row['type'] ?></div>      
+            <input id="vac11Api" name="jobType" hidden value=" ">   
+        </div>
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Job Title</label>
@@ -396,7 +383,7 @@ require_once "../php/adminCrude.php";
       value="<?php
         $out = $admin->tenderEditLister($uidx);
         $row = $out->fetch_assoc();
-        echo $row['tenderType']
+        echo $row['type']
       
       ?>"
       >
@@ -444,20 +431,14 @@ require_once "../php/adminCrude.php";
       >
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Location :</label>
-      <textarea type="text" class="form-control" id="location2" 
-      aria-describedby="emailHelp" name="location2" placeholder="location" 
+  
+    <div class="input-group mb-3">
+                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
+                <input id="dbad" name="location2" hidden value="Addis Ababa">   
+        </div>
 
-      >
-      <?php
-        $out = $admin->tenderEditLister($uidx);
-        $row = $out->fetch_assoc();
-        echo $row['location']
-      
-      ?></textarea>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
+
+
     <div class="form-group">
       <label for="exampleInputEmail1">Describtion</label>
       <textarea type="text" class="form-control" id="des2" 

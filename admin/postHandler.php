@@ -110,20 +110,28 @@ if(isset(
       $id2 = $_POST['uid'];
       $title = $_POST['title'];
 
-      if(isset($_FILES['photo']) && !empty($_FILES['photo'])){
+      if ($_FILES['photo']['size'] == 0 && $_FILES['photo']['error'] == 0){
         $fileName1 = $_FILES['photo'];
 
         $up = $admin->uploadSinglePhoto('tender', $fileName1);
-      }
-
-
-
-      if($up[4] == 'error'){
-        print_r($up);
+        if($up[4] == 'error'){
+          print_r($up);
+        }else{
+          $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, $up[0]   );
+          echo 'Post Succesfully!';
+        }
       }else{
-        $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, $up[0]   );
-        echo 'Post Succesfully!';
+        $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, ' '  );
+        if($db){
+          echo 'Post Succesfully!';
+        }else{
+          echo 'error';
+        }
       }
+
+
+
+
 
      }
 

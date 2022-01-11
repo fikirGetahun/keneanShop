@@ -54,7 +54,7 @@ $(document).ready(function(){
                     this.reset();
               });
               $('#alertVacancy').text(data)
-              $('#alertVacancy').delay(5200).fadeOut(300);
+              // $('#alertVacancy').delay(5200).fadeOut(300);
             },
             processData: false,
         contentType: false
@@ -1116,7 +1116,6 @@ if($_GET['type'] == 'vacancy'){
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
         </div>
         <select class="custom-select" name="sex" id="inputGroupSelect01">
           <option value=" ">Gender</option>
