@@ -300,7 +300,7 @@ if(isset(
            $_POST['forRentOrSell'], $_POST['area'], $_POST['cost'], $_POST['fixidOrN'], 
            $_POST['info'],$_POST['pid'], $_POST['title'], $_POST['ownerBroker']
         )){
-          echo 'inn house';
+          // echo 'inn house';
 
           // these variables will not be set if user choose house so initial value will be empty
           $bedRoomNo = ' ';

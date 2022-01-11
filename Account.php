@@ -138,7 +138,7 @@ $('.btn-close').click(function(){
 <script>
 
   function edit(edit, type, pid, loadId){
-
+// alert('here')
     $('#'+loadId).load('user/userEditPost.php?'+$.param({edit: edit, type: type, pid: pid}));
   }
 
@@ -235,7 +235,7 @@ foreach($dbTables as $posts){
                     <div class="btn-group">
                    <?php 
                    if($posts == 'hotelhouse'){
-                     if($row['hotelOrHouse'] == 'HOUSE'){
+                     if($row['hotelOrHouse'] == 'HOUSE'){ 
                       ?>
                           <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#editDiv1<?php echo $row['id'] ?>">Manage Post</button>
                           <div class="modal fade" id="editDiv1<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -262,6 +262,56 @@ foreach($dbTables as $posts){
                       <a href= "Account.php?edit=true&type=hotel&pid=<?php echo $row['id'] ?>">   <button type="button"  class="btn btn-sm btn-outline-secondary">Edit</button></a> 
                        <?php
                      }
+                   }elseif($posts == 'housesell'){
+                      if($row['houseOrLand'] == 'HOUSE' ){
+                        ?>
+
+<button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#editDiv2<?php echo $row['id'] ?>">Manage Post</button>
+                          <div class="modal fade" id="editDiv2<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+      </div>
+      <div id="editInput2<?php echo $row['id'] ?>" class="modal-body">
+      <div class="row">
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', 'housex', '<?php echo $row['id'] ?>', 'editInput2<?php echo $row['id'] ?>')">Edit</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">>Delete</button></p></div>
+      </div>
+                      
+      </div>
+    </div>
+  </div>
+</div>
+                  
+
+                        <?php
+                      }else{
+                        ?>
+                        
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#editDiv2<?php echo $row['id'] ?>">Manage Post</button>
+                          <div class="modal fade" id="editDiv2<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+      </div>
+      <div id="editInput2<?php echo $row['id'] ?>" class="modal-body">
+      <div class="row">
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', 'land', '<?php echo $row['id'] ?>', 'editInput2<?php echo $row['id'] ?>')">Edit</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">>Delete</button></p></div>
+      </div>
+                      
+      </div>
+    </div>
+  </div>
+</div>
+                        
+                        <?php
+                      }
+
                    }else{
                     ?>
                     
