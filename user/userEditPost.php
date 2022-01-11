@@ -1,15 +1,14 @@
 <html>
-    <script src="assets/jquery.js"></script>  
+    <!-- <script src="assets/jquery.js"></script>   -->
   
    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
     
-   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">  
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">  </script>
 
 
-   </script>
    <?php
    require_once "../php/adminCrude.php";
-
+include "../includes/header.php";
 
    if(isset($_GET['pid'])){ //pid is post id to be edited
     $uidx = $_GET['pid'];
@@ -147,7 +146,7 @@ require_once "../php/adminCrude.php";
 
     <main id="main" class="main">
     <!-- <div id="contw" class="modal-dialog"> -->
-    <div class="modal-content">
+    <!-- <div class="modal-content"> -->
  <!-- /// to select address like jiji style -->
 <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%; z-index:3; " ></div>
 <?php
@@ -345,15 +344,7 @@ require_once "../php/adminCrude.php";
       ?>
          <div class="pagetitle">
   <h1>Edit Tender Post</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-      <li class="breadcrumb-item">Icons</li>
-      <li class="breadcrumb-item active">Bootstrap</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
-<section class="section">
+
     <p>
     Here you have to fill the requiered fields inorder to post the Tender.
     </p>
@@ -515,14 +506,14 @@ foreach($pp as $photo){
       $adEdit = $admin->adEditDataLister($uidx);
       while($adRow = $adEdit->fetch_assoc()){
         ?>
-        <form id="adPost" action="editPost.php"   method="POST" enctype="multipart/form-data">
+
+    <form id="car" action="editPost.php" method="POST"   enctype="multipart/form-data">
         <input hidden name="pid" value="<?php  echo $uidx ?>"
         <div class="form-group">
           <label for="exampleInputEmail1">Title</label>
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="title" placeholder="Company Name" 
-          value="<?php echo $adRow['title'] ?>"
-          >
+          value="<?php echo $adRow['title'] ?>">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
@@ -580,11 +571,21 @@ foreach($pp as $photo){
         <div class="form-group">
           <label for="exampleInputEmail1">Phone Number</label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="phone" placeholder="Company Name"
+          aria-describedby="emailHelp" name="phone" placeholder="09..."
           value="<?php echo $adRow['phone'] ?>"
           >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+
+        <div class="input-group mb-3">
+        <select class="custom-select" name="shipping" id="inputGroupSelect01">
+          <option><?php echo $adRow['shipping'] ?></option>
+          <option value="NO">NO</option>
+          <option value="YES">YES</option>
+
+        </select>
+        </div>
+
 
         <div class="form-group">
           <label for="exampleInputEmail1">Describtion</label>
@@ -594,8 +595,8 @@ foreach($pp as $photo){
         </div>
 
 
-        <input type="submit" onclick="x()" value="Save Changes">
-        <div id="alertVacancy"></div>
+        <input type="submit"  value="Save Changes">
+                      <div id="alertVacancy"></div>
         </form>
 
         <script>
@@ -644,11 +645,15 @@ foreach($pp as $photo){
 
         
         <?php
+
+        ?>
+
+        <?php
       }
       
       ?>
-    </div>
-    </div>
+
+
       <?php
     }
     ////////////////////////////////////////////////////////////

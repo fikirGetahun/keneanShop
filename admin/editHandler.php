@@ -171,11 +171,12 @@ if(isset(
       }
 
      }
-
+// echo 'what';
      //ad post edit handler
      if(isset($_POST['type'], $_POST['price'], $_POST['address'], $_POST['phone'], $_POST['title'],
-     $_POST['pid'], $_POST['info'])){
-       echo 'in the ad';
+     $_POST['pid'], $_POST['info'],  $_POST['shipping'])){
+
+      //  echo 'in the ad';
 
       $for = " ";
 

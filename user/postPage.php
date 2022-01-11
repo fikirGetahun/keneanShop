@@ -391,11 +391,9 @@ $('#tCategory').on('change', function(){
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Offer Shipping</label>
-        </div>
         <select class="custom-select" name="shipping" id="inputGroupSelect01">
-          <option value="NO" selected>NO</option>
+          <option>Offer Shipping</option>
+          <option selected>NO</option>
           <option value="YES">YES</option>
 
         </select>

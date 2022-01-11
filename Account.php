@@ -69,6 +69,30 @@ $('.btn-close').click(function(){
 
 
 </script>
+<script>
+  $(document).ready(function(){
+    $('form').on('submit', function(e){
+          e.preventDefault()
+          $.ajax({
+            url: 'admin/editHandler.php',
+            type: 'post',
+            data:  new FormData( this ),
+            success : function(data){
+              $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text(data)
+              // $('#alertVacancy').delay(3200).fadeOut(300);
+            },
+            processData: false,
+        contentType: false
+          })
+          
+          // return false;
+
+    })
+  })
+</script>
 <div class="container">
 	<div class="row">
 
@@ -119,8 +143,7 @@ $('.btn-close').click(function(){
   }
 
   
-  function del(pid, table){
-          
+  function del(pid, table){ 
           if(confirm("Are You Sure You Want to Delete This Post?") == true){
             $.ajax({
               url: 'admin/editHandler.php',
@@ -242,7 +265,7 @@ foreach($dbTables as $posts){
                    }else{
                     ?>
                     
-                  <!-- <a href="Account.php?edit=true&type=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>">   <button type="button"  class="btn btn-sm btn-outline-secondary">Edit</button></a> -->
+ 
                   <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#editDiv3<?php echo $row['id'] ?>">Manage Post</button>
                           <div class="modal fade" id="editDiv3<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
