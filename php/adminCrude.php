@@ -61,7 +61,7 @@
         }
 
         //vacancy edit
-        function updateVacancyPost($phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info){
+        function updateVacancyPost($phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info, $salary, $salaryStatus, $appStart){
             include "connect.php";
             $date = date('Y-m-d H:i:s');
             $edited = 'YES';
@@ -69,7 +69,8 @@
           `type`='$jobType',`positionType`='$positionType', `phone` = '$phone',
             `companyName`='$companyName',`title`='$jobTitle',
             `address`='$location',`deadLine`='$Deadline',
-            `positionNum`='$reqNo',`info`='$info',`postedDate`= '$date', `edited` = '$edited' WHERE `vacancy`.`id` = '$id'";
+            `positionNum`='$reqNo',`info`='$info',`postedDate`= '$date', `edited` = '$edited',
+            `salary`= '$salary', `salaryStatus` = '$salaryStatus', `appStart` = '$appStart' WHERE `vacancy`.`id` = '$id'";
 
             $ask = $mysql->query($q);
             return $ask;
@@ -440,14 +441,16 @@ echo $mysql->error;
 
         //car post data edit/update
         function updateCarPost($title,$type, $status, $fuleKind, $postId,
-         $fixidOrN,$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob){
+         $fixidOrN,$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob, $rentStatus, $forWho, $whyRent, $address ){
             include "connect.php";
             $q = "UPDATE `car` SET `title`= '$title',`type`='$type', `status` = '$status',
              `fuleKind`= '$fuleKind',`fixidOrN`= '$fixidOrN' ,`price`= '$price',`info`= '$info',
              `forRentOrSell`= '$forRentOrSell', `transmission` = '$transmission',
-             `bodyStatus` = '$bodyStatus', `km` = '$km' , `ownerBroker` = '$ob'  WHERE `car`.`id` = '$postId'";
+             `bodyStatus` = '$bodyStatus', `km` = '$km' , `ownerBroker` = '$ob', `rentStatus` = '$rentStatus',
+             `forWho` = '$forWho', `whyRent` = '$whyRent', `address` = '$address'  WHERE `car`.`id` = '$postId'";
 
              $ask = $mysql->query($q);
+             return $ask;
         }
 
 

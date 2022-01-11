@@ -16,9 +16,61 @@
   }
 
    ?>
+<script>
+  $(document).ready(function(){
+  /// this will triger the address list for selecting address for all of the forms
+  $('#z').hide()
+  $('#ADD').click(function(){
+    $('#z').show()
+  $('#z').load('user/divTags.php #jiji')
+})
+  })
+
+
+</script>
+<script>
+  // this function sends the selected address to api. that api sets the address to a session then the session will be
+  // the input to the database
+  function handler(address){
+    $('#jiji').hide();
+    $('#z').hide()
+    $('#dbad').val(address); 
+    $('#ADD').text(address);
+  }
+
+  function typeHandler(data, apiId, showId, hideId){
+    $('#z').hide()
+    $('#'+hideId).hide()
+    $('#'+apiId).val(data)
+    $('#'+showId).text(data)
+    if(data == "Cloth and Shoe"){
+    $('#targetLoader').load('admin/divTags.php #targetFor')
+  }else{
+    $('#targetLoader').empty()
+  }
+
+  if(data == 'Computer Laptop'){
+    $('#computer').load('admin/divTags.php #sizeInch,#proc,#storage,#core,#ram')
+  }else{
+    $('#computer').empty()
+  }
+  }
+
+  // function to load the categoty of post based on the needed div tag from divTags.php provided by onclick event
+  function typeLoader(divId){
+    $('#z').show()
+    $('#z').load('user/divTags.php #'+divId)
+  }
+
+
+</script>
     <script>
 
   $(document).ready(function(){
+  /// this will triger the address list for selecting address for all of the forms
+  $('#ADD').click(function(){
+  $('#z').load('user/divTags.php #jiji')
+})
 
 
 
@@ -94,8 +146,10 @@ require_once "../php/adminCrude.php";
 
 
     <main id="main" class="main">
-
- 
+    <div id="contw" class="modal-dialog">
+    <div class="modal-content">
+ <!-- /// to select address like jiji style -->
+<div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%; z-index:3; " ></div>
 <?php
 /////////////////////////////////////////////////////////////
   // if post vacancy is selected it loads this if block
@@ -106,17 +160,7 @@ require_once "../php/adminCrude.php";
   <section class="section">
       <div class="pagetitle">
       <h1>Edit Vacancy Post</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Icons</li>
-          <li class="breadcrumb-item active">Bootstrap</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-    <p>
-    Here you have to fill the requiered fields inorder to post the Vacancy Application.
-    </p>
+
 
 
     <div id="vacancyBox" class="container">
@@ -197,6 +241,27 @@ require_once "../php/adminCrude.php";
       <option value="3">Contractual </option>
     </select>
     </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+        </div>
+        <select class="custom-select" name="sex" id="inputGroupSelect01">
+          <option value=" ">Gender</option>
+          <option value="Male">Mele</option>
+          <option value="Female">Female</option>
+          <option value="Both">Both</option>
+        </select>
+        </div>
+
+
+    <div class="form-group">
+          <label for="exampleInputEmail1">Application Start Date:</label>
+          <input type="date" class="form-control" id="Deadline" 
+          aria-describedby="emailHelp" name="appStart" placeholder="Company Name" value="<?php echo $row['type'] ?>" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
     <div class="form-group">
       <label for="exampleInputEmail1">Deadline</label>
       <input type="date" class="form-control" id="Deadline" 
@@ -236,18 +301,32 @@ require_once "../php/adminCrude.php";
         </div>
 
 
-    <div class="form-group">
-      <label for="exampleInputEmail1">Location :</label>
-      <textarea type="text" class="form-control" id="location" 
-      aria-describedby="emailHelp" name="location" placeholder="location" 
-      value="<?php 
-                $p = $admin->editVacancyPost($uidx);
-                $row = $p->fetch_assoc();
-                echo $row['location']; 
-      ?>"
-      ></textarea>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
+                <input id="dbad" name="location" hidden value="Addis Ababa">   
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Salary: </label>
+          <input type="number" class="form-control" id="jobTitle" 
+          aria-describedby="emailHelp" name="salary" placeholder="phone number" value="<?php echo $row['salary'] ?>" >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+        </div>
+        <select class="custom-select" name="salaryStatus" id="inputGroupSelect01">
+        <option value=" "><?php echo $row['salaryStatus'] ?></option>
+          <option value=" ">Salary Type</option>
+          <option value="Fixed">Fixed</option>
+          <option value="Negotiatable">Negotiatable</option>
+          <option value="Negotiatable">Slightly Negotiable</option>
+        </select>
+        </div>
+
+
     <div class="form-group">
       <label for="exampleInputEmail1">Describtion</label>
       <textarea type="text" class="form-control" id="des" 
@@ -605,6 +684,7 @@ foreach($pp as $photo){
       $carE = $admin->carPostDataLister($uidx);
       $carRow = $carE->fetch_assoc();
       ?>
+
         <form id="car" action="editPost.php" method="POST" enctype="multipart/form-data" >
           <input hidden name="pid" value="<?php echo $uidx; ?>">
 
@@ -628,23 +708,16 @@ foreach($pp as $photo){
   })
 </script>
 
-              <div id="typeC" class="input-group mb-3">
-            <div  class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01"> Car Type: </label>
-            </div>
-            <select id="sCar" class="custom-select" name="type2" id="inputGroupSelect01">
-              <option selected><?php echo $carRow['type'] ?></option>
-              <?php
-                $carCat = $admin->carCategoryLister();
-                while($carCatRow = $carCat->fetch_assoc()){
-                  ?>
-                  <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
-                  <?php
-                }
-              ?>
-              
-            </select>
-            </div>
+        <div class="input-group mb-3">
+            <div class="form-select" id="carShow" onclick="typeLoader('carType')" ><?php echo $carRow['type'] ?></div>      
+            <input id="carApi" name="type2" hidden value=" ">   
+        </div>
+
+
+          <div class="input-group mb-3">
+              <div class="form-select" id="ADD" ><?php echo $carRow['address'] ?></div>      
+              <input id="dbad" name="address" hidden value="Addis Ababa">   
+          </div>
 
             <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -680,6 +753,45 @@ foreach($pp as $photo){
           <option value="For Sell">For Sell</option>
         </select>
         </div>
+
+        <?php
+        if($carRow['forRentOrSell'] == 'For Rent'){
+            ?>
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="rentStatus" id="rentS">
+        <option selected><?php echo $carRow['rentStatus'] ?></option>
+          <option value=" " >Rent Status</option>
+          <option value="With Driver">With Driver</option>
+          <option value="Car Only">Car Only</option>
+        </select>
+        </div>
+
+        
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="forWho" id="forWho">
+        <option selected><?php echo $carRow['forWho'] ?></option>
+          <option value=" " >Rent For ?</option>
+          <option value="All">All</option>
+          <option value="Private">Private</option>
+          <option value="Govormental Offices">Govormental Offices</option>
+          <option value="Private Company">Private Company</option>
+          <option value="NGO">NGO</option>
+        </select>
+        </div>
+
+        
+        <div class="form-group" id="whyRent">
+          <label for="exampleInputEmail1">Where Do you Want to Rent ?</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="whyRent" placeholder="Description"><?php echo $carRow['whyRent'] ?></textarea>
+          <small id="emailHelp" class="form-text text-muted">Describe where you want to rent this car.</small>
+        </div>
+            <?php
+        }
+        ?>
+
+
+
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -793,7 +905,7 @@ foreach($pp as $photo){
 
        <input type="submit" value="Change Photo">
        </form>
- 
+
  <?php
 }
 ?>
@@ -1059,7 +1171,7 @@ foreach($pp as $photo){
 
 
              </form>
-             
+
 
       <?php
     }
@@ -1971,5 +2083,6 @@ if(isset($_GET['type'])){
 ?>
 
 
-
+    </div>
+    </div>
 </main><!-- End #main -->

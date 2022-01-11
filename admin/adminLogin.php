@@ -99,7 +99,7 @@
             
 
             while($row = $check->fetch_assoc()){
-                if($pa == password_verify($pa, $row['password'])){
+                if(password_verify($pa, $row['password'])){
                     $_SESSION['idz'] = $row['id'];
                     
                     header('Location: admin.php');

@@ -19,6 +19,12 @@
   }else{
     $('#targetLoader').empty()
   }
+
+  if(data == 'Computer Laptop'){
+    $('#computer').load('admin/divTags.php #sizeInch,#proc,#storage,#core,#ram')
+  }else{
+    $('#computer').empty()
+  }
   }
 
   // function to load the categoty of post based on the needed div tag from divTags.php provided by onclick event
@@ -353,7 +359,7 @@ $('#tCategory').on('change', function(){
 </script>
 
         <div class="input-group mb-3">
-            <div class="form-select" onchange="cloth()" id="adShow" onclick="typeLoader('adType')" >Car Type</div>      
+            <div class="form-select" id="adShow" onclick="typeLoader('adType')" >Car Type</div>      
             <input id="adApi"  name="type" hidden value=" ">   
 
         </div>
@@ -520,17 +526,10 @@ elseif($_GET['type'] == 'house'){
                 <div class="form-select" id="ADD" >City</div>      
                 <input id="dbad" name="city" hidden value="Addis Ababa">   
             </div>
+        <div class="input-group mb-3">
+            <div class="form-select" id="jijiShow" onclick="typeLoader('jijiSub')" >Select Subcity</div>      
+            <input id="jijiApi"  name="subCity" hidden value=" ">   
 
-        <div id="subCityBox" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> SubCity : </label>
-        </div>
-        <select id="subCity" class="custom-select" name="subCity" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="women">Jemo</option>
-          <option value="men">4 kilo</option>
-          <option value="otherSubCity">Other</option>          
-        </select>
         </div>
 
         <div class="input-group mb-3">
@@ -725,17 +724,16 @@ elseif($_GET['type'] == 'house'){
                 <input id="dbad" name="city" hidden value="Addis Ababa">   
             </div>
 
-        <div id="subCityBox" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> SubCity : </label>
+
+
+        <div class="input-group mb-3">
+            <div class="form-select" id="jijiShow" onclick="typeLoader('jijiSub')" >Select Subcity</div>      
+            <input id="jijiApi"  name="subCity" hidden value=" ">   
+
         </div>
-        <select id="subCity" class="custom-select" name="subCity" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="women">Jemo</option>
-          <option value="men">4 kilo</option>
-          <option value="otherSubCity">Other</option>          
-        </select>
-        </div>
+
+
+
 
         <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -881,24 +879,15 @@ $('#sElc').on('change', function(){
 })
 
 </script>
-          <div id="typeC" class="input-group mb-3">
-        <div  class="input-group-prepend">
-        <label class="input-group-text" for="inputGroupSelect01"> Electronics Type: </label>
+
+
+        <div class="input-group mb-3">
+            <div class="form-select" id="elecShow" onclick="typeLoader('elecType')" >Electronics Category</div>      
+            <input id="elecApi"  name="type" hidden value=" ">   
+
         </div>
-        <select id="sElc" class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected>Electronics Type </option>
-          <option value="Computer Laptop">Computer Laptop</option>
-          <?php
-            $carCat = $admin->carCategoryLister();
-            while($carCatRow = $carCat->fetch_assoc()){
-              ?>
-              <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
-              <?php
-            }
-          ?>
-          
-        </select>
-        </div>
+
+
 
         <div class="input-group mb-3">
     <div class="input-group-prepend">
@@ -1095,28 +1084,17 @@ if($_GET['type'] == 'vacancy'){
             })
 
           </script>
-        <div id="jt" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Type Of JOBS</label>
-          </div>
 
 
-          <div id="jobT">
-          <select class="custom-select" name="jobType" id="jobTT">
-            <option selected>Choose...</option>
-            <?php
-                $vacancyCat = $admin->vacancyCategoryLister();
-                while($vacancyCatRow = $vacancyCat->fetch_assoc()){
-                  ?>
-                  <option value="<?php echo $vacancyCatRow['category'] ?>"><?php echo $vacancyCatRow['category'] ?></option>
-                  <?php
-                }
-              ?>
-          </select>
-          </div>
-
-
+          <div class="input-group mb-3">
+            <div class="form-select" id="vac11Show" onclick="typeLoader('vac11Type')" >Job Category</div>      
+            <input id="vac11Api" name="jobType" hidden value=" ">   
         </div>
+
+
+
+
+       
         <div class="form-group">
           <label for="exampleInputEmail1">Job Title</label>
           <input type="text" class="form-control" id="jobTitle" 
@@ -1198,7 +1176,7 @@ if($_GET['type'] == 'vacancy'){
 
         <div class="input-group mb-3">
                 <div class="form-select" id="ADD" >Address</div>      
-                <input id="dbad" name="address" hidden value="Addis Ababa">   
+                <input id="dbad" name="location" hidden value="Addis Ababa">   
         </div>
 
 

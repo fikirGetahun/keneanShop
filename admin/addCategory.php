@@ -481,7 +481,7 @@ if(isset($_POST['type'])){
   </tbody>
 </table>
 </div>
-<form id="adC" method="POST">
+<form id="adzxcC" method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>
     <input type="text" class="form-control" id="adCategory" 

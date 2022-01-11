@@ -110,10 +110,10 @@ if(isset($_POST['titleElc'],
 }
 //vacancy edit handler
 if(isset(
-    $_POST['companyName'], $_POST['jobType'], 
-    $_POST['jobTitle'], $_POST['positionType'],
-    $_POST['Deadline'], $_POST['reqNo'], $_POST['location'],
-    $_POST['description'],$_POST['pid'], $_POST['phone']
+  $_POST['companyName'], $_POST['jobType'], 
+  $_POST['jobTitle'], $_POST['positionType'],
+  $_POST['Deadline'], $_POST['reqNo'], $_POST['location'], $_POST['appStart'],
+  $_POST['description'],$_POST['pid'], $_POST['sex'], $_POST['phone'], $_POST['salary'], $_POST['salaryStatus']
   )){
     $companyName = $_POST['companyName'];
     $jobType =$_POST['jobType'];
@@ -125,9 +125,13 @@ if(isset(
     $info=$_POST['description']; 
     $id = $_POST['pid'];
     $phone = $_POST['phone'];
+    $salary = $_POST['salary'];
+    $salaryStatus = $_POST['salaryStatus'];
+    $appStart = $_POST['appStart'];
 
 
-    $ask = $admin->updateVacancyPost($phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info  );
+    $ask = $admin->updateVacancyPost($phone, $jobType, $positionType, $companyName,
+     $jobTitle, $location, $Deadline, $id , $reqNo, $info, $salary, $salaryStatus, $appStart  );
 
     if($ask){
       echo 'Edited Successfully';
@@ -224,7 +228,7 @@ if(isset(
 
       //car post handler
       if(isset($_POST['type2'],$_POST['status2'],$_POST['forRentOrSell'],$_POST['fuleKind'],$_POST['fixidOrN'],$_POST['price2'],$_POST['info2'],$_POST['pid'],
-       $_POST['title'],
+       $_POST['title'], $_POST['address'],
        $_POST['transmission'], $_POST['bodyStatus'], $_POST['km'], $_POST['ownerBroker'])){
       echo 'inx';
       $title = $_POST['title'];
@@ -236,11 +240,22 @@ if(isset(
       $price = $_POST['price2'];
       $info = $_POST['info2'];
       $postId = $_POST['pid'];
+      $addrr = $_POST['address'];
 
       $transmission = $_POST['transmission'];
       $bodyStatus = $_POST['bodyStatus'];
       $km = $_POST['km'];
       $ob = $_POST['ownerBroker'];
+
+      $rentStatus = ' ';
+      $forWho = ' ';
+      $whyRent = ' ';
+
+      if(isset($_POST['rentStatus'], $_POST['forWho'], $_POST['whyRent'])){
+        $rentStatus = $_POST['rentStatus'];
+        $forWho = $_POST['forWho'];
+        $whyRent = $_POST['whyRent'];
+      }
 
       if(isset($_FILES['x1'])){
         $fName1 = $_FILES['x1']['name'];
@@ -266,7 +281,7 @@ if(isset(
 
 
       $out12 = $admin->updateCarPost($title,$type, $status, $fuleKind, $postId,
-       $fixidOrN,$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob );
+       $fixidOrN,$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob, $rentStatus, $forWho, $whyRent, $addrr);
 
        if($out12){
         echo 'Posted Successfully';
