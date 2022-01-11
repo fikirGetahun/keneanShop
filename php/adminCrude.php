@@ -192,7 +192,7 @@ echo $mysql->error;
 
             $q = "INSERT INTO `ad`(`bigDiscount`, `type`, `price`, `address`, `phone`, `for`,
              `title`, `posterId`, `info`, `photoPath1`, `postStatus`, `shipping`, `postedDate`)
-             VALUES ('$big','$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$postStatus', '$ship', '$postedDate')";
+             VALUES ('$big','$type', '$price', '$address', '$phone', '$for', '$title', '$posterId', '$info', '$photoPath1', '$postStatus', '$ship', '$postDate')";
             
             $ask = $mysql->query($q);
             return $ask;

@@ -24,6 +24,11 @@ $urow = $user->fetch_assoc();
     $('#z').show()
   $('#z').load('user/divTags.php #jiji')
 })
+
+$('.btn-close').click(function(){
+  location.reload()
+})
+
   })
 
 
@@ -104,6 +109,8 @@ $urow = $user->fetch_assoc();
   <a class="nav-item nav-link" href="#">Settings</a>
  
 </nav>
+   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">  </script>
+
 <script>
 
   function edit(edit, type, pid, loadId){
@@ -207,8 +214,8 @@ foreach($dbTables as $posts){
                    if($posts == 'hotelhouse'){
                      if($row['hotelOrHouse'] == 'HOUSE'){
                       ?>
-                          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#editDiv">Manage Post</button>
-                          <div class="modal fade" id="editDiv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#editDiv1<?php echo $row['id'] ?>">Manage Post</button>
+                          <div class="modal fade" id="editDiv1<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -247,7 +254,7 @@ foreach($dbTables as $posts){
       <div id="editInput3<?php echo $row['id'] ?>" class="modal-body">
       <div class="row">
           <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', '<?php echo $posts ?>', '<?php echo $row['id'] ?>', 'editInput3<?php echo $row['id'] ?>')">Edit</button></p></div>
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">>Delete</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">Delete</button></p></div>
       </div>
                       
       </div>

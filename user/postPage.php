@@ -359,7 +359,7 @@ $('#tCategory').on('change', function(){
 </script>
 
         <div class="input-group mb-3">
-            <div class="form-select" id="adShow" onclick="typeLoader('adType')" >Car Type</div>      
+            <div class="form-select" id="adShow" onclick="typeLoader('adType')" >ADs Categrory</div>      
             <input id="adApi"  name="type" hidden value=" ">   
 
         </div>

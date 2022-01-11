@@ -1,12 +1,12 @@
 <html>
     <script src="assets/jquery.js"></script>  
   
-   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
     
-   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"> -->
+   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">  
 
 
-   <!-- </script> -->
+   </script>
    <?php
    require_once "../php/adminCrude.php";
 
@@ -146,7 +146,7 @@ require_once "../php/adminCrude.php";
 
 
     <main id="main" class="main">
-    <div id="contw" class="modal-dialog">
+    <!-- <div id="contw" class="modal-dialog"> -->
     <div class="modal-content">
  <!-- /// to select address like jiji style -->
 <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%; z-index:3; " ></div>
@@ -509,6 +509,7 @@ foreach($pp as $photo){
       
       <?php
     }
+    
     //////////////////////////////////////////////////////
     elseif($_GET['type'] == 'ad'){
       $adEdit = $admin->adEditDataLister($uidx);
@@ -527,24 +528,13 @@ foreach($pp as $photo){
 
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
-          </div>
-          <select class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected><?php echo $adRow['type'] ?></option>
-            ?><?php
-              $out11 = $admin->adsCategoryLister();
-              while($r = $out11->fetch_assoc()){
-              ?>
-            
-            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
-            <?php
-              }
-            ?>
+            <div class="form-select" id="adShow" onclick="typeLoader('adType')" ><?php echo $adRow['type'] ?></div>      
+            <input id="adApi"  name="type" hidden value=" <?php echo $adRow['type'] ?>">   
 
-              
-          </select>
         </div>
+
+
+
 
         <?php
         if($adRow['for'] != " "){
@@ -560,7 +550,7 @@ foreach($pp as $photo){
           <option value="men">Men</option>
           <option value="both">Both</option>
         </select>
-        </div>
+    </div>
 <?php
         }
         
@@ -578,14 +568,14 @@ foreach($pp as $photo){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address </label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Company Name"
-          value="<?php echo $adRow['address'] ?>"
-          >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" ><?php echo $adRow['address'] ?></div>      
+                <input id="dbad" name="address" hidden value="<?php echo $adRow['address'] ?>">   
         </div>
+
+
+
 
         <div class="form-group">
           <label for="exampleInputEmail1">Phone Number</label>
@@ -657,7 +647,8 @@ foreach($pp as $photo){
       }
       
       ?>
-      
+    </div>
+    </div>
       <?php
     }
     ////////////////////////////////////////////////////////////
