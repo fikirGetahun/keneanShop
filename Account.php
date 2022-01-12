@@ -204,17 +204,39 @@ foreach($dbTables as $posts){
   
                     <?php
                   }
-                }if($posts == 'housesell'){
+                }elseif($posts == 'housesell'){
                   if($row['houseOrLand'] == 'HOUSE'){
                     ?>
                     <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Posts&type=house" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                         <?php
                   }else{
+                    // echo 'inelse';
                     ?>
                     <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Land Posts&type=land" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                           <?php                  
                   }
 
+                }elseif($posts == 'jobhometutor' || $posts == 'zebegna'  || $posts == 'hotelhouse' ){
+                  // echo 'in jobhome';
+                  if($posts == 'jobhometutor'){
+                  ?>
+                  <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Home Tutor&type=homeTutor" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                        <?php   
+                  }if($posts == 'zebegna' ){
+                    ?>
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Security Gaurd Job Seekers&type=zebegna" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <?php
+                  }if($posts == 'hotelhouse' ){
+                    if($row['hotelOrHouse'] == 'HOTEL' ){
+                    ?>
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Hotel Job Seekers&type=hotelWorker" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <?php
+                    }else{
+                      ?>
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Worker Job Seekers&type=houseWorker" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                      <?php
+                    }
+                  }
                 }
                 ?>
 
@@ -224,9 +246,10 @@ foreach($dbTables as $posts){
                     ?>
                     <p class="card-text"><?php echo $row['title'] ?></p>
                     <?php
-                  }else{
+                  }
+                  else{
                     ?>
-                    <p class="card-text"><?php echo $row['name'] ?></p>        
+                    <p class="card-text"><?php echo $row['name'] ?></p> 
                     <?php
                   }
                   ?>
@@ -242,12 +265,12 @@ foreach($dbTables as $posts){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Uploadz</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
       </div>
       <div id="editInput1<?php echo $row['id'] ?>" class="modal-body">
       <div class="row">
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', 'house', '<?php echo $row['id'] ?>', 'editInput1<?php echo $row['id'] ?>')">Edit</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', 'houseKeeper', '<?php echo $row['id'] ?>', 'editInput1<?php echo $row['id'] ?>')">Edit</button></p></div>
           <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">>Delete</button></p></div>
       </div>
                       
@@ -255,11 +278,29 @@ foreach($dbTables as $posts){
     </div>
   </div>
 </div>
-                      <a href= "Account.php?edit=true&type=house&pid=<?php echo $row['id'] ?>">   <button type="button"  class="btn btn-sm btn-outline-secondary">Edit</button></a>
+
                      <?php
                      }elseif($row['hotelOrHouse'] == 'HOTEL'){
                        ?>
-                      <a href= "Account.php?edit=true&type=hotel&pid=<?php echo $row['id'] ?>">   <button type="button"  class="btn btn-sm btn-outline-secondary">Edit</button></a> 
+                       <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#editDiv22<?php echo $row['id'] ?>">Manage Post</button>
+                          <div class="modal fade" id="editDiv22<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Uploadx</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+      </div>
+      <div id="editInput22<?php echo $row['id'] ?>" class="modal-body">
+      <div class="row">
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', 'hotel ', '<?php echo $row['id'] ?>', 'editInput22<?php echo $row['id'] ?>')">Edit</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">>Delete</button></p></div>
+      </div>
+                      
+      </div>
+    </div>
+  </div>
+</div>
+      
                        <?php
                      }
                    }elseif($posts == 'housesell'){
@@ -321,7 +362,7 @@ foreach($dbTables as $posts){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Uploadv</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
       </div>
       <div id="editInput3<?php echo $row['id'] ?>" class="modal-body">

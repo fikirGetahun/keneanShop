@@ -288,11 +288,11 @@ if(isset(
 /////////////////////////////////////////////
             //charity api
 
-            if(isset($_POST['title'], $_POST['location'], $_POST['phone'], $_POST['info'], $_FILES['photo'], $_POST['posterId'])){
+            if(isset($_POST['title'], $_POST['address'], $_POST['phone'], $_POST['info'], $_FILES['photo'], $_POST['posterId'])){
               require_once "../php/adminCrude.php";
               // echo 'inzzdfa';
               $title = $_POST['title'];
-              $loc = $_POST['location'];
+              $loc = $_POST['address'];
               $phone = $_POST['phone'];
               $info = $_POST['info'];
               $fileVar = $_FILES['photo'];

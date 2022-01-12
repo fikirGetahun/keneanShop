@@ -1335,7 +1335,7 @@ if($_GET['type'] == 'homeTutor'){
           <h5>Home Tutor Job Application</h5>
 
 <form  method="POST" enctype="multipart/form-data">
-<input hidden name="posterId" value="<?php echo $uidx; ?>">
+<input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
 
 <div class="form-group">
   <label for="exampleInputEmail1">Full Name</label>
@@ -1406,7 +1406,7 @@ if($_GET['type'] == 'homeTutor'){
 
 <div class="input-group mb-3">
                 <div class="form-select" id="ADD" >Address</div>      
-                <input id="dbad" name="location" hidden value="Addis Ababa">   
+                <input id="dbad" name="address" hidden value="Addis Ababa">   
             </div>
 
 <div class="form-group">
@@ -1474,7 +1474,7 @@ if($_GET['type'] == 'houseWorker'){
 
           <h5>House Keeper Job Application</h5>
           <form  method="POST" enctype="multipart/form-data">
-          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+          <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
           <input hidden name="hotelOrHouse" value="HOUSE">
           <div class="form-group">
           <label for="exampleInputEmail1">Full Name</label>
@@ -1627,7 +1627,7 @@ if($_GET['type'] == 'hotelWorker'){
 
           <h5>House Keeper Job Application</h5>
           <form  method="POST" enctype="multipart/form-data">
-          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+          <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
           <input hidden name="hotelOrHouse" value="HOTEL">
           <div class="form-group">
           <label for="exampleInputEmail1">Full Name</label>
@@ -1776,7 +1776,7 @@ if($_GET['type'] == 'zebegna'){
           <div class="modal-body">
 
           <form  method="POST" enctype="multipart/form-data">
-          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+          <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
 
           <div class="form-group">
           <label for="exampleInputEmail1">Full Name</label>

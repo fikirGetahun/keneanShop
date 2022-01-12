@@ -1517,13 +1517,10 @@ foreach($pp as $photo){
   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
-<div class="form-group">
-  <label for="exampleInputEmail1"> Address  </label>
-  <input type="text" class="form-control" id="nameTitle" 
-  aria-describedby="emailHelp" name="location" placeholder="address"
-  value="<?php echo $cRow['location'] ?>">
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+<div class="input-group mb-3">
+                <div class="form-select" id="ADD" ><?php echo $cRow['address']; ?></div>      
+                <input id="dbad" name="address" hidden value="<?php echo $cRow['address']; ?>">   
+    </div>
 
 <div class="form-group">
   <label for="exampleInputEmail1">Phone no:</label>
@@ -1679,12 +1676,11 @@ foreach($pp as $photo){
   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
-<div class="form-group">
-  <label for="exampleInputEmail1">Address</label>
-  <textarea type="text" class="form-control" id="des2" 
-  aria-describedby="emailHelp" name="address" placeholder="location"><?php echo $row['address'] ?></textarea>
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+<div class="input-group mb-3">
+                <div class="form-select" id="ADD" ><?php echo $row['address']; ?></div>      
+                <input id="dbad" name="address" hidden value="<?php echo $row['address']; ?>">   
+    </div>
+
 
 <div class="form-group">
   <h6>If you are representing  or if you are Agent, please fill the next form.</h6>
@@ -1800,11 +1796,9 @@ foreach($pp as $photo){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Full Name" value="<?php echo $row['address'] ?>" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
+                <input id="dbad" name="address" hidden value="<?php echo $row['address'] ?>">   
         </div>
 
         <div class="input-group mb-3">
@@ -1974,11 +1968,9 @@ if(isset($_GET['type'])){
         </div>
 
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Full Name" value="<?php echo $row['address'] ?>" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
+                <input id="dbad" name="address" hidden value="<?php echo $row['address'] ?>">   
         </div>
 
         <div class="input-group mb-3">
@@ -2130,11 +2122,9 @@ if(isset($_GET['type'])){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Full Name" value="<?php echo $row['address'] ?>" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="input-group mb-3">
+                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
+                <input id="dbad" name="address" hidden value="<?php echo $row['address'] ?>">   
         </div>
 
         <div class="input-group mb-3">

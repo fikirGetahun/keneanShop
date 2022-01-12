@@ -56,14 +56,13 @@ class auth{
         $q = "SELECT *  FROM `$tableName` WHERE `posterId` = '$uid'";
         }
         else{
-            
         $q = "SELECT * FROM `$tableName` WHERE `posterId` = '$uid'";
         }
 
 
         $ask = $mysql->query($q);
-
         return $ask;
+        
 
     }
 

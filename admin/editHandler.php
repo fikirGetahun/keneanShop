@@ -515,11 +515,11 @@ if(isset(
 
 //////////////////////////
 //charity update api
-if(isset($_POST['title'], $_POST['location'], $_POST['phone'], $_POST['info'], $_POST['posterId'])){
+if(isset($_POST['title'], $_POST['address'], $_POST['phone'], $_POST['info'], $_POST['posterId'])){
   require_once "../php/adminCrude.php";
   echo 'inzzdfa';
   $title = $_POST['title'];
-  $loc = $_POST['location'];
+  $loc = $_POST['address'];
   $phone = $_POST['phone'];
   $info = $_POST['info'];
   $pid = $_POST['posterId'];
@@ -527,6 +527,11 @@ if(isset($_POST['title'], $_POST['location'], $_POST['phone'], $_POST['info'], $
 
 
   $db = $admin->charityUpdate($title, $info, $loc, $phone, $pid);
+  if($db){
+    echo 'Edit Successfull';
+  }else{
+    echo 'ERROR';
+  }
 
 
 }
