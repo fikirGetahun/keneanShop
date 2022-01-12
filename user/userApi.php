@@ -104,7 +104,13 @@ if(isset($_POST['ban'], $_POST['id'])){
     }
 }
 
-
+//location changer
+if(isset($_GET['loc'])){
+    $_SESSION['location'] = $_GET['loc'];
+  }else{
+    $_SESSION['location'] = 'All';
+  }
+  
 
 //// address selecter jiji style
 if(isset($_POST['address'])){

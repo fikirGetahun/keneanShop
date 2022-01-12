@@ -193,16 +193,16 @@ function fav(pid, id, table){
             $fetchPost = $get->allPostListerOn2Columen($cat, $status, $off, 'address', $_SESSION['location']);
           }elseif($status == ' ' && isset($_GET['dbType']) && $_SESSION['location'] == 'All'){
             $dbType = $_GET['dbType'];
+            echo '1';
             $fetchPost = $get->allPostListerOnColumen($cat, 'type', $dbType );
           }elseif($status == ' ' && isset($_GET['dbType']) && $_SESSION['location'] != 'All'){ // for location based output
-            $dbType = $_GET['dbType'];
+            $dbType = $_GET['dbType'];echo '1';
             $fetchPost = $get->allPostListerOn2Columen($cat, 'type', $dbType, 'address', $_SESSION['location'] );
           }elseif($status != ' ' && isset($_GET['dbType'])  && $_SESSION['location'] == 'All' ){          
-            $dbType = $_GET['dbType'];
+            $dbType = $_GET['dbType'];echo '1';
             $fetchPost = $get->allPostListerOn2Columen($cat, $status, $off, 'type', $dbType);
-          }elseif($status != ' ' && isset($_GET['dbType'])  && $_SESSION['location'] != 'All' ){ // for location based output
-            $fetchPost = $get->allPostListerOn3Columen($cat, $status, $off, 'type', $dbType,  'address', $_SESSION['location'] );
           }
+          
           
 ?>
 <br>

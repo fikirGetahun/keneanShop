@@ -4,16 +4,13 @@
 
 ob_start();
 session_start();
-// $_SESSION['location'] = '';
+// 
 
 include "includes/header.php";
 include "includes/navbar.php";
 require_once "php/adminCrude.php";
 require_once "php/fetchApi.php";
 
-if(isset($_GET['loc'])){
-  $_SESSION['location'] = $_GET['loc'];
-}
 
 $pageLocation = $_SESSION['location'];
 	?>

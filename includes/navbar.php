@@ -67,6 +67,20 @@ function nav(nav){
 $('#uploadDiv').load("user/postPage.php?type="+nav)
 }
 
+function reload(x){
+// 
+  $.ajax({
+    url: 'user/userApi.php',
+    type: 'GET',
+    data: {loc : x},
+    success: function (xx) { 
+      // alert('loc')
+      window.location.reload()
+     }
+  })
+
+  
+}
 // function postViewNav(table, columen, args, label){
 //   // alert('inxc')
 
@@ -95,6 +109,20 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
       <a class="p-2 text-muted" >Membership</a>
 
       <a href="./maincat.php?cat=blog&label=Blog" class="p-2 text-muted" >Blog</a>
+      <?php 
+
+if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
+  ?>
+<a href="./login.php" class="btn btn-light">LogIn</a>
+<?php
+  
+}
+if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
+?>
+
+<a class="btn btn-light" href="./Account.php?yourPost=true"  >Account</a>
+<a class="btn btn-light"  href="./user/logout.php"   >Log Out</a>
+
 
 
         <!-- </div> -->
@@ -103,7 +131,7 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
 <!-- Button trigger modal -->
 
 <?php 
-      
+}
 if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
   ?>
 <a href="login.php">  <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
@@ -123,7 +151,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 
    </nav>  </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="height: min-content; size:2%;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="height: min-content;">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -131,7 +159,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="nav-link active" href="index.php"  aria-current="page"  >Home</a>
+          <a class="nav-link active" href="index.php?loc=All"  aria-current="page"  >Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  >Big discount</a>
@@ -172,7 +200,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="small">Cv Work Seekers</span>
+            <span class="small">Work Seekers</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item"  href="./maincat.php?cat=jobhometutor&type=homeTutor&label=Home Tutor"  >Home Tutor Job Applicaion</a></li>
@@ -196,7 +224,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
         </li>
          <li class="nav-item">
           <a class="nav-link active"
-          href="./maincat.php?cat=charity&status= &off= &label=Charity Post&type= "><span class="small">Charity organization</span></a>
+          href="./maincat.php?cat=charity&status= &off= &label=Charity Post&type= "><span class="small">Charity</span></a>
         </li>
         <?php 
               require_once 'php/fetchApi.php';
@@ -213,14 +241,16 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
         <li class="nav-item dropdown" style="z-index: 3;">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="small">Location</span>
+            <span id="pgad" class="small"><?php if(isset($_GET['loc'])){ echo $_GET['loc']; }else{ echo $_SESSION['location']; }?></span>
+
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="index.php?loc=All">All</a>
+            <a class="dropdown-item" onclick="reload('All')">All</a>
           <?php
             foreach($city as $loc){
               ?>
               
-              <a class="dropdown-item" href="index.php?loc=<?php echo $loc ?>">  <?php echo $loc ?></a>
+              <a  class="dropdown-item" onclick="reload('<?php echo $loc;  ?>')" >  <?php echo $loc ?></a>
             
               <?php
               $i++;
@@ -234,25 +264,10 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-warning" type="submit">Search</button>
       </form>
-  <?php 
 
-  if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
-    ?>
-<a href="./login.php" class="btn btn-dark">LogIn</a>
-<?php
-    
-  }
-if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
-  ?>
-
-<a class="btn btn-dark" href="./Account.php?yourPost=true" style="color: #f4f4f4; margin-left: 5px; background: black; border:1px #f4f4f4 solid; padding:3px; " >Account</a>
-<a class="btn btn-dark" style="width: 4%; font-size:70%; margin-left:4px; "  href="./user/logout.php"   >Log Out</a>
-
-<div>
-<?php
-      }
       
-      ?>
+      
+   
 
 
     </div>

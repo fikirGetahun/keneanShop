@@ -1,5 +1,7 @@
 
 <?php  
+ob_start();
+session_start();
 include "includes/header.php";
 include "includes/navbar.php";
 require_once "php/adminCrude.php";
