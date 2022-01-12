@@ -180,21 +180,28 @@ function fav(pid, id, table){
           $status = $_GET['status'];
           $off = $_GET['off'];
           $label = $_GET['label'];
-          if($status == ' '){
+          if($status == ' ' && $_SESSION['location'] == 'All'){
             // echo 'elc';
             $fetchPost = $get->allPostListerOnTable($cat);
-          }elseif($status != ' '){
+          }elseif($status == ' ' && $_SESSION['location'] != 'All'){// for location based output
+            $fetchPost = $get->allPostListerOnColumen($cat, 'address', $_SESSION['location']);
+          }
+          elseif($status != ' ' && $_SESSION['location'] == 'All'){
             // echo 'sdf--- '.$off;
             $fetchPost = $get->allPostListerOnColumen($cat, $status, $off);
-          }elseif($status == ' ' && isset($_GET['dbType'])){
+          }elseif($status != ' ' && $_SESSION['location'] != 'All'){ // for location based output
+            $fetchPost = $get->allPostListerOn2Columen($cat, $status, $off, 'address', $_SESSION['location']);
+          }elseif($status == ' ' && isset($_GET['dbType']) && $_SESSION['location'] == 'All'){
             $dbType = $_GET['dbType'];
             $fetchPost = $get->allPostListerOnColumen($cat, 'type', $dbType );
-          }elseif($status != ' ' && isset($_GET['dbType'])){
+          }elseif($status == ' ' && isset($_GET['dbType']) && $_SESSION['location'] != 'All'){ // for location based output
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOn2Columen($cat, 'type', $dbType, 'address', $_SESSION['location'] );
+          }elseif($status != ' ' && isset($_GET['dbType'])  && $_SESSION['location'] == 'All' ){          
             $dbType = $_GET['dbType'];
             $fetchPost = $get->allPostListerOn2Columen($cat, $status, $off, 'type', $dbType);
-          }elseif(isset($_GET['loc'])){ //for index page to output all category
-            $loc = $_GET['loc'];
-            $fetchPost = $get->allPostListerOnColumen($cat, 'address', $loc);
+          }elseif($status != ' ' && isset($_GET['dbType'])  && $_SESSION['location'] != 'All' ){ // for location based output
+            $fetchPost = $get->allPostListerOn3Columen($cat, $status, $off, 'type', $dbType,  'address', $_SESSION['location'] );
           }
           
 ?>
@@ -209,6 +216,7 @@ function fav(pid, id, table){
 
 
 <?php
+    if($fetchPost->num_rows != 0){
           while($row = $fetchPost->fetch_assoc()){
 
             if(!in_array($row['id'], $_SESSION['userScroll'])){
@@ -269,7 +277,9 @@ function fav(pid, id, table){
             array_push($_SESSION['userScroll'], $row['id']);
             }
           }
-
+        }else{
+          echo 'No Result Found';
+        }
 
           $pg = $fetchPost->num_rows / 9;
 
@@ -290,12 +300,18 @@ function fav(pid, id, table){
       elseif(isset($_GET['cat'])){
         if($_GET['cat'] == 'vacancy'){
           $cat = $_GET['cat'];
-          if(isset($_GET['dbType'])){
+          if(isset($_GET['dbType']) && $_SESSION['location'] == 'All' ){
             $dbType = $_GET['dbType'];
             $fetchPost = $get->allPostListerOnColumen($cat, 'type', $dbType );
-          }else{
+          }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All' ){
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOn2Columen($cat, 'type', $dbType, 'address', $_SESSION['location'] );
+          }elseif($_SESSION['location'] == 'All'){
             $fetchPost = $get->allPostListerOnTable($cat);
+          }elseif($_SESSION['location'] != 'All'){
+            $fetchPost = $get->allPostListerOnColumen($cat, 'address', $_SESSION['location']);
           }
+          if($fetchPost->num_rows != 0){
 
           while($row = $fetchPost->fetch_assoc()){
             if(!in_array($row['id'], $_SESSION['userScroll'])){
@@ -354,18 +370,28 @@ function fav(pid, id, table){
                       array_push($_SESSION['userScroll'], $row['id']);
                     }
           }
+        }else{
+          echo 'No Results Found.';
+        }
         }
       
 
       ////tender
         elseif($_GET['cat'] == 'tender'){
           $cat = $_GET['cat'];
-          if(isset($_GET['dbType'])){
+          if(isset($_GET['dbType']) && $_SESSION['location'] == 'All'){
             $dbType = $_GET['dbType'];
             $fetchPost = $get->allPostListerOnColumen($cat, 'type', $dbType );
-          }else{
-            $fetchPost = $get->allPostListerOnTable($cat);
+          }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All'){
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOn2Columen($cat, 'type', $dbType, 'address', $_SESSION['location'] );
           }
+          elseif($_SESSION['location'] == 'All'){
+            $fetchPost = $get->allPostListerOnTable($cat);
+          }elseif($_SESSION['location'] != 'All'){
+            $fetchPost = $get->allPostListerOnColumen($cat, 'address', $_SESSION['location']);
+          }
+          if($fetchPost->num_rows != 0){
 
           while($row = $fetchPost->fetch_assoc()){
             if(!in_array($row['id'], $_SESSION['userScroll'])){
@@ -429,6 +455,9 @@ function fav(pid, id, table){
                       array_push($_SESSION['userScroll'], $row['id']);
                     }
           }
+        }else{
+          echo 'No Result Found';
+        }
         }
 
 
@@ -436,12 +465,20 @@ function fav(pid, id, table){
       if(isset($_GET['cat']) && $_GET['cat'] == 'blog'){
         echo 'yer';
         $cat = $_GET['cat'];
-        if(isset($_GET['dbType'])){
+        if(isset($_GET['dbType']) && $_SESSION['location'] == 'All'){
           $dbType = $_GET['dbType'];
           $fetchPost = $get->allPostListerOnColumen($cat, '', $dbType );
-        }else{
-          $fetchPost = $get->allPostListerOnTable($cat);
+        }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All'){
+          $dbType = $_GET['dbType'];
+          $fetchPost = $get->allPostListerOn2Columen($cat, '', $dbType, 'address', $_SESSION['location'] );
         }
+        elseif($_SESSION['location'] == 'All'){
+          $fetchPost = $get->allPostListerOnTable($cat);
+        }elseif($_SESSION['location'] != 'All'){
+          $fetchPost = $get->allPostListerOnColumen($cat, 'address', $_SESSION['location']);
+        }
+
+        if($fetchPost->num_rows != 0){
 
         while($row = $fetchPost->fetch_assoc()){
           if(!in_array($row['id'], $_SESSION['userScroll'])){
@@ -488,6 +525,9 @@ function fav(pid, id, table){
                     array_push($_SESSION['userScroll'], $row['id']);
                   }
         }
+      }else{
+        echo 'No Result Found';
+      }
     }
 
 
@@ -506,11 +546,16 @@ function fav(pid, id, table){
           $label = $_GET['label'];
 
          
-          if(isset($_GET['dbType'])){
+          if(isset($_GET['dbType']) && $_SESSION['location'] == 'All'){
           $dbType = $_GET['dbType'];
           $fetchPost = $get->allPostListerOn3Columen($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType); 
-          }else{
+          }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All'){
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOn4Columen($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location']); 
+          }elseif($_SESSION['location'] == 'All'){
           $fetchPost = $get->allPostListerOn2Columen($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg);
+          }elseif($_SESSION['location'] != 'All'){
+            $fetchPost = $get->allPostListerOn3Columen($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location']);
           }
           
           
@@ -525,6 +570,8 @@ function fav(pid, id, table){
 
 
 <?php
+    if($fetchPost->num_rows != 0){
+
           while($row = $fetchPost->fetch_assoc()){
 
             if(!in_array($row['id'], $_SESSION['userScroll'])){
@@ -583,6 +630,9 @@ function fav(pid, id, table){
                     }
 
           }
+        }else{
+          echo 'No Result Found';
+        }
         
 ?> </div> <?php
 
@@ -593,17 +643,22 @@ function fav(pid, id, table){
       ///// land post view
         if($_GET['type'] == 'land'){
 
-
+          
           $cat = $_GET['cat'];
           // $status = $_GET['status']; 
           $arg = $_GET['arg'];
           $label = $_GET['label'];
 
-          if(isset($_GET['dbType'])){
+          if(isset($_GET['dbType'])&& $_SESSION['location'] == 'All'){
             $dbType = $_GET['dbType'];
             $fetchPost = $get->allPostListerOn3Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType); 
-          }else{
+          }if(isset($_GET['dbType'])&& $_SESSION['location'] != 'All'){
+            $dbType = $_GET['dbType'];
+            $fetchPost = $get->allPostListerOn4Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location']); 
+          }elseif($_SESSION['location'] == 'All'){
             $fetchPost = $get->allPostListerOn2Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg);
+          }elseif($_SESSION['location'] != 'All'){
+            $fetchPost = $get->allPostListerOn3Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location']);
           }
           
 ?>
@@ -617,6 +672,8 @@ function fav(pid, id, table){
 
 
 <?php
+    if($fetchPost->num_rows != 0){
+
           while($row = $fetchPost->fetch_assoc()){
             if(!in_array($row['id'], $_SESSION['userScroll'])){
 
@@ -676,6 +733,9 @@ function fav(pid, id, table){
 
 
           }
+        }else{
+          echo 'No Result Found';
+        }
         
 ?> </div> <?php
 
@@ -689,12 +749,18 @@ function fav(pid, id, table){
         $type = $_GET['type'];
         $label = $_GET['label'];
 
-        if($type == "homeTutor" || $type == 'zebegna'){
+        if($type == "homeTutor" || $type == 'zebegna' && $_SESSION['location'] == 'All'){
           $fetchPost = $get->allPostListerOnTable($cat);
-        }elseif($type == "houseWorker"){
+        }elseif($type == "homeTutor" || $type == 'zebegna' && $_SESSION['location'] != 'All'){
+          $fetchPost = $get->allPostListerOnColumen($cat, 'address', $_SESSION['location']);
+        }elseif($type == "houseWorker" && $_SESSION['location'] == 'All'){
           $fetchPost = $get->allPostListerOnColumen($cat, 'hotelOrHouse', 'HOUSE');
-        }elseif($type == "hotelWorker"){
+        }elseif($type == "houseWorker" && $_SESSION['location'] != 'All'){
+          $fetchPost = $get->allPostListerOn2Columen($cat, 'hotelOrHouse', 'HOUSE',  'address', $_SESSION['location']);
+        }elseif($type == "hotelWorker" && $_SESSION['location'] == 'All'){
           $fetchPost = $get->allPostListerOnColumen($cat, 'hotelOrHouse', 'HOTEL');
+        }elseif($type == "hotelWorker" && $_SESSION['location'] != 'All'){
+          $fetchPost = $get->allPostListerOn2Columen($cat, 'hotelOrHouse', 'HOTEL','address', $_SESSION['location']);
         }
 
         
@@ -710,7 +776,8 @@ function fav(pid, id, table){
         
  
 
-       
+        if($fetchPost->num_rows != 0){
+
 
         while($row = $fetchPost->fetch_assoc()){
           
@@ -779,6 +846,9 @@ function fav(pid, id, table){
           array_push($_SESSION['userScroll'], $row['id']);
           }
         }
+      }else{
+        echo 'No Result Found';
+      }
 
         
         

@@ -58,6 +58,33 @@ class fetch{
     }
 
 
+        //// to fetch data from a tabel and 4 colomen condition
+        function allPostListerOn4Columen($table, $columen, $args, $columen2, $args2, $columen3, $args3, $columen4, $args4){
+            include "connect.php";
+            $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' AND `$columen4` = '$args4'   ORDER BY RAND() LIMIT 12 ";
+    
+            $ask = $mysql->query($q);
+    
+            return $ask;
+        }
+
+
+
+        //// to fetch data from a tabel and 5 colomen condition
+        function allPostListerOn5Columen($table, $columen, $args, $columen2, $args2,
+         $columen3, $args3, $columen4, $args4, $columen5, $args5  ){
+            include "connect.php";
+            $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' AND `$columen4` = '$args4' AND `$columen5` = '$args5'   ORDER BY RAND() LIMIT 12 ";
+    
+            $ask = $mysql->query($q);
+    
+            return $ask;
+        }
+
+
+
+
+
     //// time ago string outputer
     function time_elapsed_string($datetime, $full = false) {
         $now = new DateTime;
