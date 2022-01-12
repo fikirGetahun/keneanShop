@@ -240,7 +240,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
         
         <li class="nav-item dropdown" style="z-index: 3;">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="small">Location</span>
+            <span class="small">Location: </span>
             <span id="pgad" class="small"><?php if(isset($_GET['loc'])){ echo $_GET['loc']; }else{ echo $_SESSION['location']; }?></span>
 
           </a>

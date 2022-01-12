@@ -201,6 +201,25 @@ class fetch{
     }
 
 
+    ///delete favourites
+    function deleteFav($table, $pid, $uid){
+        include "connect.php";
+        $q = "SELECT `fav` FROM  `$table` WHERE `id` = '$pid' ";
+        $ask = $mysql->query($q); // get all the fav list from the db
+        $row = $ask->fetch_assoc();
+        $all = $row['fav'];
+        $all = explode(',', $all); // explode it to an array
+        $key = array_search($uid, $all); //find the user id in the array to be deleted from the list
+        unset($all[$key]); //unseet the value that matched the userid
+        $all = implode(',', $all); // collect it back to a string with commas
+        $q2 = "UPDATE `$table` SET `fav` = '$all'"; // put it back to db
+        $ask = $mysql->query($q2);
+
+        return $ask;
+
+    }
+
+
 
     ////// user ban
     function userBan($id){
