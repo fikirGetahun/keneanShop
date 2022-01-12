@@ -183,10 +183,10 @@ function fav(pid, id, table){
           if($status == ' ' && $_SESSION['location'] == 'All'){
             // echo 'elc';
             $fetchPost = $get->allPostListerOnTable($cat);
-          }elseif($status == ' ' && $_SESSION['location'] != 'All'){// for location based output
+          }elseif($status == ' ' && $_SESSION['location'] != 'All' && !isset($_GET['dbType'])){// for location based output
             $fetchPost = $get->allPostListerOnColumen($cat, 'address', $_SESSION['location']);
           }
-          elseif($status != ' ' && $_SESSION['location'] == 'All'){
+          elseif($status != ' ' && $_SESSION['location'] == 'All' && !isset($_GET['dbType'])){
             // echo 'sdf--- '.$off;
             $fetchPost = $get->allPostListerOnColumen($cat, $status, $off);
           }elseif($status != ' ' && $_SESSION['location'] != 'All'){ // for location based output
