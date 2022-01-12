@@ -1058,7 +1058,7 @@ echo $mysql->error;
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= './uploads/vacancyPhoto/'.$uploadName;
+                        $dbPath .= './uploads/electronicsPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'car'){

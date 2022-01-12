@@ -20,7 +20,7 @@
     $('#targetLoader').empty()
   }
 
-  if(data == 'Computer Laptop'){
+  if(data == 'Computer and Laptop'){
     $('#computer').load('admin/divTags.php #sizeInch,#proc,#storage,#core,#ram')
   }else{
     $('#computer').empty()

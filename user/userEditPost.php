@@ -48,7 +48,7 @@ include "../includes/header.php";
     $('#targetLoader').empty()
   }
 
-  if(data == 'Computer Laptop'){
+  if(data == 'Computer and Laptop'){
     $('#computer').load('admin/divTags.php #sizeInch,#proc,#storage,#core,#ram')
   }else{
     $('#computer').empty()
@@ -1322,7 +1322,18 @@ foreach($pp as $photo){
       $elecRow = $elcEdit->fetch_assoc();
 
       ?>
-      
+              <script>
+$(document).ready(function(){
+$('#sElc').on('change', function(){
+  if(this.value == 'Computer Laptop'){
+    $('#computer').load('admin/divTags.php #sizeInch,#proc,#storage,#core,#ram')
+  }else{
+    $('#computer').empty()
+  }
+})
+})
+
+</script>
       <h5>Edit Electronics Items</h5>
       <form  method="POST" enctype="multipart/form-data" >
       <input hidden name="posterId" value="<?php echo $uidx; ?>">
@@ -1335,26 +1346,13 @@ foreach($pp as $photo){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
+        <div class="input-group mb-3">
+            <div class="form-select" id="elecShow" onclick="typeLoader('elecType')" ><?php echo $elecRow['type'] ?></div>      
+            <input id="elecApi"  name="type" hidden value="<?php echo $elecRow['type'] ?> ">   
+
+        </div>
 
 
-          <div id="typeC" class="input-group mb-3">
-        <div  class="input-group-prepend">
-        <label class="input-group-text" for="inputGroupSelect01"> Electronics Type: </label>
-        </div>
-        <select id="sElc" class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected><?php echo $elecRow['type'] ?></option>
-          <option value="Computer Laptop">Computer Laptop</option>
-          <?php
-            $carCat = $admin->carCategoryLister();
-            while($carCatRow = $carCat->fetch_assoc()){
-              ?>
-              <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
-              <?php
-            }
-          ?>
-          
-        </select>
-        </div>
 
         <?php 
           if($elecRow['ram'] != " " &&
@@ -1433,15 +1431,17 @@ foreach($pp as $photo){
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
+    <div class="input-group mb-3">
+                <div class="form-select" id="ADD" ><?php echo $elecRow['address'] ?></div>      
+                <input id="dbad" name="address" hidden value="<?php echo $elecRow['address'] ?>">   
+    </div>
+
     <div class="form-group">
-          <label for="exampleInputEmail1">Address :</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Your Address" 
-          value="<?php echo $elecRow['address'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-
+      <label for="exampleInputEmail1">Describtion</label>
+      <textarea type="text" class="form-control" id="des2" 
+      aria-describedby="emailHelp" name="info" placeholder="Detailed Info"><?php echo $elecRow['info'] ?></textarea>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
 
         <input type="submit" onclick="x()" value="Save Changes">
     <div id="alertVacancy"></div>
