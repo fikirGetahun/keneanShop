@@ -123,7 +123,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 
    </nav>  </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="height: min-content;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="height: min-content; size:2%;">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -131,7 +131,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="nav-link active" href="index.php?loc=All"  aria-current="page"  >Home</a>
+          <a class="nav-link active" href="index.php"  aria-current="page"  >Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  >Big discount</a>

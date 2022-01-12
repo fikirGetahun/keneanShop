@@ -4,7 +4,7 @@
 
 ob_start();
 session_start();
-$_SESSION['location'] = 'All';
+// $_SESSION['location'] = '';
 
 include "includes/header.php";
 include "includes/navbar.php";

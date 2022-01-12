@@ -749,9 +749,9 @@ function fav(pid, id, table){
         $type = $_GET['type'];
         $label = $_GET['label'];
 
-        if($type == "homeTutor" || $type == 'zebegna' && $_SESSION['location'] == 'All'){
+        if($type == "homeTutor" && $_SESSION['location'] == 'All' || $type == 'zebegna' && $_SESSION['location'] == 'All'){
           $fetchPost = $get->allPostListerOnTable($cat);
-        }elseif($type == "homeTutor" || $type == 'zebegna' && $_SESSION['location'] != 'All'){
+        }elseif($type == "homeTutor" && $_SESSION['location'] != 'All'  || $type == 'zebegna' && $_SESSION['location'] != 'All' ){
           $fetchPost = $get->allPostListerOnColumen($cat, 'address', $_SESSION['location']);
         }elseif($type == "houseWorker" && $_SESSION['location'] == 'All'){
           $fetchPost = $get->allPostListerOnColumen($cat, 'hotelOrHouse', 'HOUSE');
