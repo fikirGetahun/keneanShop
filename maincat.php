@@ -1,6 +1,6 @@
 <?php
-// ob_start();
-// session_start();
+ob_start();
+session_start();
 include "includes/header.php";
 include "includes/navbar.php";
 require_once "php/adminCrude.php";
@@ -192,6 +192,9 @@ function fav(pid, id, table){
           }elseif($status != ' ' && isset($_GET['dbType'])){
             $dbType = $_GET['dbType'];
             $fetchPost = $get->allPostListerOn2Columen($cat, $status, $off, 'type', $dbType);
+          }elseif(isset($_GET['loc'])){ //for index page to output all category
+            $loc = $_GET['loc'];
+            $fetchPost = $get->allPostListerOnColumen($cat, 'address', $loc);
           }
           
 ?>

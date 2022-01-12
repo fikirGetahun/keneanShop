@@ -1,8 +1,7 @@
   
   <?php
   
-  ob_start();
-  session_start();
+
   ?>
   <style type="text/css">
     @media (min-width: 768px) {
@@ -94,8 +93,11 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
       <a class="p-2 text-muted" >Language</a>
       <a class="p-2 text-muted" >Eth</a>
       <a class="p-2 text-muted" >Membership</a>
-     
+
       <a href="./maincat.php?cat=blog&label=Blog" class="p-2 text-muted" >Blog</a>
+
+
+        <!-- </div> -->
 
             <!-- Button trigger modal --> 
 <!-- Button trigger modal -->
@@ -128,6 +130,9 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
+      <li class="nav-item">
+          <a class="nav-link active" href="index.php?loc=All"  aria-current="page"  >Home</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  >Big discount</a>
         </li>
@@ -193,7 +198,36 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           <a class="nav-link active"
           href="./maincat.php?cat=charity&status= &off= &label=Charity Post&type= "><span class="small">Charity organization</span></a>
         </li>
+        <?php 
+              require_once 'php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
 
+              ?> 
+        
+        <li class="nav-item dropdown" style="z-index: 3;">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="small">Location</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="index.php?loc=All">All</a>
+          <?php
+            foreach($city as $loc){
+              ?>
+              
+              <a class="dropdown-item" href="index.php?loc=<?php echo $loc ?>">  <?php echo $loc ?></a>
+            
+              <?php
+              $i++;
+            }
+          ?>
+          </ul>
+        </li>
       </ul>
 
       <form class="d-flex">

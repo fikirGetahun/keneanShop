@@ -6,7 +6,7 @@ class fetch{
     ///// to fetch data from a 'table and condition(columen) with the argument
     function allPostListerOnColumen($table, $columen, $args){
         include "connect.php";
-        $q = "SELECT * FROM `$table` WHERE `$columen` LIKE '$args' ORDER BY RAND() LIMIT 3 ";
+        $q = "SELECT * FROM `$table` WHERE `$columen` LIKE '$args' ORDER BY RAND() LIMIT 10";
 
         $ask = $mysql->query($q);
 
@@ -28,7 +28,7 @@ class fetch{
     ///// to fetch data for a table with out any condition
     function allPostListerOnTable($table){
         include "connect.php";
-        $q = "SELECT * FROM `$table` ORDER BY RAND() LIMIT 3 ";
+        $q = "SELECT * FROM `$table` ORDER BY RAND() LIMIT 5 ";
 
         $ask = $mysql->query($q);
 
@@ -39,7 +39,7 @@ class fetch{
     function allPostListerOn2Columen($table, $columen, $args, $columen2, $args2){
 
         include "connect.php";
-        $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' ORDER BY RAND() LIMIT 3 ";
+        $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' ORDER BY RAND() LIMIT 10 ";
 
         $ask = $mysql->query($q);
 
@@ -194,6 +194,38 @@ class fetch{
         return $ask; 
     }
 
+
+    ///// search output besed on one arg
+    function searchOneCondition($table, $con, $arg){
+        include "connect.php";
+        $q = "SELECT * FROM '$table' WHERE `$con` LIKE %'$arg'% ";
+
+        $ask = $mysql->query($q);
+
+        return $ask; 
+    }
+
+
+    //// search output based on 2 arg
+    function search2Condition($table, $con, $arg, $con2, $arg2){
+        include "connect.php";
+        $q = "SELECT * FROM '$table' WHERE `$con` LIKE %'$arg'% OR `$con2` LIKE %'$arg2'% ";
+
+        $ask = $mysql->query($q);
+
+        return $ask; 
+    }
+
+
+        //// search output based on 3 arg
+        function search3Condition($table, $con, $arg, $con2, $arg2, $con3, $arg3){
+            include "connect.php";
+            $q = "SELECT * FROM '$table' WHERE `$con` LIKE %'$arg'% OR `$con2` LIKE %'$arg2'% OR `$con3` LIKE %'$arg3'% ";
+    
+            $ask = $mysql->query($q);
+    
+            return $ask; 
+        }
 
     ////// search from
     // function 

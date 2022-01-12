@@ -54,6 +54,56 @@ include "../includes/header.php";
 
 
 
+<!-- this is location changer lister, it lists the location -->
+<div id="jiji2" style="width:100%;" class="modal-dialog">
+
+    <div class="modal-content">
+      <div  class="modal-header" >
+      <table class="table container-fluid"  >
+  <thead>
+    <tr>
+      <th scope="col"><h5 class="text-center" >-Select Address-<h5></th>
+    </tr>
+  </thead>
+
+
+<tbody class= "align-middle">
+
+
+              <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  ?>
+                  
+                  <tr>
+                  <td class="text-center"><a  href="index.php?loc=<?php echo $loc ?>"  > <?php echo $loc ?></a></td>
+                  </tr>
+                
+                  <?php
+                  $i++;
+                }
+              ?>                
+</tbody>
+</table>
+              <div class="invalid-feedback">
+                Please select a valid country. 
+              </div>
+
+            
+      </div>
+    </div>
+</div>
+
+
+
+
 <!-- ///sub city input tag for house and land -->
 <div id="jijiSub" style="width:100%;" class="modal-dialog">
 

@@ -1,8 +1,21 @@
 
 <!-- <head> -->
 <?php
+
+ob_start();
+session_start();
+$_SESSION['location'] = 'All';
+
 include "includes/header.php";
 include "includes/navbar.php";
+require_once "php/adminCrude.php";
+require_once "php/fetchApi.php";
+
+if(isset($_GET['loc'])){
+  $_SESSION['location'] = $_GET['loc'];
+}
+
+$pageLocation = $_SESSION['location'];
 	?>
 
 <!-- </head> -->
@@ -52,85 +65,46 @@ include "includes/navbar.php";
     <div class="container">
       <h5>Sponsored big discount</h5>
     </div>
-  </div>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+ </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+    <?php
+    if($pageLocation != 'All'){
+      $home = $get->allPostListerOn2Columen('ad', 'bigDiscount', 'ACTIVE', 'address', $pageLocation);
+    }else{
+      $home = $get->allPostListerOnColumen('ad', 'bigDiscount', 'ACTIVE');
+    }
+    if($home->num_rows != 0){
+
+    $i1= 1;
+    while($row1 = $home->fetch_assoc()){
+      // if($i1 == 5){break;}
+      ?>
         <div class="col">
           <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a href="Description.php?cat=ad&postId=<?php echo $row1['id'] ?>&label=Big%20Discount%20Advertisment&type=big" class="stretched-link">
+           <img class="bd-placeholder-img card-img-top" width="100%" height="150"
+            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
+              <h5 class="card-title"><?php echo $row1['title'] ?></h5>
+              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row1['price'] ?></span> </h6>
               
               <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
+                  <h6 class="card-text">Location: <?php echo $row1['address'] ?></h6>
+                <small class="text-muted"> <?php echo $row1['view'] ?> views </small>
               </div>
             </div>
           </div>
         </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+      <?php
+      $i1++;
+    }
+  }else{
+    echo 'No Results';
+  }
+    ?>
 
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150"height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  </div>
 
       <div class="album py-5 bg-light">
     <div class="container">
@@ -143,84 +117,46 @@ include "includes/navbar.php";
     </div>
   </div>
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+    <?php
+    if($pageLocation != 'All'){
+      $home = $get->allPostListerOn2Columen('housesell', 'houseOrLand', 'HOUSE', 'city', $pageLocation);
+    }else{
+      $home = $get->allPostListerOnColumen('housesell','houseOrLand', 'HOUSE');
+    }
+
+    if($home->num_rows != 0){
+
+    $i1= 1;
+    while($row1 = $home->fetch_assoc()){
+      
+      ?>
         <div class="col">
           <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a href="Description.php?cat=housesell&type=house&postId=<?php echo $row1['id'] ?>&label=House%20Posts" class="stretched-link">
+           <img class="bd-placeholder-img card-img-top" width="100%" height="150"
+            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
+              <h5 class="card-title"><?php echo $row1['title'] ?></h5>
+              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row1['cost'] ?></span> </h6>
               
               <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
+                  <h6 class="card-text">Location: <?php echo $row1['city'] ?></h6>
+                <small class="text-muted"> <?php echo $row1['view'] ?> views </small>
               </div>
             </div>
           </div>
         </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150"height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php
+      if($i1 == 5){break;}
+      $i1++;
+    }
+  }else{
+    echo 'No Result';
+  }
+    ?>
+  </div>
 
 <div class="album py-5 bg-light">
     <div class="container">
@@ -233,84 +169,44 @@ include "includes/navbar.php";
     </div>
   </div>
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+    <?php
+    if($pageLocation != 'All'){
+      $home = $get->allPostListerOnColumen('car','address', $pageLocation);
+    }else{
+      $home = $get->allPostListerOnTable('car');
+    }
+    if($home->num_rows != 0){
+    $i1= 1;
+    while($row1 = $home->fetch_assoc()){
+      
+      ?>
         <div class="col">
           <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/elec2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a href="Description.php?cat=car&type=house&postId=<?php echo $row1['id'] ?>&label=House%20Posts" class="stretched-link">
+           <img class="bd-placeholder-img card-img-top" width="100%" height="150"
+            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
+              <h5 class="card-title"><?php echo $row1['title'] ?></h5>
+              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row1['price'] ?></span> </h6>
               
               <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
+                  <h6 class="card-text">Location: <?php echo $row1['address'] ?></h6>
+                <small class="text-muted"> <?php echo $row1['view'] ?> views </small>
               </div>
             </div>
           </div>
         </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/cars.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/buggati.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/cars.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150"height="150" src="assets/img/buggati.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php
+      if($i1 == 5){break;}
+      $i1++;
+    }
+  }else{
+    echo 'No Result';
+  }
+    ?>
+  </div>
     </div>
   </div>
 
@@ -320,89 +216,50 @@ include "includes/navbar.php";
 
  <div class="jumbotron">
     <div class="container">
-      <h5>Real estate</h5>
+      <h5>Electronics Items</h5>
       
     </div>
   </div>
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+    <?php
+    if($pageLocation != 'All'){
+      $home = $get->allPostListerOnColumen('electronics', 'address', $pageLocation);
+    }else{
+      $home = $get->allPostListerOnTable('electronics');
+    }
+    if($home->num_rows != 0){
+
+    $i1= 1;
+    while($row1 = $home->fetch_assoc()){
+      // if($i1 == 5){break;}
+      ?>
         <div class="col">
           <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/house2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a href="Description.php?cat=electronics&postId=<?php echo $row1['id'] ?>&label=Electronics%20Post&type=" class="stretched-link">
+           <img class="bd-placeholder-img card-img-top" width="100%" height="150"
+            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
+              <h5 class="card-title"><?php echo $row1['title'] ?></h5>
+              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row1['price'] ?></span> </h6>
               
               <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
+                  <h6 class="card-text">Location: <?php echo $row1['address'] ?></h6>
+                <small class="text-muted"> <?php echo $row1['view'] ?> views </small>
               </div>
             </div>
           </div>
         </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/house.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+      <?php
+      $i1++;
+    }
+  }else{
+    echo 'No Results';
+  }
+    ?>
 
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/house2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/house.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150"height="150" src="assets/img/house.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  </div>
       </div>
     </div>
 <!--offers-->
@@ -416,85 +273,47 @@ include "includes/navbar.php";
       
     </div>
   </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+    <?php
+    if($pageLocation != 'All'){
+      $home = $get->allPostListerOn2Columen('housesell', 'houseOrLand', 'LAND', 'city', $pageLocation);
+    }else{
+      $home = $get->allPostListerOnColumen('housesell','houseOrLand', 'LAND');
+    }
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+    if($home->num_rows != 0){
+
+    $i1= 1;
+    while($row1 = $home->fetch_assoc()){
+      
+      ?>
         <div class="col">
           <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/house2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a href="Description.php?cat=housesell&type=land&postId=<?php echo $row1['id'] ?>&label=Land%20Posts" class="stretched-link">
+           <img class="bd-placeholder-img card-img-top" width="100%" height="150"
+            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
+              <h5 class="card-title"><?php echo $row1['title'] ?></h5>
+              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row1['cost'] ?></span> </h6>
               
               <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
+                  <h6 class="card-text">Location: <?php echo $row1['city'] ?></h6>
+                <small class="text-muted"> <?php echo $row1['view'] ?> views </small>
               </div>
             </div>
           </div>
         </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/house.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+      <?php
+      if($i1 == 5){break;}
+      $i1++;
+    }
+  }else{
+    echo 'No Result';
+  }
+    ?>
+  </div>
 
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/house2.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-       <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="assets/img/house.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-              </div>
-            </div>
-          </div>
-        </div>
-         <div class="col">
-          <div class="card shadow-sm">
-          <a href="" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150"height="150" src="assets/img/house.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title">Car for sale</h5>
-              <h6 class="card-text">Price:<span class="text-danger small">500,000</span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: Addis abeba</h6>
-                <small class="text-primary">Sell</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 </main>
