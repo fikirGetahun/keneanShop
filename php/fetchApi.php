@@ -222,10 +222,16 @@ class fetch{
     }
 
 
-    ///// search output besed on one arg
-    function searchOneCondition($table, $con, $arg){
+    ///// search output based on one colomun that match one search condition with tobe searched columen 
+    function search1C($table, $columen, $carg, $sarg){
         include "connect.php";
-        $q = "SELECT * FROM '$table' WHERE `$con` LIKE %'$arg'% ";
+        $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+        if(in_array($table, $excluded)){
+        $q = "SELECT * FROM '$table' WHERE `$columen` = '$carg' AND  `name` LIKE %'$sarg'% ";    
+        }else{
+        $q = "SELECT * FROM '$table' WHERE `$columen` = '$carg' AND  `title` LIKE %'$sarg'% ";
+        }
+
 
         $ask = $mysql->query($q);
 
@@ -233,10 +239,16 @@ class fetch{
     }
 
 
-    //// search output based on 2 arg
-    function search2Condition($table, $con, $arg, $con2, $arg2){
+    ///// search output based on 2colomun that match one search condition with tobe searched columen 
+    function search2C($table, $columen1, $arg1, $columen2, $arg2, $sarg){
         include "connect.php";
-        $q = "SELECT * FROM '$table' WHERE `$con` LIKE %'$arg'% OR `$con2` LIKE %'$arg2'% ";
+        $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+        if(in_array($table, $excluded)){
+        $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `name` LIKE %'$sarg'% ";    
+        }else{
+        $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `title` LIKE %'$sarg'% ";
+        }
+
 
         $ask = $mysql->query($q);
 
@@ -244,15 +256,62 @@ class fetch{
     }
 
 
-        //// search output based on 3 arg
-        function search3Condition($table, $con, $arg, $con2, $arg2, $con3, $arg3){
+
+        ///// search output based on 3colomun that match one search condition with tobe searched columen 
+        function search3C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $sarg){
             include "connect.php";
-            $q = "SELECT * FROM '$table' WHERE `$con` LIKE %'$arg'% OR `$con2` LIKE %'$arg2'% OR `$con3` LIKE %'$arg3'% ";
+            $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+            if(in_array($table, $excluded)){
+                $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `name` LIKE %'$sarg'% ";    
+            }else{
+            $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `title` LIKE %'$sarg'% ";
+            }
+    
+    
     
             $ask = $mysql->query($q);
     
             return $ask; 
         }
+
+
+
+                ///// search output based on 4colomun that match one search condition with tobe searched columen 
+                function search4C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $columen4, $arg4, $sarg){
+                    include "connect.php";
+                    $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+                    if(in_array($table, $excluded)){
+                    $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4'   AND `name` LIKE %'$sarg'% ";    
+                    }else{
+                    $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4'     AND `title` LIKE %'$sarg'% ";
+                    }
+            
+            
+            
+                    $ask = $mysql->query($q);
+            
+                    return $ask; 
+                }
+
+            ///// search output based on 5colomun that match one search condition with tobe searched columen 
+            function search5C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $columen4, $arg4, $columen5, $arg5, $sarg){
+                include "connect.php";
+                $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+                if(in_array($table, $excluded)){
+                $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'   AND `name` LIKE %'$sarg'% ";    
+                }else{
+                $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'      AND `title` LIKE %'$sarg'% ";
+                }
+        
+        
+        
+                $ask = $mysql->query($q);
+        
+                return $ask; 
+            }
+                
+
+
 
     ////// search from
     // function 
