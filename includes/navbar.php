@@ -1,7 +1,8 @@
   
   <?php
   
-
+  // ob_start();
+  // session_start();
   ?>
   <style type="text/css">
     @media (min-width: 768px) {
@@ -57,6 +58,21 @@ $(document).ready(function(){
     //                   off : args,
     //                   label : label  }, '', './maincat.php?cat='+event.state.cat+'&status='+event.state.status+'&off='+event.state.off+'&label='+event.state.label)
     //   }
+
+    
+    $('#search').keyup(function(){
+      // alert("ff")
+                    $.ajax({
+                        url: 'search.php',
+                        method: 'GET',
+                        data: $('form').serialize(),
+                        success: function(res){
+                            $('#loop').empty()
+                             $('#loop').append(res)
+                        }
+                    })
+                  })
+
 
 
 })
@@ -260,8 +276,28 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
         </li>
       </ul>
 
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form  class="d-flex">
+        <?php
+        if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){
+          echo 'nav in';
+          $cat = $_GET['cat'];
+          $status = $_GET['status'];
+          $off = $_GET['off'];
+          $type = $_GET['type'];
+          $label = $_GET['label'];
+          ?>
+           <input name='status' hidden value="<?php echo $status ?>">
+           <input name='off' hidden value="<?php echo $off ?>">
+           <input name='label' hidden value="<?php echo $label ?>">
+           <input name='cat' hidden value="<?php echo $cat ?>">
+           <input name='type' hidden value="<?php echo $type ?>">
+
+          <?php
+        }
+        
+        ?>
+       
+        <input id="search" class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-warning" type="submit">Search</button>
       </form>
 

@@ -2,45 +2,44 @@
 ob_start();
 session_start();
 include "includes/header.php";
-include "includes/navbar.php";
 require_once "php/adminCrude.php";
 require_once "php/fetchApi.php";
 
-if(isset($_SESSION['userId'])){
-  $userId = $_SESSION['userId'];
-  unset($_SESSION['cat'], $_SESSION['status'], $_SESSION['off'], $_SESSION['label'], $_SESSION['type'], $_SESSION['arg']);
+// if(isset($_SESSION['userId'])){
+//   $userId = $_SESSION['userId'];
+//   unset($_SESSION['cat'], $_SESSION['status'], $_SESSION['off'], $_SESSION['label'], $_SESSION['type'], $_SESSION['arg']);
 
-}
+// }
 
 
 //// we unset all the sesssions becouse there must be no data when we navigate to other catagory since its all from a single page each time this page reloads, it deletes previious session data
 //// this all part is for recording the navigation for the adaptive scroll page can scroll new content from this session variables
-$_SESSION['userScroll'] = array();
+// $_SESSION['userScroll'] = array();
 
-if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'])){
-  $_SESSION['cat'] = $_GET['cat'];
-  $_SESSION['status'] = $_GET['status'];
-  $_SESSION['off'] = $_GET['off'];
-  $_SESSION['label'] = $_GET['label'];
+// if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'])){
+//   $_SESSION['cat'] = $_GET['cat'];
+//   $_SESSION['status'] = $_GET['status'];
+//   $_SESSION['off'] = $_GET['off'];
+//   $_SESSION['label'] = $_GET['label'];
 
-}
+// }
 
 ////for vacancy
-if(isset($_GET['type'])){
-  $_SESSION['type'] = $_GET['type'];
-}
+// if(isset($_GET['type'])){
+//   $_SESSION['type'] = $_GET['type'];
+// }
 
 
 // echo $userId;
 
 ///for house land
-if(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
-  $_SESSION['type'] = $_GET['type'];
-  $_SESSION['userScroll'] = array();
-  $_SESSION['arg'] = $_GET['arg'];
-  $_SESSION['cat'] = $_GET['cat'];
-  $_SESSION['label'] = $_GET['label'];
-}
+// if(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
+//   $_SESSION['type'] = $_GET['type'];
+//   $_SESSION['userScroll'] = array();
+//   $_SESSION['arg'] = $_GET['arg'];
+//   $_SESSION['cat'] = $_GET['cat'];
+//   $_SESSION['label'] = $_GET['label'];
+// }
 
 
 	?>
@@ -85,104 +84,25 @@ function fav(pid, id, table){
 
 
 </head>
-<body>
-
-<div id="all" class="container-fluid">
-
-<div class="row">
-
-  <!-- <div class=".d-sm-none .d-md-block"> -->
-      
-
-<div id="sideNav" class="col-2">
-<ul class="nav flex-column">
-<?php 
-  if(isset($_GET['cat'])){
-    // this category lister exclude the hometutor and zebegna because thy dont have the type colomen
-    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog'){
-      ?>
-      <h4>Categories</h4>
-      <?php
-      $tab = $_GET['cat'];
-      
-      $category = $get->categorySelecter($tab, 'type');
-      while($rowc = $category->fetch_assoc()){
-
-      
-      ?>
-      
-      <?php
-          if(isset($_GET['status'], $_GET['off'], $_GET['label'], $_GET['type'])){
-            ?>
-              <li class="nav-item">
-              <a class="nav-link" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>&type=<?php echo $_GET['type'] ?>"><?php echo $rowc['type'] ?></a>
-              </li> 
-            <?php
-          }elseif(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
-            ?>
-              <li class="nav-item">
-              <a class="nav-link" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
-              </li> 
-            <?php
-          }elseif(isset($_GET['type'])){
-            ?>
-              <li class="nav-item">
-              <a class="nav-link" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>">"><?php echo $rowc['type'] ?></a>
-              </li>             
-            <?php
-          }else{
-            ?>
-              <li class="nav-item">
-              <a class="nav-link" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&dbType=<?php echo $rowc['type'] ?>">"><?php echo $rowc['type'] ?></a>
-              </li>               
-            <?php
-          }
 
 
-      ?>
-
-
-
-
-      <?php
-    }
-
-    }    elseif($_GET['cat'] == 'blog'){
-      echo 'not yet';
-    }else{
-
-      ?>
-      <h4>Cv Work Seekers</h4>
-      <li><a class="dropdown-item"  href="./maincat.php?cat=jobhometutor&type=homeTutor&label=Home Tutor"  >Home Tutor Job Applicaion</a></li>
-            <li><a class="nav-link" aria-current="page"  href="./maincat.php?cat=hotelhouse&type=hotelWorker&label=Hotel Job Seeker"   >Hotel Worker Job Application</a></li>
-            <li><a class="nav-link" aria-current="page"  href="./maincat.php?cat=hotelhouse&type=houseWorker&label=Home Keeper Seeker"   >Home Keeper Job Application</a></li>
-            <li><a class="nav-link" aria-current="page"  href="./maincat.php?cat=zebegna&type=zebegna&label=Security Gaurd Job Seeker"  >Security Gaurd Job Application</a></li>
-      <?php
-
-
-    }
-  }
-
-?>
-
-</ul>
-<!-- </div> -->
-  </div>
-  <div id="loop" class="col-md-8">
+<div id="loop" class="col-md-8">
     <?Php
 
       if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){
+        // echo 'in search';
           $cat = $_GET['cat'];
           $status = $_GET['status'];
           $off = $_GET['off'];
           $label = $_GET['label'];
+        //   echo $cat;
+        //   echo $status;
+        //   echo $off;
+        //   echo $label;
           if($status == ' ' && $_SESSION['location'] == 'All'){
-            // echo 'elc';
+           
             if(isset($_GET['search'])){/// if search data is there
+                 echo 'elc';
               $search = $_GET['search'];
               $fetchPost = $get->searchC($cat, $search );
             }else{
@@ -1014,15 +934,3 @@ function fav(pid, id, table){
       </div>
 
 </div>
-<div style="clear:both;"></div>
-
-</div>
-<div style="clear:both;"></div>
-      <?php
-      
-  ?>
-</body>
-<?php
-
-include 'includes/footer.php';
-?>

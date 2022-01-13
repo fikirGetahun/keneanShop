@@ -2,8 +2,8 @@
 <!-- <head> -->
 <?php
 
-ob_start();
-session_start();
+// ob_start();
+// session_start();
 // 
 
 include "includes/header.php";
@@ -12,6 +12,11 @@ require_once "php/adminCrude.php";
 require_once "php/fetchApi.php";
 
 
+if(isset($_GET['loc'])){
+  $_SESSION['location'] = $_GET['loc'];
+}else{
+  $_SESSION['location'] = 'All';
+}
 $pageLocation = $_SESSION['location'];
 	?>
 

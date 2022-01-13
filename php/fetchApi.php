@@ -241,14 +241,32 @@ class fetch{
     }
 
 
+
+    function searchC($table, $sarg){
+        include "connect.php";
+        $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+        if(in_array($table, $excluded)){
+        $q = "SELECT * FROM `$table` WHERE  `name` LIKE '%$sarg%' ";    
+        }else{
+        $q = "SELECT * FROM `$table` WHERE  `title` LIKE '%$sarg%' ";
+        }
+
+
+        $ask = $mysql->query($q);
+echo $mysql->error;
+        return $ask; 
+    }
+
+
+
     ///// search output based on one colomun that match one search condition with tobe searched columen 
     function search1C($table, $columen, $carg, $sarg){
         include "connect.php";
         $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
         if(in_array($table, $excluded)){
-        $q = "SELECT * FROM '$table' WHERE `$columen` = '$carg' AND  `name` LIKE %'$sarg'% ";    
+        $q = "SELECT * FROM `$table` WHERE `$columen` = '$carg' AND  `name` LIKE '%$sarg%' ";    
         }else{
-        $q = "SELECT * FROM '$table' WHERE `$columen` = '$carg' AND  `title` LIKE %'$sarg'% ";
+        $q = "SELECT * FROM `$table` WHERE `$columen` = '$carg' AND  `title` LIKE '%$sarg%' ";
         }
 
 
@@ -263,9 +281,9 @@ class fetch{
         include "connect.php";
         $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
         if(in_array($table, $excluded)){
-        $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `name` LIKE %'$sarg'% ";    
+        $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `name` LIKE '%$sarg%' ";    
         }else{
-        $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `title` LIKE %'$sarg'% ";
+        $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `title` LIKE '%$sarg%' ";
         }
 
 
@@ -281,9 +299,9 @@ class fetch{
             include "connect.php";
             $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
             if(in_array($table, $excluded)){
-                $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `name` LIKE %'$sarg'% ";    
+                $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `name` LIKE '%$sarg%' ";    
             }else{
-            $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `title` LIKE %'$sarg'% ";
+            $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `title` LIKE '%$sarg%' ";
             }
     
     
@@ -300,9 +318,9 @@ class fetch{
                     include "connect.php";
                     $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                     if(in_array($table, $excluded)){
-                    $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4'   AND `name` LIKE %'$sarg'% ";    
+                    $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4'   AND `name` LIKE '%$sarg%' ";    
                     }else{
-                    $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4'     AND `title` LIKE %'$sarg'% ";
+                    $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4'     AND `title` LIKE '%$sarg%' ";
                     }
             
             
@@ -317,9 +335,9 @@ class fetch{
                 include "connect.php";
                 $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                 if(in_array($table, $excluded)){
-                $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'   AND `name` LIKE %'$sarg'% ";    
+                $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'   AND `name` LIKE '%$sarg%' ";    
                 }else{
-                $q = "SELECT * FROM '$table' WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'      AND `title` LIKE %'$sarg'% ";
+                $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'      AND `title` LIKE '%$sarg%' ";
                 }
         
         
