@@ -100,13 +100,13 @@
 
 
         //USER ADDER AS 'ADMIN' OR 'EDITOR'
-        function userAdder($firstName, $lastName, $phone, $username, $password, $auth, $photoPath, $about){
+        function userAdder($firstName, $lastName, $phone, $username, $password, $auth, $photoPath, $about, $recover){
             include "connect.php";
             $date = date('Y-m-d H:i:s');
 
 
-            $q ="INSERT INTO `user`( `username`, `password`, `firstName`, `lastName`, `phone`, `auth`,`photoPath1`,`lastLogedIn` ,  `about`)
-             VALUES ('$username', '$password', '$firstName', '$lastName', '$phone', '$auth', '$photoPath', '$date',  '$about' )";
+            $q ="INSERT INTO `user`( `username`, `password`, `firstName`, `lastName`, `phone`, `auth`,`photoPath1`,`lastLogedIn` ,  `about`, `recover`)
+             VALUES ('$username', '$password', '$firstName', '$lastName', '$phone', '$auth', '$photoPath', '$date',  '$about', '$recover' )";
 
              $ask = $mysql->query($q);
 echo $mysql->error;
@@ -114,7 +114,18 @@ echo $mysql->error;
 
         }
 
-
+        ///update password
+        function password($passx, $id){
+            include "connect.php";
+            $x = $passx;
+            $x = password_hash($x, PASSWORD_DEFAULT);
+            $qz = "UPDATE `user` SET `password` = '$x'   WHERE `user`.`id` = '$id'";
+    
+            $ask = $mysql->query($qz);
+            echo $mysql->error;
+    
+            return $ask;
+        }
 
         //user auth identifier
         function userDataShower($uid){
@@ -154,17 +165,15 @@ echo $mysql->error;
         }
 
         //update users data
-        function updateUserData($uid, $password, $firstName, $lastName, $phone, $about, $job){
+        function updateUserData($uid, $password, $firstName, $lastName, $phone, $about, $job, $recover){
             include "connect.php";
+            $password = password_hash($password, PASSWORD_DEFAULT);
             $q = "UPDATE `user` SET `password`= '$password',`firstName`= '$firstName',
-            `lastName`= '$lastName' ,`phone`= '$phone',`about`= '$about'   WHERE `user`.`id` = '$uid'";
+            `lastName`= '$lastName' ,`phone`= '$phone',`about`= `about`, `recover` = '$recover'   WHERE `user`.`id` = '$uid'";
 
             $ask = $mysql->query($q);
-            if($ask){
-
-            }else{
-                echo "not workinggg";
-            }
+            
+            return $ask;
         }
 
         //update userphoto path and file

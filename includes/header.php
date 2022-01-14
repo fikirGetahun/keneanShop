@@ -1,8 +1,9 @@
 <?php
   
-  // ob_start();
-  // session_start();
-  ?>
+  ob_start();
+  if(!isset($_SESSION)) { 
+    session_start(); 
+  }   ?>
 <!doctype html>
 <html lang="en">
   <head>

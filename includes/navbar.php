@@ -1,8 +1,18 @@
   
   <?php
   
-  // ob_start();
-  // session_start();
+  ob_start();
+  if(!isset($_SESSION)) { 
+    session_start(); 
+  } 
+  if(isset($_GET['loc'])){
+    $_SESSION['location'] = $_GET['loc'];
+  }else{
+    $_SESSION['location'] = 'All';
+  }
+  // if(!isset($_SESSION['location'])){
+  //   session_start(); 
+  // }
   ?>
   <style type="text/css">
     @media (min-width: 768px) {
@@ -61,16 +71,20 @@ $(document).ready(function(){
 
     
     $('#search').keyup(function(){
-      // alert("ff")
-                    $.ajax({
-                        url: 'search.php',
-                        method: 'GET',
-                        data: $('form').serialize(),
-                        success: function(res){
-                            $('#loop').empty()
-                             $('#loop').append(res)
-                        }
-                    })
+              
+      // alert($('form').serialize())
+      $('#loop').empty()
+      $('#loop').load("search.php?"+$('form').serialize())
+      
+                    // $.ajax({
+                    //     url: 'search.php',
+                    //     method: 'GET',
+                    //     // data: $('form').serialize(),
+                    //     success: function(res){
+                    //       // $('#loop').empty()
+                             
+                    //     }
+                    // })
                   })
 
 
@@ -278,8 +292,16 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 
       <form  class="d-flex">
         <?php
+         if(isset($_GET['dbType'])){
+          $dbType = $_GET['dbType'];
+           ?>
+           <input name='dbType' hidden value="<?php echo $dbType ?>">
+           <?php
+         } 
+
+
         if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){
-          echo 'nav in';
+          // echo 'nav in';
           $cat = $_GET['cat'];
           $status = $_GET['status'];
           $off = $_GET['off'];

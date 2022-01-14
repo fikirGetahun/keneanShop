@@ -2,8 +2,9 @@
 include "includes/header.php";
 require "./php/auth.php";
 ob_start();
-session_start();
-
+if(!isset($_SESSION)) { 
+  session_start(); 
+} 
 ?>
     <style>
       .bd-placeholder-img {
@@ -70,6 +71,7 @@ $(document).ready(function(){
     </div>
    <a href="./register.php"><label>Register</label></a>
    <button class="w-50 btn btn-primary mx-auto " type="submit">Continue to checkout</button>
+   <a href="./forgetPassword.php?forget=true"><label>Forget Password</label></a>
 
    <div id="alertVacancy" >
 

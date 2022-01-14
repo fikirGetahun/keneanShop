@@ -4,6 +4,10 @@ session_start();
 
 require_once "../php/adminCrude.php";
 
+
+
+
+
 if(isset($_POST['titleElc'],
     $_POST['type'],
     $_POST['status'],

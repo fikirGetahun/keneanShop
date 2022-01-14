@@ -80,7 +80,12 @@ $(document).ready(function(){
               <label for="lastName" class="form-label">Password</label>
               <input type="password" class="form-control" name="password" id="lastName" placeholder="" value="" required>
             </div>
-
+            <div id="registerBox">
+    <label for="exampleInputEmail1">Password Recovery Keyword</label>
+          <input type="email" class="form-control" id="username" 
+           name="recover" placeholder="Username">
+          <small id="emailHelp" class="form-text text-muted">This here is a key word you have to remember your password when you forget it.</small>
+    </div>
             <div class="col-sm-6">
               <label for="country" class="form-label">Location</label>
               <select class="form-select" id="country" name="address" required>

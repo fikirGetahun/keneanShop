@@ -655,4 +655,6 @@ if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_POST['postI
 
 }
 
+// echo 'in api is';
+
 ?>

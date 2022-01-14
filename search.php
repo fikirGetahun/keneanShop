@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-include "includes/header.php";
+// include "includes/header.php";
 require_once "php/adminCrude.php";
 require_once "php/fetchApi.php";
 
@@ -86,7 +86,7 @@ function fav(pid, id, table){
 </head>
 
 
-<div id="loop" class="col-md-8">
+<div id="loopz" class="col-md-8">
     <?Php
 
       if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){

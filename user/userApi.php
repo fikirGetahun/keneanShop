@@ -5,12 +5,14 @@ require_once "../php/auth.php";
 require_once "../php/fetchApi.php";
 
 ob_start();
-session_start();
+if(!isset($_SESSION)){
+  session_start();
+}
 
 
 ////////////Register A uSER ///////////////////////
 if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
-$_POST['password'],$_POST['email'], $_POST['address'])){
+$_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
 
     $firstName =$_POST['firstName'] ;
     $lastName =$_POST['lastName'] ;
@@ -19,6 +21,7 @@ $_POST['password'],$_POST['email'], $_POST['address'])){
     $password = password_hash($password, PASSWORD_DEFAULT);
     $authr ='USER';
     $job = ' ';
+    $recover = $_POST['recover'];
     $phoneNumber= $_POST['phoneNumber'];
     $about =$_POST['address'];
 
@@ -41,7 +44,7 @@ $_POST['password'],$_POST['email'], $_POST['address'])){
      $fileName = $_FILES['photoq']['name'];
                //to upload photo
                $up = $admin->uploadPhoto($fileName, $tempName);
-               $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, $up, $about ); 
+               $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, $up, $about, $recover ); 
 
                if($out){
                    echo "Registerd Succesfully!";
@@ -64,10 +67,11 @@ $_POST['password'],$_POST['email'], $_POST['address'])){
 
 
 
+
+
 /////// favourites page
   require_once "../php/fetchApi.php";
-ob_start();
-session_start();
+
   if(isset($_GET['postId'], $_GET['uid'], $_GET['table'])){
     $pid = $_GET['postId'];
     $uid = $_SESSION['userId'];

@@ -73,26 +73,26 @@ $('.btn-close').click(function(){
 </script>
 <script>
   $(document).ready(function(){
-    $('form').on('submit', function(e){
-          e.preventDefault()
-          $.ajax({
-            url: 'admin/editHandler.php',
-            type: 'post',
-            data:  new FormData( this ),
-            success : function(data){
-              $( 'form' ).each(function(){
-                    this.reset();
-              });
-              $('#alertVacancy').text(data)
-              // $('#alertVacancy').delay(3200).fadeOut(300);
-            },
-            processData: false,
-        contentType: false
-          })
+    // $('form').on('submit', function(e){
+    //       e.preventDefault()
+    //       $.ajax({
+    //         url: 'admin/editHandler.php',
+    //         type: 'post',
+    //         data:  new FormData( this ),
+    //         success : function(data){
+    //           $( 'form' ).each(function(){
+    //                 this.reset();
+    //           });
+    //           $('#alertVacancy').text(data)
+    //           $('#alertVacancy').delay(3200).fadeOut(300);
+    //         },
+    //         processData: false,
+    //     contentType: false
+    //       })
           
-          // return false;
+    //       return false;
 
-    })
+    // })
   })
 </script>
 <div class="container">
@@ -132,7 +132,17 @@ $('.btn-close').click(function(){
     ?>
   
   <a class="nav-item nav-link" href="#">Messages</a>
-  <a class="nav-item nav-link" href="#">Settings</a>
+  <?php 
+    if(isset($_GET['setting'])){
+      ?>
+       <a class="nav-item nav-link active" href="./Account.php?setting=true">Settings</a>
+      <?php
+    }else{
+      ?>
+      <a class="nav-item nav-link" href="./Account.php?setting=true">Settings</a>
+      <?php
+    }
+  ?>
  
 </nav>
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">  </script>
@@ -641,7 +651,109 @@ foreach($dbTables as $posts){
 
       
     }
+
+    if(isset($_GET['setting'])){
+      $us = $get->allPostListerOnColumen('user', 'id', $_SESSION['userId']);
+      $u = $us->fetch_assoc();
+      ?>
+      
+<form>
+        <div class="row mb-3">
+            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+            <div class="col-md-8 col-lg-9">
+              <img src="<?php echo $u['photoPath1'] ?>"pt-2">
+              <input type="file" name="photo">                   
+              <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image">Delete</i></a>
+              </div>
+            </div>
+          </div>
+          <input type="submit" value="Change Photo">
+      </form>
+        <form action="./Account.php?setting=true" method="POST" >
+
+          <div class="row mb-3">
+            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+            <div class="col-md-8 col-lg-9">
+              <input name="firstName" type="text" class="form-control" id="firstName" value="<?php echo $u['firstName'] ?>">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+            <div class="col-md-8 col-lg-9">
+              <input name="lastName" type="text" class="form-control" id="firstName" value="<?php echo $u['lastName'] ?>">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+            <div class="col-md-8 col-lg-9">
+              <input name="phoneNumber" type="text" class="form-control" id="phone" value="<?php echo $u['phone'] ?>">
+            </div>
+          </div>
+
+          <a class="btn btn-primary" href="./Account.php?setting=true&pass=true">Change Password</a>
+          <?php
+          if(isset($_GET['pass'])){
+            ?>
+          <div class="row mb-3">
+            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Change Password</label>
+            <div class="col-md-8 col-lg-9">
+              <input name="password" type="text" class="form-control" required id="Phone" placeholder="Enter Your New Password Here."  value="">
+            </div>
+            <a class="btn btn-primary" href="./Account.php?setting=true>Cancell">Cancell </a>
+
+          </div>
+            <?php
+          }
+          ?>
+
+
+          <div class="row mb-3">
+            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Password Recovery Keyword</label>
+            <div class="col-md-8 col-lg-9">
+              <input name="recover" type="text" class="form-control" id="Phone" value="<?php echo $u['recover'] ?>">
+            </div>
+          </div>
+
+          <div class="text-center">
+            <input type="submit" class="btn btn-primary" value="Save Changes" >
+          </div>
+        </form><!-- End Profile Edit Form -->
+
+      
     
+    <?php
+        //// user data edit
+if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
+$_POST['password'], $_POST['recover'])){
+// echo 'innnxxxxzz';
+    $firstName =$_POST['firstName'] ;
+    $lastName =$_POST['lastName'] ;
+    // $username =$_POST['email'] ;
+    $password =$_POST['password'] ;
+    // $password = password_hash($password, PASSWORD_DEFAULT);
+    $authr ='USER';
+    $job = ' ';
+    $recover = $_POST['recover'];
+    $phoneNumber= $_POST['phoneNumber'];
+    // $about =$_POST['address'];
+    $uid = $_SESSION['userId'];
+
+    $u = $auth->loginAuth($username);
+    $num = $u->num_rows;
+    // $up = ' ';
+
+    $uu = $admin->updateUserData($uid, $password, $firstName, $lastName, $phoneNumber, $about, $job, $recover);
+
+  if($uu){
+    echo 'Saved Changes';
+  }else{
+    echo 'error';
+  }
+  
+  }
+    }
     ?>
 
 
@@ -653,7 +765,7 @@ foreach($dbTables as $posts){
 		<!--right section0-->
 
 		<div class="col-1">
-			<div class="card" style="width: 18rem;">
+			<!-- <div class="card" style="width: 18rem;">
   <div class="card-header">
     Featured
   </div>
@@ -661,7 +773,7 @@ foreach($dbTables as $posts){
     <li class="list-group-item">An item</li>
     <li class="list-group-item">A second item</li>
     <li class="list-group-item">A third item</li>
-  </ul>
+  </ul> -->
 </div>
 			
 		</div>
