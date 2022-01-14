@@ -180,7 +180,7 @@ function fav(pid, id, table){
           $status = $_GET['status'];
           $off = $_GET['off'];
           $label = $_GET['label'];
-          if($status == ' ' && $_SESSION['location'] == 'All' && !isset($_GET['dbType'])){
+          if($status == ' ' && $_SESSION['location'] == 'All' && !isset($_GET['dbType']) && !isset($_GET['dyCol'], $_GET['dyArg'])){
             // echo 'elc';
             if(isset($_GET['search'])){/// if search data is there
               $search = $_GET['search'];
@@ -197,7 +197,7 @@ function fav(pid, id, table){
             }else{
               $fetchPost = $get->allPostListerOnColumen($cat, $dyCol, $dyArg);
             }
-          }elseif($status == ' ' && $_SESSION['location'] != 'All' && !isset($_GET['dbType'])){// for location based output
+          }elseif($status == ' ' && $_SESSION['location'] != 'All' && !isset($_GET['dbType']) && !isset($_GET['dyCol'], $_GET['dyArg'])){// for location based output
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
               $fetchPost = $get->search1C($cat, 'address', $_SESSION['location'], $search);
@@ -213,7 +213,7 @@ function fav(pid, id, table){
             }else{
               $fetchPost = $get->allPostListerOn2Columen($cat, $dyCol, $dyArg, 'address', $_SESSION['location']);
             }
-          }elseif($status != ' ' && $_SESSION['location'] == 'All' && !isset($_GET['dbType'])){
+          }elseif($status != ' ' && $_SESSION['location'] == 'All' && !isset($_GET['dbType']) && !isset($_GET['dyCol'], $_GET['dyArg'])){
             // echo 'sdf--- '.$off;
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];

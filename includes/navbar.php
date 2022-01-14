@@ -10,6 +10,8 @@
   }else{
     $_SESSION['location'] = 'All';
   }
+
+  
   // if(!isset($_SESSION['location'])){
   //   session_start(); 
   // }
