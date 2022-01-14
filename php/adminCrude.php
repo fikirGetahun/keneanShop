@@ -195,6 +195,11 @@ echo $mysql->error;
         /// to delete user photo
         function delUserPhoto($uid){
             include "connect.php";
+            $q2 = "SELECT * FROM `user` WHERE `id` = '$uid' ";
+            $ask2 = $mysql->query($q2);
+            $row = $ask2->fetch_assoc();
+            $path =$row['photoPath1'];
+            unlink($path);
             $q = "UPDATE `user` SET `photoPath1` = 'FILE_NOT_UPLOADED' WHERE `id` = '$uid'  ";
             $ask = $mysql->query($q);
             
