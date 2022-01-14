@@ -43,7 +43,7 @@ if(isset($_POST['delete'],$_POST['table'], $_POST['postId'])){
 
 
 
-echo 'ya in api';
+// echo 'ya in api';
 
 if(isset($_POST['titleElc'],
     $_POST['type'],

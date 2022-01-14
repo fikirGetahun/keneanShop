@@ -179,17 +179,26 @@ echo $mysql->error;
         //update userphoto path and file
         function updateUserPhoto($fileName, $tempName, $uid){
             include "connect.php";
-            $location = "../uploads/adminPhoto/";
+            $location = "./uploads/adminPhoto/";
             $x = rand(2, 20000);
             $path = $location.'a'.$x.$fileName;
             move_uploaded_file($tempName, $path);
             $real = "./uploads/adminPhoto/";
             $location = $real;
             $path = $location.'a'.$x.$fileName;
-            $q = "UPDATE `user` SET `photoPath`= '$path' WHERE `user`.`id` = '$uid'";
+            $q = "UPDATE `user` SET `photoPath1`= '$path' WHERE `user`.`id` = '$uid'";
             $ask = $mysql->query($q);
 
             return $path;
+        }
+
+        /// to delete user photo
+        function delUserPhoto($uid){
+            include "connect.php";
+            $q = "UPDATE `user` SET `photoPath1` = 'FILE_NOT_UPLOADED' WHERE `id` = '$uid'  ";
+            $ask = $mysql->query($q);
+            
+            return $ask;
         }
 
 

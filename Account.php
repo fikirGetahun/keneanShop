@@ -657,17 +657,53 @@ foreach($dbTables as $posts){
       $u = $us->fetch_assoc();
       ?>
       
-<form>
+<form action="Account.php?setting=true" method="POST" enctype="multipart/form-data" >
         <div class="row mb-3">
             <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
             <div class="col-md-8 col-lg-9">
-              <img src="<?php echo $u['photoPath1'] ?>"pt-2">
-              <input type="file" name="photo">                   
-              <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image">Delete</i></a>
+              <?php 
+              if(isset($_GET['del'])){
+                $del = $admin->delUserPhoto($_SESSION['userId']);
+                if($del){
+                  header('Location: Account.php?setting=true');
+                }else{
+                  echo 'ERROR';
+                }
+              }
+              
+              if($u['photoPath1'] != 'FILE_NOT_UPLOADED'){
+                ?>
+              <img class="img-thumbnail h-60" src="<?php echo $u['photoPath1'] ?>"pt-2">
+              <a href="./Account.php?setting=true&del=true" class="btn btn-danger btn-sm" title="Remove my profile image">Delete</i></a><br>
+                <?php
+
+              }else{
+                ?>
+                <img src="./admin/assets/img/zumra.png"pt-2">
+                <?php
+              }
+              ?>
+             
+              <input type="file" name="photou" >
+              <label>Change Profile Photo</label>
+              <input type="submit" value="Change Photo">
+              <?php
+                if(isset($_FILES['photou'])){
+                  $fn = $_FILES['photou']['name'];
+                  $tm = $_FILES['photou']['tmp_name'];
+                  $cp = $admin->updateUserPhoto($fn, $tm, $_SESSION['userId']);
+                  if($cp){
+                    header('Location: Account.php?setting=true');
+                  }else{
+                    echo 'ERROR';
+                  }
+                }
+              
+              ?>
               </div>
             </div>
           </div>
-          <input type="submit" value="Change Photo">
+          
       </form>
         <form action="./Account.php?setting=true" method="POST" >
 
@@ -724,6 +760,9 @@ foreach($dbTables as $posts){
       
     
     <?php
+
+
+
         //// user data edit
 if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
 $_POST['password'], $_POST['recover'])){
