@@ -4,14 +4,11 @@
   ob_start();
   if(!isset($_SESSION)) { 
     session_start(); 
-  } 
-  if(isset($_GET['loc'])){
-    $_SESSION['location'] = $_GET['loc'];
-  }else{
     $_SESSION['location'] = 'All';
-  }
+  } 
 
-  
+
+
   // if(!isset($_SESSION['location'])){
   //   session_start(); 
   // }
