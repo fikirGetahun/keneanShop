@@ -9,6 +9,7 @@ class fetch{
         $q = "SELECT * FROM `$table` WHERE `$columen` LIKE '$args' ORDER BY RAND() LIMIT 10";
 
         $ask = $mysql->query($q);
+        echo $mysql->error;
 
         return $ask;
     }
@@ -20,7 +21,8 @@ class fetch{
             $q = "SELECT * FROM `$table` WHERE `$columen` LIKE '$args' ORDER BY `$columen` DESC ";
     
             $ask = $mysql->query($q);
-    
+            echo $mysql->error;
+
             return $ask;
         }
 
@@ -31,6 +33,7 @@ class fetch{
         $q = "SELECT * FROM `$table` ORDER BY RAND() LIMIT 5 ";
 
         $ask = $mysql->query($q);
+        echo $mysql->error;
 
         return $ask;
     }
@@ -42,6 +45,7 @@ class fetch{
         $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' ORDER BY RAND() LIMIT 10 ";
 
         $ask = $mysql->query($q);
+        echo $mysql->error;
 
         return $ask;
 
@@ -53,6 +57,7 @@ class fetch{
         $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' ORDER BY RAND() LIMIT 12 ";
 
         $ask = $mysql->query($q);
+        echo $mysql->error;
 
         return $ask;
     }
@@ -64,7 +69,8 @@ class fetch{
             $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' AND `$columen4` = '$args4'   ORDER BY RAND() LIMIT 12 ";
     
             $ask = $mysql->query($q);
-    
+    echo $mysql->error;
+
             return $ask;
         }
 
@@ -212,12 +218,15 @@ class fetch{
         $key = array_search($uid, $all); //find the user id in the array to be deleted from the list
         unset($all[$key]); //unseet the value that matched the userid
         $all = implode(',', $all); // collect it back to a string with commas
-        $q2 = "UPDATE `$table` SET `fav` = '$all'"; // put it back to db
+        $q2 = "UPDATE `$table` SET `fav` = '$all' WHERE `id` = '$pid'"; // put it back to db
         $ask = $mysql->query($q2);
 
         return $ask;
 
     }
+
+
+
 
 
 
