@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2022 at 02:38 PM
+-- Generation Time: Jan 14, 2022 at 07:56 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -53,7 +53,7 @@ CREATE TABLE `ad` (
 --
 
 INSERT INTO `ad` (`id`, `type`, `price`, `address`, `phone`, `for`, `title`, `bigDiscount`, `posterId`, `info`, `photoPath1`, `postStatus`, `edited`, `shipping`, `postedDate`, `view`, `fav`) VALUES
-(1, '0', 20000, '', 0, '', 'TOYOTA Vitz', 'ACTIVE', 0, 'very good', '', '', '', '', '0000-00-00 00:00:00', 0, ',158'),
+(1, '0', 20000, '', 0, '', 'TOYOTA Vitz', 'ACTIVE', 0, 'very good', '', '', '', '', '0000-00-00 00:00:00', 2, ',158'),
 (2, '0', 200000, '', 0, '', 'SAMSUNG', '', 0, 'this phone is very good . samsung phone is very god', '', '', '', '', '0000-00-00 00:00:00', 0, ''),
 (3, '0', 15000, '', 0, '', 'HP laptop', '', 0, 'this lap top is very good laptop. hp laptop', '', '', '', '', '0000-00-00 00:00:00', 0, ''),
 (5, '0', 15000, '', 0, '', 'Desktop Dell', '', 0, 'this this desktop computer. Dell is a desktop computer', '../uploads/carPostsPhoto/ad5302pp.png', '', '', '', '0000-00-00 00:00:00', 1, ''),
@@ -75,24 +75,24 @@ INSERT INTO `ad` (`id`, `type`, `price`, `address`, `phone`, `for`, `title`, `bi
 (23, '0', 0, '', 0, 'Choose...', '', '', 89, '', ' ', 'ACTIV', '', '', '0000-00-00 00:00:00', 0, ''),
 (24, '0', 0, 'asf', 0, 'women', 'edited', '', 89, 'afsd', '../uploads/adPostsPhoto/ad82559vv.png', 'ACTIV', '', '', '0000-00-00 00:00:00', 0, ''),
 (25, '0', 44, 'gelan condominyem', 931575704, 'women', 'miky', '', 89, 'asfdasfd', '../uploads/adPostsPhoto/ad22267log2.png', 'ACTIV', 'YES', '', '0000-00-00 00:00:00', 0, ''),
-(26, '0', 0, '', 0, ' ', 'test 2', '', 89, '', '../uploads/adPostsPhoto/ad85831bgg.png', 'ACTIV', '', '', '0000-00-00 00:00:00', 0, ''),
+(26, '0', 0, '', 0, ' ', 'test 2', '', 89, '', '../uploads/adPostsPhoto/ad85831bgg.png', 'ACTIV', '', '', '0000-00-00 00:00:00', 1, ''),
 (27, '0', 0, '', 0, ' ', '', '', 89, '', ' ', 'ACTIV', '', 'YES', '0000-00-00 00:00:00', 0, ''),
 (28, '0', 45, 'asfdsdf', 931575704, 'women', 'edited', '', 89, 'fhfdfg', '../uploads/adPostsPhoto/ad59655bgg.png', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (29, '0', 0, '', 0, ' ', 'wewewewe', '', 89, 'vvvvvvvvvvvvvvvvvvvvv', '../uploads/adPostsPhoto/ad93767Screenshot (7).png', 'ACTIV', 'YES', 'NO', '0000-00-00 00:00:00', 0, ''),
 (30, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 2, ''),
-(31, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
+(31, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 1, ''),
 (32, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (33, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (34, '0', 0, '', 0, ' ', '1lk', '', 89, '', '../uploads/adPostsPhoto/bae1948b566edd31622eacdfc70d889d.png,../uploads/adPostsPhoto/92082fd28c9d4dd3b19c43797b008a98.jpg', 'ACTIV', 'YES', 'NO', '0000-00-00 00:00:00', 0, ''),
 (35, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (36, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 3, ''),
 (37, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
-(38, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
+(38, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 1, ''),
 (39, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (40, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (41, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (42, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
-(43, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
+(43, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 2, ''),
 (44, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (45, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (46, '0', 0, '', 0, ' ', '', '', 89, '', '', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
@@ -107,14 +107,13 @@ INSERT INTO `ad` (`id`, `type`, `price`, `address`, `phone`, `for`, `title`, `bi
 (55, '0', 0, '', 0, ' ', 'vbbbbbbbvbvbvbvqq121', '', 89, '', '../uploads/adPostsPhoto/f48ac80f685852caf983341840f1fbfe.png,../uploads/adPostsPhoto/43b0de7b2dc8b5897465bc92cf5ad2f5.jpg', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (56, '0', 0, '', 0, ' ', 'mikyzxzx12', '', 89, '', '../uploads/adPostsPhoto/72d8ccbaec13a7f351f04400c0dca0aa.png', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
 (57, '0', 45, '', 0, ' ', '', '', 89, '', '../uploads/adPostsPhoto/5177736355454127b457d3b943f90438.jpg', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
-(58, '0', 45, 'editedcv', 931575704, 'men', 'TOYOTA Vitz big disc', 'ACTIVE', 89, 'sdfsdxcv', '../uploads/adPostsPhoto/0c6d70f301ea51ae5e3c52b2758a5005.jpg', 'ACTIV', 'YES', 'NO', '0000-00-00 00:00:00', 4, ',158'),
+(58, '0', 45, 'editedcv', 931575704, 'men', 'TOYOTA Vitz big disc', 'ACTIVE', 89, 'sdfsdxcv', '../uploads/adPostsPhoto/0c6d70f301ea51ae5e3c52b2758a5005.jpg', 'ACTIV', 'YES', 'NO', '0000-00-00 00:00:00', 5, ',158'),
 (59, '0', 0, '', 0, ' ', 'real user', 'NOT', 151, '', '../uploads/adPostsPhoto/aabcc1fdf5795413361e02bf98a1eaf4.png', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 5, ',158'),
 (60, '0', 0, '', 0, ' ', 'edited 23', 'ACTIVE', 0, '', '../uploads/adPostsPhoto/421b08c9d556d3f4cf16250e18ddab12.png,../uploads/adPostsPhoto/3aacc055cb0e93e66c9111f9bfa694ca.png', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 8, ',158'),
 (61, '0', 0, '', 0, ' ', 'sdfsdf', 'NOT', 151, '', '../uploads/adPostsPhoto/750c793301086f1be5677b601f6cbcdb.png,../uploads/adPostsPhoto/cdf757b62b0317fb54205436557961fb.png', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 10, ''),
-(63, 'asdf', 0, 'Addis Ababax', 0, ' ', 'qwhatxxxxx', 'NOT', 158, 'x', './uploads/adPostsPhoto/718d25b4b97c2286275d0fe083982653.jpg,./uploads/adPostsPhoto/7ba595dd07d992d71a3fa518244245a3.png', 'ACTIV', 'YES', 'NO', '0000-00-00 00:00:00', 0, ''),
-(64, 'Cloth and Shoe', 0, 'Addis Ababa', 0, ' ', 'time', 'NOT', 158, '', './uploads/adPostsPhoto/13ca29dd73ebf464b7b4c07af2ee970a.png', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
+(63, 'Cloth and Shoe', 44, 'Debre Markos', 0, ' ', 'zx', 'NOT', 158, 'xzxzxzx', './uploads/adPostsPhoto/718d25b4b97c2286275d0fe083982653.jpg,./uploads/adPostsPhoto/7ba595dd07d992d71a3fa518244245a3.png', 'ACTIV', 'YES', 'NO', '0000-00-00 00:00:00', 0, ''),
 (65, 'ccc', 0, 'Addis Ababa', 0, ' ', 'time is gold', 'NOT', 158, '', './uploads/adPostsPhoto/59456d1a9a35b272cd6e554a27b2a1ec.png', 'ACTIV', '', 'NO', '0000-00-00 00:00:00', 0, ''),
-(66, '  Cloth and Shoe', 0, 'Arba Minchi', 0, 'women', 'adds testxx', 'NOT', 158, '', './uploads/adPostsPhoto/08a6628b9cf1a1a65ea596ec50d7c5fd.jpg', 'ACTIV', 'YES', 'NO', '0000-00-00 00:00:00', 0, ''),
+(66, '  Cloth and Shoe', 0, 'Arba Minchi', 0, 'women', 'adds testxx', 'NOT', 158, '', '', 'ACTIV', 'YES', 'NO', '0000-00-00 00:00:00', 0, ''),
 (67, 'asdf', 0, 'Bahari Dar', 0, ' ', 'ad testing pls', 'NOT', 158, '', './uploads/adPostsPhoto/816161062f070b2d59932c741923a8ba.png', 'ACTIV', '', 'NO', '2022-01-11 09:50:13', 0, '');
 
 -- --------------------------------------------------------
@@ -261,10 +260,9 @@ INSERT INTO `car` (`id`, `title`, `type`, `ownerBroker`, `address`, `status`, `f
 (21, 'TOYOTA Vitz', 'Choose...', 'Owner', '', 'Cho', 'Choose...', 'automatic', '', '', 151, 'Choose...', '../uploads/CarPostsPhoto/7a8f5723bbce6e992d21debe36b83ac6.png,../uploads/CarPostsPhoto/e3c428c36be1e4706bbd664199d18d91.png', 0, '', 'Choose...', 'ACTIV', '2021-12-29 14:54:11', '', 70, '', '', '', ''),
 (22, 'edited', 'Choose...', 'Owner', '', 'Cho', 'Choose...', 'automatic', '', '', 89, 'Choose...', '/uploads/CarPostsPhoto/7622804a9ba8c408f27b1aed0f00c5a5.png,/uploads/CarPostsPhoto/da9b0767b1f6e18ba72279e13a1b5fd5.png', 0, '', 'Choose...', 'ACTIV', '2021-12-30 12:25:36', '', 72, '', '', '', ''),
 (23, 'real user', 'Choose...', 'Owner', '', 'Cho', 'Choose...', 'automatic', '', '', 151, 'Choose...', './uploads/CarPostsPhoto/17e73d478c5fbc686d0e1aecedc45178.png,./uploads/CarPostsPhoto/43a0bf82541c17287bb72a00b7344347.png,./uploads/CarPostsPhoto/c0a810c57dade01c0d50c9a18bd229ee.png', 0, '', 'Choose...', 'ACTIV', '2021-12-31 07:55:10', '', 103, '', '', '', ''),
-(24, 'real user', 'Choose...', 'Owner', '', 'Cho', 'Choose...', 'automatic', '', '', 151, 'Choose...', './uploads/CarPostsPhoto/63d9c70cf399992c7cc10a01966491c2.png,./uploads/CarPostsPhoto/c03fc5d60d1ee51ee7e08b557c38b317.png,./uploads/CarPostsPhoto/6e203c6af09f0bb96b4d41382e9f46c5.png', 0, '', 'For Rent', 'ACTIV', '2021-12-31 07:55:34', '', 80, '', '', '', ''),
+(24, 'real user', 'Choose...', 'Owner', '', 'Cho', 'Choose...', 'automatic', '', '', 151, 'Choose...', './uploads/CarPostsPhoto/63d9c70cf399992c7cc10a01966491c2.png,./uploads/CarPostsPhoto/c03fc5d60d1ee51ee7e08b557c38b317.png,./uploads/CarPostsPhoto/6e203c6af09f0bb96b4d41382e9f46c5.png', 0, '', 'For Rent', 'ACTIV', '2021-12-31 07:55:34', '', 81, '', '', '', ''),
 (25, 'TOYOTA Vitz ', 'OTHER', 'Owner', '', 'NEW', 'Benzene', 'manual', '', '', 151, 'Choose...', './uploads/CarPostsPhoto/d701e389ab65848f196634e4474ba6c0.png,./uploads/CarPostsPhoto/7e66df9d8044a10d8958203a9b5079ea.png,./uploads/CarPostsPhoto/770d795e402f41b1564201030c98d338.png', 0, '', 'Choose...', 'ACTIV', '2022-01-01 08:18:25', '', 0, '', '', '', ''),
 (26, 'TOYOTA Vitzcoooooooooooooooppp`````11212', 'TOYOTA', 'Owner Or B', '', 'OLD', 'fule Type', 'Transmission', 'XCV1111111111111', 'XVCqw11111111111', 158, 'Negotiatable', './uploads/CarPostsPhoto/3f4798a326ea1e6061d31682314c6d0c.png,./uploads/CarPostsPhoto/2f27f1b637e72d75d1acfa4c672a2a97.png,./uploads/CarPostsPhoto/ad0f956b60c03a585be98d06eec712a1.png', 2147483647, '           wwwwwwwwwwwwwwwwwwwwwwwwww     ', 'Rent or sell', 'ACTIV', '2022-01-02 13:07:51', '', 34, '', '', '', ''),
-(27, '', 'Choose...', 'Owner', '', 'Cho', 'Choose...', 'automatic', '', '', 158, 'Choose...', '', 0, '', 'Choose...', 'ACTIV', '2022-01-05 08:33:19', '', 0, '', '', '', ''),
 (28, 'edited', 'Type', 'Owner Or B', '', 'New', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/dbbd8fe2f01fc383120cd3234b0b3b49.png', 0, '', 'Rent or sell', 'ACTIV', '2022-01-05 12:11:25', '', 0, '', '', '', ''),
 (29, '', 'Type', 'Owner Or B', '', 'New', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/e4fb4a2fb09fdac86fa7bbacebff9d3f.png,./uploads/CarPostsPhoto/a2cc07424cc6163b23e38a415d54936c.png', 0, '', 'For Rent', 'ACTIV', '2022-01-05 12:12:04', '', 0, '', '', '', ''),
 (30, 'TOYOTA Vitz', 'Type', 'Owner Or B', '', 'New', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/3e0548b56ecca4eb89099fb1c3bb85b0.png', 0, '', 'For Rent', 'ACTIV', '2022-01-05 12:15:06', '', 0, '', '', '', ''),
@@ -288,8 +286,9 @@ INSERT INTO `car` (`id`, `title`, `type`, `ownerBroker`, `address`, `status`, `f
 (48, 'gggg', 'ISUZU', 'Owner Or B', 'Addis Ababa', 'New', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/5884ec87e39941d46d23525ca81ad3a0.png', 0, '', 'Rent or sell', 'ACTIV', '2022-01-09 21:59:28', '', 0, '', ' ', ' ', ' '),
 (49, 'fff', ' ', 'Owner Or B', 'Addis Ababa', 'New', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/3465e7a9d1c9dabe77177a9165c01f30.png', 0, '', 'Rent or sell', 'ACTIV', '2022-01-09 21:59:37', '', 0, '', ' ', ' ', ' '),
 (50, 'vvgg', 'ISUZU', 'Owner Or B', 'Addis Ababa', 'New', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/20eafb61a9d69bb5e7a521b67ecc6b2c.png', 0, '', 'Rent or sell', 'ACTIV', '2022-01-09 22:00:27', '', 0, '', ' ', ' ', ' '),
-(51, 'car post xzx', ' ', 'Owner Or B', 'Addis Ababa', 'New', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/eb48d8d1a2e253e2a4777277e83020c1.jpg', 0, '         x       ', 'Rent or sell', 'ACTIV', '2022-01-11 07:17:27', '', 0, '', ' ', ' ', ' '),
-(52, 'for rent test car ya b', ' ', 'Owner Or B', 'Addis Ababa', 'OLD', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/cee42ce5698d971be63dd16e7ac0e5d7.png', 0, '    aaa  ', 'For Rent', 'ACTIV', '2022-01-11 08:02:11', '', 0, '', 'Private', 'Car Only', 'nigga');
+(51, 'car post xzx', ' ', 'Owner Or B', 'Addis Ababa', 'New', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/eb48d8d1a2e253e2a4777277e83020c1.jpg', 0, '         x       ', 'Rent or sell', 'ACTIV', '2022-01-11 07:17:27', '', 2, '', ' ', ' ', ' '),
+(52, 'for rent test car ya b', ' ', 'Owner Or B', 'Addis Ababa', 'OLD', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/cee42ce5698d971be63dd16e7ac0e5d7.png', 0, '    aaa  ', 'For Rent', 'ACTIV', '2022-01-11 08:02:11', '', 0, '', 'Private', 'Car Only', 'nigga'),
+(53, 'dingay', 'BMW', 'Owner Or B', 'Debre Zeyit', 'NEW', 'fule Type', 'Transmission', '', '', 158, 'Price type', './uploads/CarPostsPhoto/a2cbeeab6003147051b05cb42db84ecf.png,./uploads/CarPostsPhoto/aa5365ed787cc9169df943f6f6c1f8c1.png,./uploads/CarPostsPhoto/73ef9aafe27d4deb6abd1105b88a19ca.png', 0, 'afds', 'For Rent', 'ACTIV', '2022-01-12 18:07:34', '', 0, '', 'Govormental Offices', 'Car Only', '');
 
 -- --------------------------------------------------------
 
@@ -347,7 +346,8 @@ INSERT INTO `charity` (`id`, `title`, `photoPath1`, `info`, `address`, `phone`, 
 (6, 'TOYOTA Vitz', '/uploads/charityPhoto/353100b8ca838971ba6ce076bbe33c2f.png', '', '', 0, 89, '2021-12-30 12:28:20', 'ACTIVE', '', 0, '158'),
 (7, '', './uploads/charityPhoto/da00d9b772cfa41457be38d4abff4d27.png', '', '', 0, 89, '2021-12-30 12:28:52', 'ACTIVE', '', 0, ''),
 (8, '', '../uploads/charityPhoto/02bf242f31a2c2bac3d1eef1c4e20095.png,../uploads/charityPhoto/f8d81ff68952672712ad1b56edb89786.png', '', '', 0, 89, '2021-12-30 12:44:28', 'ACTIVE', '', 1, '0,158'),
-(9, 'editedvb', './uploads/charityPhoto/ee5f1aaf1837ea386100f783114799a6.png', '', '', 0, 151, '2021-12-30 17:36:40', 'ACTIVE', '', 12, '0');
+(9, 'editedvb', './uploads/charityPhoto/ee5f1aaf1837ea386100f783114799a6.png', '', '', 0, 151, '2021-12-30 17:36:40', 'ACTIVE', '', 12, '0'),
+(10, 'charity post test x', './uploads/charityPhoto/dbce27e80a4edaf6da8aef311adf0bee.jpg', 'X', 'Harar', 931575704, 158, '2022-01-12 07:17:35', 'ACTIVE', 'EDITED', 0, '');
 
 -- --------------------------------------------------------
 
@@ -382,27 +382,28 @@ CREATE TABLE `electronics` (
 --
 
 INSERT INTO `electronics` (`id`, `type`, `status`, `postStatus`, `postedDate`, `posterId`, `title`, `address`, `price`, `info`, `photoPath1`, `ram`, `processor`, `size`, `storage`, `core`, `fav`, `edited`, `view`) VALUES
-(1, 'Choose...', 'NEW', 'ACTIVE', '2021-12-21 21:38:55', 0, 'asdf', '', 0, '', ' ', ' ', ' ', ' ', ' ', ' ', '', '', 7),
-(3, 'Choose...', 'NEW', 'ACTIVE', '2021-12-21 22:01:35', 0, 'sfd', '', 0, '', ' ', ' ', ' ', ' ', ' ', ' ', '', '', 2),
+(1, 'Choose...', 'NEW', 'ACTIVE', '2021-12-21 21:38:55', 0, 'asdf', '', 0, '', ' ', ' ', ' ', ' ', ' ', ' ', '', '', 8),
+(3, 'Choose...', 'NEW', 'ACTIVE', '2021-12-21 22:01:35', 0, 'sfd', '', 0, '', ' ', ' ', ' ', ' ', ' ', ' ', '', '', 4),
 (4, 'OTHER', 'NEW', 'ACTIVE', '2021-12-21 22:05:21', 0, 'test', 'edited', 45, 'asfdsadfsfdsadf', ' ', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(5, 'Choose...', 'NEW', 'ACTIVE', '2021-12-21 22:05:54', 0, 'test', 'gelan condominyem', 45, 'fdssfdsdf', '../uploads/vacancyPhoto/ecafe925dfac6cda544a2e181aa8ffd3.png,../uploads/vacancyPhoto/0ef80203dc371fb0f48405cce662cc9a.png', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(6, 'Computer Laptop', 'NEW', 'ACTIVE', '2021-12-21 22:08:21', 0, 'vvvvvvvvv', 'vvv', 0, 'procesasfdsor', '../uploads/electronicsPhoto/ad14557DSC_0720.jpg', ' ', ' ', ' ', ' ', ' ', ',158', 'YES', 0),
-(7, 'Computer Laptop', 'NEW', 'ACTIVE', '2021-12-21 22:11:58', 0, 'test', 'gelan condominyem', 444, 'processor', '../uploads/electronicsPhoto/elc66070big.png', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(8, 'Computer Laptop', 'NEW', 'ACTIVE', '2021-12-21 22:14:07', 0, 'broooooo you winn', 'gelan broooooo you w', 3, 'processor', '../uploads/electronicsPhoto/elc12385big.png', '34broooooo', 'asfdbroooooo yo', 'broooooo you winn', 'broooooo you winn', 'broooooo y', ',158', 'YES', 2),
-(9, 'Computer Laptop', 'OLD', 'ACTIVE', '2021-12-22 02:23:06', 89, 'test', 'gelan condominyem', 0, '`electronics`', '../uploads/electronicsPhoto/elc58071Prime bridge_Logo-11.png', '34broooooo', 'asfdbroooooo yo', '34', 'broooooo you winn', 'broooooo y', '', '', 66),
-(10, 'Choose...', 'NEW', 'ACTIVE', '2021-12-23 10:40:10', 89, '', '', 0, '', '', ' ', ' ', ' ', ' ', ' ', '', '', 0),
+(5, 'Choose...', 'NEW', 'ACTIVE', '2021-12-21 22:05:54', 0, 'test', 'gelan condominyem', 45, 'fdssfdsdf', '../uploads/vacancyPhoto/ecafe925dfac6cda544a2e181aa8ffd3.png,../uploads/vacancyPhoto/0ef80203dc371fb0f48405cce662cc9a.png', ' ', ' ', ' ', ' ', ' ', '', '', 1),
+(6, 'Computer Laptop', 'NEW', 'ACTIVE', '2021-12-21 22:08:21', 0, 'vvvvvvvvv', 'vvv', 0, 'procesasfdsor', '../uploads/electronicsPhoto/ad14557DSC_0720.jpg', ' ', ' ', ' ', ' ', ' ', ',158', 'YES', 8),
+(7, 'Computer Laptop', 'NEW', 'ACTIVE', '2021-12-21 22:11:58', 0, 'test', 'gelan condominyem', 444, 'processor', '../uploads/electronicsPhoto/elc66070big.png', ' ', ' ', ' ', ' ', ' ', '', '', 2),
+(8, 'Computer Laptop', 'NEW', 'ACTIVE', '2021-12-21 22:14:07', 0, 'broooooo you winn', 'gelan broooooo you w', 3, 'processor', '../uploads/electronicsPhoto/elc12385big.png', '34broooooo', 'asfdbroooooo yo', 'broooooo you winn', 'broooooo you winn', 'broooooo y', ',158,162', 'YES', 6),
+(9, 'Computer Laptop', 'OLD', 'ACTIVE', '2021-12-22 02:23:06', 89, 'test', 'gelan condominyem', 0, '`electronics`', '../uploads/electronicsPhoto/elc58071Prime bridge_Logo-11.png', '34broooooo', 'asfdbroooooo yo', '34', 'broooooo you winn', 'broooooo y', '', '', 68),
+(10, 'Choose...', 'NEW', 'ACTIVE', '2021-12-23 10:40:10', 89, '', '', 0, '', '', ' ', ' ', ' ', ' ', ' ', '', '', 2),
 (12, 'Choose...', 'NEW', 'ACTIVE', '2021-12-23 10:40:49', 89, '', '', 0, '', '', ' ', ' ', ' ', ' ', ' ', '', '', 0),
 (13, 'Choose...', 'NEW', 'ACTIVE', '2021-12-23 10:42:00', 89, '', '', 0, '', '../uploads/CarPostsPhoto/2a7588f257e189546eddd4a4ce66d182.jpg,../uploa', ' ', ' ', ' ', ' ', ' ', '', '', 0),
 (14, 'Choose...', 'NEW', 'ACTIVE', '2021-12-24 07:31:40', 89, '', '', 0, '', '../uploads/CarPostsPhoto/f17a6f9c664dc55775808d570e32c508.jpg,../uploads/CarPostsPhoto/3e715e8fce38f7e55adbe4fa379a4763.png,../uploads/CarPostsPhoto/df8d41fa1535657b67e0798d5ca8093e.jpg', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(15, 'Choose...', 'NEW', 'ACTIVE', '2021-12-24 09:08:04', 89, '', '', 0, '', '', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(16, 'Choose...', 'NEW', 'ACTIVE', '2021-12-24 20:37:36', 89, 'file test 3', '', 0, '', '', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(17, 'Choose...', 'NEW', 'ACTIVE', '2021-12-26 09:36:29', 89, 'bn', '', 0, '', '../uploads/CarPostsPhoto/344da1eb15afcc94a5e602c12d678fd3.png,../uploads/CarPostsPhoto/ec356de066d98ab0760829b869304a47.png', ' ', ' ', ' ', ' ', ' ', '', '', 0),
+(15, 'Choose...', 'NEW', 'ACTIVE', '2021-12-24 09:08:04', 89, '', '', 0, '', '', ' ', ' ', ' ', ' ', ' ', '', '', 1),
+(16, 'Choose...', 'NEW', 'ACTIVE', '2021-12-24 20:37:36', 89, 'file test 3', '', 0, '', '', ' ', ' ', ' ', ' ', ' ', '', '', 1),
+(17, 'Choose...', 'NEW', 'ACTIVE', '2021-12-26 09:36:29', 89, 'bn', '', 0, '', '../uploads/CarPostsPhoto/344da1eb15afcc94a5e602c12d678fd3.png,../uploads/CarPostsPhoto/ec356de066d98ab0760829b869304a47.png', ' ', ' ', ' ', ' ', ' ', '', '', 1),
 (18, 'Choose...', 'NEW', 'ACTIVE', '2021-12-29 14:54:28', 151, 'sdfsdf', '', 0, '', '../uploads/CarPostsPhoto/6a8992bfd44f386499066518d54a7928.png,../uploads/CarPostsPhoto/86cd12f40b5cd00545b79d462a9bc7c2.png', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(19, 'Choose...', 'NEW', 'ACTIVE', '2021-12-30 13:33:54', 89, 'test', '', 0, '', '../uploads/CarPostsPhoto/371669ba70f1359fa5128bfefc1ea354.png,../uploads/CarPostsPhoto/df98f5ee63b3549eb154dcb14fd2b55b.png', ' ', ' ', ' ', ' ', ' ', '', '', 0),
+(19, 'Choose...', 'NEW', 'ACTIVE', '2021-12-30 13:33:54', 89, 'test', '', 0, '', '../uploads/CarPostsPhoto/371669ba70f1359fa5128bfefc1ea354.png,../uploads/CarPostsPhoto/df98f5ee63b3549eb154dcb14fd2b55b.png', ' ', ' ', ' ', ' ', ' ', '', '', 1),
 (20, 'Choose...', 'NEW', 'ACTIVE', '2021-12-30 13:36:35', 89, '', '', 0, '', '/uploads/CarPostsPhoto/d214ab4bc60ce9662447c90357faf3ca.png,/uploads/CarPostsPhoto/82972ea51adbc3787abea9a7d9928003.png', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(21, 'Electronics Typ', 'NEW', 'ACTIVE', '2022-01-09 19:42:09', 158, '', 'Aksum', 0, '', './uploads/CarPostsPhoto/82f438d459c83048e27394ac2278ed66.png', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(22, ' ', 'NEW', 'ACTIVE', '2022-01-10 09:26:20', 158, 'vvvvvvvvv123', 'Addis Ababa', 0, '', './uploads/CarPostsPhoto/06b66be7510ada6453a20f57b5d39758.png', ' ', ' ', ' ', ' ', ' ', '', '', 0),
-(23, ' ', 'NEW', 'ACTIVE', '2022-01-10 09:27:45', 158, 'eski sira', 'Addis Ababa', 0, '', './uploads/CarPostsPhoto/2cbd7060c9c726cdf2a2104cb7601b1a.png,./uploads/CarPostsPhoto/d3220a980a62bde93c96e0e224d1e9cb.png', ' ', ' ', ' ', ' ', ' ', '', '', 0);
+(21, 'Electronics Typ', 'NEW', 'ACTIVE', '2022-01-09 19:42:09', 158, '', 'Aksum', 0, '', './uploads/CarPostsPhoto/82f438d459c83048e27394ac2278ed66.png', ' ', ' ', ' ', ' ', ' ', '', '', 3),
+(22, ' ', 'NEW', 'ACTIVE', '2022-01-10 09:26:20', 158, 'vvvvvvvvv123', 'Addis Ababa', 0, '', './uploads/CarPostsPhoto/06b66be7510ada6453a20f57b5d39758.png', ' ', ' ', ' ', ' ', ' ', '', '', 4),
+(23, ' ', 'NEW', 'ACTIVE', '2022-01-10 09:27:45', 158, 'eski sira', 'Addis Ababa', 0, '', './uploads/CarPostsPhoto/2cbd7060c9c726cdf2a2104cb7601b1a.png,./uploads/CarPostsPhoto/d3220a980a62bde93c96e0e224d1e9cb.png', ' ', ' ', ' ', ' ', ' ', '', '', 4),
+(25, 'Computer and La', 'OLD', 'ACTIVE', '2022-01-11 15:01:09', 158, 'electronics x', 'Nekemit', 45, 'asfdafs', './uploads/electronicsPhoto/6a39750f1c448c1519168160367a39c5.png,./uploads/electronicsPhoto/af932fd72470b62c894e363f55cc1b1c.png,./uploads/electronicsPhoto/89b2d298f36ed15f5e6113ac61239070.png', '34', 'aasdf', '34', '34', 'd', '', 'YES', 3);
 
 -- --------------------------------------------------------
 
@@ -450,7 +451,10 @@ INSERT INTO `hotelhouse` (`id`, `name`, `sex`, `age`, `religion`, `field`, `addr
 (10, 'Bethelhem Mesfin Legesse', 'Choose.', 0, ' ', '', 'asfdsdf', 'Choose...', 0, '', 'YES', 'asfdsdf', '', '../uploads/homeWorker/cf991cf63d26e8640bee9542030cf656.png', 89, '', '2021-12-24 14:55:36', 'HOTEL', 1, ''),
 (11, 'Bethelhem Mesfin Legesse', 'Choose.', 345, '34', ' ', 'asfdsdf', 'Choose...', 345, 'rtw', 'YES', 'asfdsdf', '', '../uploads/homeWorker/fae9396bed2f90321e08ca72688c2ed5.jpg', 89, '', '2021-12-26 13:24:29', 'HOUSE', 0, ''),
 (12, 'afs', 'Choose.', 0, '', ' ', '', 'Choose...', 0, '', 'YES', '', '', './uploads/homeWorker/c75ce2fecea95e337dba1a83a4381d58.png', 0, '', '2021-12-31 14:30:11', 'HOUSE', 2, ''),
-(13, 'safd', 'Choose.', 0, ' ', '', '', 'Choose...', 0, '', 'YES', '', '', './uploads/homeWorker/1107b8195c538a4c02ca44c231364086.png', 0, '', '2021-12-31 14:33:24', 'HOTEL', 6, '');
+(13, 'safd', 'Choose.', 0, ' ', '', '', 'Choose...', 0, '', 'YES', '', '', './uploads/homeWorker/1107b8195c538a4c02ca44c231364086.png', 0, '', '2021-12-31 14:33:24', 'HOTEL', 6, ''),
+(14, 'hotel and house worker testing', 'Choose.', 0, '', ' ', 'Asela', 'Choose...', 0, '', 'YES', '', '', './uploads/homeWorker/d3b53a65ecf4986aedd47c23fc95410d.png', 0, '', '2022-01-12 07:34:56', 'HOUSE', 0, ''),
+(15, 'HOTEL POST', 'Female', 0, ' ', ' ', 'Amboxx', 'Full Day', 0, '', 'NO', '   ', '   df', './uploads/homeWorker/42b986231d731130bcf176be86259c4d.png', 158, 'EDITED', '2022-01-12 08:41:58', 'HOTEL', 1, ''),
+(16, 'house keeper testxxx', 'Choose.', 2, 'dssd', ' ', 'Welkit', '<br />\r\n<b>Noti', 45, 'x', 'NO', ' ', ' x', './uploads/homeWorker/664140e3181abeb3fc9a813947dc61bf.png', 158, 'EDITED', '2022-01-12 08:58:05', 'HOUSE', 0, '');
 
 -- --------------------------------------------------------
 
@@ -514,7 +518,7 @@ CREATE TABLE `housesell` (
 
 INSERT INTO `housesell` (`id`, `title`, `type`, `houseOrLand`, `ownerBroker`, `city`, `subCity`, `wereda`, `area`, `bedRoomNo`, `bathRoomNo`, `cost`, `initial`, `fixedOrN`, `forRentOrSell`, `info`, `posterId`, `photoPath1`, `postedDate`, `postStatus`, `edited`, `view`, `fav`) VALUES
 (1, '', ' ', ' ', '', 'Choose...', 'Choose...', 'rert', 0, 0, 0, 0, 0, '', 'Choose...', '', 89, ' ', '2021-12-15 11:15:26', 'ACTIVE', '', 2, ''),
-(2, '', ' ', 'LAND', '', 'women', 'women', 'rert', 0, 123, 0, 0, 0, '123', 'Fixed', 'rwer', 89, '../uploads/houseOrLandPhotos/ad27898big.png', '2021-12-15 11:16:13', 'ACTIVE', '', 0, ''),
+(2, '', ' ', 'LAND', '', 'women', 'women', 'rert', 0, 123, 0, 0, 0, '123', 'Fixed', 'rwer', 89, '../uploads/houseOrLandPhotos/ad27898big.png', '2021-12-15 11:16:13', 'ACTIVE', '', 1, ''),
 (3, '', ' ', ' ', '', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, '', 'Choose...', '', 89, ' ', '2021-12-15 11:18:29', 'ACTIVE', '', 0, ''),
 (4, '', ' ', ' ', '', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, '', 'Choose...', '', 89, ' ', '2021-12-15 11:22:13', 'ACTIVE', '', 0, ''),
 (5, '', 'women', 'HOUSE', '', 'men', 'bababaabbaba', 'dsfg', 0, 243, 234, 243, 0, '234', 'Fixed', 'dgdsg', 89, 'E', '2021-12-15 11:23:50', 'ACTIVE', '', 0, ''),
@@ -543,7 +547,7 @@ INSERT INTO `housesell` (`id`, `title`, `type`, `houseOrLand`, `ownerBroker`, `c
 (28, '', 'Choose...', 'HOUSE', 'Owner', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, 'Choose...', 'Choose...', '', 151, './uploads/houseOrLandPhotos/60e32e1ef7fd9aef255b744747b76990.png,./uploads/houseOrLandPhotos/e1be0c9bfb78e5609c6e83cdac53a980.png', '2021-12-30 20:11:57', 'ACTIVE', '', 0, ''),
 (29, 'real user', 'Choose...', ' HOUSE', 'Owner', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, 'Choose...', 'For Sell', '', 151, './uploads/houseOrLandPhotos/f7804e9a00e334dd02f8f806fc7f2670.png,./uploads/houseOrLandPhotos/f598e0fa82d5d1c7408ae3d40d92c8be.png', '2021-12-30 20:12:25', 'ACTIVE', '', 1, ''),
 (30, 'edited 23', ' ', 'HOUSE', 'Owner', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, 'Choose...', 'For Sell', '', 151, './uploads/houseOrLandPhotos/20e50de6df2683d996031a5841a873a3.png,./uploads/houseOrLandPhotos/02ac44147053fdbb66218228474b54f1.png', '2021-12-30 20:14:02', 'ACTIVE', '', 5, ''),
-(31, 'H', 'dgdg', 'HOUSE', 'Owner', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, 'Choose...', 'For Sell', '', 151, './uploads/houseOrLandPhotos/ad68386b391d2a5c68728b350f96e862.png,./uploads/houseOrLandPhotos/6a7c09e8827d9efe0bb1645047a4cb9f.png', '2021-12-30 20:17:02', 'ACTIVE', '', 3, ''),
+(31, 'H', 'dgdg', 'HOUSE', 'Owner', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, 'Choose...', 'For Sell', '', 151, './uploads/houseOrLandPhotos/ad68386b391d2a5c68728b350f96e862.png,./uploads/houseOrLandPhotos/6a7c09e8827d9efe0bb1645047a4cb9f.png', '2021-12-30 20:17:02', 'ACTIVE', '', 6, ''),
 (32, 'TOYOTA Vitz', ' ', 'LAND', 'Owner', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, 'Choose...', 'For Rent', '', 151, './uploads/houseOrLandPhotos/42d10602e621e15d25d4c5d5f29fa4f9.png,./uploads/houseOrLandPhotos/5356cd378d91a82f4d6cccb17dc82d86.png', '2021-12-30 20:17:58', 'ACTIVE', '', 1, ',158'),
 (33, '', ' ', 'LAND', 'Owner', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, 'Choose...', 'For Rent', '', 151, './uploads/houseOrLandPhotos/5349412d8c4606d983c01aac4fcaca18.png,./uploads/houseOrLandPhotos/d484a77a734c25a50e491287216fab61.png', '2021-12-30 20:18:30', 'ACTIVE', '', 1, ',158'),
 (34, 'aqaqaq  2222', ' ', 'LAND', 'Owner', 'Choose...', 'Choose...', '', 0, 0, 0, 0, 0, 'Choose...', 'For Sell', '', 151, './uploads/houseOrLandPhotos/44797a75fa44dc7badeb9310b8ecce88.png,./uploads/houseOrLandPhotos/b6466d5fbd6e5e24ead3c46830dc4664.png', '2021-12-30 20:19:03', 'ACTIVE', '', 1, ''),
@@ -555,7 +559,9 @@ INSERT INTO `housesell` (`id`, `title`, `type`, `houseOrLand`, `ownerBroker`, `c
 (41, ' ', '', 'LAND ', 'Owner ', 'Arba Minchi', 'Kera', ' ', 0, 0, 0, 0, 0, 'Choose...', 'Choose...', ' ', 159, './uploads/houseOrLandPhotos/c10f731dfa5774372a1fb8c60ff394b7.jpg', '2022-01-10 14:51:01', 'ACTIVE', 'YES', 0, ''),
 (42, 'housexxx', 'Choose...', '', 'Owner ', '', ' ', ' ', 0, 0, 0, 0, 0, 'Choose...', 'Choose...', ' ', 158, './uploads/houseOrLandPhotos/0e3a45c6c31871759856f638bc6e91df.png', '2022-01-11 13:29:02', 'ACTIVE', 'YES', 0, ''),
 (43, 'THIS IS HOUSE  x ', 'Choose...', 'HOUSE', 'Owner   ', 'Gondar', 'Bole', '   ', 0, 0, 0, 0, 0, 'Choose...', 'Choose...', '   sf', 158, './uploads/houseOrLandPhotos/634b07658762e28f9347bf203db5aed0.png,./uploads/houseOrLandPhotos/be6db29760eb99b5d36e1d0b15f08e7b.png,./uploads/houseOrLandPhotos/d20327fa41bfb411128e191b56f2bd09.png', '2022-01-11 14:22:27', 'ACTIVE', 'YES', 0, ''),
-(44, 'land testing x ', ' ', 'LAND', 'Owner  ', 'Aksum', 'Kera', '  ', 0, 0, 0, 0, 0, 'Negotiatab', 'Choose...', '  x', 158, './uploads/houseOrLandPhotos/255531f5f09adb088c49eeedc320fc7e.jpg,./uploads/houseOrLandPhotos/a4e07b628a39b860a730f8c91e32f45f.png', '2022-01-11 14:30:18', 'ACTIVE', 'YES', 0, '');
+(44, 'land testing x ', ' ', 'LAND', 'Owner  ', 'Aksum', 'Kera', '  ', 0, 0, 0, 0, 0, 'Negotiatab', 'Choose...', '  x', 158, './uploads/houseOrLandPhotos/255531f5f09adb088c49eeedc320fc7e.jpg,./uploads/houseOrLandPhotos/a4e07b628a39b860a730f8c91e32f45f.png', '2022-01-11 14:30:18', 'ACTIVE', 'YES', 1, ''),
+(45, 'land in land', ' ', 'LAND', 'Owner', 'Ambo', 'Kera', '', 0, 0, 0, 0, 0, 'Choose...', 'Choose...', '', 158, './uploads/houseOrLandPhotos/25a74cb9009f9a3cc2b73d25d24d0dc7.png', '2022-01-12 08:17:55', 'ACTIVE', '', 0, ''),
+(46, 'qw', 'Choose...', 'HOUSE', 'Owner', 'Addis Ababa', 'Kera', '', 0, 0, 0, 0, 0, 'Choose...', 'For Sell', '', 162, './uploads/houseOrLandPhotos/51e20968f542108f6be5ebd229949119.png', '2022-01-14 11:55:53', 'ACTIVE', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -594,7 +600,9 @@ INSERT INTO `jobhometutor` (`id`, `name`, `sex`, `eduBackground`, `photoPath1`, 
 (4, 'sdg', 'Choose.', '', '../uploads/homeTutor/112860920993a4ba306a175a6446e21d.png', '1-8', 'Choose...', 0, 89, '', 0, '', '', '2021-12-26 10:10:33', '', 0, ''),
 (5, '', 'Choose.', '', '../uploads/homeTutor/79d6ecc200c8d8c512334b63ce64f756.png', '1-8', 'Choose...', 0, 89, '', 0, '', '', '2021-12-26 10:11:11', '', 0, ''),
 (6, 'adsf', 'Male', '', './uploads/homeTutor/3a518cddc49e0416b0ae76c524ee2d7e.png', '1-8', 'Dayly', 0, 0, '', 0, '', '', '2021-12-31 14:23:08', '', 10, ''),
-(7, 'Fikir SFG Getahun', 'Choose.', '', './uploads/homeTutor/3ebb98b42a7d01534b11bc8c9fe58b5a.png', '1-8', 'Choose...', 0, 0, 'F', 0, '', '', '2021-12-31 14:25:12', '', 2, '');
+(7, 'Fikir SFG Getahun', 'Choose.', '', './uploads/homeTutor/3ebb98b42a7d01534b11bc8c9fe58b5a.png', '1-8', 'Choose...', 0, 0, 'F', 0, '', '', '2021-12-31 14:25:12', '', 2, ''),
+(8, 'home tutore test', 'Male', 'adsf', './uploads/homeTutor/5e5a7d0bcb4f278bfd6128242a28c589.png', '9-10', 'Dayly', 0, 0, 'Harar', 931575704, 'a', 'a', '2022-01-12 07:27:10', '', 1, ''),
+(9, 'zx', 'Female', '  asd  ', './uploads/homeTutor/95f162b2b0e4357dfe93c1a5d231c6ee.png', '9-12', 'Horly', 0, 158, 'Debre Zeyit', 931575704, '', 'sad', '2022-01-12 08:30:10', 'EDITED', 0, '');
 
 -- --------------------------------------------------------
 
@@ -670,29 +678,33 @@ CREATE TABLE `user` (
   `photoPath1` text NOT NULL,
   `lastLogedIn` datetime NOT NULL,
   `about` varchar(40) NOT NULL,
-  `userStatus` varchar(20) NOT NULL
+  `userStatus` varchar(20) NOT NULL,
+  `recover` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `firstName`, `lastName`, `phone`, `email`, `auth`, `photoPath1`, `lastLogedIn`, `about`, `userStatus`) VALUES
-(89, 'kenean360', '1234', 'Kenean', 'Tech', 987654321, '', 'ADMIN', '../uploads/adminPhoto/a9659big.png', '2022-01-02 12:33:01', '                sdgsgd  ', ' '),
-(95, 'fonka@gmail.com', '1234', 'Fikir', 'Getahun', 931575704, '', 'EDITOR', '../uploads/adminPhoto/a14131T6B0828.jpg', '2021-12-14 00:00:00', '     i love my self. self love', 'programmer'),
-(147, 'vvv@gmail.com', '1234', 'new', 'new', 11, '', 'ADMIN', '../uploads/adminPhoto/a1259big.png', '2021-12-13 00:00:00', '     new     ', 'new'),
-(149, 'fonka@gmail.com', '1234', 'MIki', 'Belete', 931575704, '', 'Choose...', '../uploads/adminPhoto/3DSC_0720.jpg', '2021-12-17 00:00:00', 'asdfasdf', 'programmer'),
-(150, '0931575704', '$2y$10$NSaIyK1ftS2R4f/sDCAFEu8YlJNXsMVTJhxO6taygvNgf9Qn0jHvC', 'Bethelhem', 'Legesse', 0, '', 'USER', 'FILE_NOT_UPLOADED', '2021-12-29 11:25:10', 'Betym199@gmail.com', ''),
-(151, 'Betym199@gmail.com', '$2y$10$4Uv4mkrrFyJv87CP1.8EZeVsVV6Ar51QMfR4TfpkDOWLtC4PCDZDq', 'Bethelhem', 'Legesse', 931575704, '', 'USER', '../uploads/adminPhoto/5Screenshot (5).png', '2021-12-29 11:33:55', 'Betym199@gmail.com', ' '),
-(152, 'fonkablata@gmail.com', '$2y$10$BMZ2kDyWv0OWpo2e7ImSDuCdKSg51wPjru7VnUCtsyucfw..BwGHm', 'Bethelhem', 'Legesse', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2021-12-29 12:01:27', 'fonkablata@gmail.com', ''),
-(153, 'fonkablata@gmail.com', '$2y$10$T5d4kqIOE5PPJwUV9FClH.kg.K7gzxa6H0xSQiiXf344zbCBoEXpu', 'firstName', '', 0, '', 'USER', 'FILE_NOT_UPLOADED', '2021-12-29 12:02:34', 'fonkablata@gmail.com', ''),
-(154, 'f@gmail.com', '1234', 'Bethelhem', 'Legesse', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-02 12:26:09', '', ''),
-(155, 'g@gmail.com', '$2y$10$VzTfD64pL.hvhAxOW7B3iO4Bz9xrVJhsnRhxH3yrbrVWBvqQqylp.', 'Fikir', 'Getahun', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-02 12:28:52', '', ''),
-(156, 'q@gmail.com', '$2y$10$FH4SodMSxmeVrsBXu7Nx1ODuZNEPdOcqjhkuEGEQPud1235WXs1Q2', 'Fikir', 'Getahun', 0, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-02 12:32:58', '', ''),
-(157, 'w@gmail.com', '$2y$10$AAZUuYSN2rgO3zx4Mis7MuqAW0rJ5CfFMqqFsFjThkTzBe6zrfF1e', 'Bethelhem', 'Legesse', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-02 12:38:07', '', 'BAN'),
-(158, 'z@gmail.com', '$2y$10$pu2OlXgOzA.JqVycRpsCpurkIbB9EB5Eul5KEnwU0422ZzHJe8JVW', 'Fikir', 'Getahun', 931575704, '', 'USER', './uploads/adminPhoto/12pp.png', '2022-01-05 08:06:28', '', ''),
-(159, 'x@gmail.com', '$2y$10$2BHy14ezpUeEmZs3GtCSr.7nFmwTgisWZQXRYg8Vo.fMPotQRmiVC', 'Bethelhem', 'Legesse', 931575704, '', 'Choose...', './uploads/adminPhoto/13bgg.png', '2022-01-05 09:33:34', '', ''),
-(160, 'wee@gmail.com', '$2y$10$EjpBHv7jZfNQl9cdaYj7x.zVy4ZdrFnO8wP0gYpJHjInojU8QELaC', 'Bethelhem', 'Legesse', 931575704, '', 'USER', './uploads/adminPhoto/f5e26ad84070212d253d61a4045cbf09big.png', '2022-01-04 21:46:15', 'wee@gmail.com', '');
+INSERT INTO `user` (`id`, `username`, `password`, `firstName`, `lastName`, `phone`, `email`, `auth`, `photoPath1`, `lastLogedIn`, `about`, `userStatus`, `recover`) VALUES
+(89, 'kenean360', '1234', 'Kenean', 'Tech', 987654321, '', 'ADMIN', '../uploads/adminPhoto/a9659big.png', '2022-01-02 12:33:01', '                sdgsgd  ', ' ', ''),
+(95, 'fonka@gmail.com', '1234', 'Fikir', 'Getahun', 931575704, '', 'EDITOR', '../uploads/adminPhoto/a14131T6B0828.jpg', '2021-12-14 00:00:00', '     i love my self. self love', 'programmer', ''),
+(147, 'vvv@gmail.com', '1234', 'new', 'new', 11, '', 'ADMIN', '../uploads/adminPhoto/a1259big.png', '2021-12-13 00:00:00', '     new     ', 'new', ''),
+(149, 'fonka@gmail.com', '1234', 'MIki', 'Belete', 931575704, '', 'Choose...', '../uploads/adminPhoto/3DSC_0720.jpg', '2021-12-17 00:00:00', 'asdfasdf', 'programmer', ''),
+(150, '0931575704', '$2y$10$NSaIyK1ftS2R4f/sDCAFEu8YlJNXsMVTJhxO6taygvNgf9Qn0jHvC', 'Bethelhem', 'Legesse', 0, '', 'USER', 'FILE_NOT_UPLOADED', '2021-12-29 11:25:10', 'Betym199@gmail.com', '', ''),
+(151, 'Betym199@gmail.com', '$2y$10$4Uv4mkrrFyJv87CP1.8EZeVsVV6Ar51QMfR4TfpkDOWLtC4PCDZDq', 'Bethelhem', 'Legesse', 931575704, '', 'USER', '../uploads/adminPhoto/5Screenshot (5).png', '2021-12-29 11:33:55', 'Betym199@gmail.com', ' ', ''),
+(152, 'fonkablata@gmail.com', '$2y$10$BMZ2kDyWv0OWpo2e7ImSDuCdKSg51wPjru7VnUCtsyucfw..BwGHm', 'Bethelhem', 'Legesse', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2021-12-29 12:01:27', 'fonkablata@gmail.com', '', ''),
+(153, 'fonkablata@gmail.com', '$2y$10$T5d4kqIOE5PPJwUV9FClH.kg.K7gzxa6H0xSQiiXf344zbCBoEXpu', 'firstName', '', 0, '', 'USER', 'FILE_NOT_UPLOADED', '2021-12-29 12:02:34', 'fonkablata@gmail.com', '', ''),
+(154, 'f@gmail.com', '1234', 'Bethelhem', 'Legesse', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-02 12:26:09', '', '', ''),
+(155, 'g@gmail.com', '$2y$10$VzTfD64pL.hvhAxOW7B3iO4Bz9xrVJhsnRhxH3yrbrVWBvqQqylp.', 'Fikir', 'Getahun', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-02 12:28:52', '', '', ''),
+(156, 'q@gmail.com', '$2y$10$FH4SodMSxmeVrsBXu7Nx1ODuZNEPdOcqjhkuEGEQPud1235WXs1Q2', 'Fikir', 'Getahun', 0, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-02 12:32:58', '', '', ''),
+(157, 'w@gmail.com', '$2y$10$AAZUuYSN2rgO3zx4Mis7MuqAW0rJ5CfFMqqFsFjThkTzBe6zrfF1e', 'Bethelhem', 'Legesse', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-02 12:38:07', '', 'BAN', ''),
+(158, 'z@gmail.com', '$2y$10$pu2OlXgOzA.JqVycRpsCpurkIbB9EB5Eul5KEnwU0422ZzHJe8JVW', 'Fikir', 'Getahun', 931575704, '', 'USER', './uploads/adminPhoto/12pp.png', '2022-01-05 08:06:28', '', '', ''),
+(159, 'x@gmail.com', '$2y$10$2BHy14ezpUeEmZs3GtCSr.7nFmwTgisWZQXRYg8Vo.fMPotQRmiVC', 'Bethelhem', 'Legesse', 931575704, '', 'Choose...', './uploads/adminPhoto/13bgg.png', '2022-01-12 18:24:09', '', '', ''),
+(160, 'wee@gmail.com', '$2y$10$EjpBHv7jZfNQl9cdaYj7x.zVy4ZdrFnO8wP0gYpJHjInojU8QELaC', 'Bethelhem', 'Legesse', 931575704, '', 'USER', './uploads/adminPhoto/f5e26ad84070212d253d61a4045cbf09big.png', '2022-01-04 21:46:15', 'wee@gmail.com', '', ''),
+(161, 't@gmail.com', '$2y$10$rbmpVIU1ZDhtfu0PUzikBuNkz55olNxJEdcSbdk6IGSNDXvmYnXOG', 'test', 'test', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-14 07:24:59', 'Deri Dewa', '', ''),
+(162, 'y@gmail.com', '$2y$10$mTp8jiyqJC2IeztYF8m8iO/L0kXVaWD5wyzn5ZyyB8aPhfwdXIw/y', 'Yonasx', 'Kebede', 931575704, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-14 08:17:43', 'Jimma', '', 'qwe@123'),
+(163, 'v@gmail.com', '$2y$10$evRYTjoU7SoAAzqniEByY.xfbP6T674v2Db3Xwk0UVpdx7J620thm', 'Fikir', 'Getahun', 2147483647, '', 'USER', 'FILE_NOT_UPLOADED', '2022-01-14 08:18:52', 'Adama', '', 'qwe@123');
 
 -- --------------------------------------------------------
 
@@ -748,7 +760,7 @@ INSERT INTO `vacancy` (`id`, `type`, `positionType`, `companyName`, `title`, `se
 (7, '0', '0', 'asfd', '', '', '', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 1, 0, '', 0, '', '0000-00-00'),
 (8, '0', '0', 'asfd', '', '', '', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 1, 0, '', 0, '', '0000-00-00'),
 (9, '0', '0', '', '', '', '', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
-(10, '0', '0', '', 'zxc', '', '', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
+(10, '0', '0', '', 'zxc', '', '', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 0, 0, ',162', 0, '', '0000-00-00'),
 (11, '0', '0', 'cx', '', '', '', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
 (12, '0', '0', 'sdf', '', '', '', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
 (13, '0', '0', 'SDF', '', '', '', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
@@ -764,7 +776,7 @@ INSERT INTO `vacancy` (`id`, `type`, `positionType`, `companyName`, `title`, `se
 (23, '0', '0', '', '', '', 'ESAYYYYY', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
 (24, '0', '0', 'SDF', '', '', '', '0000-00-00 00:00:00', 0, 0, '', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
 (25, '0', '0', '', 'dgs', '', '', '0000-00-00 00:00:00', 89, 0, '', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
-(26, '0', '2', 'afds', 'kenean digital', '', 'afds', '0000-00-00 00:00:00', 0, 0, 'sadf', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
+(26, '0', '2', 'afds', 'kenean digital', '', 'afds', '0000-00-00 00:00:00', 0, 0, 'sadf', '0000-00-00 00:00:00', '', '', 2, 0, '', 0, '', '0000-00-00'),
 (27, '0', '2', 'afds', 'kenean digital', '', 'afds', '0000-00-00 00:00:00', 0, 0, 'sadf', '0000-00-00 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
 (28, '7', '1', 'Fonka', 'Coder', '', 'Belier 4 Kilo', '2021-12-06 00:00:00', 0, 4, 'Best job', '2021-12-11 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
 (29, '7', '1', 'Fonka', 'Coder', '', 'Belier 4 Kilo', '2021-12-06 00:00:00', 0, 4, 'Best job', '2021-12-11 00:00:00', '', '', 0, 0, '', 0, '', '0000-00-00'),
@@ -867,7 +879,9 @@ INSERT INTO `zebegna` (`id`, `name`, `sex`, `age`, `address`, `phone`, `photoPat
 (3, 'carCategory v3', 'Choose.', 0, '', 0, '', 'Choose...', '2021-12-27 08:06:52', 'EDITED', 2, 0, ''),
 (4, 'carCategory v3', 'Choose.', 0, '', 0, '', 'Choose...', '2021-12-27 08:07:56', 'EDITED', 2, 0, ''),
 (5, 'carCategory v3', 'Choose.', 0, '', 0, '', 'Choose...', '2021-12-27 08:09:19', 'EDITED', 2, 0, ''),
-(6, 'Fikir SFG Getahun', 'Choose.', 0, 'F', 0, './uploads/zebegnaPhoto/5f4df69b99c5d980f586ef97e6bf0890.png', 'Choose...', '2021-12-31 14:36:14', '', 0, 3, '');
+(6, 'Fikir SFG Getahun', 'Choose.', 0, 'F', 0, './uploads/zebegnaPhoto/5f4df69b99c5d980f586ef97e6bf0890.png', 'Choose...', '2021-12-31 14:36:14', '', 0, 3, ''),
+(7, 'zebegna', 'Choose.', 0, 'Arba Minchi', 0, './uploads/zebegnaPhoto/565d651caf6c3ee55cd12c68a9365476.png', 'Choose...', '2022-01-12 07:30:51', '', 0, 0, ''),
+(8, 'zzxxx', 'Male', 3, 'Arba Minchi', 931575704, './uploads/zebegnaPhoto/e4d189a65bf8817d0a279a1b55e2f569.png', 'House', '2022-01-12 08:58:54', 'EDITED', 158, 0, '');
 
 --
 -- Indexes for dumped tables
@@ -1001,7 +1015,7 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT for table `car`
 --
 ALTER TABLE `car`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `carcategory`
@@ -1013,19 +1027,19 @@ ALTER TABLE `carcategory`
 -- AUTO_INCREMENT for table `charity`
 --
 ALTER TABLE `charity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `electronics`
 --
 ALTER TABLE `electronics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `hotelhouse`
 --
 ALTER TABLE `hotelhouse`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `housecategory`
@@ -1037,13 +1051,13 @@ ALTER TABLE `housecategory`
 -- AUTO_INCREMENT for table `housesell`
 --
 ALTER TABLE `housesell`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `jobhometutor`
 --
 ALTER TABLE `jobhometutor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tender`
@@ -1055,7 +1069,7 @@ ALTER TABLE `tender`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
 
 --
 -- AUTO_INCREMENT for table `userpost`
@@ -1079,7 +1093,7 @@ ALTER TABLE `vacancycategory`
 -- AUTO_INCREMENT for table `zebegna`
 --
 ALTER TABLE `zebegna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -4,9 +4,9 @@
   ob_start();
   if(!isset($_SESSION)) { 
     session_start(); 
-    $_SESSION['location'] = 'All';
   } 
 
+  $_SESSION['location'] = 'All';
 
 
   // if(!isset($_SESSION['location'])){

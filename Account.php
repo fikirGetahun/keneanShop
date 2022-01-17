@@ -417,8 +417,19 @@ foreach($dbTables as $posts){
 
 
 
-    if(isset($_GET['fav'])){
 
+
+    if(isset($_GET['fav'])){
+      ///delete fav handler
+      if(isset($_GET['delFav'], $_GET['pid'], $_GET['tb'])){
+        $ds = $get->deleteFav($_GET['tb'], $_GET['pid'], $_SESSION['userId']);
+        if($ds){
+          header('Location: Account.php?fav=true');
+        }
+        else{
+          echo 'ERROR';
+        }
+      }
       ?>
       
       <?php
@@ -447,10 +458,14 @@ foreach($dbTables as $posts){
                     
 ?>
           <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Big Discount Ads&type=big" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <!-- favourite deleter button -->
+          <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
 <?php
                     }else{
 ?>
           <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <!-- favourite deleter button -->
+          <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
 
 <?php                     
                     }                    
@@ -459,6 +474,8 @@ foreach($dbTables as $posts){
                     ?>
             <a class="img-thumbnail " 
             href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label= &type= " > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                      <!-- favourite deleter button -->
+          <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
   
                     <?php
                   }
@@ -466,10 +483,14 @@ foreach($dbTables as $posts){
                   if($row['houseOrLand'] == 'HOUSE'){
                     ?>
                     <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Posts&type=house" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                              <!-- favourite deleter button -->
+          <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
                         <?php
                   }else{
                     ?>
                     <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Land Posts&type=land" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                              <!-- favourite deleter button -->
+          <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
                           <?php                  
                   }
 

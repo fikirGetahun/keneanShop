@@ -8,21 +8,19 @@ require_once "php/fetchApi.php";
 
 if(isset($_SESSION['userId'])){
   $userId = $_SESSION['userId'];
-  unset($_SESSION['cat'], $_SESSION['status'], $_SESSION['off'], $_SESSION['label'], $_SESSION['type'], $_SESSION['arg']);
-
 }
-
+unset($_SESSION['cat'], $_SESSION['status'], $_SESSION['off'], $_SESSION['label'], $_SESSION['type'], $_SESSION['arg'], $_SESSION['dyCol'], $_SESSION['dyArg']);
 
 //// we unset all the sesssions becouse there must be no data when we navigate to other catagory since its all from a single page each time this page reloads, it deletes previious session data
 //// this all part is for recording the navigation for the adaptive scroll page can scroll new content from this session variables
 $_SESSION['userScroll'] = array();
 
-if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'])){
+if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'], $_GET['type'])){
   $_SESSION['cat'] = $_GET['cat'];
   $_SESSION['status'] = $_GET['status'];
   $_SESSION['off'] = $_GET['off'];
   $_SESSION['label'] = $_GET['label'];
-
+  $_SESSION['type'] = $_GET['type'];
 }
 
 ////for vacancy
@@ -30,8 +28,16 @@ if(isset($_GET['type'])){
   $_SESSION['type'] = $_GET['type'];
 }
 
+if(isset($_GET['dbType'])){
+  $_SESSION['dbType'] = $_GET['dbType'];
+}
+
 
 // echo $userId;
+if(isset($_GET['dyCol'], $_GET['dyArg'])){
+  $_SESSION['dyCol'] = $_GET['dyCol'];
+  $_SESSION['dyArg'] = $_GET['dyArg'];
+}
 
 ///for house land
 if(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
@@ -42,28 +48,34 @@ if(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
   $_SESSION['label'] = $_GET['label'];
 }
 
+if(isset($_GET['label'])){
+  $allLabel = $_GET['label'];
+}
 
 	?>
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
 <script>
+  
 $(document).ready(function(){
 
   window.scrollTo(0, 0);
   
 
   $(window).scroll(function(){
-    if($(window).scrollTop() >= $('#loop').offset().top + $('#loop').outerHeight() - window.innerHeight +300 ){
+    if($(window).scrollTop() >= $('#loop').offset().top + $('#loop').outerHeight() - window.innerHeight  ){
       // alert('scroll')
 
-      // $.ajax({
-      //   url:'user/userScrollView.php',
-      //   type: 'GET', 
-      //   data : 'types=good',
-      //   success: function(html){
-      //     $('#loop').append(html);(html)
-      //   }
-      // })
+      $.ajax({
+        url:'user/userScrollView.php',
+        type: 'GET', 
+        success: function(htmlz){
+          $('#vc').append(htmlz)
+          
+        }
+      })
     }
   })
 
@@ -126,7 +138,7 @@ function fav(pid, id, table){
           if(isset($_GET['status'], $_GET['off'], $_GET['label'], $_GET['type'])){
             ?>
               <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>&type=<?php echo $_GET['type'] ?>"><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>&type=<?php echo $_GET['type'] ?>" ><?php echo $rowc['type'] ?></a>
             <?php
           }elseif(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
             ?>
@@ -136,12 +148,12 @@ function fav(pid, id, table){
           }elseif(isset($_GET['type'])){
             ?>
               <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>">"><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
             <?php
           }else{
             ?>
               <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&dbType=<?php echo $rowc['type'] ?>">"><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&dbType=<?php echo $rowc['type'] ?>"><?php echo $rowc['type'] ?></a>
             <?php
           }
 
@@ -157,6 +169,96 @@ function fav(pid, id, table){
     }    elseif($_GET['cat'] == 'blog'){
       echo 'not yet';
     }
+
+//if car
+if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
+  ?>
+<div class="card-title" id="headingOne">
+  <h5 class="mb-0">
+    <button class="nav-link" data-toggle="collapse" data-target="#collapseOnezp" aria-expanded="false" aria-controls="collapseOne">
+      Purpose
+    </button>
+  </h5>
+</div>
+
+<div id="collapseOnezp" class="collapse show" aria-labelledby="headingOne" aria-expanded="false" data-parent="#accordion">
+  <div class="card-body">
+  <div class="row">
+<div class="list-group" id="list-tab" role="tablist">
+
+          <?php
+
+          if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'All'){//active class
+            ?>
+      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>
+            <?php
+          }else{
+            ?>
+              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>        
+            <?php
+          }
+
+          if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'Private'){//active class
+            ?> 
+      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private" role="tab" aria-controls="home">Private</a>
+            <?php
+          }else{
+            ?>
+              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private" role="tab" aria-controls="home">Private</a>        
+            <?php
+          }
+
+          if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'Govormental Offices'){//active class
+            ?> 
+      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Govormental Offices" role="tab" aria-controls="home">Govormental Offices</a>
+            <?php
+          }else{
+            ?>
+              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Govormental Offices" role="tab" aria-controls="home">Govormental Offices</a>        
+            <?php
+          }
+
+          if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'NGO'){//active class
+            ?> 
+      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=NGO" role="tab" aria-controls="home">NGO</a>
+            <?php
+          }else{
+            ?>
+              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=NGO" role="tab" aria-controls="home">NGO</a>        
+            <?php
+          }
+
+          if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'Private Company'){//active class
+            ?> 
+      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private Company" role="tab" aria-controls="home">Private Company</a>
+            <?php
+          }else{
+            ?>
+              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private Company" role="tab" aria-controls="home">Private Company</a>        
+            <?php
+          }
+
+          if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'All'){//active class
+            ?> 
+      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>
+            <?php
+          }else{
+            ?>
+              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>        
+            <?php
+          }
+
+?>
+
+
+</div>
+  </div>
+
+</div>      </div>
+
+  <?php
+}
+
     if($_GET['cat'] == 'housesell' ){
       ?>
     <div class="card-title" id="headingOne">
@@ -171,10 +273,67 @@ function fav(pid, id, table){
       <div class="card-body">
       <div class="row">
     <div class="list-group" id="list-tab" role="tablist">
-      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=housesell&type=house&arg=For%20Sell&label=House%20For%20Sell&dyCol=subCity&dyArg=kera" role="tab" aria-controls="home">Home</a>
-      <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
-      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+    <?php
+        $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
+        $city = array();
+        while($rowLoc = $locc->fetch_assoc()){
+            $city[]= $rowLoc['category'];
+        }
+        sort($city);
+        $i = 0;
+        foreach($city as $loc){
+          ?>
+          <?php
+          if(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'house' && $_GET['arg'] == 'For Sell' ){
+            if(isset($_GET['dyArg']) && $_GET['dyArg'] == $loc ){ // to make active class
+              ?>
+            <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></a>
+              <?php
+            }else{// to make unactive class
+              ?>
+            <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></a>   
+              <?php
+            }
+          }elseif(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'land' && $_GET['arg'] == 'For Sell' ){
+            if(isset($_GET['dyArg']) && $_GET['dyArg'] == $loc ){ // to make active class
+              ?>
+            <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></a>
+              <?php
+            }else{// to make unactive class
+              ?>
+            <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></a>   
+              <?php
+            }
+          }elseif(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'house' && $_GET['arg'] == 'For Rent' ){
+            if(isset($_GET['dyArg']) && $_GET['dyArg'] == $loc ){ // to make active class
+              ?>
+            <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></a>
+              <?php
+            }else{// to make unactive class
+              ?>
+            <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></a>   
+              <?php
+            }
+          }elseif(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'land' && $_GET['arg'] == 'For Rent' ){
+            if(isset($_GET['dyArg']) && $_GET['dyArg'] == $loc ){ // to make active class
+              ?>
+            <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></a>
+              <?php
+            }else{// to make unactive class
+              ?>
+            <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></a>   
+              <?php
+            }
+          }
+          
+          ?>
+        
+          <?php
+          $i++;
+        }
+      ?>
+
+
     </div>
       </div>
  
@@ -196,7 +355,7 @@ function fav(pid, id, table){
 </div>  
 </div>
   </div>
-  <div id="loop" class="col-md-8">
+  <div id="loop" class="col-md-9">
     <?Php
 
       if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){
@@ -305,12 +464,12 @@ function fav(pid, id, table){
     ?>
     <br>
     
-      <div  class="container row">
+      <div  class="container">
           <h5><?php echo $label ?></h5> <h6><?php if(isset($_GET['dbType'])){ echo $_GET['dbType']; } ?></h6>
       </div>
         
         <br>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+      <div id="vc" class="row">
 
 
     <?php
@@ -323,12 +482,12 @@ function fav(pid, id, table){
                 
 
           
-                <div  class="col-md-4">
+                <div  class="col-3">
               <div class="card mb-4 box-shadow">
               
               <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $_GET['type'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
-                <div class="card-body">
+                <div class="post-details">
 
                   <h5 class="card-title">  <?php echo $row['title'] ?></h5>
                   <?php 
@@ -383,7 +542,7 @@ function fav(pid, id, table){
 
               ?>
               </div>
-              
+        </div>
               
               <?php
 
@@ -785,7 +944,7 @@ function fav(pid, id, table){
     ?>
     <br>
       <div  class="container">
-          <h5><?php echo $label ?></h5>
+          <!-- <h5><?php echo $label ?></h5> -->
       </div>
         
         <br>
@@ -895,14 +1054,14 @@ function fav(pid, id, table){
                 }else{
                   $fetchPost = $get->allPostListerOn2Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg);
                 }
-              }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){ //dynamic colomen and arg with location selected
+              }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All'  ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
                   $fetchPost = $get->search3C($cat,$dyCol, $dyArg,'houseOrLand', 'LAND', 'forRentOrSell', $arg, $search);
                 }else{
-                  $fetchPost = $get->allPostListerOn3Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell',$dyCol, $dyArg, $arg);
+                  $fetchPost = $get->allPostListerOn3Columen($cat, 'houseOrLand', 'LAND', 'forRentOrSell' , $arg,$dyCol, $dyArg);
                 }
               }
 
@@ -918,7 +1077,7 @@ function fav(pid, id, table){
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search4C($cat,$dyCol, $dyArg,'address', $_SESSION['location'],'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search);
+                  $fetchPost = $get->search4C($cat,$dyCol, $dyArg,'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search);
                 }else{
                   $fetchPost = $get->allPostListerOn4Columen($cat,$dyCol, $dyArg,'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location']);
                 }
@@ -1128,7 +1287,7 @@ function fav(pid, id, table){
             ?>
             <br>
             <div  class="container">
-                <h5><?php echo $label ?></h5>
+                <!-- <h5><?php echo $label ?></h5> -->
             </div>
               
               <br>
