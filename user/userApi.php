@@ -116,6 +116,13 @@ if(isset($_GET['loc'])){
   }
   
 
+ // page number changer
+ if(isset($_POST['page'])){
+   $_SESSION['page'] = $_POST['page'];
+ }else{
+   $_SESSION['page'] = 1;
+ }
+
 //// address selecter jiji style
 if(isset($_POST['address'])){
     $add = $_POST['address'];

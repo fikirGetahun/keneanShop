@@ -14,6 +14,20 @@ class fetch{
         return $ask;
     }
 
+        ///// to fetch data from a 'table and condition(columen) with the argument
+        function allPostListerOnColumenD($table, $columen, $args, $limitStart, $limitEnd){
+            include "connect.php";
+            $q2 = "SELECT * FROM `$table` WHERE `$columen` LIKE '$args' ORDER BY `postedDate` DESC";
+            $q = "SELECT * FROM `$table` WHERE `$columen` LIKE '$args' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd";
+            
+
+            $ask2 = $mysql->query($q2);
+            $ask = $mysql->query($q);
+            echo $mysql->error;
+    
+            return array($ask, $ask2);
+        }
+
     /// order by accending
         ///// to fetch data from a 'table and condition(columen) with the argument
         function allPostListerOnColumenORDER($table, $columen, $args){
@@ -38,6 +52,18 @@ class fetch{
         return $ask;
     }
 
+        ///// to fetch data for a table with out any condition
+        function allPostListerOnTableD($table, $limitStart, $limitEnd){
+            include "connect.php";
+            $q1 = "SELECT `postedDate` FROM `$table` ORDER BY `postedDate` DESC";
+            $q = "SELECT * FROM `$table` ORDER BY `postedDate` DESC LIMIT $limitStart , $limitEnd ";
+            $ask1 = $mysql->query($q1);
+            $ask = $mysql->query($q);
+            echo $mysql->error;
+            // echo 'ss'.$mysql->;
+            return array($ask, $ask1);
+        }
+
     ////to fetch data from a tabel and 2 coloumen condition
     function allPostListerOn2Columen($table, $columen, $args, $columen2, $args2){
 
@@ -51,6 +77,22 @@ class fetch{
 
     }
 
+        ////to fetch data from a tabel and 2 coloumen condition
+        function allPostListerOn2ColumenD($table, $columen, $args, $columen2, $args2, $limitStart, $limitEnd){
+
+            include "connect.php";
+            $q2 = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' ORDER BY `postedDate` DESC";
+            $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";
+
+    $ask2 = $mysql->query($q2);
+            $ask = $mysql->query($q);
+            echo $mysql->error;
+    
+            return array($ask, $ask2);
+    
+        }
+
+
     //// to fetch data from a tabel and 3 colomen condition
     function allPostListerOn3Columen($table, $columen, $args, $columen2, $args2, $columen3, $args3){
         include "connect.php";
@@ -61,6 +103,20 @@ class fetch{
 
         return $ask;
     }
+
+
+    function allPostListerOn3ColumenD($table, $columen, $args, $columen2, $args2, $columen3, $args3, $limitStart, $limitEnd){
+        include "connect.php";
+        $q2 = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' ORDER BY `postedDate` DESC";
+        $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd  ";
+
+        $ask2 = $mysql->query($q2);
+        $ask = $mysql->query($q);
+        echo $mysql->error;
+
+        return array($ask, $ask2);
+    }
+
 
 
         //// to fetch data from a tabel and 4 colomen condition
@@ -74,6 +130,18 @@ class fetch{
             return $ask;
         }
 
+
+        function allPostListerOn4ColumenD($table, $columen, $args, $columen2, $args2, $columen3, $args3, $columen4, $args4, $limitStart, $limitEnd){
+            include "connect.php";
+            $q2 = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' AND `$columen4` = '$args4'   ORDER BY `postedDate` DESC";
+            $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' AND `$columen4` = '$args4'   ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";
+    
+            $ask2 = $mysql->query($q2);
+            $ask = $mysql->query($q);
+            echo $mysql->error;
+    
+            return array($ask, $ask2);
+        }
 
 
         //// to fetch data from a tabel and 5 colomen condition
@@ -251,109 +319,132 @@ class fetch{
 
 
 
-    function searchC($table, $sarg){
+    function searchC($table, $sarg, $limitStart, $limitEnd){
         include "connect.php";
         $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
         if(in_array($table, $excluded)){
-        $q = "SELECT * FROM `$table` WHERE  `name` LIKE '%$sarg%' ";    
+        $q2 = "SELECT `postedDate` FROM `$table` WHERE  `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+        $q = "SELECT * FROM `$table` WHERE  `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";    
         }else{
-        $q = "SELECT * FROM `$table` WHERE  `title` LIKE '%$sarg%' ";
+        $q2 = "SELECT `postedDate` FROM `$table` WHERE  `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+        $q = "SELECT * FROM `$table` WHERE  `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";
         }
 
 
+        $ask2 = $mysql->query($q2);
         $ask = $mysql->query($q);
-echo $mysql->error;
-        return $ask; 
+        echo $mysql->error;
+
+        return array($ask, $ask2);
     }
 
 
 
     ///// search output based on one colomun that match one search condition with tobe searched columen 
-    function search1C($table, $columen, $carg, $sarg){
+    function search1C($table, $columen, $carg, $sarg, $limitStart, $limitEnd){
         include "connect.php";
         $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
         if(in_array($table, $excluded)){
-        $q = "SELECT * FROM `$table` WHERE `$columen` = '$carg' AND  `name` LIKE '%$sarg%' ";    
+            $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen` = '$carg' AND  `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+        $q = "SELECT * FROM `$table` WHERE `$columen` = '$carg' AND  `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd";    
         }else{
-        $q = "SELECT * FROM `$table` WHERE `$columen` = '$carg' AND  `title` LIKE '%$sarg%' ";
+            $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen` = '$carg' AND  `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+        $q = "SELECT * FROM `$table` WHERE `$columen` = '$carg' AND  `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";
         }
 
 
+        $ask2 = $mysql->query($q2);
         $ask = $mysql->query($q);
+        echo $mysql->error;
 
-        return $ask; 
+        return array($ask, $ask2);
     }
 
 
     ///// search output based on 2colomun that match one search condition with tobe searched columen 
-    function search2C($table, $columen1, $arg1, $columen2, $arg2, $sarg){
+    function search2C($table, $columen1, $arg1, $columen2, $arg2, $sarg, $limitStart, $limitEnd){
         include "connect.php";
         $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
         if(in_array($table, $excluded)){
-        $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `name` LIKE '%$sarg%' ";    
+            $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+        $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";    
         }else{
-        $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `title` LIKE '%$sarg%' ";
+            $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+        $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd";
         }
 
 
+        $ask2 = $mysql->query($q2);
         $ask = $mysql->query($q);
+        echo $mysql->error;
 
-        return $ask; 
+        return array($ask, $ask2);
     }
 
 
 
         ///// search output based on 3colomun that match one search condition with tobe searched columen 
-        function search3C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $sarg){
+        function search3C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $sarg, $limitStart, $limitEnd){
             include "connect.php";
             $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
             if(in_array($table, $excluded)){
-                $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `name` LIKE '%$sarg%' ";    
+                $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC ";
+                $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd";    
             }else{
-            $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `title` LIKE '%$sarg%' ";
+                $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+            $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd";
             }
     
     
-    
+            $ask2 = $mysql->query($q2);
             $ask = $mysql->query($q);
+            echo $mysql->error;
     
-            return $ask; 
+            return array($ask, $ask2);
         }
 
 
 
                 ///// search output based on 4colomun that match one search condition with tobe searched columen 
-                function search4C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $columen4, $arg4, $sarg){
+                function search4C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $columen4, $arg4, $sarg, $limitStart, $limitEnd){
                     include "connect.php";
                     $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                     if(in_array($table, $excluded)){
-                    $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4'   AND `name` LIKE '%$sarg%' ";    
+                        $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4'   AND `name` LIKE '%$sarg%'  ORDER BY `postedDate` DESC";
+                    $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4'   AND `name` LIKE '%$sarg%'  ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd";    
                     }else{
-                    $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4'     AND `title` LIKE '%$sarg%' ";
+                        $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4'     AND `title` LIKE '%$sarg%'  ORDER BY `postedDate` DESC";
+                    $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4'     AND `title` LIKE '%$sarg%'  ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";
                     }
             
             
             
+                    $ask2 = $mysql->query($q2);
                     $ask = $mysql->query($q);
+                    echo $mysql->error;
             
-                    return $ask; 
+                    return array($ask, $ask2);
                 }
 
             ///// search output based on 5colomun that match one search condition with tobe searched columen 
-            function search5C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $columen4, $arg4, $columen5, $arg5, $sarg){
+            function search5C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $columen4, $arg4, $columen5, $arg5, $sarg, $limitStart, $limitEnd){
                 include "connect.php";
                 $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                 if(in_array($table, $excluded)){
-                $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'   AND `name` LIKE '%$sarg%' ";    
+                    $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'   AND `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC ";
+                $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'   AND `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd  ";    
                 }else{
-                $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'      AND `title` LIKE '%$sarg%' ";
+                    $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'      AND `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+                $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4' AND `$columen5` = '$arg5'      AND `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd  ";
                 }
         
         
         
+                $ask2 = $mysql->query($q2);
                 $ask = $mysql->query($q);
+                echo $mysql->error;
         
-                return $ask; 
+                return array($ask, $ask2);
             }
                 
 
