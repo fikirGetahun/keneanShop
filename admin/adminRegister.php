@@ -3,7 +3,7 @@
     require_once "../php/adminCrude.php";
 
     if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'], $_POST['username'],
-     $_POST['password'], $_POST['auth'], $_POST['jobt'], $_POST['about'], $_FILES['photoq'])){
+     $_POST['password'], $_POST['auth'], $_POST['about'], $_FILES['photoq'], $_POST['recover'])){
 
       echo 'in';
          $firstName =$_POST['firstName'] ;
@@ -12,8 +12,8 @@
          $username =$_POST['username'] ;
          $password =$_POST['password'] ;
          $auth =$_POST['auth'] ;
-         $job = $_POST['jobt'];
          $about =$_POST['about'];
+         $recover = $_POST['recover'];
          $password = password_hash($password, PASSWORD_DEFAULT);
 
 
@@ -27,7 +27,7 @@
           $fileName = $_FILES['photoq']['name'];
                     //to upload photo
                     $up = $admin->uploadPhoto($fileName, $tempName);
-                    $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, $up, $job, $about ); 
+                    $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, $up, $about, $recover ); 
 
         // }
 
@@ -107,11 +107,14 @@
         
         
         <div id="registerBox">
-    <label for="exampleInputEmail1">Job</label>
-          <input type="text" class="form-control" id="lastName" 
-          aria-describedby="emailHelp" name="jobt" placeholder="Job">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <label for="exampleInputEmail1">Password Recovery Keyword</label>
+          <input type="text" class="form-control" id="username" 
+           name="recover" placeholder="Username">
+          <small id="emailHelp" class="form-text text-muted">This here is a key word you have to remember your password when you forget it.</small>
     </div>
+
+
+
 
 
           <label for="exampleInputEmail1">About</label>

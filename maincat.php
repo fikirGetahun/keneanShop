@@ -68,14 +68,14 @@ $(document).ready(function(){
     if($(window).scrollTop() >= $('#loop').offset().top + $('#loop').outerHeight() - window.innerHeight  ){
       // alert('scroll')
 
-      $.ajax({
-        url:'user/userScrollView.php',
-        type: 'GET', 
-        success: function(htmlz){
-          $('#vc').append(htmlz)
+      // $.ajax({
+      //   url:'user/userScrollView.php',
+      //   type: 'GET', 
+      //   success: function(htmlz){
+      //     $('#vc').append(htmlz)
           
-        }
-      })
+      //   }
+      // })
     }
   })
 
@@ -106,7 +106,7 @@ function fav(pid, id, table){
   <!-- <div class=".d-sm-none .d-md-block"> -->
       
 <div id="accordion" class="col-2">
-  <div class="card">
+  <div class="">
 
 <!-- <div id="sideNav" class="col-2"> -->
 <?php 
@@ -116,14 +116,14 @@ function fav(pid, id, table){
       ?>
   <div class="card-title" id="headingOne">
       <h5 class="mb-0">
-        <button class="nav-link" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne">
-        Categories        </button>
+        <label class="nav-link" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne">
+        Categories        </label>
       </h5>
     </div>
-    <div id="collapseOne1" class="collapse show" aria-labelledby="headingOne" aria-expanded="false" data-parent="#accordion">
+    <div id="collapseOne1" class="collapse show border-0" aria-labelledby="headingOne" aria-expanded="false" data-parent="#accordion">
       <div class="card-body">
-      <div class="list-group" id="list-tab" role="tablist">
-      <div class="row">
+      <div class="list-group border-0" id="list-tab" role="tablist">
+      <div class="row ">
 
       <?php
       $tab = $_GET['cat'];
@@ -175,9 +175,9 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
   ?>
 <div class="card-title" id="headingOne">
   <h5 class="mb-0">
-    <button class="nav-link" data-toggle="collapse" data-target="#collapseOnezp" aria-expanded="false" aria-controls="collapseOne">
+    <label class="nav-link" data-toggle="collapse" data-target="#collapseOnezp" aria-expanded="false" aria-controls="collapseOne">
       Purpose
-    </button>
+</label>
   </h5>
 </div>
 
@@ -263,9 +263,9 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
       ?>
     <div class="card-title" id="headingOne">
       <h5 class="mb-0">
-        <button class="nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        <label class="nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
           Sub City
-        </button>
+    </label>
       </h5>
     </div>
 
@@ -343,6 +343,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
     }
 
 
+
     
   }
 
@@ -355,7 +356,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
 </div>  
 </div>
   </div>
-  <div id="loop" class="col-md-9">
+  <div id="loop" class="col-md-10">
     <?Php
 
       if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){

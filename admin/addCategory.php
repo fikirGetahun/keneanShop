@@ -75,6 +75,10 @@ if(isset($_POST['elc'])){
             $('#editAd'+id).load("admin/adCatEdit.php",{id: id, type: "house"})
         }
 
+        function editElec(id){
+            $('#editAd'+id).load("admin/adCatEdit.php",{id: id, type: "elec"})
+        }
+
         function update(){
             $("#xx").load("admin/divTags.php #cBox"); 
             $("#xx").load("admin/divTags.php #cBox"); 
@@ -135,6 +139,9 @@ if(isset($_POST['elc'])){
                 $('#xxh2').load('admin/divTags.php #elecCat')
                 $('#xxh2').load('admin/divTags.php #elecCat')
             }
+
+
+
 
 
     </script>
@@ -447,19 +454,21 @@ if(isset($_POST['type'])){
 
       <?php
       $out = $admin->allCategoryLister('electronics');
+      $i = 0;
       while($row = $out->fetch_assoc()){
 
               ?>
             <tr>
             <th scope="row"><?php echo $row['id'] ?></th>
-            <td id="editAd<?php echo $row['id'] ?>">
+
+            <td id="editAd<?php echo $i ?>">
             <?php echo $row['category'] ?>
 
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-             <button onclick="editHouse(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
-            <button onclick="houseDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+             <button onclick="editElec('<?php echo $i ?>')"  class="btn btn-dark">Edit</button> 
+            <button onclick="elecDelete('<?php echo $row['id'] ?>')" class="btn btn-dark">Delete</button>
                     <?php
                 }
             ?>
@@ -468,7 +477,8 @@ if(isset($_POST['type'])){
             </td>
 
             </tr>
-              <?php            
+              <?php   
+              $i++;         
           }
       
       

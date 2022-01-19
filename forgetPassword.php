@@ -113,7 +113,7 @@ require_once "php/adminCrude.php";
 
       <div id="registerBox">
     <label for="exampleInputEmail1">Password Recovery Keyword</label>
-          <input type="email" class="form-control" id="username" 
+          <input type="text" class="form-control" id="username" 
            name="recover" placeholder="Username">
           <small id="emailHelp" class="form-text text-muted">This here is a key word you have to remember your password when you forget it.</small>
     </div>
@@ -163,10 +163,19 @@ require_once "php/adminCrude.php";
         //   echo $h;
         // echo 'this --'.$puz;
         echo 'PASSWORD CHANGED';
-        ?>
-        <a href="login.php">Login</a>
         
-        <?php
+        if($urow3['auth'] != 'USER' ){
+          ?>
+          <a href="admin.php">Login</a>
+          <?php
+        }else{
+          ?>
+
+          <a href="login.php">Login</a>
+          
+          <?php
+        }
+
       }else{
         echo 'ERROR';
       }

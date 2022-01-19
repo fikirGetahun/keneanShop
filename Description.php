@@ -12,9 +12,10 @@ require_once "php/fetchApi.php";
   margin: 0 auto;
 }
 
-.zoom:hover {
-  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-}
+/* .zoom:hover { */
+  /* transform: scale(1.5);  */
+  /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+/* } */
 </style>
 
 <script>
@@ -72,7 +73,7 @@ require_once "php/fetchApi.php";
         <div class="row g-0 w-150 p-3">
  
           <div class="col-md-6 col-sm-12">
-          <div id="carouselExampleIndicators" class="carousel slide w-90 w-90 " data-ride="carousel">
+          <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
                             <ol  class="carousel-indicators">
                                 <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -164,7 +165,7 @@ require_once "php/fetchApi.php";
         <div class="mb-3">
         <div class="row g-0 w-150 p-3">
           <div class="col-6 col-sm-12 col-md-6">
-          <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
+          <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
                             <ol  class="carousel-indicators">
                                 <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -259,7 +260,7 @@ require_once "php/fetchApi.php";
   <div class="container-fluid"> 
     <div class=" mb-3">
     <div class="row g-0 w-150 p-3">
-      <div class="col-6 col-sm-12 col-md-4">
+      <div class="col-md-6 col-sm-12 col-md-4">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
                         <ol  class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
@@ -346,10 +347,10 @@ require_once "php/fetchApi.php";
 
     ?>
     
-  <div class="container-fluid"> 
-    <div class="  mb-3">
-    <div class="row g-0">
-      <div class="col-6 col-sm-12 col-md-4">
+  <div class="container"> 
+    <div class="mb-3">
+    <div class="row g-0 w-100 p-3">
+      <div class="col-md-6 col-sm-12 col-md-4">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
                         <ol  class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
@@ -439,9 +440,9 @@ require_once "php/fetchApi.php";
     ?>
     
   <div class="container-fluid"> 
-    <div class="card mb-3">
+    <div class="mb-3">
     <div class="row g-0 w-150 p-3">
-      <div class="col-md-4">
+      <div class="col-md-6">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
                         <ol  class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
@@ -450,7 +451,7 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
@@ -458,7 +459,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -468,7 +469,7 @@ require_once "php/fetchApi.php";
                             $p = $admin->photoSplit($row['photoPath1']);
                             if(!empty($p[2])){
                                 ?>
-                            <div class="carousel-item">
+                            <div class="carousel-item zoom">
                             <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
@@ -486,7 +487,7 @@ require_once "php/fetchApi.php";
                         </a>
                         </div>  
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">For Rent or Sell: </label> <?php echo $row['forRentOrSell'] ?></p>
@@ -528,9 +529,9 @@ require_once "php/fetchApi.php";
     ?>
     
   <div class="container-fluid"> 
-    <div class="card mb-3">
+    <div class="mb-3">
     <div class="row g-0 w-150 p-3">
-      <div class="col-md-4">
+      <div class="col-md-6">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
                         <ol  class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
@@ -539,7 +540,7 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
@@ -547,7 +548,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -558,7 +559,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -575,7 +576,7 @@ require_once "php/fetchApi.php";
                         </a>
                         </div>  
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
 
@@ -626,9 +627,9 @@ require_once "php/fetchApi.php";
     ?>
     
   <div class="container-fluid"> 
-    <div class="card mb-3">
+    <div class="mb-3">
     <div class="row g-0 w-150 p-3">
-      <div class="col-md-4">
+      <div class="col-md-6">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
                         <ol  class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
@@ -637,7 +638,7 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
@@ -645,7 +646,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -656,7 +657,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -673,7 +674,7 @@ require_once "php/fetchApi.php";
                         </a>
                         </div>  
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
@@ -709,7 +710,7 @@ if($_GET['cat'] == 'vacancy'){
   ?>
   
 <div class="container-fluid"> 
-  <div class="card mb-3">
+  <div class=" mb-3">
   <div class="row g-0 w-150 p-3">
     <div class="col-md-4">
     <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
@@ -797,7 +798,7 @@ if($_GET['cat'] == 'tender'){
   ?>
   
 <div class="container-fluid"> 
-  <div class="card mb-3">
+  <div class="  mb-3">
   <div class="row g-0 w-150 p-3">
     <div class="col-md-4">
     <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
@@ -888,9 +889,9 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     ?>
     
     <div class="container-fluid"> 
-    <div class="card mb-3">
+    <div class=" mb-3">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-md-6">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
                         <ol  class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
@@ -905,7 +906,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
 
       </div>
   </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title text-center">Full Name: <?php echo $row['name'] ?></h5>
 
@@ -952,9 +953,9 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     ?>
     
     <div class="container-fluid"> 
-    <div class="card mb-3">
+    <div class=" mb-3">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-md-6">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
                         <ol  class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
@@ -969,7 +970,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
 
       </div>
   </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title text-center">Full Name: <?php echo $row['name'] ?></h5>
 
@@ -1013,7 +1014,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     ?>
     
     <div class="container-fluid"> 
-    <div class="card mb-3">
+    <div class=" mb-3">
     <div class="row g-0">
       <div class="col-md-4">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
@@ -1035,7 +1036,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
   $phoneU = $getphone->fetch_assoc();
   
   ?>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title text-center">Full Name: <?php echo $row['name'] ?></h5>
 
@@ -1081,7 +1082,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     ?>
     
     <div class="container-fluid"> 
-    <div class="card mb-3">
+    <div class=" mb-3">
     <div class="row g-0">
       <div class="col-md-4">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
@@ -1092,7 +1093,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
+                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
                             </div>
                         </div>
 
@@ -1103,7 +1104,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
   $phoneU = $getphone->fetch_assoc();
   
   ?>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title text-center">Full Name: <?php echo $row['name'] ?></h5>
 
@@ -1169,12 +1170,12 @@ if($_GET['cat'] == 'blog'){
     <div id="carouselExampleControls" class="carousel slide w-90" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
+      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
     </div>
     <?php if(!empty($p[1])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Second slide">
+      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1182,7 +1183,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[2])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Second slide">
+      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1191,7 +1192,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[3])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[3] ;?>" alt="Second slide">
+      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[3] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1199,7 +1200,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[4])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[4] ;?>" alt="Second slide">
+      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[4] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1207,7 +1208,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[5])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[5] ;?>" alt="Second slide">
+      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[5] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1272,7 +1273,7 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
 <hr>
 
  <div class="album py-5 bg-light ">
-    <div id="recent" class="container-fluid-fluid ">
+    <div id="recent" class="container-fluid">
       
 
       <div class="row  row-cols-md-5 ">

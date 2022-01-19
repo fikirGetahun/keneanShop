@@ -82,7 +82,7 @@ $(document).ready(function(){
             </div>
             <div id="registerBox">
     <label for="exampleInputEmail1">Password Recovery Keyword</label>
-          <input type="email" class="form-control" id="username" 
+          <input type="text" class="form-control" id="username" 
            name="recover" placeholder="Username">
           <small id="emailHelp" class="form-text text-muted">This here is a key word you have to remember your password when you forget it.</small>
     </div>

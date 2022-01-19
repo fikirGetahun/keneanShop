@@ -42,6 +42,8 @@
 
     ?>
 <head>
+<script src="assets/jquery.js"></script>
+
 <script>
     $(document).ready(function(){
         $('form').on('submit', function(e){
@@ -66,7 +68,6 @@ if(isset($_POST['type'])){
     if($_POST['type'] == 'ad'){
         ?>
         <td>
-<!-- <script src="../assets/jquery.js"></script> -->
 
 <form id="editAd2" method="POST">
 <input hidden name="id" value="<?php echo $id ?>">
@@ -107,6 +108,17 @@ if(isset($_POST['type'])){
         <input type="text" class="form-control" id="adCategory" 
                   aria-describedby="emailHelp" name="houseCat" placeholder="Job"> 
                   <button type="submit" onclick="updateHouse()"  class="btn btn-dark">Edit</button>
+        </form></td>        
+        <?php
+    }elseif($_POST['type'] == 'elec'){
+        ?>
+        <!-- <script src="../assets/jquery.js"></script> -->
+        
+        <form id="editAdd" method="POST">
+        <input hidden name="id" value="<?php echo $id ?>">
+        <input type="text" class="form-control" id="adCategory" 
+                  aria-describedby="emailHelp" name="elecCat" placeholder="Job"> 
+                  <button type="submit" onclick="updateElc()"  class="btn btn-dark">Edit</button>
         </form></td>        
         <?php
     }elseif($_POST['type'] == 'vacancyDelete'){

@@ -44,9 +44,20 @@ $urow = $user->fetch_assoc();
 }
 </script>
 
-<div style="background-image: url(admin/assets/img/zumra.png);">
+<div>
       <div class="card w-25 float-left ">
-      <img class="img-thumbnail" src="<?php echo $urow['photoPath1']?>" class="card-img-top" alt="...">
+        <?php
+        if($urow['photoPath1'] != 'FILE_NOT_UPLOADED'){
+          ?>
+          <img class="img-thumbnail" src="admin/assets/img/zumra.png)" class="card-img-top" alt="...">
+          <?php
+        }else{
+          ?>
+                <img class="img-thumbnail" src="<?php echo $urow['photoPath1']?>" class="card-img-top" alt="...">
+
+          <?php
+        }
+        ?>
     
       </div>
 
@@ -162,6 +173,5 @@ foreach($dbTables as $posts){
                 </div>
               </div>
             </div>
-                </div>
             <?php }} ?>
     </div>

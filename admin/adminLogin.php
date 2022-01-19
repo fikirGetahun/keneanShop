@@ -78,6 +78,7 @@
                     </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <a href="./forgetPassword.php?forget=true">Forget Password?</a>
                     </div>
                     <div id="status">
 
