@@ -130,8 +130,19 @@ $('.btn-close').click(function(){
         ?> <a class="nav-item nav-link" href="./Account.php?fav=true">Favourite</a> <?php
       }
     ?>
+  <?php
+  if(isset($_GET['message'])){
+    ?>
+    <a class="nav-item nav-link active" href="./Account.php?message=true&outter=true">Messages</a>
+    <?php
+  }else{
+    ?>
+    <a class="nav-item nav-link" href="./Account.php?message=true&outter=true">Messages</a>
+    <?php
+  }
   
-  <a class="nav-item nav-link" href="#">Messages</a>
+  ?>
+  
   <?php 
     if(isset($_GET['setting'])){
       ?>
@@ -541,14 +552,15 @@ foreach($dbTables as $posts){
     ///////////////////////////////////////////
     //MESSEGE
 
-    if(isset($_GET['messege'])){
+    if(isset($_GET['message'])){
 
 
-      if(isset($_GET['outer'])){
+      if(isset($_GET['outter'])){
         ?>
         
         
         <?php
+        echo 'in outer message';
       }
 
 
