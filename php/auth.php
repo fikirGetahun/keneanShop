@@ -116,6 +116,18 @@ class auth{
 
     }
 
+    function postDeleterCat($table, $postId){
+        include "connect.php";
+
+
+
+        $q = "DELETE FROM `$table` WHERE `$table`.`id` = '$postId'";
+        $ask = $mysql->query($q);
+
+        return $ask;
+
+    }
+
 
 }
 

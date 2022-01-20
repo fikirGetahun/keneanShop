@@ -61,7 +61,7 @@ if(isset($_GET['page'])){
 
 
 
-$content_per_page = 5;
+$content_per_page = 8;
 
 $startPage = ($page * $content_per_page) - $content_per_page;
 // echo $startPage.'z';
@@ -122,7 +122,19 @@ function fav(pid, id, table){
 
 </script>
 
+<style>
+  #sideViewz {
+    position: sticky;
+    top: 7%;
+    width: 20%;
+  }
 
+  #loop {
+    position: relative;
+    /* left: 10%; */
+    width:78%;
+  }
+</style>
 
 </head>
 <body>
@@ -155,9 +167,13 @@ function fav(pid, id, table){
 
       <?php
       $tab = $_GET['cat'];
-      
-      $category = $get->categorySelecter($tab, 'type');
+      $categorySort = array();
+      $category = $admin->allCategoryLister($tab);
       while($rowc = $category->fetch_assoc()){
+        $categorySort[] = $rowc['category'];
+      }
+      sort($categorySort);
+      foreach($categorySort as $sorted){
 
       
       ?>
@@ -166,22 +182,22 @@ function fav(pid, id, table){
           if(isset($_GET['status'], $_GET['off'], $_GET['label'], $_GET['type'])){
             ?>
               <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>&type=<?php echo $_GET['type'] ?>" ><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $sorted ?>&label=<?php echo $_GET['label'] ?>&type=<?php echo $_GET['type'] ?>" ><?php echo $sorted ?></a>
             <?php
           }elseif(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
             ?>
               <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&dbType=<?php echo $sorted ?>&label=<?php echo $_GET['label'] ?>"><?php echo $sorted ?></a>
             <?php
           }elseif(isset($_GET['type'])){
             ?>
               <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $rowc['type'] ?>&label=<?php echo $_GET['label'] ?>"><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $sorted ?>&label=<?php echo $_GET['label'] ?>"><?php echo $sorted ?></a>
             <?php
           }else{
             ?>
               <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&dbType=<?php echo $rowc['type'] ?>"><?php echo $rowc['type'] ?></a>
+              href="./maincat.php?cat=<?php echo $tab ?>&dbType=<?php echo $sorted ?>"><?php echo $sorted ?></a>
             <?php
           }
 
@@ -1405,7 +1421,16 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
 
           }
 
+?>
+      </div>
+
+</div>
+<?php
+// this condition will dictate the pageination 
           // this condition will dictate the pageination 
+// this condition will dictate the pageination 
+          // this condition will dictate the pageination 
+// this condition will dictate the pageination 
           if($fetchPost[1]->num_rows != 0){
             ?>
 <nav aria-label="Page navigation example">
@@ -1440,9 +1465,6 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
 
         
         ?>
-      </div>
-
-</div>
 <div style="clear:both;"></div>
 
 <!-- </div> -->

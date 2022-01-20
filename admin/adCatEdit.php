@@ -1,6 +1,7 @@
 <div id="editAd">
     <?php
     require_once "../php/adminCrude.php";
+    require_once "../php/auth.php";
     if(isset($_POST['id'])){
         $id = $_POST['id'];
     }
@@ -10,7 +11,7 @@
         $id2 = $_POST['id'];
         $cat = $_POST['edCat'];
         echo $cat;
-        $out3 = $admin->updateAdCat($cat, $id2);
+        $out3 = $admin->allCategoryUpdater($cat, 'ad', $id2);
     }
 
     //car category editoer
@@ -19,7 +20,7 @@
         $id2 = $_POST['id'];
         $cat = $_POST['carCat'];
         echo $cat;
-        $out3 = $admin->carCategoryEdit($id2, $cat);
+        $out3 = $admin->allCategoryUpdater($cat, 'car', $id2);
     }
 
     //vacancy category editor
@@ -28,8 +29,7 @@
         $id2 = $_POST['id'];
         $cat = $_POST['vacancyCat'];
         echo $cat;
-        $out3 = $admin->vacancyCategoryEdit($id2, $cat);
-    }
+        $out3 = $admin->allCategoryUpdater($cat, 'vacancy', $id2);    }
 
     //house category editor
     if(isset($_POST['houseCat'], $_POST['id'])){
@@ -37,8 +37,16 @@
         $id2 = $_POST['id'];
         $cat = $_POST['houseCat'];
         echo $cat;
-        $out3 = $admin->houseCategoryEdit($id2, $cat);
-    }
+        $out3 = $admin->allCategoryUpdater($cat, 'housesell', $id2);    }
+
+        //house category editor
+        if(isset($_POST['elecCat'], $_POST['id'])){
+            echo 'ind';
+            $id2 = $_POST['id'];
+            $cat = $_POST['elecCat'];
+            echo $cat;
+            $out3 = $admin->allCategoryUpdater($cat, 'electronics', $id2);       
+         }
 
     ?>
 <head>
@@ -50,7 +58,7 @@
             // alert('innn')
             e.preventDefault()
             $.ajax({
-                url: 'adCatEdit.php',
+                url: 'admin/adCatEdit.php',
                 type: 'post',
                 data: $('form').serialize(),
                 success: function(){
@@ -112,9 +120,18 @@ if(isset($_POST['type'])){
         <?php
     }elseif($_POST['type'] == 'elec'){
         ?>
-        <!-- <script src="../assets/jquery.js"></script> -->
-        
-        <form id="editAdd" method="POST">
+        <!-- <script src="assets/jquery.js"></script> -->
+        <script>
+            function updateElc(){
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+            }
+
+        </script>
+        <form id="editAd2" method="POST">
         <input hidden name="id" value="<?php echo $id ?>">
         <input type="text" class="form-control" id="adCategory" 
                   aria-describedby="emailHelp" name="elecCat" placeholder="Job"> 
@@ -122,13 +139,15 @@ if(isset($_POST['type'])){
         </form></td>        
         <?php
     }elseif($_POST['type'] == 'vacancyDelete'){
-        $delVac = $admin->vacancyCategoryDelete($id);
+        $delVac = $auth->postDeleterCat('adCategory', $id);
     }elseif($_POST['type'] == 'adDelete'){
-        $delVac = $admin->adCategoryDelete($id);
+        $delVac = $auth->postDeleterCat('adCategory', $id);
     }elseif($_POST['type'] == 'carDelete'){
-        $delVac = $admin->carCategoryDelete($id);
+        $delVac = $auth->postDeleterCat('adCategory', $id);
     }elseif($_POST['type'] == 'houseDelete'){
-        $delVac = $admin->houseCategoryDelete($id);
+        $delVac = $auth->postDeleterCat('adCategory', $id);
+    }elseif($_POST['type'] == 'elecDel'){
+        $delVac = $auth->postDeleterCat('adCategory', $id);
     }
 
 }

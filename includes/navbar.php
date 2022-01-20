@@ -46,7 +46,18 @@
   padding-top: .75rem;
   padding-bottom: .75rem;
   font-size: .875rem;
-}</style>
+}
+#1nav {
+  position: fixed;
+  top: 0;
+}
+
+#2nav {
+  position: fixed;
+  top: 5%;
+}
+
+</style>
 <!-- <script src="assets/jquery.js"  ></script> -->
 
 <script>
@@ -300,6 +311,24 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
            <?php
          } 
 
+         if(isset($_GET['cat'])){
+          $cat = $_GET['cat'];
+           ?>
+            <input name='cat' hidden value="<?php echo $cat ?>">
+           <?php
+         }
+
+         if(isset($_GET['cat'], $_GET['type'], $_GET['label'])){
+          $cat = $_GET['cat'];
+          $type = $_GET['type'];
+          $label = $_GET['label'];
+           ?>
+            <input name='cat' hidden value="<?php echo $cat ?>">
+            <input name='type' hidden value="<?php echo $type ?>">
+            <input name='label' hidden value="<?php echo $label ?>">
+
+           <?php
+         }
 
         if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){
           // echo 'nav in';

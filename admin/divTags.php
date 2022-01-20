@@ -137,7 +137,8 @@
   <tbody>
       <?php
       require_once "../php/adminCrude.php";
-      $out = $admin->carCategoryLister();
+      $out = $admin->allCategoryLister('car');
+
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -181,7 +182,8 @@
   <tbody>
       <?php
       require_once "../php/adminCrude.php";
-      $out2 = $admin->adsCategoryLister();
+      $out2 = $admin->allCategoryLister('ad');
+
       while($row = $out2->fetch_assoc()){
 
               ?>
@@ -280,7 +282,8 @@
   <tbody>
       <?php
       require_once "../php/adminCrude.php";
-      $out = $admin->vacancyCategoryLister();
+      $out = $admin->allCategoryLister('vacancy');
+
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -327,7 +330,7 @@
 
       <?php
       require_once "../php/adminCrude.php";
-      $out = $admin->houseCategoryLister();
+      $out = $admin->allCategoryLister('housesell');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -443,8 +446,8 @@
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-             <button onclick="editHouse(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
-            <button onclick="houseDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+             <button onclick="editElec(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
+            <button onclick="elecDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
                     <?php
                 }
             ?>

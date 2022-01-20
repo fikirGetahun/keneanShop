@@ -163,7 +163,7 @@ include "../includes/header.php";
       <table class="table container-fluid"  >
   <thead>
     <tr>
-      <th scope="col"><h5 class="text-center" >-Select Address-<h5></th>
+      <th scope="col"><h5 class="text-center" >-Select Model-<h5></th>
     </tr>
   </thead>
 
@@ -172,7 +172,7 @@ include "../includes/header.php";
 
               <?php
               require_once "../php/adminCrude.php";
-                $carCat = $admin->carCategoryLister();
+                $carCat = $admin->allCategoryLister('car');
                 while($carCatRow = $carCat->fetch_assoc()){
                   ?>
                   <tr>
@@ -212,7 +212,7 @@ include "../includes/header.php";
 
 <?php
 require_once "../php/adminCrude.php";
-              $out11 = $admin->adsCategoryLister();
+              $out11 = $admin->allCategoryLister('ad');
               while($r = $out11->fetch_assoc()){
               ?>
             <tr>
@@ -303,7 +303,7 @@ while($carCatRow = $carCat->fetch_assoc()){
 require_once "../php/adminCrude.php";
 require_once "../php/fetchApi.php";
 
-$vacancyCat = $admin->vacancyCategoryLister();
+$vacancyCat = $admin->allCategoryLister('vacancy');
 while($vacancyCatRow = $vacancyCat->fetch_assoc()){
   ?>
   <tr>

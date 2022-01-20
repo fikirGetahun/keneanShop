@@ -5,8 +5,8 @@ require_once "../php/adminCrude.php";
 if(isset($_POST['adCatw'])){
     // echo 'innnn';
     $cat = $_POST['adCatw'];
-    $out = $admin->adsCategoryAdder($cat);
-    if($out){
+    $out = $admin->allCategoryAdder($cat, 'ad');
+        if($out){
         echo 'yes';
     }else{
         echo 'no';
@@ -15,18 +15,15 @@ if(isset($_POST['adCatw'])){
 
 if(isset($_POST['carC'])){
     $cat = $_POST['carC'];
-    $out = $admin->carCategoryAdder($cat);
-}
+    $out = $admin->allCategoryAdder($cat, 'car');}
 
 if(isset($_POST['vacancyC'])){
     $cat = $_POST['vacancyC'];
-    $out = $admin->vacancyCategoryAdder($cat);
-}
+    $out = $admin->allCategoryAdder($cat, 'vacancy');}
 
 if(isset($_POST['houseC'])){
     $cat = $_POST['houseC'];
-    $out = $admin->houseCategoryAdder($cat);
-}
+    $out = $admin->allCategoryAdder($cat, 'housesell');}
 
 if(isset($_POST['elc'])){
     $cat = $_POST['elc'];
@@ -109,6 +106,18 @@ if(isset($_POST['elc'])){
                 $("#xx").load("admin/divTags.php #cBox"); 
             }
 
+
+            function elecDelete(id){
+                $('#delete').load('admin/adCatEdit.php', {id: id, type : 'elecDel'})
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+            }
+
             function carDelete(id){
                 $('#delete').load('admin/adCatEdit.php', {id: id, type : 'carDelete'})
                 $('#xx2').load('admin/divTags.php #carCat');
@@ -134,6 +143,9 @@ if(isset($_POST['elc'])){
             }
 
             function updateElc(){
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('admin/divTags.php #elecCat')
                 $('#xxh2').load('admin/divTags.php #elecCat')
                 $('#xxh2').load('admin/divTags.php #elecCat')
                 $('#xxh2').load('admin/divTags.php #elecCat')
@@ -171,7 +183,7 @@ if(isset($_POST['type'])){
 
 
       <?php
-      $out = $admin->adsCategoryLister();
+      $out = $admin->allCategoryLister('ad');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -232,7 +244,7 @@ if(isset($_POST['type'])){
 
         </script>
       <?php
-      $out = $admin->carCategoryLister();
+      $out = $admin->allCategoryLister('car');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -307,7 +319,7 @@ if(isset($_POST['type'])){
 
         </script>
       <?php
-      $out = $admin->vacancyCategoryLister();
+      $out = $admin->allCategoryLister('vacancy');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -384,7 +396,7 @@ if(isset($_POST['type'])){
 
 
       <?php
-      $out = $admin->houseCategoryLister();
+      $out = $admin->allCategoryLister('housesell');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -435,7 +447,7 @@ if(isset($_POST['type'])){
         ?>
         
         
-        <h3>Current house Category</h3>
+        <h3>Current Electronics Category</h3>
 
 <div id="xxh2">
 
@@ -454,21 +466,21 @@ if(isset($_POST['type'])){
 
       <?php
       $out = $admin->allCategoryLister('electronics');
-      $i = 0;
+    //   $i = 0;
       while($row = $out->fetch_assoc()){
 
               ?>
             <tr>
             <th scope="row"><?php echo $row['id'] ?></th>
 
-            <td id="editAd<?php echo $i ?>">
+            <td id="editAd<?php echo $row['id'] ?>">
             <?php echo $row['category'] ?>
 
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-             <button onclick="editElec('<?php echo $i ?>')"  class="btn btn-dark">Edit</button> 
-            <button onclick="elecDelete('<?php echo $row['id'] ?>')" class="btn btn-dark">Delete</button>
+             <button onclick="editElec(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
+            <button onclick="elecDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
                     <?php
                 }
             ?>
@@ -478,19 +490,27 @@ if(isset($_POST['type'])){
 
             </tr>
               <?php   
-              $i++;         
+            //   $i++;         
           }
       
       
       ?>
-<script>
 
-
-</script>
 
   </tbody>
 </table>
 </div>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+
+<script>
+        $(document).ready(function(){
+
+})
+
+
+</script>
+
+
 <form id="adzxcC" method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>

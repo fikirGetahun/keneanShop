@@ -803,18 +803,19 @@ echo $mysql->error;
         function allCategoryUpdater($cat, $table, $id){
             include "connect.php";
 
-            $q3 = "SELECT `category` FROM `adcategory` WHERE `id` = '$id'";
+            $q3 = "SELECT `category` FROM `adcategory` WHERE `id` = '$id'"; // select the catagory to be updated
             $ask3 = $mysql->query($q3);
             $row = $ask3->fetch_assoc();
             $tobeupdated = $row['category'];
 
-            $q2 ="UPDATE `$tableName` SET `type` =" ;
-            $q = "UPDATE `adcategory` SET `category`= '$cat' WHERE  `adCategory`.`id` = '$id' ";
+            $q2 ="UPDATE `$table` SET `type` = '$cat' WHERE `$table`.`type` = '$tobeupdated'" ; /// the updated category will also update the table that are associated with it....
+            $q = "UPDATE `adcategory` SET `category`= '$cat' WHERE  `adCategory`.`id` = '$id' "; // to update the category listed table
 
        
-            
+            $ask2 = $mysql->query($q2);
             $ask = $mysql->query($q);
-
+            echo $mysql->error;
+            
             return $ask;  
         }
 
