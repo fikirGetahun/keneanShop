@@ -158,13 +158,14 @@ require_once "php/adminCrude.php";
     $hx= $_POST['upid'];
       $pzx = $_POST['r']; 
       $puz = $admin->password($pzx,$hx);
+
       
       if($puz){
         //   echo $h;
         // echo 'this --'.$puz;
         echo 'PASSWORD CHANGED';
         
-        if($urow3['auth'] != 'USER' ){
+        if($_SESSION['auth'] != 'USER' ){
           ?>
           <a href="admin.php">Login</a>
           <?php

@@ -449,6 +449,31 @@ class fetch{
                 
 
 
+
+            //message sender api
+            function msgSender($tableOfPost, $senderId, $receiverId, $msg ){
+                include "connect.php";
+
+            }
+
+
+            //inner message fetcher for a loged user
+            function innerMsgFetcher($tableOfPost, $LogedUserId){
+                include "connect.php";
+                $q = "SELECT * FROM `msg` WHERE  `user1` = '$LogedUserId' OR `user1` = '$LogedUserId' AND  `tableName` = '$tableOfPost' ORDER BY `postedDate` DESC ";
+
+                $ask = $mysql->query($q);
+                return $ask;
+            }
+
+
+            /// outer message fetcher for loged user
+            function outerMsgFetcher(){
+
+            }///distnict
+
+
+
             
 
 

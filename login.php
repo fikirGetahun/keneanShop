@@ -102,6 +102,7 @@ if(isset($_POST['username'], $_POST['password'])){
               //   header('Location: ./banPage.php');
               // }else{
                if($_SESSION['userId'] = $row['id']){
+                 $_SESSION['auth'] = $row['auth'];
                 header('Location: ./index.php');
                }
               

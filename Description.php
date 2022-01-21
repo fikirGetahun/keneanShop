@@ -39,6 +39,16 @@ require_once "php/fetchApi.php";
   // })
 
   })
+  function fav(pid, id, table){
+  $.ajax({
+    url: 'user/userApi.php',
+    data: 'postId='+pid+'&uid='+'<?php echo $_SESSION['userId'] ?>'+'&table='+table,
+    success: function(data){
+      $('#fav'+pid).text(data)
+    }
+  })
+}
+
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -135,8 +145,50 @@ require_once "php/fetchApi.php";
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
               <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
               <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
+
+                ?> 
+
+                <?php
+              }
+              ?>
               </div>
+              <div id="msgDiv">
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+
+                  <?php
+                    if(isset($_SESSION['userId'])){
+                      ?>
+                                      <!-- // message writing box -->
+                  <!-- <div id="msgBox">
+                    <form>
+                      <input hidden type="text" name="table"  value="<?php echo $cat ?>">
+                      <input hidden type="text" name="posterId"  value="<?php echo $row['posterId'] ?>">
+                      <input hidden type="text" name="postId"  value="<?php echo $row['id'] ?>">
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="msg" placeholder="Type text here.."></textarea>
+                      <button type="submit" class="btn btn-primary" >Send</button>
+                    </form>
+                    <button class="btn btn-dark" >Cancell</button> -->
+                  </div>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                   <?php

@@ -164,6 +164,18 @@ echo $mysql->error;
             }
         }
 
+
+
+        function updateUserDataUSER($uid, $firstName, $lastName, $phone, $job, $recover){
+            include "connect.php";
+            // $password = password_hash($password, PASSWORD_DEFAULT);
+            $q = "UPDATE `user` SET `firstName`= '$firstName',
+            `lastName`= '$lastName' ,`phone`= '$phone',`about`= `about`, `recover` = '$recover'   WHERE `user`.`id` = '$uid'";
+
+            $ask = $mysql->query($q);
+            
+            return $ask;
+        }
         //update users data
         function updateUserData($uid, $password, $firstName, $lastName, $phone, $about, $job, $recover){
             include "connect.php";
@@ -919,7 +931,7 @@ echo $mysql->error;
                         $error[] = 'File extention does not match file';
                     }
 
-                    if($fileSize[$i] > 150000000){
+                    if($fileSize[$i] > 15000000){
                         $error[] = 'File size exided the limited size.';
                     }
                 }

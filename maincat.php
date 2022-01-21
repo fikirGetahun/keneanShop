@@ -98,6 +98,11 @@ $(document).ready(function(){
 
 })
 
+///msg handller
+function msgHandler(table, posterId, postId, msg){
+
+}
+
 ///page changer
 function page(page){
   $.ajax({
@@ -549,9 +554,10 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
                   <div class="d-flex justify-content-between align-items-center">
                       
                   <span class="text-danger small"><?php echo $date ?></span>
+
                   <small class="text-muted"><?php echo $row['view'] ?> views</small>
                   </div>
-                  
+
                 </div>
               </div>
               <?php
@@ -561,13 +567,17 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
               // echo $row['fav'];
                 if($faz->num_rows > 0){
                   ?>
-                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
                   <?php
                 }else{
                   ?>
                 <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
                   <?php
                 }
+
+                ?> 
+
+                <?php
               }
               ?>
             </div>

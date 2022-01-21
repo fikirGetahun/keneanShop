@@ -141,58 +141,6 @@ function reload(x){
 
 
 </script>
-
-
-  <div class="container nav-scrollers py-1 mb-2">
-    
-    <nav class="nav d-flex justify-content-between">
-      <a class="p-2 text-muted" >Language</a>
-      <a class="p-2 text-muted" >Eth</a>
-      <a class="p-2 text-muted" >Membership</a>
-
-      <a href="./maincat.php?cat=blog&label=Blog" class="p-2 text-muted" >Blog</a>
-      <?php 
-
-if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
-  ?>
-<a href="./login.php" class="btn btn-light">LogIn</a>
-<?php
-  
-}
-if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
-?>
-
-<a class="btn btn-light" href="./Account.php?yourPost=true"  >Account</a>
-<a class="btn btn-light"  href="./user/logout.php"   >Log Out</a>
-
-
-
-        <!-- </div> -->
-
-            <!-- Button trigger modal --> 
-<!-- Button trigger modal -->
-
-<?php 
-}
-if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
-  ?>
-<a href="login.php">  <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
-  Post
-</button></a>
-  <?php
-}else{
-  ?>
-    <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
-  Post
-</button>
-  <?php
-}
-
-
-?>
-
-   </nav>  </div>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="height: min-content;">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -368,6 +316,58 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 
 
 </nav>
+
+  <div class="container nav-scrollers py-1 mb-2">
+    
+    <nav class="nav d-flex justify-content-between">
+      <a class="p-2 text-muted" >Language</a>
+      <a class="p-2 text-muted" >Eth</a>
+      <a class="p-2 text-muted" >Membership</a>
+
+      <a href="./maincat.php?cat=blog&label=Blog" class="p-2 text-muted" >Blog</a>
+      <?php 
+
+if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
+  ?>
+<a href="./login.php" class="btn btn-light">LogIn</a>
+<?php
+  
+}
+if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
+?>
+
+<a class="btn btn-light" href="./Account.php?yourPost=true"  >Account</a>
+<a class="btn btn-light"  href="./user/logout.php"   >Log Out</a>
+
+
+
+        <!-- </div> -->
+
+            <!-- Button trigger modal --> 
+<!-- Button trigger modal -->
+
+<?php 
+}
+if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
+  ?>
+<a href="login.php">  <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
+  Post
+</button></a>
+  <?php
+}else{
+  ?>
+    <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
+  Post
+</button>
+  <?php
+}
+
+
+?>
+
+   </nav>  </div>
+
+
 
 <div class="modal fade" id="uploadDiv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
