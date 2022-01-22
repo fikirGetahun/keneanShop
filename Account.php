@@ -107,11 +107,11 @@ $('.btn-close').click(function(){
 		<div class="col-md-8" >
 
     <div>
-      <div class="card w-25">
-      <img src="<?php echo $urow['photoPath']?>" class="card-img-top" alt="...">
-    
+      <div class="row">
+      <img src="<?php echo $urow['photoPath1']?>" class="w-25 h-25 " alt="...">
+      <h5 class="col-6">Name : <?php echo $urow['firstName'].' '.$urow['lastName'] ?></h5>
+
       </div>
-      <h5 class="">Name : <?php echo $urow['firstName'].' '.$urow['lastName'] ?></h5>
   <div class="card-header">
   <nav class="nav nav-pills nav-justified">
     <?php 
@@ -629,6 +629,7 @@ foreach($dbTables as $posts){
               <?php
                 // to fetch all the messages of this particular user and post
                 $innerMsg = $get->innerMsgFetcher($tb, $_SESSION['userId'], $postFocus);
+                if($innerMsg->num_rows != 0){
                 while($rowInnerMsg = $innerMsg->fetch_assoc()){
                   // if the loged user id is in a the user1 colomen, this means its the sender. so the message will be placed in a sendder div, else its the reciver so the msg will be placed in a reciver div
                   if($rowInnerMsg['user1'] == $_SESSION['userId']){
@@ -678,9 +679,27 @@ foreach($dbTables as $posts){
                 </div>
 							</div>
                     <?php
+                  }elseif($rowInnerMsg['user2'] == $_SESSION['userId']){
+                    ?>
+              <div class="d-flex justify-content-end mb-4">
+              <div class="msg_cotainer">
+                      <?php echo $rowInnerMsg['msg'] ?>
+                        <?php 
+                            $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
+                         ?>
+                        <span class="msg_time"><?php echo $date ?></span>
+                      </div>
+                <div class="img_cont_msg">
+                  <img src="<?php $p = $admin->photoSplit($row1['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
+                </div>
+							</div>
+                    <?php
                   }
                 
                 }
+              }else{
+                echo 'No Messages Yet.';
+              }
                 
               ?>
 
@@ -688,15 +707,15 @@ foreach($dbTables as $posts){
 						
 						</div>
 						<div class="card-footer">
-							<div class="input-group">
-								<div class="input-group-append">
-									<span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
-								</div>
-								<textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
-								<div class="input-group-append">
-									<span class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></span>
-								</div>
-							</div>
+            <div class="row">
+            <form >
+                <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="Type Here.."></textarea>
+          <div class="d-flex justify-content-end mb-4">
+              <button type="submit" class="btn btn-dark" >Send</button>
+          </div>
+            </form>
+            </div>
 						</div>
 					</div>
 				</div>
