@@ -451,16 +451,22 @@ class fetch{
 
 
             //message sender api
-            function msgSender($tableOfPost, $senderId, $receiverId, $msg ){
+            function msgSender($tableOfPost, $postId ,$senderId, $receiverId, $msg ){
                 include "connect.php";
+                $date = date('Y-m-d H:i:s');
+                $q = "INSERT INTO `msg`(  `tableName`, `postId`, `user1`, `user2`, `msg`, `postedDate`) VALUES ('$tableOfPost' , '$postId', '$senderId', '$receiverId', '$msg', '$date' )";
+
+                $ask = $mysql->query($q);
+
+                return $ask;
 
             }
 
 
             //inner message fetcher for a loged user
-            function innerMsgFetcher($tableOfPost, $LogedUserId){
+            function innerMsgFetcher($tableOfPost, $LogedUserId, $postId){
                 include "connect.php";
-                $q = "SELECT * FROM `msg` WHERE  `user1` = '$LogedUserId' OR `user1` = '$LogedUserId' AND  `tableName` = '$tableOfPost' ORDER BY `postedDate` DESC ";
+                $q = "SELECT * FROM `msg` WHERE  `user1` = '$LogedUserId' OR `user1` = '$LogedUserId' AND  `tableName` = '$tableOfPost' AND `postId` = '$postId' ORDER BY `postedDate` DESC ";
 
                 $ask = $mysql->query($q);
                 return $ask;
@@ -468,8 +474,14 @@ class fetch{
 
 
             /// outer message fetcher for loged user
-            function outerMsgFetcher(){
+            function outerMsgFetcher($user){
+                include "connect.php";
 
+                // the ' where or ' will only let us select the messages associated with a single user with sending and reciveing end, so the distict key word will filter only ones that are linked with one post in a single table
+                $q = "SELECT DISTINCT `postId` AND `tableName` TOP 1 * FROM `msg` WHERE `user1` = '$user' OR `user2` = '$user' ORDER BY `postedDate` DESC ";
+
+                $ask = $mysql->query($q);
+                return $ask;
             }///distnict
 
 

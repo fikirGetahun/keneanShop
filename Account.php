@@ -563,15 +563,23 @@ foreach($dbTables as $posts){
         echo 'in outer message';
       }
 
-
+// here every time the inner message is opened it has to get the requet of the tabelofpost(which the msg is assoiceatied in), posteId where the msg is associated in, and the reciver of the msg or the second user
       if(isset($_GET['inner'],$_GET['tb'], $_GET['reciver'], $_GET['post'])){
         $tb = $_GET['tb'];
         $reciver = $_GET['reciver'];
         $postFocus = $_GET['post'];
-        //fetch the posts photo and title
+        //fetch the posts photo and title of the post
         $postData = $get->allPostListerOnColumen($tb, 'id', $postFocus);
         $rowm = $postData->fetch_assoc();
 
+        //fetch the data of the second user of the msg
+        $secUser = $get->allPostListerOnColumen('user', 'id', $reciver);
+        $row2 = $secUser->fetch_assoc();
+
+
+        // fetch the loged user data 
+        $logedUser = $get->allPostListerOnColumen('user', 'id', $_SESSION['userId']);
+        $row1 = $logedUser->fetch_assoc();
         ?>
         
 
@@ -581,16 +589,27 @@ foreach($dbTables as $posts){
 					<div class="card">
 						<div class="card-header msg_head">
 							<div class="d-flex bd-highlight">
-								<div class="row">
+								<div class="d-flex justify-content-start mb-4">
 									<img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">
 									<span class="online_icon"></span>
-                  <div class="col-8 h4 text-danger">
-									<span><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
-                if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </span>
+                  <!-- <div class="col-8 h4 text-danger"> -->
+									<h5><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+                if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </h5>
 									<p></p>
-								</div>
-								</div>
+							
+								<!-- </div> -->
+      </div>
+                <div class="d-flex justify-content-end mb-4">
+                  <!-- <div class="col-8 h4 text-danger"> -->
+                  <h5><?php echo $row2['firstName'].' '.$row2['lastName'] ?></h5>
+									<p></p>
+                  <img src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?> " class="col-3 img-thumbnail">
+       
 
+
+								  <!-- </div> -->
+                </div>
+                <!-- </div> -->
 								<!-- <div class="video_cam">
 									<span><i class="fas fa-video"></i></span>
 									<span><i class="fas fa-phone"></i></span>
@@ -607,24 +626,65 @@ foreach($dbTables as $posts){
 							</div> -->
 						</div>
 						<div class="card-body msg_card_body">
-							<div class="d-flex justify-content-start mb-4">
-								<div class="img_cont_msg">
-									<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
-								</div>
-								<div class="msg_cotainer">
-									Hi, how are you samim?
-									<span class="msg_time">8:40 AM, Today</span>
-								</div>
+              <?php
+                // to fetch all the messages of this particular user and post
+                $innerMsg = $get->innerMsgFetcher($tb, $_SESSION['userId'], $postFocus);
+                while($rowInnerMsg = $innerMsg->fetch_assoc()){
+                  // if the loged user id is in a the user1 colomen, this means its the sender. so the message will be placed in a sendder div, else its the reciver so the msg will be placed in a reciver div
+                  if($rowInnerMsg['user1'] == $_SESSION['userId']){
+                  ?>
+                    <div class="d-flex justify-content-start mb-4">
+                      <div class="img_cont_msg">
+                        <img src="<?php $p = $admin->photoSplit($row1['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
+                      </div>
+                      <div class="msg_cotainer">
+                        <?php echo $rowInnerMsg['msg'] ?>
+                        <?php 
+                            $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
+                         ?>
+                        <span class="msg_time"><?php echo $date ?></span>
+                      </div>
+                    </div>    
+                    
+                    <?php
+                  }elseif($rowInnerMsg['user1'] == $reciver){ // we distingush the user id in order to label the senders photo with the msg
+                    ?>
+                    <div class="d-flex justify-content-start mb-4">
+                      <div class="img_cont_msg">
+                        <img src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
+                      </div>
+                      <div class="msg_cotainer">
+                      <?php echo $rowInnerMsg['msg'] ?>
+                        <?php 
+                            $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
+                         ?>
+                        <span class="msg_time"><?php echo $date ?></span>
+                      </div>
+                    </div>    
+                    
+                    <?php
+                  }elseif($rowInnerMsg['user2'] == $reciver){
+                    ?>
+              <div class="d-flex justify-content-end mb-4">
+              <div class="msg_cotainer">
+                      <?php echo $rowInnerMsg['msg'] ?>
+                        <?php 
+                            $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
+                         ?>
+                        <span class="msg_time"><?php echo $date ?></span>
+                      </div>
+                <div class="img_cont_msg">
+                  <img src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
+                </div>
 							</div>
-							<div class="d-flex justify-content-end mb-4">
-								<div class="msg_cotainer_send">
-									Hi Khalid i am good tnx how about you?
-									<span class="msg_time_send">8:55 AM, Today</span>
-								</div>
-								<div class="img_cont_msg">
-							<img src="" class="rounded-circle user_img_msg">
-								</div>
-							</div>
+                    <?php
+                  }
+                
+                }
+                
+              ?>
+
+
 						
 						</div>
 						<div class="card-footer">

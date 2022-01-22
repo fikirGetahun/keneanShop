@@ -320,7 +320,7 @@ $('#forRentOrSell').on('change', function(){
         <div class="form-group">
           <label for="exampleInputEmail1">Title</Title></label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="title" placeholder="Company Name">
+          aria-describedby="emailHelp" name="title" placeholder="Tiltle">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
@@ -374,7 +374,7 @@ $('#tCategory').on('change', function(){
         <div class="form-group">
           <label for="exampleInputEmail1">Price :</label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="price" placeholder="Company Name">
+          aria-describedby="emailHelp" name="price" placeholder="Type Price">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
@@ -392,7 +392,7 @@ $('#tCategory').on('change', function(){
 
         <div class="input-group mb-3">
         <select class="custom-select" name="shipping" id="inputGroupSelect01">
-          <option>Offer Shipping</option>
+          <option>Offer Delivery </option>
           <option selected>NO</option>
           <option value="YES">YES</option>
 
@@ -445,7 +445,7 @@ elseif($_GET['type'] == 'house'){
 <script>
     $(document).ready(function(){
       $('#selHouseType').on('change',function(){
-        alert('inhh')
+        // alert('inhh')
         if(this.value == 'OTHER'){
           $('#houseTypeLoader').load('admin/divTags.php #houseTypeOther')
         }
@@ -507,12 +507,24 @@ elseif($_GET['type'] == 'house'){
         <select class="custom-select" name="type" id="selHouseType">
           <option selected>Choose...</option>
 <?php
-    require_once "../php/adminCrude.php";
-    $house = $admin->houseCategoryLister();
-    while($houseRow = $house->fetch_assoc()){
-      ?>
-      <option value="<?php echo $houseRow['category'] ?>"><?php echo $houseRow['category'] ?></option>
-      <?php
+require_once "../php/adminCrude.php";
+$tab = $_GET['cat'];
+$categorySort = array();
+$category = $admin->allCategoryLister('housesell');
+while($rowc = $category->fetch_assoc()){
+  $categorySort[] = $rowc['category'];
+}
+sort($categorySort);
+foreach($categorySort as $sorted){
+  echo $tab;
+  ?>
+  <option value="<?php echo $sorted ?>"><?php echo $sorted ?></option>
+  
+  <?php
+
+
+    
+
     }
 
 ?>
@@ -589,7 +601,7 @@ elseif($_GET['type'] == 'house'){
             <div class="form-group">
               <label for="exampleInputEmail1">Price :</Title></label>
               <input type="number" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="cost" placeholder="Company Name">
+              aria-describedby="emailHelp" name="cost" placeholder="Price">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
 

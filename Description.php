@@ -167,23 +167,11 @@ require_once "php/fetchApi.php";
               ?>
               </div>
               <div id="msgDiv">
-                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
 
                   <?php
-                    if(isset($_SESSION['userId'])){
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
-                                      <!-- // message writing box -->
-                  <!-- <div id="msgBox">
-                    <form>
-                      <input hidden type="text" name="table"  value="<?php echo $cat ?>">
-                      <input hidden type="text" name="posterId"  value="<?php echo $row['posterId'] ?>">
-                      <input hidden type="text" name="postId"  value="<?php echo $row['id'] ?>">
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="msg" placeholder="Type text here.."></textarea>
-                      <button type="submit" class="btn btn-primary" >Send</button>
-                    </form>
-                    <button class="btn btn-dark" >Cancell</button> -->
-                  </div>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
@@ -450,17 +438,17 @@ require_once "php/fetchApi.php";
       <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">For Rent or Sell: </label> <?php echo $row['forRentOrSell'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1"> </label> <?php echo $row['forRentOrSell'] ?></p>
 
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Item Provider :</label> <?php echo $row['ownerBroker'] ?></p>
+          <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Item Provider :</label> <?php echo $row['ownerBroker'] ?></p> -->
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">City: </label><?php echo $row['city'] ?></p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Wereda:</label>< <?php echo $row['wereda'] ?></p>
+          <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Wereda:</label>< <?php echo $row['wereda'] ?></p> -->
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Area: </label><?php echo $row['area'] ?> MeterSquare</p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Bed Room:</label> <?php echo $row['bedRoomNo'] ?></p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Bath Room: </label> <?php echo $row['bathRoomNo'] ?></p>
+          <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Bed Room:</label> <?php echo $row['bedRoomNo'] ?></p> -->
+          <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Bath Room: </label> <?php echo $row['bathRoomNo'] ?></p> -->
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Fixed or Negossioable: </label> <?php echo $row['fixedOrN'] ?></p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
+          <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p> -->
           <p class="card-text"> <?php echo $row['cost'] ?><small class="text-muted">Br</small></p>
           <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
           <div class="btn-group">
@@ -627,6 +615,7 @@ require_once "php/fetchApi.php";
                             <span class="sr-only">Next</span>
                         </a>
                         </div>  
+                        
       </div>
       <div class="col-md-6">
         <div class="card-body">
@@ -650,9 +639,7 @@ require_once "php/fetchApi.php";
           <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
           <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
-          <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
-          </div>
+
 
             <div class="d-flex justify-content-between align-items-center">
               <?php
