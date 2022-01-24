@@ -1,7 +1,8 @@
 <?php
-// include "../includes/header.php";
+include "../includes/header.php";
 
 ?>
+
 
 
 
@@ -350,3 +351,5 @@ while($vacancyCatRow = $vacancyCat->fetch_assoc()){
       </div>
     </div>
 </div>
+
+

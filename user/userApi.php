@@ -147,4 +147,34 @@ if(isset($_POST['tabel'], $_POST['reciver'], $_POST['postFocus'], $_POST['msg'])
 }
 
 
+//cv work seeker selector modal box
+
+if(isset($_GET['cv'])){
+  ?>
+<div id="contw" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+      <h5>Select Type</h5>
+            <div class="modal-body  justify-content-center">
+  <script>
+    function nav(nav){
+
+$('#uploadDiv').load("user/postPage.php?type="+nav)
+}
+  </script>
+            <button class="btn btn-light btn-sm" onclick="nav('homeTutor')"  >Home Tutor Job Applicaion</button> <br><br>
+            <button class="btn btn-light btn-sm"onclick="nav('hotelWorker')" >Hotel Worker Job Application</button>  <br><br>
+            <button class="btn btn-light btn-sm" onclick="nav('houseWorker')" >Home Keeper Job Application</button> <br><br>
+            <button class="btn btn-light btn-sm" onclick="nav('zebegna')" >Security Gaurd Job Application</button>  <br>
+            <br>
+          
+</div>
+</div>
+</div>
+  <?php
+}
+
 ?>

@@ -109,6 +109,11 @@ function nav(nav){
 $('#uploadDiv').load("user/postPage.php?type="+nav)
 }
 
+function cv(){
+  // alert('in')
+  $('#uploadDiv').load("user/userApi.php?cv=true")
+}
+
 function reload(x){
 // 
   $.ajax({
@@ -394,23 +399,9 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 
         <div class="row">
           <div class="col"><p><button type="button" onclick="nav('ad')" class="btn btn-light btn-sm">product & service ads</button></p></div>
-        <div class="col"><p><button type="button" onclick="nav('charity')" class="btn btn-light btn-sm">charity organization</button></p></div>
-        <div class="col"></div>
-      
-        <ul class="navbar-nav" >
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-          <p><button type="button" class="btn btn-light btn-sm">Cv for work and seeker</button></p>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" onclick="nav('homeTutor')"  >Home Tutor Job Applicaion</a></li>
-            <li><a class="dropdown-item" onclick="nav('hotelWorker')" >Hotel Worker Job Application</a></li>
-            <li><a class="dropdown-item" onclick="nav('houseWorker')" >Home Keeper Job Application</a></li>
-            <li><a class="dropdown-item" onclick="nav('zebegna')" >Security Gaurd Job Application</a></li>
+        <div class="col"><p><button type="button" onclick="nav('charity')" class="btn btn-light btn-sm">charity </button></p></div>
+        <div class="col"><p><button type="button" onclick="cv()" class="btn btn-light btn-sm">work and seeker</button></p></div>      
 
-          </ul>
-        </li>
-        </ul>
       </div>
       </div>
     </div>
