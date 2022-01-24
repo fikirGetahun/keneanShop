@@ -266,7 +266,39 @@ require_once "php/fetchApi.php";
               <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
               </div>
+              <div class="btn-group">
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
 
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <?php
                   $date = $get->time_elapsed_string($row['postedDate']);
@@ -360,8 +392,38 @@ require_once "php/fetchApi.php";
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
           <p class="card-text">Phone No:<span class="fw-bolder"><?php echo $row['phone'] ?></span> </p>
           <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
-          </div>
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
+
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
 
             <div class="d-flex justify-content-between align-items-center">
               <?php
@@ -452,8 +514,38 @@ require_once "php/fetchApi.php";
           <p class="card-text"> <?php echo $row['cost'] ?><small class="text-muted">Br</small></p>
           <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
           <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
-          </div>
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
+
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
 
             <div class="d-flex justify-content-between align-items-center">
               <?php
@@ -543,8 +635,38 @@ require_once "php/fetchApi.php";
           <p class="card-text"> <?php echo $row['cost'] ?><small class="text-muted">Br</small></p>
           <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
           <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
-          </div>
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
+
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
 
             <div class="d-flex justify-content-between align-items-center">
               <?php
@@ -640,7 +762,39 @@ require_once "php/fetchApi.php";
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
           <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
 
+          <div class="btn-group">
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
 
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
               $date = $get->time_elapsed_string($row['postedDate']);
@@ -722,8 +876,38 @@ require_once "php/fetchApi.php";
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
           <p class="card-text">Phone No:<span class="fw-bolder"><?php echo $row['phone'] ?></span> </p>
           <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
-          </div>
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
+
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
 
             <div class="d-flex justify-content-between align-items-center">
               <?php
@@ -811,7 +995,39 @@ if($_GET['cat'] == 'vacancy'){
                             </div>
                 </div>
               </div>
+              <div class="btn-group">
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
 
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
           <div class="d-flex justify-content-between align-items-center">
             <?php
             $date = $get->time_elapsed_string($row['postedDate']);
@@ -899,7 +1115,39 @@ if($_GET['cat'] == 'tender'){
                             </div>
                 </div>
               </div>
+              <div class="btn-group">
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
 
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
           <div class="d-flex justify-content-between align-items-center">
             <?php
             $date = $get->time_elapsed_string($row['postedDate']);
@@ -962,7 +1210,39 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <div class="btn-group">
               <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
           </div>
+          <div class="btn-group">
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
 
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
               $date = $get->time_elapsed_string($row['postedDate']);
@@ -1021,10 +1301,40 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <!-- <p class="card-text"> <?php echo $row['Price'] ?><small class="text-muted">Br</small></p> -->
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
           <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $row['phone'] ?></span> </p>
-          <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
-          </div>
 
+          <div class="btn-group">
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
+
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
               $date = $get->time_elapsed_string($row['postedDate']);
@@ -1090,9 +1400,38 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
           <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $phoneU['phone'] ?></span> </p>
           <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
-          </div>
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
 
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
               $date = $get->time_elapsed_string($row['postedDate']);
@@ -1160,7 +1499,39 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <div class="btn-group">
               <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
           </div>
+          <div class="btn-group">
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
 
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
               $date = $get->time_elapsed_string($row['postedDate']);
@@ -1375,7 +1746,39 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
                 $date = $get->time_elapsed_string($row2['postedDate']);
                 $pid = $row2['id'];
                 ?>
+              <div class="btn-group">
+              <?php
+              if(isset($_SESSION['userId'])){
+              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              // $row = $faz->fetch_assoc();
+              // echo $row['fav'];
+                if($faz->num_rows > 0){
+                  ?>
+                  <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+                  <?php
+                }else{
+                  ?>
+                <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+                  <?php
+                }
 
+                ?> 
+
+                <?php
+              }
+              ?>
+              </div>
+              <div id="msgDiv">
+
+                  <?php
+                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                      ?>
+                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }
+                  
+                  ?>
+                  </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <?php
                     if(!isset($_GET['type'])){

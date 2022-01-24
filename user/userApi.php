@@ -130,4 +130,21 @@ if(isset($_POST['address'])){
 }
 
 
+// message sending api
+if(isset($_POST['tabel'], $_POST['reciver'], $_POST['postFocus'], $_POST['msg'])){
+  $tb = $_POST['tabel'];
+  $msg = $_POST['msg'];
+  $reciver = $_POST['reciver'];
+  $postFocus = $_POST['postFocus'];
+
+  $send = $get->msgSender($tb, $postFocus, $_SESSION['userId'], $reciver, $msg);
+  if($send){
+    echo 'msg sent';
+  }else{
+    echo 'error';
+  }
+
+}
+
+
 ?>

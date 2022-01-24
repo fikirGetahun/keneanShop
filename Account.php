@@ -556,11 +556,53 @@ foreach($dbTables as $posts){
 
 
       if(isset($_GET['outter'])){
+        $outerM = $get->outerMsgFetcher($_SESSION['userId']);
+        echo $_SESSION['userId'];
+        if($outerM->num_rows != 0){
+        while($o = $outerM->fetch_assoc()){
+          $date = $get->time_elapsed_string($o['postedDate']);
+
+
+          if($o['user1'] == $_SESSION['userId']){
+            $otherUser = $o['user2'];
+            $you = 'YOU: ';
+          }elseif($o['user2'] == $_SESSION['userId']){
+            $otherUser = $o['user1'];
+            $you = ' ';
+          }
+          ?>
+        <div class="card">
+        <a class="link"  href="Account.php?message=true&inner=true&tb=<?php echo $o['tableName'] ?>&reciver=<?php echo $otherUser ?>&post=<?php echo $o['postId'] ?>" ><div class="card-body row">
+            
+            <?php 
+            // to fetch the post photo and title to be displayed 
+            $postCrap = $get->allPostListerOnColumen($o['tableName'], 'id', $o['postId'] );
+            $rowPostCrap = $postCrap->fetch_assoc();
+
+
+          // to fetch the reciver end user data crap
+          $userCrap = $get->allPostListerOnColumen('user', 'id', $otherUser);
+          $ur = $userCrap->fetch_assoc(); 
+
+
+            ?>
+          <img src="<?php  $p = $admin->photoSplit($rowPostCrap['photoPath1']); echo $p[0] ; ?>" class="img-thumbnail  col-2" alt="...">
+            <h5 class="col-2"><?php echo $rowPostCrap['title'] ?></h5>
+            <p class="card-text col-2"><?php echo $you.' '.$o['msg'] ?></p>
+            <p class="card-text col-2"><small class="text-muted"></small><?php echo $date ?></p>
+            <h5 class="col-2"><?php echo $ur['firstName'] ?></h5>
+          <img src="<?php  $p = $admin->photoSplit($ur['photoPath1']); echo $p[0] ;  ?>" class="img-thumbnail col-2" alt="...">
+          </div></a>
+        </div>
+          <?php
+        }
+      }else{
+        echo 'No messages yet';
+      }
         ?>
-        
+
         
         <?php
-        echo 'in outer message';
       }
 
 // here every time the inner message is opened it has to get the requet of the tabelofpost(which the msg is assoiceatied in), posteId where the msg is associated in, and the reciver of the msg or the second user
@@ -568,6 +610,7 @@ foreach($dbTables as $posts){
         $tb = $_GET['tb'];
         $reciver = $_GET['reciver'];
         $postFocus = $_GET['post'];
+        echo 'post ID '.$postFocus;
         //fetch the posts photo and title of the post
         $postData = $get->allPostListerOnColumen($tb, 'id', $postFocus);
         $rowm = $postData->fetch_assoc();
@@ -628,69 +671,38 @@ foreach($dbTables as $posts){
 						<div class="card-body msg_card_body">
               <?php
                 // to fetch all the messages of this particular user and post
-                $innerMsg = $get->innerMsgFetcher($tb, $_SESSION['userId'], $postFocus);
+                $innerMsg = $get->innerMsgFetcher($tb, $_SESSION['userId'], $postFocus, $reciver);
                 if($innerMsg->num_rows != 0){
                 while($rowInnerMsg = $innerMsg->fetch_assoc()){
                   // if the loged user id is in a the user1 colomen, this means its the sender. so the message will be placed in a sendder div, else its the reciver so the msg will be placed in a reciver div
                   if($rowInnerMsg['user1'] == $_SESSION['userId']){
                   ?>
                     <div class="d-flex justify-content-start mb-4">
-                      <div class="img_cont_msg">
+                      <div class="img_cont_msg ">
                         <img src="<?php $p = $admin->photoSplit($row1['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
                       </div>
-                      <div class="msg_cotainer">
+                      <div class="msg_cotainer bg-success">
                         <?php echo $rowInnerMsg['msg'] ?>
                         <?php 
                             $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
                          ?>
-                        <span class="msg_time"><?php echo $date ?></span>
+                        <span class="text-danger"><?php echo $date ?></span>
                       </div>
                     </div>    
                     
                     <?php
-                  }elseif($rowInnerMsg['user1'] == $reciver){ // we distingush the user id in order to label the senders photo with the msg
-                    ?>
-                    <div class="d-flex justify-content-start mb-4">
-                      <div class="img_cont_msg">
-                        <img src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
-                      </div>
-                      <div class="msg_cotainer">
-                      <?php echo $rowInnerMsg['msg'] ?>
-                        <?php 
-                            $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
-                         ?>
-                        <span class="msg_time"><?php echo $date ?></span>
-                      </div>
-                    </div>    
-                    
-                    <?php
-                  }elseif($rowInnerMsg['user2'] == $reciver){
+                  }else{
                     ?>
               <div class="d-flex justify-content-end mb-4">
-              <div class="msg_cotainer">
+              <div class="msg_cotainer bg">
                       <?php echo $rowInnerMsg['msg'] ?>
                         <?php 
                             $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
                          ?>
-                        <span class="msg_time"><?php echo $date ?></span>
+                        <span class="text-danger"><?php echo $date ?></span>
                       </div>
                 <div class="img_cont_msg">
                   <img src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
-                </div>
-							</div>
-                    <?php
-                  }elseif($rowInnerMsg['user2'] == $_SESSION['userId']){
-                    ?>
-              <div class="d-flex justify-content-end mb-4">
-              <div class="msg_cotainer">
-                      <?php echo $rowInnerMsg['msg'] ?>
-                        <?php 
-                            $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
-                         ?>
-                        <span class="msg_time"><?php echo $date ?></span>
-                      </div>
-                <div class="img_cont_msg">
-                  <img src="<?php $p = $admin->photoSplit($row1['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
                 </div>
 							</div>
                     <?php
@@ -706,14 +718,33 @@ foreach($dbTables as $posts){
 
 						
 						</div>
+            <script>
+              $(document).ready(function(){
+                $('form').on('submit', function(e){
+                  e.preventDefault()
+                  $.ajax({
+                    url: "user/userApi.php",
+                    type: 'POST',
+                    data: $('form').serialize(),
+                    success: function(data){
+                      // alert(data)
+                      location.reload()
+                    }
+                  })
+                })
+              })
+            </script>
 						<div class="card-footer">
             <div class="row">
-            <form >
+            <form>
+              <input hidden type="text" name="tabel" value="<?php echo $tb ?>" >
+              <input hidden type="text" name="reciver" value="<?php echo $reciver ?>" >
+              <input hidden type="text" name="postFocus" value="<?php echo $postFocus ?>" >
                 <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="Type Here.."></textarea>
-          <div class="d-flex justify-content-end mb-4">
-              <button type="submit" class="btn btn-dark" >Send</button>
-          </div>
+              aria-describedby="emailHelp" name="msg" placeholder="Type Here.."></textarea>
+              <div class="d-flex justify-content-end mb-4">
+                  <button type="submit" class="btn btn-dark" >Send</button>
+              </div>
             </form>
             </div>
 						</div>

@@ -464,23 +464,28 @@ class fetch{
 
 
             //inner message fetcher for a loged user
-            function innerMsgFetcher($tableOfPost, $LogedUserId, $postId){
+            function innerMsgFetcher($tableOfPost, $LogedUserId, $postId, $secondUser){
                 include "connect.php";
-                $q = "SELECT * FROM `msg` WHERE  `user1` = '$LogedUserId' OR `user1` = '$LogedUserId' AND  `tableName` = '$tableOfPost' AND `postId` = '$postId' ORDER BY `postedDate` DESC ";
+                $q = "SELECT * FROM `msg` WHERE (( `user1` = '$LogedUserId' AND `user2` = '$secondUser') OR (`user1` = '$secondUser' AND `user2` = '$LogedUserId')) AND ( `tableName` = '$tableOfPost' AND `postId` = '$postId')  ORDER BY `postedDate` ASC  "; // the query is the  0 1, 1 0 all posibel probablity of the sender and recever  
 
                 $ask = $mysql->query($q);
+                echo $mysql->error;
                 return $ask;
             }
 
 
             /// outer message fetcher for loged user
-            function outerMsgFetcher($user){
+            function outerMsgFetcher($userx){
                 include "connect.php";
 
                 // the ' where or ' will only let us select the messages associated with a single user with sending and reciveing end, so the distict key word will filter only ones that are linked with one post in a single table
-                $q = "SELECT DISTINCT `postId` AND `tableName` TOP 1 * FROM `msg` WHERE `user1` = '$user' OR `user2` = '$user' ORDER BY `postedDate` DESC ";
+                $q = "SELECT `postedDate`, `tableName`,`postId`,`user1`,`user2`,`msg`,`seen`  FROM `msg` WHERE (`user1` = '$userx' OR `user2` = '$userx') AND `id` IN (
+                    SELECT max(`id`) FROM `msg` GROUP BY `tableName`,`postId`  DESC
+                ) ORDER BY `postedDate` DESC ";
 
                 $ask = $mysql->query($q);
+                echo $mysql->error;
+
                 return $ask;
             }///distnict
 
