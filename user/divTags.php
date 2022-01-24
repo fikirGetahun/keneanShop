@@ -1,5 +1,5 @@
 <?php
-include "../includes/header.php";
+// include "../includes/header.php";
 
 ?>
 
@@ -7,7 +7,11 @@ include "../includes/header.php";
 
 <!-- input form jiji -->
 <div id="jiji" style="width:100%;" class="modal-dialog">
-
+<style>
+  tr:hover{
+    cursor: pointer;
+  }
+</style>
     <div class="modal-content">
       <div  class="modal-header" >
       <table class="table container-fluid"  >
@@ -34,7 +38,7 @@ include "../includes/header.php";
                   ?>
                   
                   <tr>
-                  <td class="text-center"><a id="<?php echo $i ?>" onclick="handler('<?php echo $loc ?>')"  > <?php echo $loc ?></a></td>
+                  <td class="text-center" ><a id="<?php echo $i ?>" onclick="handler('<?php echo $loc ?>')"  > <?php echo $loc ?></a></td>
                   </tr>
                 
                   <?php
@@ -56,7 +60,11 @@ include "../includes/header.php";
 
 <!-- this is location changer lister, it lists the location -->
 <div id="jiji2" style="width:100%;" class="modal-dialog">
-
+<style>
+  tr:hover{
+    cursor: pointer;
+  }
+</style>
     <div class="modal-content">
       <div  class="modal-header" >
       <table class="table container-fluid"  >
@@ -106,7 +114,11 @@ include "../includes/header.php";
 
 <!-- ///sub city input tag for house and land -->
 <div id="jijiSub" style="width:100%;" class="modal-dialog">
-
+<style>
+  tr:hover{
+    cursor: pointer;
+  }
+</style>
     <div class="modal-content">
       <div  class="modal-header" >
       <table class="table container-fluid"  >
@@ -157,7 +169,11 @@ include "../includes/header.php";
 
 <!-- ///car type category lister divtags-->
 <div  style="width:100%;" class="modal-dialog">
-
+<style>
+  tr:hover{
+    cursor: pointer;
+  }
+</style>
     <div id="carType" class="modal-content">
       <div  class="modal-header" >
       <table class="table container-fluid"  >
@@ -197,7 +213,11 @@ include "../includes/header.php";
 
 <!-- //// divtag for ad type lister -->
 <div  style="width:100%;" class="modal-dialog">
-
+<style>
+  tr:hover{
+    cursor: pointer;
+  }
+</style>
     <div id="adType" class="modal-content">
       <div  class="modal-header" >
       <table class="table container-fluid"  >
@@ -238,7 +258,11 @@ require_once "../php/adminCrude.php";
 
 <!-- ///// electronics type -->
 <div  style="width:100%;" class="modal-dialog">
-
+<style>
+  tr:hover{
+    cursor: pointer;
+  }
+</style>
     <div id="elecType" class="modal-content">
       <div  class="modal-header" >
       <table class="table container-fluid"  >
@@ -286,7 +310,11 @@ while($carCatRow = $carCat->fetch_assoc()){
 <!-- ///vacancy type manager -->
 
 <div  style="width:100%;" class="modal-dialog">
-
+<style>
+  tr:hover{
+    cursor: pointer;
+  }
+</style>
     <div id="vac11Type" class="modal-content">
       <div  class="modal-header" >
       <table class="table container-fluid"  >
