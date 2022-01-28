@@ -1,5 +1,7 @@
 <?php
-    include('../includes/header.php');
+    // include('../includes/header.php');
+    // include "adminSide.php";
+
     require_once "../php/adminCrude.php";
 
     if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'], $_POST['username'],
@@ -138,3 +140,7 @@
   <div id="alertVacancy"></div>
     
   </div>
+  <?php
+
+// include "adminFooter.php";
+?>

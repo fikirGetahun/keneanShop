@@ -557,7 +557,7 @@ foreach($dbTables as $posts){
 
       if(isset($_GET['outter'])){
         $outerM = $get->outerMsgFetcher($_SESSION['userId']);
-        echo $_SESSION['userId'];
+        // echo $_SESSION['userId'];
         if($outerM->num_rows != 0){
         while($o = $outerM->fetch_assoc()){
           $date = $get->time_elapsed_string($o['postedDate']);
@@ -585,13 +585,37 @@ foreach($dbTables as $posts){
           $ur = $userCrap->fetch_assoc(); 
 
 
+          // to check if any of the users are admin/ editor / user
+          $authCH = $get->allPostListerOnColumen('user','id',$o['user2']);
+          $rowAuth = $authCH->fetch_assoc();
+
             ?>
-          <img src="<?php  $p = $admin->photoSplit($rowPostCrap['photoPath1']); echo $p[0] ; ?>" class="img-thumbnail  col-2" alt="...">
-            <h5 class="col-2"><?php echo $rowPostCrap['title'] ?></h5>
+            <?php
+            if($_SESSION['auth'] == 'ADMIN' || $rowAuth['auth'] == 'ADMIN' || $_SESSION['auth'] == 'EDITOR' || $rowAuth['auth'] == 'EDITOR'){
+              ?>
+              <img src="assets/img/pp.png" class="img-thumbnail  col-2" alt="...">
+              <h5 class="col-2">Admin</h5>
+              <?php
+            }else{
+              ?>
+              <img src="<?php  $p = $admin->photoSplit($rowPostCrap['photoPath1']); echo $p[0] ; ?>" class="img-thumbnail  col-2" alt="...">
+              <h5 class="col-2"><?php echo $rowPostCrap['title'] ?></h5>
+              <?php
+            }
+            ?>
+
+            
             <p class="card-text col-2"><?php echo $you.' '.$o['msg'] ?></p>
             <p class="card-text col-2"><small class="text-muted"></small><?php echo $date ?></p>
-            <h5 class="col-2"><?php echo $ur['firstName'] ?></h5>
-          <img src="<?php  $p = $admin->photoSplit($ur['photoPath1']); echo $p[0] ;  ?>" class="img-thumbnail col-2" alt="...">
+            <?php
+              if( $rowAuth['auth'] == 'USER' ){
+                ?>
+                  <h5 class="col-2"><?php echo $ur['firstName'] ?></h5>
+                  <img src="<?php  $p = $admin->photoSplit($ur['photoPath1']); echo $p[0] ;  ?>" class="img-thumbnail col-2" alt="..."> 
+
+                <?php
+              }
+            ?>
           </div></a>
         </div>
           <?php
@@ -610,7 +634,7 @@ foreach($dbTables as $posts){
         $tb = $_GET['tb'];
         $reciver = $_GET['reciver'];
         $postFocus = $_GET['post'];
-        echo 'post ID '.$postFocus;
+        // echo 'post ID '.$postFocus;
         //fetch the posts photo and title of the post
         $postData = $get->allPostListerOnColumen($tb, 'id', $postFocus);
         $rowm = $postData->fetch_assoc();
@@ -623,6 +647,12 @@ foreach($dbTables as $posts){
         // fetch the loged user data 
         $logedUser = $get->allPostListerOnColumen('user', 'id', $_SESSION['userId']);
         $row1 = $logedUser->fetch_assoc();
+
+ 
+        // to check if any of the users are admin/ editor / user
+        $authCH = $get->allPostListerOnColumen('user','id',$reciver);
+        $rowAuth = $authCH->fetch_assoc();
+
         ?>
         
 
@@ -633,15 +663,32 @@ foreach($dbTables as $posts){
 						<div class="card-header msg_head">
 							<div class="d-flex bd-highlight">
 								<div class="d-flex justify-content-start mb-4">
-									<img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">
-									<span class="online_icon"></span>
-                  <!-- <div class="col-8 h4 text-danger"> -->
+                  <?php
+                if($_SESSION['auth'] == 'ADMIN' || $rowAuth['auth'] == 'ADMIN' || $_SESSION['auth'] == 'EDITOR' || $rowAuth['auth'] == 'EDITOR'){
+              ?>
+              <img src="assets/img/pp.png" class="img-thumbnail  col-2" alt="...">
+              <h5 class="col-2">Admin</h5>
+              <?php
+            }else{
+              ?>
+              <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">
+                                <!-- <div class="col-8 h4 text-danger"> -->
 									<h5><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                 if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </h5>
 									<p></p>
 							
 								<!-- </div> -->
-      </div>
+              <?php
+            }
+            ?>
+
+
+                  </div>
+
+                  <?php
+                    if($rowAuth['auth'] == 'USER' ){
+                      ?>
+                      
                 <div class="d-flex justify-content-end mb-4">
                   <!-- <div class="col-8 h4 text-danger"> -->
                   <h5><?php echo $row2['firstName'].' '.$row2['lastName'] ?></h5>
@@ -652,6 +699,11 @@ foreach($dbTables as $posts){
 
 								  <!-- </div> -->
                 </div>
+                      <?php
+                    }
+
+                  ?>
+
                 <!-- </div> -->
 								<!-- <div class="video_cam">
 									<span><i class="fas fa-video"></i></span>
@@ -677,12 +729,14 @@ foreach($dbTables as $posts){
                   // if the loged user id is in a the user1 colomen, this means its the sender. so the message will be placed in a sendder div, else its the reciver so the msg will be placed in a reciver div
                   if($rowInnerMsg['user1'] == $_SESSION['userId']){
                   ?>
-                    <div class="d-flex justify-content-start mb-4">
+                                <div class="d-flex justify-content-end mb-4">
+
+                    
                       <div class="img_cont_msg ">
                         <img src="<?php $p = $admin->photoSplit($row1['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
                       </div>
                       <div class="msg_cotainer bg-success">
-                        <?php echo $rowInnerMsg['msg'] ?>
+                        <?php echo  $rowInnerMsg['msg'] ?>
                         <?php 
                             $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
                          ?>
@@ -693,8 +747,8 @@ foreach($dbTables as $posts){
                     <?php
                   }else{
                     ?>
-              <div class="d-flex justify-content-end mb-4">
-              <div class="msg_cotainer bg">
+<div class="d-flex justify-content-start mb-4">
+<div class="msg_cotainer ">
                       <?php echo $rowInnerMsg['msg'] ?>
                         <?php 
                             $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);

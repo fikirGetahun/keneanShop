@@ -1025,6 +1025,11 @@ echo $mysql->error;
                         $dbPath .= './uploads/zebegnaPhoto/'.$uploadName;
                     }
 
+                    if($tableName == 'mambership'){
+                        $uploadPath= './uploads/members/'.$uploadName;
+
+                        $dbPath .= './uploads/members/'.$uploadName;
+                    }
 
 
 

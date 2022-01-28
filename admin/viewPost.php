@@ -1,4 +1,6 @@
 <?php
+    // include "../includes/adminSide.php";
+
     require_once "../php/adminCrude.php";
 
     if(isset($_GET['type'])){
@@ -7,8 +9,8 @@
 
     //array of post ids that are posted on this current page
 
-    ob_start();
-    session_start();
+    // ob_start();
+    // session_start();
     $_SESSION['scroll'] = array();
     $_SESSION['type'] = $t;
     
@@ -706,3 +708,7 @@ if(isset($_GET['type'])){
     
     ?>
     </div>
+    <?php
+
+// include "../includes/adminFooter.php";
+?>

@@ -1,3 +1,9 @@
+
+<?php
+  include "adminSide.php";
+
+
+?>
 <html>
     <script src="assets/jquery.js"></script>  
   
@@ -2074,3 +2080,7 @@ if(isset($_GET['type'])){
 
 
 </main><!-- End #main -->
+<?php
+
+include "adminFooter.php";
+?>

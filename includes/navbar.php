@@ -302,7 +302,7 @@ function reload(x){
         
         ?>
        
-        <input id="search" class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+        <input id="search" class="form-control me-2" name="search" type="search" placeholder="Search in <?php echo $_SESSION['location'];  ?>" aria-label="Search">
         <button class="btn btn-warning" type="submit">Search</button>
       </form>
 
@@ -327,7 +327,7 @@ function reload(x){
     <nav class="nav d-flex justify-content-between">
       <a class="p-2 text-muted" >Language</a>
       <a class="p-2 text-muted" >Eth</a>
-      <a class="p-2 text-muted" >Membership</a>
+      <a href="members.php" class="p-2 text-muted" >Membership</a>
 
       <a href="./maincat.php?cat=blog&label=Blog" class="p-2 text-muted" >Blog</a>
       <?php 

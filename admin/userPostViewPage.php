@@ -1,5 +1,5 @@
 <?php
-
+// include "adminSide.php";
 require_once "../php/auth.php";
 require_once "../php/adminCrude.php";
 if(isset($_POST['id'])){
@@ -36,6 +36,7 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -136,6 +137,7 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
       </script>
 
 <div id="allin" >
+
 <?php
 
 
@@ -144,15 +146,15 @@ foreach($dbTables as $posts){
     
     ?>
 
-      <div class="row">
-        
+<?php echo $posts ?>
+<div class="row">
       <?php
       while($row = $oneTablePostList->fetch_assoc()){  
   
         ?>
       
-      <h2><?php echo $posts ?></h2>
-          <div id="adVieww" class="col-md-4">
+      <h2></h2>
+          <div id="adVieww" class="col-4">
               <div class="card mb-4 box-shadow">
                 <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
                 <div class="card-body">
@@ -179,8 +181,11 @@ foreach($dbTables as $posts){
 ?>
 </div>
 
-    
+</div>
 
+<?php
 
+// include "../includes/adminFooter.php";
+?>
 
 

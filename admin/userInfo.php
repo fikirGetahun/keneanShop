@@ -2,6 +2,7 @@
 require_once "../php/fetchApi.php";
 require_once "../php/auth.php";
 require_once "../php/adminCrude.php";
+// include "adminSide.php";
 
 if(isset($_POST['poster'])){
     $userPoster = $_POST['poster'];
@@ -91,7 +92,7 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 
 foreach($dbTables as $posts){  
     $oneTablePostList = $auth->userPostsLister($userPoster, $posts);
-    echo 'in for';
+    // echo 'in for';
     ?>
 
      
@@ -175,3 +176,7 @@ foreach($dbTables as $posts){
             </div>
             <?php }} ?>
     </div>
+    <?php
+
+// include "adminFooter.php";
+?>

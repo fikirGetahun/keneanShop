@@ -1,5 +1,11 @@
 <?php
 include 'includes/header.php';
+require_once "php/fetchApi.php";
+require_once "php/adminCrude.php";
+ob_start();
+if(!isset($_SESSION)){
+  session_start();
+}
 ?>
     <style>
 
@@ -31,113 +37,70 @@ include 'includes/header.php';
   </div>
 
   <div class="row">
-    <div class="col-md-4 order-md-2 mb-4">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Your cart</span>
-        <span class="badge badge-secondary badge-pill">3</span>
-      </h4>
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">Product name</h6>
-            <small class="text-muted">Brief description</small>
-          </div>
-          <span class="text-muted">$12</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">Second product</h6>
-            <small class="text-muted">Brief description</small>
-          </div>
-          <span class="text-muted">$8</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">Third item</h6>
-            <small class="text-muted">Brief description</small>
-          </div>
-          <span class="text-muted">$5</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between bg-light">
-          <div class="text-success">
-            <h6 class="my-0">Promo code</h6>
-            <small>EXAMPLECODE</small>
-          </div>
-          <span class="text-success">-$5</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (USD)</span>
-          <strong>$20</strong>
-        </li>
-      </ul>
 
-      <form class="card p-2">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Promo code">
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="col-md-8 order-md-1">
+    <div class="col-md-8 ">
+      
       <h4 class="mb-3">Member</h4>
-      <form class="needs-validation" novalidate>
+      <form action="members.php"   method="POST" enctype="multipart/form-data"  >
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="firstName">First name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+            <label for="firstName">Full name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="" name="name" value="<?php echo $_SESSION['name'] ?>" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
-          <div class="col-md-6 mb-3">
-            <label for="lastName">Last name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-            <div class="invalid-feedback">
-              Valid last name is required.
-            </div>
+
+        </div>
+        <!-- <div class="row"> -->
+        <div  class="col-md-4 mb-3" >
+        <label for="username">Address</label>
+        <select  class="custom-select" name="city" id="">
+          <option>Address</option>
+          <?php 
+              require_once 'php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
+        <div class="col-md-6">
+          <label for="username">Wereda/Kebele</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="username" placeholder="wereda" name="wereda" value=" " required>
+
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4 mb-3">
-            <label for="country">Country</label>
-            <select class="form-select d-block w-100" id="country" required>
-              <option value="">Choose...</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid country.
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label for="country">Kebele</label>
-            <select class="form-select d-block w-100" id="country" required>
-              <option value="">Choose...</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid country.
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label for="state">State</label>
-            <select class="form-select d-block w-100" id="state" required>
-              <option value="">Choose...</option>
-              <option>California</option>
-            </select>
-            <div class="invalid-feedback">
-              Please provide a valid state.
-            </div>
-          </div>
+
         </div>
         <div class="row">
           
         
         <div class="col-md-6">
-          <label for="username">Phone Number</label>
+          <label for="username">Main Phone Number</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="username" placeholder="Username" required>
+            <input type="text" class="form-control" id="username" placeholder="Username" name="phone1" value="<?php echo $_SESSION['phone'] ?>" required>
             <div class="invalid-feedback" style="width: 100%;">
               Your username is required.
             </div>
@@ -145,30 +108,172 @@ include 'includes/header.php';
         </div>
 
         <div class="col-md-6">
-          <label for="email">Email <span class="text-muted">(Optional)</span></label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com">
-          <div class="invalid-feedback">
-            Please enter a valid email address for shipping updates.
-          </div>
-        </div>
-        </div>
-        <div class="mb-3">
-          <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-          <div class="invalid-feedback">
-            Please enter your shipping address.
+          <label for="username">Additional Phone Number</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="username" placeholder="phone" name="phone2" value=" " required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your username is required.
+            </div>
           </div>
         </div>
 
-        <div class="mb-3">
-          <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+        <div class="form-group">
+          <label for="exampleInputEmail1">What does initiate you to do work with us?</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="what_does_initiate" placeholder="info"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Do you have another Job?</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="do_you_have_other_job" placeholder="info"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Have you work as a broker before?</label>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" required type="radio" name="broker_before" id="inlineRadio1" value="YES">
+          <label class="form-check-label" for="inlineRadio1">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" required type="radio" name="broker_before" id="inlineRadio2" value="NO">
+          <label class="form-check-label" for="inlineRadio2">No</label>
+        </div>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Do you have a business License?</label>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" required type="radio" name="business_license" id="inlineRadio1" value="YES">
+          <label class="form-check-label" for="inlineRadio1">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" required type="radio" name="business_license" id="inlineRadio2" value="NO">
+          <label class="form-check-label" for="inlineRadio2">No</label>
+        </div>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">What kind of commission will you work with us? </label>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="House_and_land_Selling" id="inlineRadio1" value="House_and_land_Selling">
+          <label class="form-check-label" for="inlineRadio1">House_and_land_Selling</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="House_Renting" id="inlineRadio2" value="House_Renting">
+          <label class="form-check-label" for="inlineRadio2">House_Renting</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="Real_Estate_Renting_and_Selling" id="inlineRadio2" value="Real_Estate_Renting_and_Selling">
+          <label class="form-check-label" for="inlineRadio2">Real_Estate_Renting_and_Selling</label>
         </div>
 
         
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="Car_Selling" id="inlineRadio2" value="Car_Selling">
+          <label class="form-check-label" for="inlineRadio2">Car_Selling</label>
+        </div>
+
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="Car_Renting" id="inlineRadio2" value="Car_Renting">
+          <label class="form-check-label" for="inlineRadio2">Car_Renting</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="Other_Work" id="inlineRadio2" value="Other_Work">
+          <label class="form-check-label" for="inlineRadio2">Other_Work</label>
+        </div>
+
+        </div>
+
+
+        <div id="form-group">
+        <label for="exampleInputEmail1">Upload scaned identification card here</label>
+          <input type="file"  class="form-control" id="photoid" name="photo"  >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">If you have any question write it down here?</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="question" placeholder="info"></textarea>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
       </form>
+      <?php
+        if(isset($_POST['name'], $_POST['city'], $_POST['wereda'], $_POST['phone1'], $_POST['phone2'], $_POST['what_does_initiate'], $_POST['do_you_have_other_job'], $_POST['broker_before'], $_FILES['photo'], $_POST['question'], $_POST['business_license'])){
+
+          $commission_type = array();
+          if(isset($_POST['House_and_land_Selling'])){
+            $commission_type[] = $_POST['House_and_land_Selling'];
+          }
+
+          if(isset($_POST['House_Renting'])){
+            $commission_type[] = $_POST['House_Renting'];
+          }
+          if(isset($_POST['Real_Estate_Renting_and_Selling'])){
+            $commission_type[] = $_POST['Real_Estate_Renting_and_Selling'];
+          }
+          if(isset($_POST['Car_Selling'])){
+            $commission_type[] = $_POST['Car_Selling'];
+          }
+          if(isset($_POST['Car_Renting'])){
+            $commission_type[] = $_POST['Car_Renting'];
+          }
+          if(isset($_POST['Other_Work'])){
+            $commission_type[] = $_POST['Other_Work'];
+          }
+          
+          echo 'innsz';
+
+          
+        $commission = implode(',', $commission_type);
+
+          $name =$_POST['name'];
+          $city = $_POST['city'];
+          $wereda = $_POST['wereda'];
+          $phone1 = $_POST['phone1'];
+          $phone2 = $_POST['phone2']; 
+          $what_does_initiate = $_POST['what_does_initiate']; 
+          $do_you_have_other_job = $_POST['do_you_have_other_job']; 
+          $photoPath1 = $_FILES['photo'];
+          $broker_before = $_POST['broker_before']; 
+          $business_license = $_POST['business_license'];
+          $question = $_POST['question'];
+          $userId = $_SESSION['userId'];
+
+          $up = $admin->uploadSinglePhoto('mambership', $photoPath1);
+          if($up[4] == 'error'){
+            echo 'error file';
+            print_r($up);
+          }else{
+            $mem = $get->member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $up[0], $broker_before, $business_license, $commission, $question, $userId);
+            if($mem){
+              echo 'Registerd ';
+            }else{
+              echo 'error';
+            }
+          }
+
+
+
+        }
+
+      ?>
     </div>
   </div>
 

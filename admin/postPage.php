@@ -1,3 +1,6 @@
+<?php
+  // include "adminSide.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1707,3 +1710,7 @@ $('#tCategory').on('change', function(){
 </body>
 
 </html>
+<?php
+
+// include "adminFooter.php";
+?>

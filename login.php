@@ -98,15 +98,17 @@ if(isset($_POST['username'], $_POST['password'])){
           if(password_verify($pa, $row['password'])){
 
               
-              // if($row['userStatus'] == 'BAN'){
-              //   header('Location: ./banPage.php');
-              // }else{
+              if($row['userStatus'] == 'BAN'){
+                header('Location: ./banPage.php');
+              }else{
                if($_SESSION['userId'] = $row['id']){
                  $_SESSION['auth'] = $row['auth'];
+                 $_SESSION['phone'] = $row['phone'];
+                 $_SESSION['name'] = $row['firstName'].' '.$row['lastName'];
                 header('Location: ./index.php');
                }
               
-              // }
+              }
               
               
           }else{

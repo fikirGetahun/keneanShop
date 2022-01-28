@@ -4,6 +4,9 @@ include "includes/secnav.php";
 include "includes/navbar.php";
 require_once "php/adminCrude.php";
 require_once "php/fetchApi.php";
+// ob_start();
+
+// session_start();
 	?>
 	<style>
 .zoom {
@@ -169,9 +172,13 @@ require_once "php/fetchApi.php";
               <div id="msgDiv">
 
                   <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
@@ -290,14 +297,19 @@ require_once "php/fetchApi.php";
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <?php
@@ -415,14 +427,19 @@ require_once "php/fetchApi.php";
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
 
             <div class="d-flex justify-content-between align-items-center">
@@ -536,15 +553,19 @@ require_once "php/fetchApi.php";
               ?>
               </div>
               <div id="msgDiv">
-
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
 
             <div class="d-flex justify-content-between align-items-center">
@@ -658,14 +679,19 @@ require_once "php/fetchApi.php";
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
 
             <div class="d-flex justify-content-between align-items-center">
@@ -786,14 +812,19 @@ require_once "php/fetchApi.php";
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
@@ -899,14 +930,19 @@ require_once "php/fetchApi.php";
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
 
             <div class="d-flex justify-content-between align-items-center">
@@ -1019,14 +1055,19 @@ if($_GET['cat'] == 'vacancy'){
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
           <div class="d-flex justify-content-between align-items-center">
             <?php
@@ -1139,14 +1180,19 @@ if($_GET['cat'] == 'tender'){
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
           <div class="d-flex justify-content-between align-items-center">
             <?php
@@ -1234,14 +1280,19 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
@@ -1326,14 +1377,19 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
@@ -1423,14 +1479,19 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
@@ -1523,14 +1584,19 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
@@ -1770,14 +1836,19 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
               </div>
               <div id="msgDiv">
 
-                  <?php
-                    if($_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+              <?php
+                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
                       ?>
                   <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                      <?php
+                    }elseif(!isset($_SESSION['userId'])){
+                      ?>
+                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
                       <?php
                     }
                   
                   ?>
+                  </div>
                   </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <?php

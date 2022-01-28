@@ -491,6 +491,21 @@ class fetch{
 
 
 
+            /// membership register
+            function member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $photoPath1, $broker_before, $business_license, $commission_type, $question, $userId ){
+                include "connect.php";
+              
+
+                $q = "INSERT INTO `mambership`( `name`, `city`, `wereda`, `phone1`, `phone2`, `what_does_initiate`, `do_you_have_other_job`, `photoPath1`, `broker_before`, `business_license`, `commission_type`, `question`,  `userId`) VALUES ( '$name', '$city', '$wereda', '$phone1', '$phone2', '$what_does_initiate', '$do_you_have_other_job', '$photoPath1', '$broker_before', '$business_license', '$commission_type', '$question', '$userId ' )";
+
+            
+
+
+                $ask = $mysql->query($q);
+
+                return $ask;
+            }
+
             
 
 
