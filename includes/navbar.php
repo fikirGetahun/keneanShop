@@ -1,6 +1,6 @@
   
   <?php
-  
+ 
   ob_start();
   if(!isset($_SESSION)) { 
     session_start(); 
@@ -154,72 +154,72 @@ function reload(x){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="nav-link active" href="index.php?loc=All"  aria-current="page"  >Home</a>
+          <a class="nav-link active" href="index.php?loc=All"  aria-current="page"  ><?php echo $lang['home'] ?></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  >Big discount</a>
+          <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  ><?php echo $lang['big_discount'] ?></a>
         </li>
         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="small">House</span>
+            <span class="small"><?php echo $lang['house'] ?></span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" onclick="" href="./maincat.php?cat=housesell&type=house&arg=For Sell&label=House For Sell">To buy</a></li>
-            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=house&arg=For Rent&label=House For Rent">To rent</a></li>
+            <li><a class="dropdown-item" onclick="" href="./maincat.php?cat=housesell&type=house&arg=For Sell&label=House For Sell"><?php echo $lang['toBuy'] ?></a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=house&arg=For Rent&label=House For Rent"><?php echo $lang['toRent'] ?></a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="small">Cars
+            <span class="small"><?php echo $lang['cars'] ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars For Sell&type= "    >To buy</a></li>
-            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Rent&label=Cars For Rent&type= "  onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Rent')"  >To rent</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="maincat.php"><span class="small">Real Estate(Sponserd)</span></a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="small">Land</span>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Sell&label=Land For Sell">To buy</a></li>
-            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Rent&label=Land For Rent">To rent</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars For Sell&type= "    ><?php echo $lang['toBuy'] ?></a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Rent&label=Cars For Rent&type= "  onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Rent')"  ><?php echo $lang['toRent'] ?></a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./maincat.php?cat=vacancy"><span class="small">Vacancy</span></a>
+          <a class="nav-link active" href="maincat.php"><span class="small"><?php echo $lang['realEstate'] ?></span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="small">Work Seekers</span>
+            <span class="small"><?php echo $lang['land'] ?></span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item"  href="./maincat.php?cat=jobhometutor&type=homeTutor&label=Home Tutor"  >Home Tutor Job Applicaion</a></li>
-            <li><a class="dropdown-item" href="./maincat.php?cat=hotelhouse&type=hotelWorker&label=Hotel Job Seeker"   >Hotel Worker Job Application</a></li>
-            <li><a class="dropdown-item" href="./maincat.php?cat=hotelhouse&type=houseWorker&label=Home Keeper Seeker"   >Home Keeper Job Application</a></li>
-            <li><a class="dropdown-item" href="./maincat.php?cat=zebegna&type=zebegna&label=Security Gaurd Job Seeker"  >Security Gaurd Job Application</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Sell&label=Land For Sell"><?php echo $lang['toBuy'] ?></a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Rent&label=Land For Rent"><?php echo $lang['toRent'] ?></a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="./maincat.php?cat=vacancy"><span class="small"><?php echo $lang['vacancy'] ?></span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="small"><?php echo $lang['workSeekers'] ?></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item"  href="./maincat.php?cat=jobhometutor&type=homeTutor&label=Home Tutor"  ><?php echo $lang['homeTutorJobApplicaion'] ?></a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=hotelhouse&type=hotelWorker&label=Hotel Job Seeker"   ><?php echo $lang['hotelWorkerJobApplication'] ?></a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=hotelhouse&type=houseWorker&label=Home Keeper Seeker"   ><?php echo $lang['homeKeeperJobApplication'] ?></a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=zebegna&type=zebegna&label=Security Gaurd Job Seeker"  ><?php echo $lang['securityGaurdJobApplication'] ?></a></li>
           </ul>
         </li>
 
 
          <li class="nav-item">
           <a class="nav-link active" 
-          href="./maincat.php?cat=ad&status=bigDiscount&off=NOT&label=Advertisment Post&type=product"><span class="small">Products / Services</span></a>
+          href="./maincat.php?cat=ad&status=bigDiscount&off=NOT&label=Advertisment Post&type=product"><span class="small"><?php echo $lang['ad'] ?></span></a>
         </li>
          <li class="nav-item">
           <a class="nav-link active"
-          href="./maincat.php?cat=electronics&status= &off= &label=Electronics Post&type= "><span class="small">Electronics</span></a>
+          href="./maincat.php?cat=electronics&status= &off= &label=Electronics Post&type= "><span class="small"><?php echo $lang['electronics'] ?></span></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link active" href="./maincat.php?cat=tender"  ><span class="small">Tenders</span></a>
+          <a class="nav-link active" href="./maincat.php?cat=tender"  ><span class="small"><?php echo $lang['tenders'] ?></span></a>
         </li>
          <li class="nav-item">
           <a class="nav-link active"
-          href="./maincat.php?cat=charity&status= &off= &label=Charity Post&type= "><span class="small">Charity</span></a>
+          href="./maincat.php?cat=charity&status= &off= &label=Charity Post&type= "><span class="small"><?php echo $lang['charity'] ?></span></a>
         </li>
         <?php 
               require_once 'php/fetchApi.php';
@@ -235,7 +235,7 @@ function reload(x){
         
         <li class="nav-item dropdown" style="z-index: 3;">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="small">Location: </span>
+            <span class="small"> <?php echo $lang['location'] ?>: </span>
             <span id="pgad" class="small"><?php  echo $_SESSION['location']; ?></span>
 
           </a>
@@ -303,7 +303,7 @@ function reload(x){
         ?>
        
         <input id="search" class="form-control me-2" name="search" type="search" placeholder="Search in <?php echo $_SESSION['location'];  ?>" aria-label="Search">
-        <button class="btn btn-warning" type="submit">Search</button>
+        <button class="btn btn-warning" type="submit"><?php echo $lang['search'] ?></button>
       </form>
 
       
@@ -325,24 +325,36 @@ function reload(x){
   <div class="container nav-scrollers py-1 mb-2">
     
     <nav class="nav d-flex justify-content-between">
-      <a class="p-2 text-muted" >Language</a>
-      <a class="p-2 text-muted" >Eth</a>
-      <a href="members.php" class="p-2 text-muted" >Membership</a>
+      
+      <li class="nav-item dropdown">
 
-      <a href="./maincat.php?cat=blog&label=Blog" class="p-2 text-muted" >Blog</a>
+            <a class="p-2 text-muted" href="?lang=amh"><?php echo $lang['amh'] ?></a>
+        <a class="p-2 text-muted" href="?lang=eng"><?php echo $lang['eng'] ?></a>
+
+      <a class="p-2 text-muted" >Eth</a>
+      <?php
+      if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
+?>
+<a href="members.php" class="p-2 text-muted" >Membership</a>
+<?php
+      }
+      ?>
+      
+
+      <a href="./maincat.php?cat=blog&label=Blog" class="p-2 text-muted" ><?php echo $lang['blog'] ?></a>
       <?php 
 
 if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
   ?>
-<a href="./login.php" class="btn btn-light">LogIn</a>
+<a href="./login.php" class="btn btn-light"><?php echo $lang['login'] ?></a>
 <?php
   
 }
 if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
 ?>
 
-<a class="btn btn-light" href="./Account.php?yourPost=true"  >Account</a>
-<a class="btn btn-light"  href="./user/logout.php"   >Log Out</a>
+<a class="btn btn-light" href="./Account.php?yourPost=true"  ><?php echo $lang['acc'] ?></a>
+<a class="btn btn-light"  href="./user/logout.php"   ><?php echo $lang['logout'] ?></a>
 
 
 

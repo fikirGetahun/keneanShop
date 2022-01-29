@@ -1,4 +1,5 @@
 <?php
+include "includes/lang.php";
 include "includes/header.php";
 include "includes/secnav.php";
 include "includes/navbar.php";

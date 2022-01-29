@@ -5,7 +5,7 @@
 // ob_start();
 // session_start();
 // 
-
+include "includes/lang.php";
 include "includes/header.php";
 include "includes/navbar.php";
 require_once "php/adminCrude.php";
@@ -61,54 +61,7 @@ $pageLocation = $_SESSION['location'];
 <!--section 1 -->
 <!--section 1 -->
 
-  <div class="album py-5 bg-light">
-    <div class="container">
- <div class="jumbotron">
-    <div class="container">
-      <h5>Sponsored big discount</h5>
-    </div>
- </div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
-    <?php
-    if($pageLocation != 'All'){
-      $home = $get->allPostListerOn2Columen('ad', 'bigDiscount', 'ACTIVE', 'address', $pageLocation);
-    }else{
-      $home = $get->allPostListerOnColumen('ad', 'bigDiscount', 'ACTIVE');
-    }
-    if($home->num_rows != 0){
-
-    $i1= 1;
-    while($row1 = $home->fetch_assoc()){
-      // if($i1 == 5){break;}
-      ?>
-        <div class="col">
-          <div class="card shadow-sm">
-          <a href="Description.php?cat=ad&postId=<?php echo $row1['id'] ?>&label=Big%20Discount%20Advertisment&type=big" class="stretched-link">
-           <img class="bd-placeholder-img card-img-top" width="100%" height="150"
-            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $row1['title'] ?></h5>
-              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row1['price'] ?></span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: <?php echo $row1['address'] ?></h6>
-                <small class="text-muted"> <?php echo $row1['view'] ?> views </small>
-              </div>
-            </div>
-          </div>
-        </div>
-      <?php
-      $i1++;
-    }
-  }else{
-    echo 'No Results';
-  }
-    ?>
-
-  </div>
-
-      <div class="album py-5 bg-light">
+<div class="album py-5 bg-light">
     <div class="container">
 
 
@@ -135,9 +88,9 @@ $pageLocation = $_SESSION['location'];
       ?>
         <div class="col">
           <div class="card shadow-sm">
-          <a href="Description.php?cat=housesell&type=house&postId=<?php echo $row1['id'] ?>&label=House%20Posts" class="stretched-link">
+          <a href="Description.php?cat=housesell&type=house&postId=<?php echo $row1['id'] ?>&label=House%20Posts" class=" ">
            <img class="bd-placeholder-img card-img-top" width="100%" height="150"
-            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+            src="<?php $p = $admin->photoSplit($row1['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
             <div class="card-body">
               <h5 class="card-title"><?php echo $row1['title'] ?></h5>
@@ -160,57 +113,6 @@ $pageLocation = $_SESSION['location'];
     ?>
   </div>
 
-<div class="album py-5 bg-light">
-    <div class="container">
-
-
- <div class="jumbotron">
-    <div class="container">
-      <h5>Cars</h5>
-      
-    </div>
-  </div>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
-    <?php
-    if($pageLocation != 'All'){
-      $home = $get->allPostListerOnColumen('car','address', $pageLocation);
-    }else{
-      $home = $get->allPostListerOnTable('car');
-    }
-    if($home->num_rows != 0){
-    $i1= 1;
-    while($row1 = $home->fetch_assoc()){
-      
-      ?>
-        <div class="col">
-          <div class="card shadow-sm">
-          <a href="Description.php?cat=car&type=house&postId=<?php echo $row1['id'] ?>&label=House%20Posts" class="stretched-link">
-           <img class="bd-placeholder-img card-img-top" width="100%" height="150"
-            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $row1['title'] ?></h5>
-              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row1['price'] ?></span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: <?php echo $row1['address'] ?></h6>
-                <small class="text-muted"> <?php echo $row1['view'] ?> views </small>
-              </div>
-            </div>
-          </div>
-        </div>
-      <?php
-      if($i1 == 5){break;}
-      $i1++;
-    }
-  }else{
-    echo 'No Result';
-  }
-    ?>
-  </div>
-    </div>
-  </div>
 
 <div class="album py-5 bg-light">
     <div class="container">
@@ -218,106 +120,113 @@ $pageLocation = $_SESSION['location'];
 
  <div class="jumbotron">
     <div class="container">
-      <h5>Electronics Items</h5>
+      <h5>Others</h5>
       
     </div>
   </div>
 
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+    
     <?php
-    if($pageLocation != 'All'){
-      $home = $get->allPostListerOnColumen('electronics', 'address', $pageLocation);
-    }else{
-      $home = $get->allPostListerOnTable('electronics');
-    }
-    if($home->num_rows != 0){
 
-    $i1= 1;
-    while($row1 = $home->fetch_assoc()){
-      // if($i1 == 5){break;}
-      ?>
-        <div class="col">
-          <div class="card shadow-sm">
-          <a href="Description.php?cat=electronics&postId=<?php echo $row1['id'] ?>&label=Electronics%20Post&type=" class="stretched-link">
-           <img class="bd-placeholder-img card-img-top" width="100%" height="150"
-            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+$dbTables = array('ad', 'car', 'charity', 'electronics',
+'housesell');
 
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $row1['title'] ?></h5>
-              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row1['price'] ?></span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: <?php echo $row1['address'] ?></h6>
-                <small class="text-muted"> <?php echo $row1['view'] ?> views </small>
-              </div>
+ 
+for($z=0;$z<14;$z++){
+  $r = rand(0,4);
+  $tab = $dbTables[$r];
+  // echo $tab;
+  if($pageLocation != 'All'){
+    $home = $get->allPostListerOnColumen($tab,'address', $pageLocation);
+  }else{
+    $home = $get->allPostListerOnTable($tab);
+  }
+  if($home->num_rows != 0){
+  $i1= 1;
+  while($row12 = $home->fetch_assoc()){
+    
+    ?>
+      <div class="col-3">
+        <div class="card shadow-sm">
+          <?php 
+          if($tab == 'ad'){
+            ?>
+              <a href="Description.php?cat=<?php echo $tab ?>&postId=<?php echo $row12['id'] ?>&label=Advertisment%20Post&type=product" class="">
+            <?php
+          }elseif($tab == 'car'){
+            ?>
+            <a href="Description.php?cat=<?php echo $tab ?>&postId=<?php echo $row12['id'] ?>&label=Cars%20Post%20&type=" class="">
+          <?php  
+          }elseif($tab == 'charity'){
+            ?>
+            <a href="Description.php?cat=<?php echo $tab ?>&postId=<?php echo $row12['id'] ?>&label=Charity%20Post&type=" class="">
+          <?php  
+          }elseif($tab == 'electronics'){
+            ?>
+            <a href="Description.php?cat=<?php echo $tab ?>&postId=<?php echo $row12['id'] ?>&label=Electronics%20Post&type=" class="">
+          <?php  
+          }
+          
+          elseif($tab == 'housesell'){
+            ?>
+            <a href="Description.php?cat=<?php echo $tab ?>&type=house&postId=<?php echo $row12['id'] ?>&label=House%20Posts" class="">
+          <?php  
+          }
+
+          ?>
+         <img class="bd-placeholder-img card-img-top" width="100%" height="150"
+          src="<?php $p = $admin->photoSplit($row12['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+
+          <div class="card-body">
+            <h5 class="card-title"><?php echo $row12['title'] ?></h5>
+            <?php
+
+            if($tab != 'housesell' && $tab != 'charity'){
+              ?><h6 class="card-text">Price:<span class="text-danger small"><?php echo $row12['price'] ?></span> </h6>
+              <?php
+            }elseif($tab == 'housesell'){
+              ?>
+              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row12['cost'] ?></span> </h6>
+              <?php
+            }
+            ?>
+            
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <?php
+              if($tab != 'charity' && $tab != 'housesell'){
+                ?>
+                 <h6 class="card-text">Location: <?php echo $row12['address'] ?></h6>
+                <?php
+              }elseif($tab == 'housesell'){
+                ?>
+                 <h6 class="card-text">Location: <?php echo $row12['city'] ?></h6>
+                <?php
+              }
+              ?>
+               
+              <small class="text-muted"> <?php echo $row12['view'] ?> views </small>
             </div>
           </div>
         </div>
-      <?php
-      $i1++;
-    }
-  }else{
-    echo 'No Results';
-  }
-    ?>
-
-  </div>
       </div>
-    </div>
-<!--offers-->
-<!--offers-->
-<div class="album py-5 bg-light">
-    <div class="container">
-
- <div class="jumbotron">
-    <div class="container">
-      <h5>Land</h5>
-      
-    </div>
-  </div>
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
     <?php
-    if($pageLocation != 'All'){
-      $home = $get->allPostListerOn2Columen('housesell', 'houseOrLand', 'LAND', 'city', $pageLocation);
-    }else{
-      $home = $get->allPostListerOnColumen('housesell','houseOrLand', 'LAND');
-    }
-
-    if($home->num_rows != 0){
-
-    $i1= 1;
-    while($row1 = $home->fetch_assoc()){
-      
-      ?>
-        <div class="col">
-          <div class="card shadow-sm">
-          <a href="Description.php?cat=housesell&type=land&postId=<?php echo $row1['id'] ?>&label=Land%20Posts" class="stretched-link">
-           <img class="bd-placeholder-img card-img-top" width="100%" height="150"
-            src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
-
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $row1['title'] ?></h5>
-              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row1['cost'] ?></span> </h6>
-              
-              <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-text">Location: <?php echo $row1['city'] ?></h6>
-                <small class="text-muted"> <?php echo $row1['view'] ?> views </small>
-              </div>
-            </div>
-          </div>
-        </div>
-      <?php
-      if($i1 == 5){break;}
-      $i1++;
-    }
-  }else{
-    echo 'No Result';
+    if($i1 == 2){break;}
+    $i1++;
   }
+}else{
+  echo 'No Result';
+}
+
+}
+
+
     ?>
   </div>
-
-      </div>
     </div>
+  </div>
+
 </main>
 
 	<?php
