@@ -1,6 +1,6 @@
 
 <?php
-  include "adminSide.php";
+  // include "adminSide.php";
 
 
 ?>
@@ -2082,5 +2082,5 @@ if(isset($_GET['type'])){
 </main><!-- End #main -->
 <?php
 
-include "adminFooter.php";
+// include "adminFooter.php";
 ?>

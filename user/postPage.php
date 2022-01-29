@@ -1547,14 +1547,24 @@ if($_GET['type'] == 'vacancy'){
         <div class="form-group">
           <label for="exampleInputEmail1">What does initiate you to do with us?</label>
           <textarea type="text" class="form-control" style="width: 100%; height: 80%;" id="des" 
-          aria-describedby="emailHelp" name="description" placeholder="ansewer"></textarea> 
+          aria-describedby="emailHelp" name="description" placeholder="initiate_answer"></textarea> 
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-          <input type="submit" value="POST">
-        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-        </form>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Do you have another Job?</label>
+          <textarea type="text" class="form-control" style="width: 100%; height: 80%;" id="des" 
+          aria-describedby="emailHelp" name="another_job" placeholder="initiate_answer"></textarea> 
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <div id="alertVacancy"></div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Have you done before as a broker?</label>
+          <textarea type="text" class="form-control" style="width: 100%; height: 80%;" id="des" 
+          aria-describedby="emailHelp" name="description" placeholder="initiate_answer"></textarea> 
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
       
       </section>
 
