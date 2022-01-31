@@ -353,3 +353,32 @@ while($vacancyCatRow = $vacancyCat->fetch_assoc()){
 </div>
 
 
+<div id="carFR">
+<div  class="input-group mb-3" >
+        <select  class="custom-select" name="rentStatus" id="rentS">
+          <option  >Rent Status</option>
+          <option value="With Driver">With Driver</option>
+          <option selected value="Car Only">Car Only</option>
+        </select>
+        </div>
+
+        
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="forWho" id="forWho">
+          <option value=" " >Rent For ?</option>
+          <option value="All">All</option>
+          <option value="Private">Private</option>
+          <option value="Govormental Offices">Govormental Offices</option>
+          <option value="Private Company">Private Company</option>
+          <option value="NGO">NGO</option>
+        </select>
+        </div>
+
+        
+        <div class="form-group" id="whyRent">
+          <label for="exampleInputEmail1">Where Do you Want to Rent ?</label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="whyRent" placeholder="Description"></textarea>
+          <small id="emailHelp" class="form-text text-muted">Describe where you want to rent this car.</small>
+        </div>
+</div>

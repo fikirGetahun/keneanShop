@@ -331,11 +331,10 @@ function reload(x){
             <a class="p-2 text-muted" href="?lang=amh"><?php echo $lang['amh'] ?></a>
         <a class="p-2 text-muted" href="?lang=eng"><?php echo $lang['eng'] ?></a>
 
-      <a class="p-2 text-muted" >Eth</a>
       <?php
       if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
 ?>
-<a href="members.php" class="p-2 text-muted" >Membership</a>
+<a href="members.php" class="p-2 text-muted" ><?php echo $lang['mem'] ?></a>
 <?php
       }
       ?>
@@ -368,13 +367,13 @@ if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
 if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
   ?>
 <a href="login.php">  <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
-  Post
+  <?php echo $lang['post'] ?>
 </button></a>
   <?php
 }else{
   ?>
     <button type="button" class="btn btn-sm-primary" data-bs-toggle="modal"  data-bs-target="#uploadDiv">
-  Post
+    <?php echo $lang['post'] ?>
 </button>
   <?php
 }
@@ -390,29 +389,29 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
       </div>
       <div id="realInput" class="modal-body">
 
         <div class="row">
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('house')">House</button></p></div>
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('land')">Land</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('house')"><?php echo $lang['house'] ?></button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('land')"><?php echo $lang['land'] ?></button></p></div>
 
-       <div class="col"> <p><button type="button" class="btn btn-light btn-sm col">Real Estate </button></p></div>
+       <div class="col"> <p><button type="button" class="btn btn-light btn-sm col"><?php echo $lang['realEstate'] ?> </button></p></div>
         <div id="ts" class="col" onclick="nav('car')" ><p><button type="button" class="btn btn-light btn-sm" > car </button></p></div>
           </div>
         <hr>
         <div class="row">
-        <div class="col"><p><button type="button" onclick="nav('vacancy')" class="btn btn-light btn-sm" >job vacancy</button></p></div>
-        <div class="col"><p><button type="button" onclick="nav('tender')" class="btn btn-light btn-sm" >Tender</button></p></div>
-        <div class="col"><p><button type="button" onclick="nav('electronics')" class="btn btn-light btn-sm">electronics</button></p></div></div>
+        <div class="col"><p><button type="button" onclick="nav('vacancy')" class="btn btn-light btn-sm" ><?php echo $lang['vacancy'] ?></button></p></div>
+        <div class="col"><p><button type="button" onclick="nav('tender')" class="btn btn-light btn-sm" ><?php echo $lang['tenders'] ?></button></p></div>
+        <div class="col"><p><button type="button" onclick="nav('electronics')" class="btn btn-light btn-sm"><?php echo $lang['electronics'] ?></button></p></div></div>
         <hr>
 
         <div class="row">
-          <div class="col"><p><button type="button" onclick="nav('ad')" class="btn btn-light btn-sm">product & service ads</button></p></div>
-        <div class="col"><p><button type="button" onclick="nav('charity')" class="btn btn-light btn-sm">charity </button></p></div>
-        <div class="col"><p><button type="button" onclick="cv()" class="btn btn-light btn-sm">work and seeker</button></p></div>      
+          <div class="col"><p><button type="button" onclick="nav('ad')" class="btn btn-light btn-sm"><?php echo $lang['ad'] ?></button></p></div>
+        <div class="col"><p><button type="button" onclick="nav('charity')" class="btn btn-light btn-sm"><?php echo $lang['charity'] ?> </button></p></div>
+        <div class="col"><p><button type="button" onclick="cv()" class="btn btn-light btn-sm"><?php echo $lang['workSeekers'] ?></button></p></div>      
 
       </div>
       </div>

@@ -65,12 +65,18 @@ $pageLocation = $_SESSION['location'];
     <div class="container">
 
 
- <div class="jumbotron">
+ <div class="card">
+   <br>
+   <br>
     <div class="container">
       <h5>House</h5>
       
     </div>
+    <br>
+    <br>
   </div>
+  <br>
+  <br>
 
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
     <?php
@@ -118,13 +124,17 @@ $pageLocation = $_SESSION['location'];
     <div class="container">
 
 
- <div class="jumbotron">
+ <div class="card">
+   <br>
     <div class="container">
       <h5>Others</h5>
       
     </div>
+    <br>
   </div>
 
+  <br>
+  <br>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
     
     <?php

@@ -194,9 +194,36 @@ require_once "../php/adminCrude.php";
 
           </script>
 
-        <div class="input-group mb-3">
-            <div class="form-select" id="vac11Show" onclick="typeLoader('vac11Type')" ><?php echo $row['type'] ?></div>      
-            <input id="vac11Api" name="jobType" hidden value=" <?php echo $row['type'] ?>">   
+<div  class="input-group mb-3" >
+        <select  class="custom-select" name="jobType" id="">
+          <option><?php echo $row['type'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $admin->allCategoryLister('vacancy');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
     </div>
     <div class="form-group">
@@ -287,9 +314,36 @@ require_once "../php/adminCrude.php";
         </div>
 
 
-        <div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
-                <input id="dbad" name="location" hidden value="Addis Ababa">   
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="location" id="">
+          <option><?php echo $row['address'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
         <div class="form-group">
@@ -423,9 +477,36 @@ require_once "../php/adminCrude.php";
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
   
-    <div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
-                <input id="dbad" name="location2" hidden value="Addis Ababa">   
+    <div  class="input-group mb-3" >
+        <select  class="custom-select" name="location" id="">
+          <option><?php echo $row['address'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
 
@@ -506,7 +587,29 @@ foreach($pp as $photo){
       $adEdit = $admin->adEditDataLister($uidx);
       while($adRow = $adEdit->fetch_assoc()){
         ?>
+<script>
+  $(document).ready(function(){
+$('#selchange').on('change', function(){
+  // alert('change')
+  if(this.value == "Cloth and Shoe"){
+    $('#targetLoader').load('admin/divTags.php #targetFor')
+  }else{
+    $('#targetLoader').empty()
+  }
+ 
+})
 
+// $('#tCategory').on('change', function(){
+//   if(this.value == "OTHER"){
+//     $('#adTy').load('admin/divTags.php #otherAd')
+//   }
+ 
+// })
+
+
+
+})
+</script>
     <form id="car" action="editPost.php" method="POST"   enctype="multipart/form-data">
         <input hidden name="pid" value="<?php  echo $uidx ?>"
         <div class="form-group">
@@ -518,10 +621,29 @@ foreach($pp as $photo){
         </div>
 
 
-        <div class="input-group mb-3">
-            <div class="form-select" id="adShow" onclick="typeLoader('adType')" ><?php echo $adRow['type'] ?></div>      
-            <input id="adApi"  name="type" hidden value=" <?php echo $adRow['type'] ?>">   
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="type" id="selchange">
+          <option selected ><?php echo $adRow['type'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $admin->allCategoryLister('ad');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
 
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  
+      
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
 
@@ -559,12 +681,39 @@ foreach($pp as $photo){
         </div>
 
 
-        <div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $adRow['address'] ?></div>      
-                <input id="dbad" name="address" hidden value="<?php echo $adRow['address'] ?>">   
+
+
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="address" id="">
+          <option><?php echo $adRow['address'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
-
-
 
 
         <div class="form-group">
@@ -675,12 +824,23 @@ foreach($pp as $photo){
 
 <script>
   $(document).ready(function(){
-    $('#sCar').on('change', function(){
-      if(this.value == "other"){
-        $('#typeC').load("divTags.php #typeCar")
-      }
+    // $('#sCar').on('change', function(){
+    //   if(this.value == "other"){
+    //     $('#typeC').load("divTags.php #typeCar")
+    //   }
 
-    })
+    // })
+
+$('#forRentOrSell').on('change', function(){
+    if(this.value == 'For Rent'){
+      $('#cfr').load("divTags.php #carFR");
+
+    }else{
+      $('#cfr').hide()
+
+    }
+  
+})
   })
 </script>
 
@@ -689,11 +849,65 @@ foreach($pp as $photo){
             <input id="carApi" name="type2" hidden value=" ">   
         </div>
 
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="type2" id="s">
+          <option><?php echo $carRow['type'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc=   $admin->allCategoryLister('car');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
 
-          <div class="input-group mb-3">
-              <div class="form-select" id="ADD" ><?php echo $carRow['address'] ?></div>      
-              <input id="dbad" name="address" hidden value="Addis Ababa">   
-          </div>
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  
+                  
+                  
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
+
+
+
+          <div  class="input-group mb-3" >
+        <select  class="custom-select" name="address" id="s">
+          <option><?php echo $carRow['address'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
 
             <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -723,7 +937,7 @@ foreach($pp as $photo){
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
         </div>
-        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
+        <select class="custom-select" name="forRentOrSell" id="forRentOrSell">
           <option selected><?php echo $carRow['forRentOrSell'] ?></option>
           <option value="For Rent">For Rent</option>
           <option value="For Sell">For Sell</option>
@@ -733,7 +947,8 @@ foreach($pp as $photo){
         <?php
         if($carRow['forRentOrSell'] == 'For Rent'){
             ?>
-        <div  class="input-group mb-3" >
+          <div id="cfr">
+          <div  class="input-group mb-3" >
         <select  class="custom-select" name="rentStatus" id="rentS">
         <option selected><?php echo $carRow['rentStatus'] ?></option>
           <option value=" " >Rent Status</option>
@@ -762,6 +977,7 @@ foreach($pp as $photo){
           aria-describedby="emailHelp" name="whyRent" placeholder="Description"><?php echo $carRow['whyRent'] ?></textarea>
           <small id="emailHelp" class="form-text text-muted">Describe where you want to rent this car.</small>
         </div>
+          </div>
             <?php
         }
         ?>
@@ -902,20 +1118,20 @@ foreach($pp as $photo){
       <script>
       $(document).ready(function(){
 
-        $('#city').on('change',function(){
-          if(this.value == "otherCity"){
-          $('#cityBox').load('divTags.php #otherCity')
+        // $('#city').on('change',function(){
+        //   if(this.value == "otherCity"){
+        //   $('#cityBox').load('divTags.php #otherCity')
  
-        }
+        // }
    
-        })
+        // })
 
-        $('#subCity').on('change',function(){
-        if(this.value == "otherSubCity"){
-         $('#subCityBox').load('divTags.php #otherSubCity')
-        }
+        // $('#subCity').on('change',function(){
+        // if(this.value == "otherSubCity"){
+        //  $('#subCityBox').load('divTags.php #otherSubCity')
+        // }
       
-        })
+        // })
 
         $('#HorL').on('change', function(){
           if(this.value == "HOUSE"){
@@ -944,30 +1160,108 @@ foreach($pp as $photo){
         
 <div id="houseTypeLoader">
 
-          <div id="houseType" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Type : </label>
-        </div>
-        <select class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected><?php echo $houseRow['type'] ?> </option>
-          <option value="women">Villa</option>
-          <option value="men">Gojo</option>
-        </select>
-        </div>
 
+        <div id="houseType" class="input-group mb-3">
+  
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01"> Type : </label>
+  </div>
+  <select class="custom-select" name="type" id="selHouseType">
+    <option selected><?php echo $houseRow['type'] ?> </option>
+<?php
+require_once "../php/adminCrude.php";
+$tab = $_GET['cat'];
+$categorySort = array();
+$category = $admin->allCategoryLister('housesell');
+while($rowc = $category->fetch_assoc()){
+$categorySort[] = $rowc['category'];
+}
+sort($categorySort);
+foreach($categorySort as $sorted){
+echo $tab;
+?>
+<option value="<?php echo $sorted ?>"><?php echo $sorted ?></option>
+
+<?php
+
+
+
+
+}
+
+?>
+  </select>
+</div>
 </div>
 
 
-<div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $houseRow['city'] ?></div>      
-                <input id="dbad" name="city" hidden value="<?php echo $houseRow['city'] ?>">   
-            </div>
-        <div class="input-group mb-3">
-            <div class="form-select" id="jijiShow" onclick="typeLoader('jijiSub')" ><?php echo $houseRow['subCity'] ?></div>      
-            <input id="jijiApi"  name="subCity" hidden value="<?php echo $houseRow['subCity'] ?> ">   
 
+
+            
+<div  class="input-group mb-3" >
+        <select  class="custom-select" name="city" id="">
+          <option><?php echo $houseRow['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
+ 
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="subCity" id="">
+          <option><?php echo $houseRow['subCity'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
         
 
              <div class="form-group">
@@ -1321,10 +1615,10 @@ foreach($pp as $photo){
       $elecRow = $elcEdit->fetch_assoc();
 
       ?>
-              <script>
+        <script>
 $(document).ready(function(){
 $('#sElc').on('change', function(){
-  if(this.value == 'Computer Laptop'){
+  if(this.value == 'Computer and Laptop'){
     $('#computer').load('admin/divTags.php #sizeInch,#proc,#storage,#core,#ram')
   }else{
     $('#computer').empty()
@@ -1344,11 +1638,38 @@ $('#sElc').on('change', function(){
           value="<?php echo $elecRow['title'] ?>">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-
-        <div class="input-group mb-3">
-            <div class="form-select" id="elecShow" onclick="typeLoader('elecType')" ><?php echo $elecRow['type'] ?></div>      
-            <input id="elecApi"  name="type" hidden value="<?php echo $elecRow['type'] ?> ">   
-
+ 
+        
+<div  class="input-group mb-3" >
+        <select  class="custom-select" name="type" id="sElc">
+          <option><?php echo $elecRow['type'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumen('adCategory', 'tableName', 'electronics');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
 
@@ -1430,10 +1751,38 @@ $('#sElc').on('change', function(){
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
-    <div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $elecRow['address'] ?></div>      
-                <input id="dbad" name="address" hidden value="<?php echo $elecRow['address'] ?>">   
-    </div>
+ 
+    <div  class="input-group mb-3" >
+        <select  class="custom-select" name="address" id="">
+          <option><?php echo $elecRow['address'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
 
     <div class="form-group">
       <label for="exampleInputEmail1">Describtion</label>
@@ -1520,6 +1869,39 @@ foreach($pp as $photo){
                 <div class="form-select" id="ADD" ><?php echo $cRow['address']; ?></div>      
                 <input id="dbad" name="address" hidden value="<?php echo $cRow['address']; ?>">   
     </div>
+
+
+    <div  class="input-group mb-3" >
+        <select  class="custom-select" name="address" id="">
+          <option><?php echo $cRow['address']; ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
 
 <div class="form-group">
   <label for="exampleInputEmail1">Phone no:</label>
@@ -1675,12 +2057,39 @@ foreach($pp as $photo){
   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
-<div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $row['address']; ?></div>      
-                <input id="dbad" name="address" hidden value="<?php echo $row['address']; ?>">   
-    </div>
+ 
 
-
+    <div  class="input-group mb-3" >
+        <select  class="custom-select" name="address" id="">
+          <option><?php echo $row['address']; ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
 <div class="form-group">
   <h6>If you are representing  or if you are Agent, please fill the next form.</h6>
   <label for="exampleInputEmail1">Company Info</label>
@@ -1794,10 +2203,36 @@ foreach($pp as $photo){
           aria-describedby="emailHelp" name="field" placeholder="Full Name" value="<?php echo $row['field'] ?>" >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-
-        <div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
-                <input id="dbad" name="address" hidden value="<?php echo $row['address'] ?>">   
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="address" id="">
+          <option><?php echo $row['address']; ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
         <div class="input-group mb-3">
@@ -1966,10 +2401,36 @@ if(isset($_GET['type'])){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-
-        <div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
-                <input id="dbad" name="address" hidden value="<?php echo $row['address'] ?>">   
+        <div  class="input-group mb-3" >
+        <select  class="custom-select" name="address" id="">
+          <option><?php echo $row['address']; ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
         <div class="input-group mb-3">
