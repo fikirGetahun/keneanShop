@@ -69,7 +69,7 @@
           `type`='$jobType',`positionType`='$positionType', `phone` = '$phone',
             `companyName`='$companyName',`title`='$jobTitle',
             `address`='$location',`deadLine`='$Deadline',
-            `positionNum`='$reqNo',`info`='$info',`postedDate`= '$date', `edited` = '$edited',
+            `positionNum`='$reqNo',`info`='$info', `edited` = '$edited',
             `salary`= '$salary', `salaryStatus` = '$salaryStatus', `appStart` = '$appStart' WHERE `vacancy`.`id` = '$id'";
 
             $ask = $mysql->query($q);

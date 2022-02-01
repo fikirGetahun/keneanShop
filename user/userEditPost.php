@@ -158,7 +158,7 @@ require_once "../php/adminCrude.php";
  
   <section class="section">
       <div class="pagetitle">
-      <h1>Edit Vacancy Post</h1>
+      <h1>Edit <?php echo $lang['vacancyPost'] ?></h1>
 
 
 
@@ -166,23 +166,22 @@ require_once "../php/adminCrude.php";
     <form id="editV" action="editPost.php"  method="POST" >
       <input hidden name="pid" value="<?php echo $uidx; ?>">
     <div class="form-group">
-      <label for="exampleInputEmail1">Company Name</label>
-      <input type="text" class="form-control" id="companyName" 
-      aria-describedby="emailHelp" name="companyName" placeholder="" 
+      <label for="exampleInputEmail1"><?php echo $lang['companyName'] ?></label>
+      <input type="text" class="form-control" id="<?php echo $lang['companyName'] ?>" 
+      aria-describedby="emailHelp" name="companyName" placeholder="<?php echo $lang['companyName'] ?>" 
       value="<?php 
                 $p = $admin->editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['companyName']; 
       ?>"
       >
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
     </div>
     <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect01">Type Of JOBS</label>
+      <label class="input-group-text" for="inputGroupSelect01"><?php echo $lang['jobType'] ?></label>
       </div>
 
-      <script>
+      <!-- <script>
             $(document).ready(function(){
               $('#jobTT').on('change', function(){
                 if(this.value == 'OTHER'){
@@ -192,7 +191,7 @@ require_once "../php/adminCrude.php";
               })
             })
 
-          </script>
+          </script> -->
 
 <div  class="input-group mb-3" >
         <select  class="custom-select" name="jobType" id="">
@@ -227,7 +226,7 @@ require_once "../php/adminCrude.php";
         </div>
     </div>
     <div class="form-group">
-      <label for="exampleInputEmail1">Job Title</label>
+      <label for="exampleInputEmail1"><?php echo $lang['jobTitle'] ?></label>
       <input type="text" class="form-control" id="jobTitle" 
       aria-describedby="emailHelp" name="jobTitle" placeholder="Company Name" 
       value="<?php 
@@ -236,11 +235,11 @@ require_once "../php/adminCrude.php";
                 echo $row['title']; 
       ?>"
       >
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+ 
     </div>
     <div class="input-group mb-3">
     <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect01">Position Type</label>
+      <label class="input-group-text" for="inputGroupSelect01"><?php echo $lang['positionType'] ?></label>
     </div>
     <select class="custom-select" name="positionType" id="inputGroupSelect01">
       <option selected>"<?php 
@@ -248,10 +247,10 @@ require_once "../php/adminCrude.php";
                 $row = $p->fetch_assoc();
                 echo $row['type']; 
       ?>"</option>
-      <option value="1">Full Time</option>
-      <option value="2">Part Time</option>
-      <option value="3">Temporary</option>
-      <option value="3">Contractual </option>
+          <option value="Full Time"><?php echo $lang['fullTime'] ?></option>
+          <option value="Part Time"><?php echo $lang['partTime'] ?></option>
+          <option value="Temporary"><?php echo $lang['Temporary'] ?></option>
+          <option value="Contractual"> <?php echo $lang['Contractual'] ?></option>
     </select>
     </div>
 
@@ -259,24 +258,24 @@ require_once "../php/adminCrude.php";
         <div class="input-group-prepend">
         </div>
         <select class="custom-select" name="sex" id="inputGroupSelect01">
-          <option value=" ">Gender</option>
-          <option value="Male">Mele</option>
-          <option value="Female">Female</option>
-          <option value="Both">Both</option>
+          <option value=" "><?php echo $row['sex'] ?></option>
+          <option value="Male"><?php echo $lang['Male'] ?></option>
+          <option value="Female"><?php echo $lang['Female'] ?></option>
+          <option value="Both"><?php echo $lang['Both'] ?></option>
         </select>
         </div>
 
 
     <div class="form-group">
-          <label for="exampleInputEmail1">Application Start Date:</label>
+          <label for="exampleInputEmail1"><?php echo $lang['appStart'] ?>:</label>
           <input type="date" class="form-control" id="Deadline" 
-          aria-describedby="emailHelp" name="appStart" placeholder="Company Name" value="<?php echo $row['type'] ?>" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="appStart" placeholder="Company Name" value="<?php echo $row['appStart'] ?>" >
+
         </div>
 
 
     <div class="form-group">
-      <label for="exampleInputEmail1">Deadline</label>
+      <label for="exampleInputEmail1"><?php echo $lang['appDead'] ?></label>
       <input type="date" class="form-control" id="Deadline" 
       aria-describedby="emailHelp" name="Deadline" placeholder="Company Name"
       value="<?php 
@@ -285,10 +284,10 @@ require_once "../php/adminCrude.php";
                 echo $row['deadLine']; 
       ?>"
       >
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
     </div>
     <div class="form-group">
-      <label for="exampleInputEmail1">Requierd Position No</label>
+      <label for="exampleInputEmail1"><?php echo $lang['requierdPositionNo'] ?></label>
       <input type="number" class="form-control" id="jobTitle" 
       aria-describedby="emailHelp" name="reqNo" placeholder="Company Name"
       value="<?php 
@@ -297,11 +296,11 @@ require_once "../php/adminCrude.php";
                 echo $row['positionNum']; 
       ?>"
       >
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+ 
     </div>
 
     <div class="form-group">
-          <label for="exampleInputEmail1">Phone Number</label>
+          <label for="exampleInputEmail1"><?php echo $lang['phone'] ?></label>
           <input type="number" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="phone" placeholder="phone number"
           value="<?php 
@@ -310,7 +309,7 @@ require_once "../php/adminCrude.php";
                 echo $row['phone']; 
       ?>"
           >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    
         </div>
 
 
@@ -347,11 +346,10 @@ require_once "../php/adminCrude.php";
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Salary: </label>
+          <label for="exampleInputEmail1"><?php echo $lang['Salary'] ?>: </label>
           <input type="number" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="salary" placeholder="phone number" value="<?php echo $row['salary'] ?>" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+         </div>
 
 
         <div class="input-group mb-3">
@@ -360,25 +358,25 @@ require_once "../php/adminCrude.php";
         <select class="custom-select" name="salaryStatus" id="inputGroupSelect01">
         <option value=" "><?php echo $row['salaryStatus'] ?></option>
           <option value=" ">Salary Type</option>
-          <option value="Fixed">Fixed</option>
-          <option value="Negotiatable">Negotiatable</option>
-          <option value="Negotiatable">Slightly Negotiable</option>
+          <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
         </select>
         </div>
 
 
     <div class="form-group">
-      <label for="exampleInputEmail1">Describtion</label>
+      <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
       <textarea type="text" class="form-control" id="des" 
-      aria-describedby="emailHelp" name="description" placeholder="location" 
+      aria-describedby="emailHelp" name="info" placeholder="location" 
       value= "<?php 
                 $p = $admin->editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
-                echo $row['info']; 
+                echo $row['description']; 
       ?>"
       
       ></textarea>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+ 
     </div>
       <input type="submit" onclick="x()" value="POST">
     <!-- <button type="submit" onclick="x()" class="btn btn-primary">Submit</button> -->

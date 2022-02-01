@@ -75,7 +75,9 @@ require_once "../php/adminCrude.php";
 require_once "../php/fetchApi.php";
 
 ob_start();
-session_start();
+if(!isset($_SESSION)){
+  session_start();
+}
 
 $_SESSION['address'] = 'Addis Ababa';
 
@@ -156,12 +158,12 @@ $('#forRentOrSell').on('change', function(){
           <label for="exampleInputEmail1" class="fs-5 fw-bold" ><?php echo $lang['sellOrRent'] ?></label><br>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="For Rent" id="inlineRadio1" value="Owner">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Owner">
           <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
         </div>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="For Rent" id="inlineRadio1" value="Broker">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Broker">
           <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
         </div>
         </div>
@@ -349,7 +351,7 @@ $('#forRentOrSell').on('change', function(){
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
           <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
         </div>
@@ -392,7 +394,7 @@ $('#forRentOrSell').on('change', function(){
         <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
       </div>
       <div class="modal-body">
-        <h5>Post Advertisment</h5>
+        <h5><?php echo $lang['postAd'] ?></h5>
         <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
         <input hidden name="posterId" value="<?php echo $_SESSION['userId']?>">
         <input hidden name="big" value="NOT">
@@ -526,14 +528,14 @@ $('#selchange').on('change', function(){
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1"><?php echo $lang['Describtion'] ?></label>
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Describtion'] ?>"></textarea>
+          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Description'] ?>"></textarea>
         </div>
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
           <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
         </div>
@@ -607,17 +609,45 @@ elseif($_GET['type'] == 'house'){
         <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
       </div>
       <div class="modal-body">
-      <h5>House Ad Post</h5>
+      <h5><?php echo $lang['houseAd'] ?></h5>
              <form id="car" action="postPage.php" method="POST" enctype="multipart/form-data" >
              <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">    
              <input hidden name="houseOrLand" value="HOUSE">
 
+             <div class="form-group">
+          <label for="exampleInputEmail1" class="fs-5 fw-bold" ><?php echo $lang['ownerBroker'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="ownerBroker" id="inlineRadio1" value="Owner">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['owner'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="ownerBroker" id="inlineRadio1" value="Broker">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['broker'] ?></label>
+        </div>
+        </div>
+
+
+          <div class="form-group">
+          <label for="exampleInputEmail1" class="fs-5 fw-bold" ><?php echo $lang['sellOrRent'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Owner">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Broker">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
+        </div>
+        </div>
+
 
         <div class="form-group">
-              <label for="exampleInputEmail1">Title</label>
+              <label for="exampleInputEmail1"><?php echo $lang['title'] ?></label>
               <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="title" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
             </div>
             <script src="../assets/jquery.js"></script>
 
@@ -627,10 +657,9 @@ elseif($_GET['type'] == 'house'){
 <div id="houseType" class="input-group mb-3">
   
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Type : </label>
         </div>
         <select class="custom-select" name="type" id="selHouseType">
-          <option selected>Choose...</option>
+          <option selected><?php echo $lang['houseType'] ?></option>
 <?php
 require_once "../php/adminCrude.php";
 $tab = $_GET['cat'];
@@ -659,7 +688,7 @@ foreach($categorySort as $sorted){
 
 <div  class="input-group mb-3" >
         <select  class="custom-select" name="city" id="">
-          <option>Address</option>
+          <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
@@ -692,7 +721,7 @@ foreach($categorySort as $sorted){
         
         <div  class="input-group mb-3" >
         <select  class="custom-select" name="subCity" id="">
-          <option>Sub City</option>
+          <option><?php echo $lang['subCity'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
@@ -722,40 +751,21 @@ foreach($categorySort as $sorted){
         </select>
         </div>
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
-        </div>
-        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
-          <option value="Owner">Owner</option>
-          <option value="Broker">Broker</option>
-        </select>
-        </div>
+
         
 
              <div class="form-group">
-              <label for="exampleInputEmail1">Wereda :</label>
+              <label for="exampleInputEmail1"><?php echo $lang['Wereda'] ?> :</label>
               <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="wereda" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="wereda" placeholder="<?php echo $lang['Wereda'] ?> ">
             </div>
 
-            <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
-        </div>
-        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="For Rent">For Rent</option>
-          <option value="For Sell">For Sell</option>
-        </select>
-        </div>
+
 
             <div class="form-group">
-              <label for="exampleInputEmail1">Area :</Title></label>
+              <label for="exampleInputEmail1"><?php echo $lang['Area'] ?> : </label>
               <input type="number" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="area" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="area" placeholder="<?php echo $lang['Area'] ?>">
             </div>
 
             <div id="bedOrBath">
@@ -764,54 +774,48 @@ foreach($categorySort as $sorted){
 
             <div id="bedBath">
 <div class="form-group">
-              <label for="exampleInputEmail1">Number Of BedRoom :</Title></label>
+              <label for="exampleInputEmail1"><?php echo $lang['numberOfBedRoom'] ?> :</label>
               <input type="number" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="bedRoomNo" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="bedRoomNo" placeholder="<?php echo $lang['numberOfBedRoom'] ?>">
             </div>
 
             <div class="form-group">
-              <label for="exampleInputEmail1">Bath Of BedRoom :</Title></label>
+              <label for="exampleInputEmail1"><?php echo $lang['bathOfBedRoom'] ?> :</Title></label>
               <input type="number" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="bathRoomNo" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="bathRoomNo" placeholder="<?php echo $lang['bathOfBedRoom'] ?>">
             </div>
 </div>
 
             <div class="form-group">
-              <label for="exampleInputEmail1">Price :</Title></label>
+              <label for="exampleInputEmail1"><?php echo $lang['Price'] ?> :</Title></label>
               <input type="number" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="cost" placeholder="Price">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="cost" placeholder="<?php echo $lang['Price'] ?>">
             </div>
 
 
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
-        </div>
+
         <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Fixed">Fixed</option>
-          <option value="Negotiatable">Negotiatable</option>
-          <option value="Negotiatable">Slightly Negotiable</option>
+          <option selected> <?php echo $lang['priceType'] ?></option>
+          <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Description'] ?>"></textarea>
         </div>
 
       
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
         </div>
 
 
@@ -875,7 +879,7 @@ foreach($categorySort as $sorted){
 <div id="cont" class="modal-dialog">
 <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
         <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
       </div>
       <div class="modal-body">
@@ -885,11 +889,41 @@ foreach($categorySort as $sorted){
              <input hidden name="houseOrLand" value="LAND">
 
 
+             <div class="form-group">
+          <label for="exampleInputEmail1" class="fs-5 fw-bold" ><?php echo $lang['ownerBroker'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="ownerBroker" id="inlineRadio1" value="Owner">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['owner'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="ownerBroker" id="inlineRadio1" value="Broker">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['broker'] ?></label>
+        </div>
+        </div>
+
+
+          <div class="form-group">
+          <label for="exampleInputEmail1" class="fs-5 fw-bold" ><?php echo $lang['sellOrRent'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Owner">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Broker">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
+        </div>
+        </div>
+
+
+
         <div class="form-group">
-              <label for="exampleInputEmail1">Title</label>
+              <label for="exampleInputEmail1"><?php echo $lang['title'] ?></label>
               <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="title" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
             </div>
             <script src="../assets/jquery.js"></script>
 
@@ -901,7 +935,7 @@ foreach($categorySort as $sorted){
         <div class="input-group-prepend">
         </div>
         <select id="subCity" class="custom-select" name="type" id="inputGroupSelect01">
-          <option value=" ">Land Type</option>
+          <option value=" "><?php echo $lang['landType'] ?></option>
           <option value="women">Jemo</option>
           <option value="men">4 kilo</option>
           <option value="otherSubCity">Other</option>          
@@ -911,7 +945,7 @@ foreach($categorySort as $sorted){
 
         <div  class="input-group mb-3" >
         <select  class="custom-select" name="city" id="">
-          <option>Address</option>
+          <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
@@ -945,7 +979,7 @@ foreach($categorySort as $sorted){
 
         <div  class="input-group mb-3" >
         <select  class="custom-select" name="subCity" id="">
-          <option>Address</option>
+          <option><?php echo $lang['subCity'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
@@ -978,41 +1012,20 @@ foreach($categorySort as $sorted){
 
 
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
-        </div>
-        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
-          <option value="Owner">Owner</option>
-          <option value="Broker">Broker</option>
-        </select>
-        </div>
-        
-
-             <div class="form-group">
-              <label for="exampleInputEmail1">Wereda :</label>
+        <div class="form-group">
+              <label for="exampleInputEmail1"><?php echo $lang['Wereda'] ?> :</label>
               <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="wereda" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="wereda" placeholder="<?php echo $lang['Wereda'] ?> ">
             </div>
 
-            <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
-        </div>
-        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="For Rent">For Rent</option>
-          <option value="For Sell">For Sell</option>
-        </select>
-        </div>
+
 
             <div class="form-group">
-              <label for="exampleInputEmail1">Area :</Title></label>
+              <label for="exampleInputEmail1"><?php echo $lang['Area'] ?> : </label>
               <input type="number" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="area" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="area" placeholder="<?php echo $lang['Area'] ?>">
             </div>
+
 
             <div id="bedOrBath">
 
@@ -1021,38 +1034,34 @@ foreach($categorySort as $sorted){
 
 
             <div class="form-group">
-              <label for="exampleInputEmail1">Price :</label>
+              <label for="exampleInputEmail1"><?php echo $lang['Price'] ?> :</Title></label>
               <input type="number" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="cost" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="cost" placeholder="<?php echo $lang['Price'] ?>">
             </div>
 
 
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
-        </div>
+
         <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Fixed">Fixed</option>
-          <option value="Negotiatable">Negotiatable</option>
-          <option value="Negotiatable">Slightly Negotiable</option>
+          <option selected> <?php echo $lang['priceType'] ?></option>
+          <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Description'] ?>"></textarea>
         </div>
- 
+
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>  
-        <i class="bi bi-camera-fill"></i> <input type="file"   id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
         </div>
 
 
@@ -1093,21 +1102,20 @@ if($_GET['type'] == 'electronics'){
 <div id="cont" class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
         <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
       </div>
             <div class="modal-body">
 
 
-            <h5>Post Electronics Items</h5>
+            <h5><?php echo $lang['electronicsPost'] ?></h5>
       <form  method="POST" enctype="multipart/form-data" >
       <input hidden name="posterId" value="<?php echo $_SESSION['userId'] ?>">
 
       <div class="form-group">
-          <label for="exampleInputEmail1">Title</label>
+          <label for="exampleInputEmail1"><?php echo $lang['title'] ?></label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="titleElc" placeholder="Title of Your Post">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="titleElc" placeholder="<?php echo $lang['title'] ?>">
         </div>
         <script>
 $(document).ready(function(){
@@ -1125,7 +1133,7 @@ $('#sElc').on('change', function(){
 
 <div  class="input-group mb-3" >
         <select  class="custom-select" name="type" id="sElc">
-          <option>Electronics Category</option>
+          <option><?php echo $lang['elecCat'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumen('adCategory', 'tableName', 'electronics');
@@ -1165,12 +1173,12 @@ $('#sElc').on('change', function(){
 
         <div class="input-group mb-3">
     <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect01"> Status Of Item: </label>
+      <label class="input-group-text" for="inputGroupSelect01"> <?php echo $lang['statusOfItem'] ?>: </label>
     </div>
     <select class="custom-select" name="status" id="inputGroupSelect01">
-      <option selected value="NEW">New</option>
-      <option value="MID">Mid</option>
-      <option value="OLD">Old</option>
+      <option selected value="NEW"><?php echo $lang['new'] ?></option>
+      <option value="MEDIUM"><?php echo $lang['Medium'] ?></option>
+      <option value="OLD"><?php echo $lang['Old'] ?></option>
     </select>
     </div>
 
@@ -1179,15 +1187,14 @@ $('#sElc').on('change', function(){
     <div id="computer"></div>
 
     <div class="form-group">
-      <label for="exampleInputEmail1">Price : </label>
+      <label for="exampleInputEmail1"><?php echo $lang['Price'] ?> : </label>
       <input type="number" class="form-control" id="nameTitle" 
-      aria-describedby="emailHelp" name="price" placeholder="Price in Birr">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
+      aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Price'] ?> ">
+     </div>
 
     <div  class="input-group mb-3" >
         <select  class="custom-select" name="address" id="">
-          <option>Address</option>
+          <option><?php echo $lang['city'] ?> </option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
@@ -1221,17 +1228,16 @@ $('#sElc').on('change', function(){
 
 
     <div class="form-group">
-      <label for="exampleInputEmail1">Describtion</label>
+      <label for="exampleInputEmail1"><?php echo $lang['Description'] ?> </label>
       <textarea type="text" class="form-control" id="des2" 
-      aria-describedby="emailHelp" name="info" placeholder="Detailed Info"></textarea>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Description'] ?>"></textarea>
     </div>
 
     <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
     </div>
 
     <input type="submit" value="POST">
@@ -1268,7 +1274,7 @@ if($_GET['type'] == 'charity'){
 <div id="cont" class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload']?></h5>
         <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
       </div>
       <h5>Charity Ads Post</h5>
@@ -1279,15 +1285,14 @@ if($_GET['type'] == 'charity'){
 <input hidden name="posterId" value="<?php echo $_SESSION['userId'] ?>">
 
 <div class="form-group">
-  <label for="exampleInputEmail1">Charity Title</label>
+  <label for="exampleInputEmail1"><?php echo $lang['title'] ?></label>
   <input type="text" class="form-control" id="nameTitle" 
-  aria-describedby="emailHelp" name="title" placeholder="Title">
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
 </div>
 
 <div  class="input-group mb-3" >
         <select  class="custom-select" name="address" id="">
-          <option>Address</option>
+          <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
@@ -1318,27 +1323,25 @@ if($_GET['type'] == 'charity'){
         </div>
 
 <div class="form-group">
-  <label for="exampleInputEmail1">Phone no:</label>
+  <label for="exampleInputEmail1"><?php echo $lang['phone'] ?>:</label>
   <input type="text" class="form-control" id="nameTitle" 
-  aria-describedby="emailHelp" name="phone" placeholder="Title">
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
 </div>
 
 
 <div class="form-group">
-<label for="exampleInputEmail1">Describtion</label>
-<textarea type="text" class="form-control" id="des2" 
-aria-describedby="emailHelp" name="info" placeholder="Detailed Info"></textarea>
-<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+      <label for="exampleInputEmail1"><?php echo $lang['Description'] ?> </label>
+      <textarea type="text" class="form-control" id="des2" 
+      aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Description'] ?>"></textarea>
+    </div>
 
+    <div class="row">
+        <div id="registerBox">
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
+    </div>
 
-<div class="row">
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Photos</label>
-      <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
 
 <input type="submit"  value="POST">
 <div id="alertVacancy"></div>
@@ -1373,34 +1376,25 @@ if($_GET['type'] == 'vacancy'){
 <div id="cont" class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
         <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
       </div>
             <div class="modal-body">
 
             <section class="section">
           <div class="pagetitle">
-          <h5>Vacancy Post</h5>
-          <nav>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item">Icons</li>
-              <li class="breadcrumb-item active">Bootstrap</li>
-            </ol>
-          </nav>
+          <h5><?php echo $lang['vacancyPost'] ?></h5>
+
         </div><!-- End Page Title -->
-        <p>
-        Here you have to fill the requiered fields inorder to post the Vacancy Application.
-        </p>
+
 
         <div id="vacancyBox" class="container">
         <form id="vacancyForm" action="postPage.php"  method="POST" >
           <input hidden name="uid" value="<?php echo $_SESSION['userId'] ?>">
         <div class="form-group">
-          <label for="exampleInputEmail1">Company Name</label>
+          <label for="exampleInputEmail1"><?php echo $lang['companyName'] ?></label>
           <input type="text" class="form-control" id="companyName" 
-          aria-describedby="emailHelp" name="companyName" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="companyName" placeholder="<?php echo $lang['companyName'] ?>">
         </div>
         <!-- <script>
             $(document).ready(function(){
@@ -1417,7 +1411,7 @@ if($_GET['type'] == 'vacancy'){
   
           <div  class="input-group mb-3" >
         <select  class="custom-select" name="jobType" id="">
-          <option>Job Type</option>
+          <option><?php echo $lang['jobType'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $admin->allCategoryLister('vacancy');
@@ -1455,21 +1449,17 @@ if($_GET['type'] == 'vacancy'){
 
        
         <div class="form-group">
-          <label for="exampleInputEmail1">Job Title</label>
+          <label for="exampleInputEmail1"><?php echo $lang['jobTitle'] ?></label>
           <input type="text" class="form-control" id="jobTitle" 
-          aria-describedby="emailHelp" name="jobTitle" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="jobTitle" placeholder="<?php echo $lang['jobTitle'] ?>">
         </div>
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Position Type</label>
-        </div>
         <select class="custom-select" name="positionType" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Full Time">Full Time</option>
-          <option value="Part Time">Part Time</option>
-          <option value="Temporary">Temporary</option>
-          <option value="Contractual">Contractual </option>
+          <option selected><?php echo $lang['positionType'] ?></option>
+          <option value="Full Time"><?php echo $lang['fullTime'] ?></option>
+          <option value="Part Time"><?php echo $lang['partTime'] ?></option>
+          <option value="Temporary"><?php echo $lang['Temporary'] ?></option>
+          <option value="Contractual"> <?php echo $lang['Contractual'] ?></option>
         </select>
         </div>
 
@@ -1477,45 +1467,40 @@ if($_GET['type'] == 'vacancy'){
         <div class="input-group-prepend">
         </div>
         <select class="custom-select" name="sex" id="inputGroupSelect01">
-          <option value=" ">Gender</option>
-          <option value="Male">Mele</option>
-          <option value="Female">Female</option>
-          <option value="Both">Both</option>
+          <option value=" "><?php echo $lang['Gender'] ?></option>
+          <option value="Male"><?php echo $lang['Male'] ?></option>
+          <option value="Female"><?php echo $lang['Female'] ?></option>
+          <option value="Both"><?php echo $lang['Both'] ?></option>
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Application Start Date:</label>
+          <label for="exampleInputEmail1"><?php echo $lang['appStart'] ?>:</label>
           <input type="date" class="form-control" id="Deadline" 
-          aria-describedby="emailHelp" name="appStart" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="appStart" placeholder="<?php echo $lang['appStart'] ?>">
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Deadline</label>
+          <label for="exampleInputEmail1"><?php echo $lang['appDead'] ?></label>
           <input type="date" class="form-control" id="Deadline" 
-          aria-describedby="emailHelp" name="Deadline" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="Deadline" placeholder="<?php echo $lang['appDead'] ?>">
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Requierd Position No</label>
+          <label for="exampleInputEmail1"><?php echo $lang['requierdPositionNo'] ?></label>
           <input type="number" class="form-control" id="jobTitle" 
-          aria-describedby="emailHelp" name="reqNo" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="reqNo" placeholder="<?php echo $lang['requierdPositionNo'] ?>">
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Phone Number</label>
+          <label for="exampleInputEmail1"><?php echo $lang['phone'] ?></label>
           <input type="number" class="form-control" id="jobTitle" 
-          aria-describedby="emailHelp" name="phone" placeholder="phone number">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Salary: </label>
+          <label for="exampleInputEmail1"><?php echo $lang['Salary'] ?>: </label>
           <input type="number" class="form-control" id="jobTitle" 
-          aria-describedby="emailHelp" name="salary" placeholder="phone number">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="salary" placeholder="<?php echo $lang['Salary'] ?>">
         </div>
 
 
@@ -1523,10 +1508,10 @@ if($_GET['type'] == 'vacancy'){
         <div class="input-group-prepend">
         </div>
         <select class="custom-select" name="salaryStatus" id="inputGroupSelect01">
-          <option value=" ">Salary Type</option>
-          <option value="Fixed">Fixed</option>
-          <option value="Negotiatable">Negotiatable</option>
-          <option value="Negotiatable">Slightly Negotiable</option>
+          <option value=" "><?php echo $lang['salaryType'] ?></option>
+          <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
         </select>
         </div>
 
@@ -1534,7 +1519,7 @@ if($_GET['type'] == 'vacancy'){
 
         <div  class="input-group mb-3" >
         <select  class="custom-select" name="location" id="">
-          <option>Address</option>
+          <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
@@ -1567,28 +1552,14 @@ if($_GET['type'] == 'vacancy'){
 
 
         <div class="form-group">
-          <label for="exampleInputEmail1">What does initiate you to do with us?</label>
-          <textarea type="text" class="form-control" style="width: 100%; height: 80%;" id="des" 
-          aria-describedby="emailHelp" name="description" placeholder="initiate_answer"></textarea> 
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="description" placeholder="<?php echo $lang['Description'] ?>"></textarea>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Do you have another Job?</label>
-          <textarea type="text" class="form-control" style="width: 100%; height: 80%;" id="des" 
-          aria-describedby="emailHelp" name="another_job" placeholder="initiate_answer"></textarea> 
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Have you done before as a broker?</label>
-          <textarea type="text" class="form-control" style="width: 100%; height: 80%;" id="des" 
-          aria-describedby="emailHelp" name="description" placeholder="initiate_answer"></textarea> 
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-      
-      </section>
+        <input type="submit" onclick="x()" value="POST">
+        <div id="alertVacancy"></div>
 
             </div>
         </div><!-- /.modal-content -->
@@ -1617,61 +1588,54 @@ if($_GET['type'] == 'tender'){
 <div id="cont" class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
         <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
       </div>
             <div class="modal-body">
 
             <div class="pagetitle">
-      <h5>Tender Post</h5>
+      <h5><?php echo $lang['tenderPost'] ?></h5>
 
     </div><!-- End Page Title -->
     <section class="section">
-        <p>
-        Here you have to fill the requiered fields inorder to post the Tender.
-        </p>
+ 
 
         <div id="vacancyBox" class="container">
         <form id="tenderForm"  method="POST" >
         <input hidden name="uid" value="<?php echo $_SESSION['userId']; ?>">
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Tender Title</label>
+          <label for="exampleInputEmail1"><?php echo $lang['title'] ?></label>
           <input type="text" class="form-control" id="tenderType" 
-          aria-describedby="emailHelp" name="title" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
+         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Tender Type</label>
+          <label for="exampleInputEmail1"><?php echo $lang['tenderType'] ?></label>
           <input type="text" class="form-control" id="tenderType" 
-          aria-describedby="emailHelp" name="tenderType" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="tenderType" placeholder="<?php echo $lang['Tender Type'] ?>">
+         </div>
 
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Starting date</label>
+          <label for="exampleInputEmail1"><?php echo $lang['startingDate'] ?></label>
           <input type="date" class="form-control" id="startingDate" 
-          aria-describedby="emailHelp" name="startDate" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="startDate" placeholder="<?php echo $lang['startingDate'] ?> ">
+         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Deadline</label>
+          <label for="exampleInputEmail1"><?php echo $lang['appDead'] ?></label>
           <input type="date" class="form-control" id="Deadline2" 
-          aria-describedby="emailHelp" name="Deadline2" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="Deadline2" placeholder="<?php echo $lang['appDead'] ?>">
+         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Initial Cost</label>
+          <label for="exampleInputEmail1"><?php echo $lang['initialCost'] ?></label>
           <input type="number" class="form-control" id="phoneNo" 
-          aria-describedby="emailHelp" name="initialCost" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="initialCost" placeholder="<?php echo $lang['initialCost'] ?>">
+         </div>
         <div  class="input-group mb-3" >
         <select  class="custom-select" name="location2" id="">
-          <option>Address</option>
+          <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
@@ -1701,17 +1665,16 @@ if($_GET['type'] == 'tender'){
         </select>
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
+          <label for="exampleInputEmail1"><?php echo $lang['description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="description2" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="description2" placeholder="<?php echo $lang['description'] ?>"></textarea>
+         </div>
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photo  [Optional] </label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?> [Optional] </label>
           <input type="file" class="form-control" id="photo" name="photo" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['descriptionPhoto'] ?></small>
         </div>
 
         <input type="submit" value="POST">
@@ -1752,86 +1715,76 @@ if($_GET['type'] == 'homeTutor'){
 <div id="cont" class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+      <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
       <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
     </div>
           <div class="modal-body">
 
-          <h5>Home Tutor Job Application</h5>
+          <h5><?php echo $lang['homeTutor'] ?></h5>
 
 <form  method="POST" enctype="multipart/form-data">
 <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
 
 <div class="form-group">
-  <label for="exampleInputEmail1">Full Name</label>
+  <label for="exampleInputEmail1"><?php echo $lang['fullName'] ?></label>
   <input type="text" class="form-control" id="nameTitle" 
-  aria-describedby="emailHelp" name="name" placeholder="Full Name">
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+  aria-describedby="emailHelp" name="name" placeholder="<?php echo $lang['fullName'] ?>">
+ </div>
 
 <div class="input-group mb-3">
-<div class="input-group-prepend">
-  <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-</div>
+ 
 <select class="custom-select" name="sex" id="inputGroupSelect01">
-  <option selected>Choose...</option>
-  <option value="Male">Mele</option>
-  <option value="Female">Female</option>
+  <option selected><?php echo $lang['Gender'] ?></option>
+  <option value="Male"><?php echo $lang['Male'] ?></option>
+  <option value="Female"><?php echo $lang['Female'] ?></option>
 </select>
 </div>
 
 <div class="form-group">
-  <label for="exampleInputEmail1">Educational Background:</label>
+  <label for="exampleInputEmail1"><?php echo $lang['educationalBackground'] ?>:</label>
   <textarea type="text" class="form-control" id="des2" 
-  aria-describedby="emailHelp" name="eduBackground" placeholder="location"></textarea>
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+  aria-describedby="emailHelp" name="eduBackground" placeholder="<?php echo $lang['educationalBackground'] ?>"></textarea>
+ </div>
 
 
 <div class="input-group mb-3">
-<div class="input-group-prepend">
-  <label class="input-group-text" for="inputGroupSelect01">Range </label>
-</div>
 <select class="custom-select" name="clientRange" id="inputGroupSelect01">
-  <option value="1-8">1-8 Grade</option>
-  <option value="9-12">9-10</option>
-  <option value="9-10">9-10</option>
-  <option value="10-11">10-11</option>
-  <option value="11-12">11-12</option>
+  <option value=" "><?php echo $lang['Range'] ?></option>
+  <option value="1-8">1-8 <?php echo $lang['Grade'] ?></option>
+  <option value="9-12">9-12 <?php echo $lang['Grade'] ?></option>
+  <option value="9-10">9-10 <?php echo $lang['Grade'] ?></option>
+  <option value="10-11">10-11 <?php echo $lang['Grade'] ?></option>
+  <option value="11-12">11-12 <?php echo $lang['Grade'] ?></option>
 
 </select>
 </div>
 
 <div class="input-group mb-3">
-<div class="input-group-prepend">
-  <label class="input-group-text" for="inputGroupSelect01">Payment Status</label>
-</div>
+ 
 <select class="custom-select" name="paymentStatus" id="inputGroupSelect01">
-  <option selected>Choose...</option>
-  <option value="Horly">Hourly</option>
-  <option value="Dayly">Dayly</option>
-  <option value="Monthly">Monthly</option>
+  <option selected><?php echo $lang['paymentStatus'] ?></option>
+  <option value="Hourly"><?php echo $lang['Hourly'] ?></option>
+  <option value="Dayly"><?php echo $lang['Dayly'] ?></option>
+  <option value="Monthly"><?php echo $lang['Monthly'] ?></option>
 
 </select>
 </div>
 
 <div class="form-group">
-  <label for="exampleInputEmail1">Price:</label>
+  <label for="exampleInputEmail1"><?php echo $lang['Price'] ?>:</label>
   <input type="number" class="form-control" id="nameTitle" 
-  aria-describedby="emailHelp" name="price" placeholder="Full Name">
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+  aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Price'] ?>">
+ </div>
 
 <div class="form-group">
-  <label for="exampleInputEmail1">Phone </label>
+  <label for="exampleInputEmail1"><?php echo $lang['phone'] ?>:</label>
   <input type="number" class="form-control" id="nameTitle" 
-  aria-describedby="emailHelp" name="phone" placeholder="Full Name">
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+  aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
+ </div>
 
 <div  class="input-group mb-3" >
         <select  class="custom-select" name="address" id="">
-          <option>Address</option>
+          <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
@@ -1862,25 +1815,22 @@ if($_GET['type'] == 'homeTutor'){
         </div>
 
 <div class="form-group">
-  <h6>If you are representing  or if you are Agent, please fill the next form.</h6>
-  <label for="exampleInputEmail1">Company Info</label>
+  <h6><?php echo $lang['agentInfoQ'] ?></h6>
+  <label for="exampleInputEmail1"><?php echo $lang['agentInfo'] ?></label>
   <textarea type="text" class="form-control" id="des2" 
-  aria-describedby="emailHelp" name="companyInfo" placeholder="location"></textarea>
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
+  aria-describedby="emailHelp" name="companyInfo" placeholder="<?php echo $lang['agentInfo'] ?>"></textarea>
+ </div>
 
 <div class="form-group">
-  <label for="exampleInputEmail1">Description About You</label>
+  <label for="exampleInputEmail1"><?php echo $lang['Description'] ?>   </label>
   <textarea type="text" class="form-control" id="des2" 
-  aria-describedby="emailHelp" name="info" placeholder="info"></textarea>
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Description'] ?> "></textarea>
 </div>
 
 <div class="row">
 <div id="registerBox">
-<label for="exampleInputEmail1">Upload Photos</label>
+<label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
   <input type="file" class="form-control" id="photo" name="photo" multiple >
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
 
@@ -1919,50 +1869,51 @@ if($_GET['type'] == 'houseWorker'){
 <div id="cont" class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+      <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
       <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
     </div>
           <div class="modal-body">
 
-          <h5>House Keeper Job Application</h5>
+          <h5><?php echo $lang['houseKeeper '] ?></h5>
           <form  method="POST" enctype="multipart/form-data">
           <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
           <input hidden name="hotelOrHouse" value="HOUSE">
           <div class="form-group">
-          <label for="exampleInputEmail1">Full Name</label>
+          <label for="exampleInputEmail1"><?php echo $lang['fullName'] ?></label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="name" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
+          aria-describedby="emailHelp" name="name" placeholder="<?php echo $lang['fullName'] ?>">
+           </div>
 
           <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-        </div>
+ 
         <select class="custom-select" name="sex" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Male">Mele</option>
-          <option value="Female">Female</option>
+          <option selected><?php echo $lang['Gender'] ?></option>
+          <option value="Male"><?php echo $lang['Male'] ?></option>
+          <option value="Female"><?php echo $lang['Female'] ?></option>
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Age</label>
+          <label for="exampleInputEmail1"><?php echo $lang['Age'] ?></label>
           <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="age" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="age" placeholder="<?php echo $lang['Age'] ?>">
+         </div>
+
+ 
+        <div class="input-group mb-3">
+        
+        <select class="custom-select" name="religion" id="inputGroupSelect01">
+          <option selected><?php echo $lang['Religion'] ?></option>
+          <option value="Orthodox"><?php echo $lang['Orthodox'] ?></option>
+          <option value="Muslim"><?php echo $lang['Muslim'] ?></option>
+          <option value="Protestant"><?php echo $lang['Protestant'] ?></option>
+        </select>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Religion</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="religion" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
 
         <div  class="input-group mb-3" >
         <select  class="custom-select" name="address" id="">
-          <option>Address</option>
+          <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
@@ -1993,11 +1944,9 @@ if($_GET['type'] == 'houseWorker'){
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Work Type</label>
-        </div>
+ 
         <select class="custom-select" name="workType" id="inputGroupSelect01">
-          <option selected>Choose...</option>
+          <option selected><?php echo $lang['workType'] ?></option>
           <option value="Half Day">Half Day</option>
           <option value="Full Day">Full Day</option>
           <option value="Monthly">Monthly</option>
@@ -2051,7 +2000,7 @@ if($_GET['type'] == 'houseWorker'){
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file"  class="form-control" id="photo" name="photo"  >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
@@ -2099,7 +2048,7 @@ if($_GET['type'] == 'hotelWorker'){
 <div id="cont" class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+      <h5 class="modal-title" id="exampleModalLabel">upload</h5>
       <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
     </div>
           <div class="modal-body">
@@ -2231,7 +2180,7 @@ if($_GET['type'] == 'hotelWorker'){
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file"  class="form-control" id="photo" name="photo"  >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
@@ -2276,7 +2225,7 @@ if($_GET['type'] == 'zebegna'){
 <div id="cont" class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+      <h5 class="modal-title" id="exampleModalLabel">upload</h5>
       <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
     </div>
           <div class="modal-body">
@@ -2367,7 +2316,7 @@ if($_GET['type'] == 'zebegna'){
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file"  class="form-control" id="photo" name="photo" >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>

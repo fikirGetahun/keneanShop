@@ -1000,7 +1000,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
     ?>
     <br>
       <div  class="container">
-          <!-- <h5><?php echo $label ?></h5> -->
+          <h5><?php echo $label ?></h5>
       </div>
         
         <br>

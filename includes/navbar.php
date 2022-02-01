@@ -332,7 +332,13 @@ function reload(x){
         <a class="p-2 text-muted" href="?lang=eng"><?php echo $lang['eng'] ?></a>
 
       <?php
-      if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
+      if(isset($_SESSION['userId'])){
+        $memberCheker = $get->allPostListerOnColumen('mambership', 'userId', $_SESSION['userId']);
+        $cm = $memberCheker->fetch_assoc();
+      }
+
+
+      if(isset($_SESSION['userId']) && !empty($_SESSION['userId']) && $memberCheker->num_rows == 0){
 ?>
 <a href="members.php" class="p-2 text-muted" ><?php echo $lang['mem'] ?></a>
 <?php
