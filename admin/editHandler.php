@@ -108,6 +108,8 @@ if(isset($_POST['titleElc'],
 
 }
 //vacancy edit handler
+echo 'inedit vac';
+
 if(isset(
   $_POST['companyName'], $_POST['jobType'], 
   $_POST['jobTitle'], $_POST['positionType'],
@@ -127,7 +129,6 @@ if(isset(
     $salary = $_POST['salary'];
     $salaryStatus = $_POST['salaryStatus'];
     $appStart = $_POST['appStart'];
-
 
     $ask = $admin->updateVacancyPost($phone, $jobType, $positionType, $companyName,
      $jobTitle, $location, $Deadline, $id , $reqNo, $info, $salary, $salaryStatus, $appStart  );

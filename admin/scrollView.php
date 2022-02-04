@@ -1,7 +1,8 @@
 <?php
+        ob_start();
+        session_start();
   if(isset($_GET['type'])){
-      ob_start();
-      session_start();
+
       $idArr = $_SESSION['scroll'];
       $ty = $_SESSION['type']; 
     

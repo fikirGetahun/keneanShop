@@ -1,4 +1,7 @@
+<?php
+include "../includes/lang.php";
 
+?>
 
 <div id="otherCity" >
             <div class="form-group">
@@ -217,15 +220,15 @@
 
 <div id="targetFor" class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Target For: </label>
+          <label class="input-group-text" for="inputGroupSelect01"><?php echo $lang['for'] ?> : </label>
         </div>
         <select class="custom-select" name="for" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="women">Women</option>
-          <option value="men">Men</option>
-          <option value="both">Both</option>
+          <option value=" "><?php echo $lang['Gender'] ?></option>
+          <option value="Male"><?php echo $lang['Male'] ?></option>
+          <option value="Female"><?php echo $lang['Female'] ?></option>
+          <option value="Both"><?php echo $lang['Both'] ?></option>
         </select>
-        </div>
+</div>
 
 
 <div id="carCform1">

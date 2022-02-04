@@ -1513,6 +1513,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
 
   /////// house worker
   if($_GET['type'] == 'houseWorker'){
+    // echo $_SERVER['REQUEST_URI'];
     $cat = $_GET['cat'];
     $type = $_GET['type'];
     $pid = $_GET['postId'];

@@ -9,10 +9,14 @@
 
     //array of post ids that are posted on this current page
 
-    // ob_start();
-    // session_start();
+    ob_start();
+    session_start();
     $_SESSION['scroll'] = array();
     $_SESSION['type'] = $t;
+
+    
+$website = "localhost/shop2/Description.ph?";
+
     
 ?>
 <div id="allin">
@@ -174,7 +178,7 @@
                             <p class="card-text">Deadline :<?php echo $row['deadLine'] ?></p>
                             <p class="card-text">Requierd Position :<?php echo $row['positionNum'] ?></p>
                             <p class="card-text">Job Type :<?php echo $row['info'] ?></p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                         </div>
                         </div>
                     </div>

@@ -37,6 +37,7 @@ if(!isset($_SESSION)){
     $(document).ready(function(){
       var currentUrl = '<?php echo $url; ?>'
       $(window).on('hashchange', function(e) {
+        // alert('change')
    // do something...
         if(location.hash == '#content'){
           $('#postBox').load('home.php')
@@ -49,6 +50,7 @@ if(!isset($_SESSION)){
           $('#postBox').load('admin/adminRegister.php');
         }
         if(location.hash == '#viewHomeTutor'){
+          // $('#vac1').empty()
           $('#postBox').load('admin/postPage.php?'+$.param({type: "home", uid: '<?php echo $uid; ?>'}))
         }
         if(location.hash == '#viewTenderPost'){
@@ -59,8 +61,9 @@ if(!isset($_SESSION)){
           $('#vac1').empty()
           $('#postBox').load('admin/viewPost.php?'+$.param({type: 'vacancy'}))
         }
-        if(location.hash == '#viewHomeTutor'){
-          $('#postBox').load('admin/postPage.php?'+$.param({type: "home", uid: '<?php echo $uid; ?>'}))
+        if(location.hash == '#viewAd'){
+         $('#vac1').empty()
+        $('#postBox').load('admin/viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
         }
 
     });
