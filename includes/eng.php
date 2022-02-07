@@ -165,7 +165,7 @@
         "deletePhoto"=>"Delete Photo",
         "Category"=>"Category",
         "Purpose"=>"Purpose",
-        ""=>"",
+        "subCity"=>"Sub City",
         ""=>"",
         ""=>"",
         ""=>"",

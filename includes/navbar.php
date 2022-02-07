@@ -6,6 +6,13 @@
     session_start(); 
   } 
 
+  //location changer
+if(isset($_GET['loc'])){
+  $_SESSION['location'] = $_GET['loc'];
+}else{
+  $_SESSION['location'] = 'All';
+}
+
   if(!isset($_SESSION['location'] )){
     $_SESSION['location'] = 'All';
   }
@@ -174,7 +181,7 @@ function reload(x){
             <span class="small"><?php echo $lang['cars'] ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars For Sell&type= "    ><?php echo $lang['toBuy'] ?></a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars To Buy&type= "    ><?php echo $lang['toBuy'] ?></a></li>
             <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Rent&label=Cars For Rent&type= "  onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Rent')"  ><?php echo $lang['toRent'] ?></a></li>
           </ul>
         </li>
