@@ -547,7 +547,7 @@ foreach($pp as $photo){
   ?>
        <div id="<?php echo $i ?>">
        <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
        </div>
   <?php
   $i ++;
@@ -559,7 +559,7 @@ foreach($pp as $photo){
        <input hidden name="tName" value="tender">
        <div class="row">
        <div id="registerBox">
-       <label for="exampleInputEmail1">Upload Photo  </label>
+       <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
        <input type="file" class="form-control" id="photo" name="photo[]" multiple >
        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
        </div>
@@ -764,7 +764,7 @@ foreach($pp as $photo){
   ?>
        <div id="<?php echo $i ?>">
        <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
        </div>
   <?php
   $i ++;
@@ -1085,7 +1085,7 @@ foreach($pp as $photo){
   ?>
        <div id="<?php echo $i ?>">
        <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
        </div>
   <?php
   $i ++;
@@ -1389,7 +1389,7 @@ echo $tab;
              ?>
                   <div id="<?php echo $i ?>">
                   <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
                   </div>
              <?php
              $i ++;
@@ -1401,7 +1401,7 @@ echo $tab;
                   <input hidden name="tName" value="housesell">
                   <div class="row">
                   <div id="registerBox">
-                  <label for="exampleInputEmail1">Upload Photo  </label>
+                  <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                   </div>
@@ -1583,7 +1583,7 @@ echo $tab;
              ?>
                   <div id="<?php echo $i ?>">
                   <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
                   </div>
              <?php
              $i ++;
@@ -1595,7 +1595,7 @@ echo $tab;
                   <input hidden name="tName" value="housesell">
                   <div class="row">
                   <div id="registerBox">
-                  <label for="exampleInputEmail1">Upload Photo  </label>
+                  <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                   </div>
@@ -1741,8 +1741,9 @@ $('#sElc').on('change', function(){
     </div>
     <select class="custom-select" name="status" id="inputGroupSelect01">
       <option selected value="<?php echo $elecRow['status'] ?>"><?php echo $elecRow['status'] ?></option>
-      <option value="NEW">New</option>
-      <option value="OLD">Old</option>
+      <option   value="NEW"><?php echo $lang['new'] ?></option>
+      <option value="MEDIUM"><?php echo $lang['Medium'] ?></option>
+      <option value="OLD"><?php echo $lang['Old'] ?></option>
     </select>
     </div>
 
@@ -1751,11 +1752,15 @@ $('#sElc').on('change', function(){
     <div id="computer"></div>
 
     <div class="form-group">
-      <label for="exampleInputEmail1">Price : </label>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="<?php echo $elecRow['phone'] ?>">
+        </div>
+
+    <div class="form-group">
+      <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?>: </label>
       <input type="number" class="form-control" id="nameTitle" 
       aria-describedby="emailHelp" name="price" placeholder="Price in Birr" 
       value="<?php echo $elecRow['price'] ?>">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
  
@@ -1792,10 +1797,9 @@ $('#sElc').on('change', function(){
         </div>
 
     <div class="form-group">
-      <label for="exampleInputEmail1">Describtion</label>
+      <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
       <textarea type="text" class="form-control" id="des2" 
       aria-describedby="emailHelp" name="info" placeholder="Detailed Info"><?php echo $elecRow['info'] ?></textarea>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
         <input type="submit" onclick="x()" value="Save Changes">
@@ -1820,7 +1824,7 @@ foreach($pp as $photo){
   ?>
        <div id="<?php echo $i ?>">
        <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button> 
        </div>
   <?php
   $i ++;
@@ -1832,9 +1836,8 @@ foreach($pp as $photo){
        <input hidden name="tName" value="electronics">
        <div class="row">
        <div id="registerBox">
-       <label for="exampleInputEmail1">Upload Photo  </label>
+       <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
        <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
        </div>
        </div>
 
@@ -1869,7 +1872,6 @@ foreach($pp as $photo){
   <input type="text" class="form-control" id="nameTitle" 
   aria-describedby="emailHelp" name="title" placeholder="Title"
   value="<?php echo $cRow['title'] ?>">
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
 <div class="input-group mb-3">
@@ -1914,7 +1916,6 @@ foreach($pp as $photo){
   <label for="exampleInputEmail1">Phone no:</label>
   <input type="text" class="form-control" id="nameTitle" 
   aria-describedby="emailHelp" name="phone" placeholder="phone" value="<?php echo $cRow['phone'] ?>" >
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
 
@@ -1922,7 +1923,6 @@ foreach($pp as $photo){
 <label for="exampleInputEmail1">Describtion</label>
 <textarea type="text" class="form-control" id="des2" 
 aria-describedby="emailHelp" name="info" placeholder="Detailed Info"><?php echo $cRow['info'] ?></textarea>
-<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
 <div id="alertVacancy"></div>
@@ -1947,7 +1947,7 @@ foreach($pp as $photo){
   ?>
        <div id="<?php echo $i ?>">
        <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
        </div>
   <?php
   $i ++;
@@ -1959,9 +1959,8 @@ foreach($pp as $photo){
        <input hidden name="tName" value="charity">
        <div class="row">
        <div id="registerBox">
-       <label for="exampleInputEmail1">Upload Photo  </label>
+       <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
        <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
        </div>
        </div>
 
@@ -2000,7 +1999,6 @@ foreach($pp as $photo){
   <label for="exampleInputEmail1">Full Name</label>
   <input type="text" class="form-control" id="nameTitle" 
   aria-describedby="emailHelp" name="name" placeholder="Full Name"  value="<?php echo $row['Name'] ?>">
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
 <div class="input-group mb-3">
@@ -2018,7 +2016,6 @@ foreach($pp as $photo){
   <label for="exampleInputEmail1">Educational Background:</label>
   <textarea type="text" class="form-control" id="des2" 
   aria-describedby="emailHelp" name="eduBackground" placeholder="location"> <?php echo $row['eduBackground'] ?> </textarea>
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
 
@@ -2061,7 +2058,6 @@ foreach($pp as $photo){
   <label for="exampleInputEmail1">Phone </label>
   <input type="number" class="form-control" id="nameTitle" 
   aria-describedby="emailHelp" name="phone" placeholder="Full Name" value="<?php echo $row['phone'] ?>" >
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
  
@@ -2102,14 +2098,12 @@ foreach($pp as $photo){
   <label for="exampleInputEmail1">Company Info</label>
   <textarea type="text" class="form-control" id="des2" 
   aria-describedby="emailHelp" name="companyInfo" placeholder="location"><?php echo $row['companyInfo'] ?></textarea>
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
 <div class="form-group">
   <label for="exampleInputEmail1">Description About You</label>
   <textarea type="text" class="form-control" id="des2" 
   aria-describedby="emailHelp" name="info" placeholder="info"><?php echo $row['info'] ?></textarea>
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 
 
@@ -2139,7 +2133,7 @@ foreach($pp as $photo){
              ?>
                   <div id="<?php echo $i ?>">
                   <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
                   </div>
              <?php
              $i ++;
@@ -2151,7 +2145,7 @@ foreach($pp as $photo){
                   <input hidden name="tName" value="jobhometutor">
                   <div class="row">
                   <div id="registerBox">
-                  <label for="exampleInputEmail1">Upload Photo  </label>
+                  <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                   </div>
@@ -2183,7 +2177,6 @@ foreach($pp as $photo){
           <label for="exampleInputEmail1">Full Name</label>
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="name" placeholder="Full Name" value="<?php echo $row['name'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
 
           <div class="input-group mb-3">
@@ -2201,14 +2194,12 @@ foreach($pp as $photo){
           <label for="exampleInputEmail1">Age</label>
           <input type="number" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="age" placeholder="Full Name" value="<?php echo $row['age'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group">
           <label for="exampleInputEmail1">Field </label>
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="field" placeholder="Full Name" value="<?php echo $row['field'] ?>" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div  class="input-group mb-3" >
         <select  class="custom-select" name="address" id="">
@@ -2259,21 +2250,18 @@ foreach($pp as $photo){
           <label for="exampleInputEmail1">Price:</label>
           <input type="number" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="price" placeholder="Full Name" value="<?php echo $row['price'] ?>" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group">
           <label for="exampleInputEmail1">Experience</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="experience" placeholder="info"><?php echo $row['experience'] ?></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group">
           <label for="exampleInputEmail1">Current Address</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="cAddress" placeholder="info"> <?php echo $row['currentAddress'] ?></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
 
@@ -2283,7 +2271,6 @@ foreach($pp as $photo){
           <label for="exampleInputEmail1">Agent Info</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="agentInfo" placeholder="location"> <?php echo $row['agentInfo'] ?></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
 <br>
@@ -2326,7 +2313,7 @@ foreach($pp as $photo){
              ?>
                   <div id="<?php echo $i ?>">
                   <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
                   </div>
              <?php
              $i ++;
@@ -2338,9 +2325,8 @@ foreach($pp as $photo){
                   <input hidden name="tName" value="hotelhouse">
                   <div class="row">
                   <div id="registerBox">
-                  <label for="exampleInputEmail1">Upload Photo  </label>
+                  <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                   </div>
                   </div>
 
@@ -2380,7 +2366,6 @@ if(isset($_GET['type'])){
           <label for="exampleInputEmail1">Full Name</label>
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="name" placeholder="Full Name" value="<?php echo $row['name'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
 
           <div class="input-group mb-3">
@@ -2398,14 +2383,12 @@ if(isset($_GET['type'])){
           <label for="exampleInputEmail1">Age</label>
           <input type="number" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="age" placeholder="Full Name" value="<?php echo $row['age'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group">
           <label for="exampleInputEmail1">Religion</label>
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="religion" placeholder="Full Name" value="<?php echo $row['religion'] ?>" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div  class="input-group mb-3" >
@@ -2523,7 +2506,7 @@ if(isset($_GET['type'])){
              ?>
                   <div id="<?php echo $i ?>">
                   <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
                   </div>
              <?php
              $i ++;
@@ -2535,7 +2518,7 @@ if(isset($_GET['type'])){
                   <input hidden name="tName" value="hotelhouse">
                   <div class="row">
                   <div id="registerBox">
-                  <label for="exampleInputEmail1">Upload Photo  </label>
+                  <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                   </div>
@@ -2638,7 +2621,7 @@ if(isset($_GET['type'])){
              ?>
                   <div id="<?php echo $i ?>">
                   <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
-                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark">Delete Photo</button>
+                  <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button>
                   </div>
              <?php
              $i ++;
@@ -2650,7 +2633,7 @@ if(isset($_GET['type'])){
                   <input hidden name="tName" value="zebegna">
                   <div class="row">
                   <div id="registerBox">
-                  <label for="exampleInputEmail1">Upload Photo  </label>
+                  <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                   </div>

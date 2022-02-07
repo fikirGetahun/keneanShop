@@ -1,6 +1,13 @@
 <?php
         ob_start();
         session_start();
+        
+$content_per_page = 6;
+$page = $_SESSION['adminPage'];
+$startPage = ($page * $content_per_page) - $content_per_page;
+// echo $startPage.'z';
+$endPage =  $content_per_page;
+// echo $endPage;
   if(isset($_GET['type'])){
 
       $idArr = $_SESSION['scroll'];
@@ -8,33 +15,39 @@
     
       
     require_once "../php/adminCrude.php";
+    require_once "../php/fetchApi.php";
     if($ty == 'vacancy'){
-      $data = $admin->vacancyPostLister();
-      while($row = $data->fetch_assoc()){
+      $data = $get->allPostListerOnTableD('vacancy', $startPage, $endPage );
+      while($row = $data[0]->fetch_assoc()){
           if(!in_array($row['id'],$idArr)){
             $idArr[]= $row['id'];  
           ?>
           <h6>Vacancy Post</h6>
 
 
-          <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                  <div class="col-md-4">
-                  <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                  <div class="card-body">
-                      <h5 class="card-title">Position :<?php echo $row['positionTitle'] ?></h5>
-                      <p class="card-text">Job Type :<?php echo $row['positionType'] ?></p>
-                      <p class="card-text">Deadline :<?php echo $row['deadLine'] ?></p>
-                      <p class="card-text">Requierd Position :<?php echo $row['positionNum'] ?></p>
-                      <p class="card-text">Job Type :<?php echo $row['info'] ?></p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                  <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="edit('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
-                  </div>
-              </div>
-          </div>
+
+          <div id="sc"  class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Position :<?php echo $row['title'] ?></h5>
+                            <p class="card-text">Job Type :<?php echo $row['positionType'] ?></p>
+                            <p class="card-text">Deadline :<?php echo $row['deadLine'] ?></p>
+                            <p class="card-text">Requierd Position :<?php echo $row['positionNum'] ?></p>
+                            <p class="card-text">Job Type :<?php echo $row['info'] ?></p>
+                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                            <a href="../<?php echo $website ?>?cat=vacancy&label=Vacancy%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
+                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User <?php echo $row['posterId'] ?>
+                            </a>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
           <?php
           array_push($_SESSION['scroll'], $row['id'] );

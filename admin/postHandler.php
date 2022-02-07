@@ -15,7 +15,8 @@ if(isset($_POST['titleElc'],
     $_POST['address'],
     $_POST['info'],
     $_FILES['photo'],
-    $_POST['posterId']
+    $_POST['posterId'],
+    $_POST['phone']
 )){
 
     $title = $_POST['titleElc'];
@@ -25,6 +26,7 @@ if(isset($_POST['titleElc'],
     $info = $_POST['info'];
     $posterId = $_POST['posterId'];
     $address = $_POST['address'];
+    $phone = $_POST['phone'];
 
     $size = " ";
     $processor = " ";
@@ -53,9 +55,13 @@ if(isset($_POST['titleElc'],
       echo $up[0];
     }else{
       $out = $admin->elecPostAdder($type, $status, $posterId, $title, $address, $price,
-      $info, $up[0], $ram, $processor, $size, $storage, $core);
+      $info, $up[0], $ram, $processor, $size, $storage, $core, $phone);
             
-      echo 'Post Succesfully!';
+      if($out){
+        echo 'Post Succesfully!';
+      }else{
+        echo 'error';
+      }
     }
 
 

@@ -317,8 +317,8 @@ foreach($dbTables as $posts){
       </div>
       <div id="editInput22<?php echo $row['id'] ?>" class="modal-body">
       <div class="row">
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', 'hotel ', '<?php echo $row['id'] ?>', 'editInput22<?php echo $row['id'] ?>')">Edit</button></p></div>
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">>Delete</button></p></div>
+        <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', 'hotel', '<?php echo $row['id'] ?>', 'editInput22<?php echo $row['id'] ?>')">Edit</button></p></div>
+        <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">Delete</button></p></div>
       </div>
                       
       </div>

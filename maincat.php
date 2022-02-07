@@ -150,26 +150,48 @@ function fav(pid, id, table){
 <div class="row">
 
   <!-- <div class=".d-sm-none .d-md-block"> -->
-      
-<div id="accordion" class="col-2">
-  <div class="">
+     
+  <div id="tagSearch" class="row">
+ 
+
+
 
 <!-- <div id="sideNav" class="col-2"> -->
+
+
+
+<!-- <div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body"> -->
+
+          <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
+
+          <!-- </ul>      </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+ 
+ 
+
+
+
+
 <?php 
   if(isset($_GET['cat'])){
     // this category lister exclude the hometutor and zebegna because thy dont have the type colomen
     if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog'){
       ?>
-  <div class="card-title" id="headingOne">
-      <h5 class="mb-0">
-        <label class="nav-link" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne">
-        Categories        </label>
-      </h5>
-    </div>
-    <div id="collapseOne1" class="collapse show border-0" aria-labelledby="headingOne" aria-expanded="false" data-parent="#accordion">
-      <div class="card-body">
-      <div class="list-group border-0" id="list-tab" role="tablist">
-      <div class="row ">
+ 
+
+  <div class="col-3">
+        <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01">
+              <option><?php echo $lang['Category'] ?></option>
+      
+      
 
       <?php
       $tab = $_GET['cat'];
@@ -187,119 +209,134 @@ function fav(pid, id, table){
       <?php
           if(isset($_GET['status'], $_GET['off'], $_GET['label'], $_GET['type'])){
             ?>
-              <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $sorted ?>&label=<?php echo $_GET['label'] ?>&type=<?php echo $_GET['type'] ?>" ><?php echo $sorted ?></a>
+              <option> <a class="list-group-item list-group-item-action" aria-current="page" 
+              href="./maincat.php?cat=<?php echo $tab ?>&status=<?php echo $_GET['status'] ?>&off=<?php echo $_GET['off'] ?>&dbType=<?php echo $sorted ?>&label=<?php echo $_GET['label'] ?>&type=<?php echo $_GET['type'] ?>" ><?php echo $sorted ?></a></option>
             <?php
           }elseif(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
             ?>
-              <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&dbType=<?php echo $sorted ?>&label=<?php echo $_GET['label'] ?>"><?php echo $sorted ?></a>
+             <option> <a class="list-group-item list-group-item-action" aria-current="page" 
+              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&dbType=<?php echo $sorted ?>&label=<?php echo $_GET['label'] ?>"><?php echo $sorted ?></a></option>
             <?php
           }elseif(isset($_GET['type'])){
             ?>
-              <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $sorted ?>&label=<?php echo $_GET['label'] ?>"><?php echo $sorted ?></a>
+              <option><a class="list-group-item list-group-item-action" aria-current="page" 
+              href="./maincat.php?cat=<?php echo $tab ?>&type=<?php echo $_GET['type'] ?>&dbType=<?php echo $sorted ?>&label=<?php echo $_GET['label'] ?>"><?php echo $sorted ?></a></option>
             <?php
           }else{
             ?>
-              <a class="list-group-item list-group-item-action" aria-current="page" 
-              href="./maincat.php?cat=<?php echo $tab ?>&dbType=<?php echo $sorted ?>"><?php echo $sorted ?></a>
+              <option><a class="list-group-item list-group-item-action" aria-current="page" 
+              href="./maincat.php?cat=<?php echo $tab ?>&dbType=<?php echo $sorted ?>"><?php echo $sorted ?></a></option>
             <?php
           }
 
 
       ?>
 
-
+      
 
 
       <?php
     }
+?>  
 
-    }    elseif($_GET['cat'] == 'blog'){
+</select>
+  </div>
+  <div class="input-group mb-3 col-3">
+        <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01">
+          <option selected >City</option>
+          <?php
+            foreach($city as $loc){
+              ?>
+              
+              <option  onclick="reload('<?php echo $loc;  ?>')" >  <?php echo $loc ?></option>
+            
+              <?php
+              $i++;
+            }
+          ?>
+        </select>
+  </div>
+
+<?php
+    }    elseif($_GET['cat'] == 'blog'){ // blog is not seted up yet
       echo 'not yet';
     }
 
-//if car
+//if car in rent is selected this block of select search option will appear
 if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
   ?>
-<div class="card-title" id="headingOne">
-  <h5 class="mb-0">
-    <label class="nav-link" data-toggle="collapse" data-target="#collapseOnezp" aria-expanded="false" aria-controls="collapseOne">
-      Purpose
-</label>
-  </h5>
-</div>
+ 
 
-<div id="collapseOnezp" class="collapse show" aria-labelledby="headingOne" aria-expanded="false" data-parent="#accordion">
-  <div class="card-body">
-  <div class="row">
-<div class="list-group" id="list-tab" role="tablist">
+<div class="input-group mb-3 col-3">
+        <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01">
+          <option selected><?php echo $lang['Purpose'] ?></option>
+
 
           <?php
 
           if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'All'){//active class
             ?>
-      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>
+      <option><a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a></option>
             <?php
           }else{
             ?>
-              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>        
+              <option><a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>  </option>      
             <?php
           }
 
           if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'Private'){//active class
             ?> 
-      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private" role="tab" aria-controls="home">Private</a>
+      <option><a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private" role="tab" aria-controls="home">Private</a></option>
             <?php
           }else{
             ?>
-              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private" role="tab" aria-controls="home">Private</a>        
+              <option><a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private" role="tab" aria-controls="home">Private</a></option>        
             <?php
           }
 
           if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'Govormental Offices'){//active class
             ?> 
-      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Govormental Offices" role="tab" aria-controls="home">Govormental Offices</a>
+      <option><a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Govormental Offices" role="tab" aria-controls="home">Govormental Offices</a></option>
             <?php
           }else{
             ?>
-              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Govormental Offices" role="tab" aria-controls="home">Govormental Offices</a>        
+             <option> <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Govormental Offices" role="tab" aria-controls="home">Govormental Offices</a>   </option>     
             <?php
           }
 
           if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'NGO'){//active class
             ?> 
-      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=NGO" role="tab" aria-controls="home">NGO</a>
+     <option> <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=NGO" role="tab" aria-controls="home">NGO</a> </option>
             <?php
           }else{
             ?>
-              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=NGO" role="tab" aria-controls="home">NGO</a>        
+            <option>  <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=NGO" role="tab" aria-controls="home">NGO</a>       </option> 
             <?php
           }
 
           if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'Private Company'){//active class
             ?> 
-      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private Company" role="tab" aria-controls="home">Private Company</a>
+    <option>  <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private Company" role="tab" aria-controls="home">Private Company</a> </option>
             <?php
           }else{
             ?>
-              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private Company" role="tab" aria-controls="home">Private Company</a>        
+             <option> <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=Private Company" role="tab" aria-controls="home">Private Company</a>  </option>      
             <?php
           }
 
           if(isset($_GET['dyArg']) && $_GET['dyArg'] == 'All'){//active class
             ?> 
-      <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>
+     <option> <a class="list-group-item list-group-item-action active" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a> </option>
             <?php
           }else{
             ?>
-              <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>        
+            <option>  <a class="list-group-item list-group-item-action" id="list-home-list" href="maincat.php?cat=car&type=<?php echo $_GET['type'] ?>&status=<?php echo $_GET['status'] ?>&label=<?php echo $allLabel  ?>&off=<?php echo $_GET['off'] ?>&dyCol=forWho&dyArg=All" role="tab" aria-controls="home">All</a>   </option>     
             <?php
           }
 
 ?>
-
+        </select>
+        </div>
 
 </div>
   </div>
@@ -404,8 +441,13 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
 </div>
 </div>
 </div>  
-</div>
   </div>
+  
+
+<div id="accordion" class="col-2">
+
+</div>
+ 
   <div id="loop" class="col-md-10">
     <?Php
 

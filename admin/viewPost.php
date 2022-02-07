@@ -1,6 +1,6 @@
 <?php
     // include "../includes/adminSide.php";
-
+    require_once "../php/fetchApi.php";
     require_once "../php/adminCrude.php";
 
     if(isset($_GET['type'])){
@@ -13,9 +13,10 @@
     session_start();
     $_SESSION['scroll'] = array();
     $_SESSION['type'] = $t;
+    $_SESSION['adminPage'] = 0;
 
     
-$website = "localhost/shop2/Description.ph?";
+$website = "shop2/Description.php";
 
     
 ?>
@@ -27,8 +28,60 @@ $website = "localhost/shop2/Description.ph?";
   <title>Icons / Bootstrap - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  
 
   <!-- Favicons -->
+
+  <script>
+            $(document).ready(function(){
+              $(window).on('hashchange', function(e) {
+                if(location.hash == '#userSee'){
+                  $('#allin').load('admin/userInfo.php', {poster: id})
+                }
+              })
+            })
+
+                window.onpopstate = function (event) {
+                  
+                  if(event.state.type == 'seeU'){
+                    $('#allin').load('http://localhost/shop2/admin.php#userSee')
+                  } 
+                }
+
+
+                function adminPage(){
+                  // alert('bitch')
+                  $.ajax({
+                    url:'admin/editHandler.php',
+                    type: 'GET',
+                    data:{
+                      adminPage : true   , //echo the type of the post to be viewd
+                    }, 
+                    success: function(data){
+                      // alert(data)
+                      $.ajax({
+                      url:'admin/scrollView.php',
+                      type: 'GET',
+                      data:{
+                        type : '<?php echo $_SESSION['type']; ?>', //echo the type of the post to be viewd
+                      }, 
+                      success: function(data){
+                        $('#vac1').append(data)
+                      }
+                    })     
+                                   }
+                  })
+
+
+                }
+
+            function uinfo(id){
+                $('#allin').load('admin/userInfo.php', {poster: id})
+                history.pushState({type: 'seeU', id:id}, '', 'http://localhost/shop2/admin.php#userSee')
+
+            }
+            $
+        </script>
   <link href="admin/assets/img/favicon.png" rel="icon">
   <link href="admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -70,16 +123,16 @@ $website = "localhost/shop2/Description.ph?";
 
 
 
-      $.ajax({
-        url:'admin/scrollView.php',
-        type: 'GET',
-        data:{
-          type : '<?php echo $_SESSION['type']; ?>', //echo the type of the post to be viewd
-        }, 
-        success: function(data){
-          $('#vac1').append(data)
-        }
-      })
+      // $.ajax({
+      //   url:'admin/scrollView.php',
+      //   type: 'GET',
+      //   data:{
+      //     type : '<?php echo $_SESSION['type']; ?>', //echo the type of the post to be viewd
+      //   }, 
+      //   success: function(data){
+      //     $('#vac1').append(data)
+      //   }
+      // })
     }
   })
 
@@ -158,8 +211,8 @@ $website = "localhost/shop2/Description.ph?";
     
     if(isset($_GET['type'])){
         if($_GET['type'] == 'vacancy'){
-            $data = $admin->vacancyPostLister();
-            while($row = $data->fetch_assoc()){
+            $data = $get->allPostListerOnTableD('vacancy', 1 , 6);
+            while($row = $data[0]->fetch_assoc()){
 
               
                 ?>
@@ -173,13 +226,18 @@ $website = "localhost/shop2/Description.ph?";
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Position :<?php echo $row['positionTitle'] ?></h5>
+                            <h5 class="card-title">Position :<?php echo $row['title'] ?></h5>
                             <p class="card-text">Job Type :<?php echo $row['positionType'] ?></p>
                             <p class="card-text">Deadline :<?php echo $row['deadLine'] ?></p>
                             <p class="card-text">Requierd Position :<?php echo $row['positionNum'] ?></p>
                             <p class="card-text">Job Type :<?php echo $row['info'] ?></p>
                             <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                        </div>
+                            <a href="../<?php echo $website ?>?cat=vacancy&label=Vacancy%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
+                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User <?php echo $row['posterId'] ?>
+                            </a>   
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -227,6 +285,11 @@ $website = "localhost/shop2/Description.ph?";
                             <h5 class="card-title"><?php echo $row['title'] ?></h5>
                             <p class="card-text"><?php echo $row['info'] ?></p>
                             <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
+                            <a href="../<?php echo $website ?>?cat=tender&label=Tender%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
+                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User <?php echo $row['posterId'] ?>
+                            </a>   
                         </div>
                         </div>
                     </div>
@@ -262,6 +325,11 @@ $website = "localhost/shop2/Description.ph?";
                             <h5 class="card-title"><?php echo $row['title'] ?></h5>
                             <p class="card-text"><?php echo $row['info'] ?></p>
                             <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
+                            <a href="../<?php echo $website ?>?cat=tender&label=Tender%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
+                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User <?php echo $row['posterId'] ?>
+                            </a>   
                         </div>
                         </div>
                     </div>
@@ -289,10 +357,11 @@ $website = "localhost/shop2/Description.ph?";
                   <p class="card-text"><?php echo $row['title'] ?></p>
                   <p class="card-text"><?php echo $row['price'] ?> Birr</p>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a href="#viewDiscription" onclick="adView(<?php echo $row['id'] ?>)"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
-                    </div>
-                    <small class="text-muted">9 mins</small>
+                  <a href="../<?php echo $website ?>?cat=ad&postId=<?php echo $row['id'] ?>&label=Advertisment%20Post&type=product" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a>   
                   </div>
                 </div>
               </div>
@@ -320,10 +389,11 @@ $website = "localhost/shop2/Description.ph?";
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" onclick="viewCar(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
+                  <a href="../<?php echo $website ?>?cat=car&postId=<?php echo $row['id'] ?>&label=Cars%20For%20Sell&type=" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a> 
                   </div>
                 </div>
               </div>
@@ -355,10 +425,11 @@ $website = "localhost/shop2/Description.ph?";
                   <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
                   <h6><?php echo $cars['cost'] ?> Birr</h6>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" onclick="houseView(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
+                  <a href="../<?php echo $website ?>?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House%20Posts" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a> 
                   </div>
                 </div>
               </div>
@@ -400,10 +471,11 @@ $website = "localhost/shop2/Description.ph?";
                 <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
                 <h6><?php echo $cars['price'] ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <a href="../<?php echo $website ?>?cat=electronics&postId=<?php echo $row['id'] ?>&label=Electronics%20Post&type=" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a> 
                 </div>
               </div>
             </div>
@@ -445,11 +517,12 @@ elseif($_GET['type'] == 'charity'){
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['phone'] ?> </h6>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <div class="d-flex justify-content-between align-items-center"> 
+                <a href="../<?php echo $website ?>?cat=charity&postId=<?php echo $row['id'] ?>&label=Charity%20Post&type=" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a> 
                 </div>
               </div>
             </div>
@@ -487,11 +560,12 @@ elseif($_GET['type'] == 'bigDiscount'){
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <div class="d-flex justify-content-between align-items-center"> 
+                <a href="../<?php echo $website ?>?cat=ad&postId=<?php echo $row['id'] ?>&label=Big%20Discount%20Advertisment&type=big" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a> 
                 </div>
               </div>
             </div>
@@ -535,10 +609,11 @@ elseif($_GET['type'] == 'homeTutor'){
                 <p class="card-text">Info : <?php echo $row['info'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['Price']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <a href="../<?php echo $website ?>?cat=jobhometutor&postId=<?php echo $row['id'] ?>&label=Home%20Tutor&type=homeTutor" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a> 
                 </div>
               </div>
             </div>
@@ -587,10 +662,11 @@ if(isset($_GET['type'])){
                 <p class="card-text">Info : <?php echo $row['experience'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <a href="../<?php echo $website ?>?cat=hotelhouse&postId=<?php echo $row['id'] ?>&label=Hotel%20Job%20Seeker&type=hotelWorker" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a> 
                 </div>
               </div>
             </div>
@@ -638,10 +714,11 @@ if(isset($_GET['type'])){
                 <p class="card-text">Info : <?php echo $row['experience'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <a href="../<?php echo $website ?>?cat=hotelhouse&postId=<?php echo $row['id'] ?>&label=Home%20Keeper%20Seeker&type=houseWorker" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a> 
                 </div>
               </div>
             </div>
@@ -691,10 +768,11 @@ if(isset($_GET['type'])){
                 <p class="card-text">phone : <?php echo $row['phone'] ?> Birr</p>
                 <h6> : <?php echo $row['address']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                      <i class="bi-cart-fill me-1"></i>
+                      View User <?php echo $row['posterId'] ?>
+                  </a>
                 </div>
               </div>
             </div>
@@ -712,7 +790,10 @@ if(isset($_GET['type'])){
     
     ?>
     </div>
-    <?php
-
+    ?>
+              <button onclick="adminPage()" >View More <?php echo $_SESSION['adminPage'] ?></button>
+            
+            <?php
+ 
 // include "../includes/adminFooter.php";
 ?>

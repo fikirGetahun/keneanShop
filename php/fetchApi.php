@@ -64,6 +64,8 @@ class fetch{
             return array($ask, $ask1);
         }
 
+
+
     ////to fetch data from a tabel and 2 coloumen condition
     function allPostListerOn2Columen($table, $columen, $args, $columen2, $args2){
 

@@ -694,28 +694,31 @@ echo $mysql->error;
 
         //electronics post data adder
         function elecPostAdder($type, $status, $posterId, $title, $address, $price,
-        $info, $photo1, $ram, $processor, $size, $storage, $core){
+        $info, $photo1, $ram, $processor, $size, $storage, $core, $phone){
             include "connect.php";
             $postStatus = "ACTIVE";
             $postDate = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `electronics`( `type`, `status`, `postStatus`, `postedDate`, `posterId`, `title`, `address`, `price`, `info`, `photoPath1`, `ram`, `processor`, `size`, `storage`, `core`)
+            $q = "INSERT INTO `electronics`( `type`, `status`, `postStatus`, `postedDate`, `posterId`, `title`, `address`, `price`, `info`, `photoPath1`, `ram`, `processor`, `size`, `storage`, `core`, `phone`)
              VALUES ('$type', '$status', '$postStatus', '$postDate', '$posterId', '$title', '$address', '$price',
-              '$info', '$photo1', '$ram', '$processor', '$size', '$storage', '$core')";
+              '$info', '$photo1', '$ram', '$processor', '$size', '$storage', '$core', '$phone')";
 
             $ask = $mysql->query($q);
+            
+            echo $mysql->error;
+            return $ask;
         }
 
 
 
         //electronics update block
         function updateElectronicsPost($type, $status, $title, $address, $price,
-        $info, $ram, $processor, $size, $storage, $core, $pid ){
+        $info, $ram, $processor, $size, $storage, $core, $pid, $phone ){
             include "connect.php";
             $edited = 'YES';
             $q = "UPDATE `electronics` SET `type`= '$type',`status`= '$status',
             `title`= '$title',`address`= '$address',`price`= '$price' ,`info`= '$info' 
             ,`ram`= '$ram' ,`processor`= '$processor' ,`size`= '$size',`storage`= '$storage',
-            `core`= '$core',`edited`= '$edited' WHERE `electronics`.`id` = '$pid'";
+            `core`= '$core',`edited`= '$edited', `phone` = '$phone' WHERE `electronics`.`id` = '$pid'";
 
             $ask = $mysql->query($q);
 

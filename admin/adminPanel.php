@@ -38,17 +38,17 @@
                   </ul>
                 </div>
 <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
-      data: {count: 'true', table: 'user'},
+      data: {count: 'true', table: 'user', selecter: 'auth', arg: 'ADMIN'},
       success: function(data){
         $('#adminC').text(data)
       }
     })
     
-  }, 300000);
+  
 </script>
 
 
@@ -79,7 +79,7 @@
                     </div>
                     <div class="ps-3">
                     <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -89,7 +89,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="userC"></h6>
                      
@@ -109,7 +109,7 @@
                     </div>
                     <div class="ps-3">
                     <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -119,7 +119,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="editorC"></h6>
                      
@@ -160,7 +160,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -170,7 +170,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="tenderC"></h6>
                      
@@ -186,7 +186,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -196,7 +196,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="vaCC" ></h6>
                      
@@ -211,7 +211,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -221,7 +221,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="adC" ></h6>
                      
@@ -237,7 +237,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -247,7 +247,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="elccC" ></h6>
                      
@@ -263,7 +263,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -273,7 +273,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="houseC" ></h6>
                      
@@ -289,7 +289,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -299,7 +299,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="landC" ></h6>
                      
@@ -315,7 +315,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -325,7 +325,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="carC" ></h6>
                      
@@ -341,7 +341,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -351,7 +351,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="hometutorC" ></h6>
                      
@@ -366,7 +366,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -376,7 +376,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="hotelcC" ></h6>
                      
@@ -392,7 +392,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -402,7 +402,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="houseWC" ></h6>
                      
@@ -417,7 +417,7 @@
                   <div class="d-flex align-items-center">
                   <div class="ps-3">
                   <script>
-  setInterval(() => {
+
     $.ajax({
       url: 'admin/editHandler.php',
       type: 'POST',
@@ -427,7 +427,7 @@
       }
     })
     
-  }, 300000);
+  
 </script>
                       <h6 id="zebegnaC" ></h6>
                      

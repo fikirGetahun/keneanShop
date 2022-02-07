@@ -1422,7 +1422,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     <div class="container-fluid"> 
     <div class=" mb-3">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-md-6">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
                         <ol  class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
@@ -1525,7 +1525,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     <div class="container-fluid"> 
     <div class=" mb-3">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-md-6">
       <div id="carouselExampleIndicators" class="carousel slide w-90" data-ride="carousel">
                         <ol  class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
@@ -1540,11 +1540,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
 
       </div>
   </div>
-  <?php 
-  $getphone = $get->allPostListerOnColumen('user', 'id', $_SESSION['userId'] );
-  $phoneU = $getphone->fetch_assoc();
-  
-  ?>
+
       <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title text-center">Full Name: <?php echo $row['name'] ?></h5>
@@ -1558,7 +1554,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Can You Provide Biding Person ?  ANSWER: </label><?php echo $row['bidingPerson'] ?></p>
           <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-          <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $phoneU['phone'] ?></span> </p>
+          <p class="card-text">Phone Nso:<span class="fw-bolder"> <?php echo $row['phone'] ?></span> </p>
           <div class="btn-group">
               <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
           </div>
@@ -1754,7 +1750,7 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
     <div id="recent" class="container-fluid">
       
 
-      <div class="row  row-cols-md-5 ">
+      <div class="row ">
        <?php 
 
 
@@ -1769,7 +1765,7 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
               
   
         
-          <div class="row-col-sm-12 row-col-md-6 row-col-2">
+          <div class="row-col-3">
             <div class="card shadow-sm">
             <?php 
             if(!isset($_GET['type'])){

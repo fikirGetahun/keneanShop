@@ -364,38 +364,28 @@ include "../includes/lang.php";
 
 
       <div id="sizeInch" class="form-group">
-          <label for="exampleInputEmail1">Size In Inch:</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="size" placeholder="Size of Item">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="size" placeholder="<?php echo $lang['sizeInInch'] ?>">
+         </div>
 
               <div id="ram" class="form-group">
-          <label for="exampleInputEmail1">Ram:</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="ram" placeholder="Size of Item">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="ram" placeholder="<?php echo $lang['RAM'] ?>">
+         </div>
 
         <div id="proc" class="form-group">
-          <label for="exampleInputEmail1">Processor Type:</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="processor" placeholder="Processor Type">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="processor" placeholder="<?php echo $lang['processorType'] ?>">
+         </div>
 
         <div id="storage" class="form-group">
-          <label for="exampleInputEmail1">Storage Size:</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="storage" placeholder="Storage Size">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="storage" placeholder="<?php echo $lang['storageSize'] ?>">
+         </div>
 
         <div id="core" class="form-group">
-          <label for="exampleInputEmail1">Core Count:</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="core" placeholder="Core count">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="core" placeholder="<?php echo $lang['coreCount'] ?>">
         </div>
 
 

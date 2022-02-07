@@ -3,6 +3,11 @@
 require_once "../php/adminCrude.php";
 require_once "../php/fetchApi.php";
 
+ob_start();
+if(!isset($_SESSION)){
+  session_start();
+}
+
 
 ////////live post counter
 if(isset($_POST['count'], $_POST['table'])){
@@ -25,6 +30,15 @@ if(isset($_POST['count'], $_POST['table'])){
  
  
 }
+
+
+//// view more system for admin
+if(isset($_GET['adminPage'])){
+  $_SESSION['adminPage']++;
+  echo $_SESSION['adminPage'];
+}
+
+
 
 ////////////////post deleter api//////////
 
@@ -51,7 +65,8 @@ if(isset($_POST['titleElc'],
     $_POST['price'],
     $_POST['address'],
     $_POST['info'],
-    $_POST['posterId']
+    $_POST['posterId'],
+    $_POST['phone']
 )){
 
     $title = $_POST['titleElc'];
@@ -61,6 +76,7 @@ if(isset($_POST['titleElc'],
     $info = $_POST['info'];
     $posterId = $_POST['posterId'];
     $address = $_POST['address'];
+    $phone = $_POST['phone'];
 
     $size = " ";
     $processor = " ";
@@ -103,12 +119,12 @@ if(isset($_POST['titleElc'],
 
 
     $out = $admin->updateElectronicsPost($type, $status, $title, $address, $price,
-    $info, $ram, $processor, $size, $storage, $core, $posterId);
+    $info, $ram, $processor, $size, $storage, $core, $posterId, $phone);
 
 
 }
 //vacancy edit handler
-echo 'inedit vac';
+// echo 'inedit vac';
 
 if(isset(
   $_POST['companyName'], $_POST['jobType'], 
