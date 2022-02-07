@@ -283,7 +283,7 @@ $('#forRentOrSell').on('change', function(){
           <option ><?php echo $lang['yearMade']  ?></option>
           <?php 
             $cYear = date('Y');
-            for($y=1980;$y<=$cYear;$y++){
+            for($y=1990;$y<=$cYear;$y++){
               ?>
               <option value="<?php echo $y ?>"><?php echo $y ?></option>
               <?php

@@ -393,7 +393,7 @@ include "../includes/lang.php";
 <label for="exampleInputEmail1">Upload Photo 1</label>
       <input type="file" class="form-control" id="photo" 
        name="elc1" >
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      <small id="emailHelp" class="form-text text-muted"><?php echo $lang['coreCount'] ?></small>
 </div>
 
 <div id="elecp2">

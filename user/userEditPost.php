@@ -561,7 +561,7 @@ foreach($pp as $photo){
        <div id="registerBox">
        <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
        <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+       
        </div>
        </div>
 
@@ -737,7 +737,7 @@ $('#selchange').on('change', function(){
           <label for="exampleInputEmail1">Describtion</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="info" placeholder="location"><?php echo $adRow['info'] ?></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
 
@@ -1161,7 +1161,7 @@ foreach($pp as $photo){
               aria-describedby="emailHelp" name="title" placeholder="Company Name" 
               value="<?php echo $houseRow['title'] ?> "
               >
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
         
@@ -1277,7 +1277,7 @@ echo $tab;
               aria-describedby="emailHelp" name="wereda" placeholder="Company Name"
               value="<?php echo $houseRow['wereda'] ?> "
               >
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
             <div class="input-group mb-3">
@@ -1308,7 +1308,7 @@ echo $tab;
               <input type="number" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="area" placeholder="Company Name" 
               value="<?php echo $houseRow['area'] ?>">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
             <div id="bedOrBath">
@@ -1320,7 +1320,7 @@ echo $tab;
               <input type="number" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="bedRoomNo" placeholder="Company Name" 
               value="<?php echo $houseRow['bedRoomNo'] ?>">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
             <div class="form-group">
@@ -1328,7 +1328,7 @@ echo $tab;
               <input type="number" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="bathRoomNo" placeholder="Company Name"
               value="<?php echo $houseRow['bathRoomNo'] ?>">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 </div>
               
@@ -1343,7 +1343,7 @@ echo $tab;
               <input type="number" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="cost" placeholder="Company Name"
               value="<?php echo $houseRow['cost'] ?>">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
 
@@ -1364,7 +1364,7 @@ echo $tab;
           <label for="exampleInputEmail1">Describtion</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="info" placeholder="location"><?php echo $houseRow['info'] ?> </textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
         <input type="submit" value="Save Changes">
@@ -1403,7 +1403,7 @@ echo $tab;
                   <div id="registerBox">
                   <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  
                   </div>
                   </div>
 
@@ -1467,7 +1467,7 @@ echo $tab;
               aria-describedby="emailHelp" name="title" placeholder="Company Name" 
               value="<?php echo $houseRow['title'] ?> "
               >
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
         
@@ -1491,7 +1491,7 @@ echo $tab;
               aria-describedby="emailHelp" name="wereda" placeholder="Company Name"
               value="<?php echo $houseRow['wereda'] ?> "
               >
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
             <div class="input-group mb-3">
@@ -1522,7 +1522,7 @@ echo $tab;
               <input type="number" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="area" placeholder="Company Name" 
               value="<?php echo $houseRow['area'] ?>">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
             <div id="bedOrBath">
@@ -1537,7 +1537,7 @@ echo $tab;
               <input type="number" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="cost" placeholder="Company Name"
               value="<?php echo $houseRow['cost'] ?>">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              
             </div>
 
 
@@ -1558,7 +1558,7 @@ echo $tab;
           <label for="exampleInputEmail1">Describtion</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="info" placeholder="location"><?php echo $houseRow['info'] ?> </textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
         <input type="submit" value="Save Changes">
@@ -1597,7 +1597,7 @@ echo $tab;
                   <div id="registerBox">
                   <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  
                   </div>
                   </div>
 
@@ -1634,7 +1634,6 @@ $('#sElc').on('change', function(){
 })
 
 </script>
-      <h5>Edit Electronics Items</h5>
       <form  method="POST" enctype="multipart/form-data" >
       <input hidden name="posterId" value="<?php echo $uidx; ?>">
 
@@ -1643,7 +1642,7 @@ $('#sElc').on('change', function(){
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="titleElc" placeholder="Title of Your Post" 
           value="<?php echo $elecRow['title'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
  
         
@@ -1695,7 +1694,7 @@ $('#sElc').on('change', function(){
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="size" placeholder="Size of Item" 
           value="<?php echo $elecRow['size'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
               <div id="ram" class="form-group">
@@ -1703,7 +1702,7 @@ $('#sElc').on('change', function(){
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="ram" placeholder="Size of Item" 
           value="<?php echo $elecRow['ram'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
         <div id="proc" class="form-group">
@@ -1711,7 +1710,7 @@ $('#sElc').on('change', function(){
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="processor" placeholder="Processor Type" 
           value="<?php echo $elecRow['processor'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
         <div id="storage" class="form-group">
@@ -1719,7 +1718,7 @@ $('#sElc').on('change', function(){
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="storage" placeholder="Storage Size"
           value="<?php echo $elecRow['storage'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
         <div id="core" class="form-group">
@@ -1727,7 +1726,7 @@ $('#sElc').on('change', function(){
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="core" placeholder="Core count"
           value="<?php echo $elecRow['core'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
             <?php
 
@@ -2051,7 +2050,7 @@ foreach($pp as $photo){
   <label for="exampleInputEmail1">Price:</label>
   <input type="number" class="form-control" id="nameTitle" 
   aria-describedby="emailHelp" name="price" placeholder="Full Name" value="<?php echo $row['price'] ?>" >
-  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  
 </div>
 
 <div class="form-group">
@@ -2147,7 +2146,7 @@ foreach($pp as $photo){
                   <div id="registerBox">
                   <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  
                   </div>
                   </div>
 
@@ -2440,21 +2439,21 @@ if(isset($_GET['type'])){
           <label for="exampleInputEmail1">Price:</label>
           <input type="number" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="price" placeholder="Full Name" value="<?php echo $row['price'] ?>" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
         <div class="form-group">
           <label for="exampleInputEmail1">Experience</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="experience" placeholder="info"><?php echo $row['experience'] ?></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
         <div class="form-group">
           <label for="exampleInputEmail1">Current Address</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="cAddress" placeholder="info"> <?php echo $row['currentAddress'] ?></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
 
@@ -2464,7 +2463,7 @@ if(isset($_GET['type'])){
           <label for="exampleInputEmail1">Agent Info</label>
           <textarea type="text" class="form-control" id="des2" 
           aria-describedby="emailHelp" name="agentInfo" placeholder="location"> <?php echo $row['agentInfo'] ?></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
 <br>
@@ -2520,7 +2519,7 @@ if(isset($_GET['type'])){
                   <div id="registerBox">
                   <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  
                   </div>
                   </div>
 
@@ -2551,7 +2550,7 @@ if(isset($_GET['type'])){
           <label for="exampleInputEmail1">Full Name</label>
           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="name" placeholder="Full Name" value="<?php echo $row['name'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
           </div>
 
           <div class="input-group mb-3">
@@ -2569,7 +2568,7 @@ if(isset($_GET['type'])){
           <label for="exampleInputEmail1">Age</label>
           <input type="number" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="age" placeholder="Full Name" value="<?php echo $row['age'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
         <div class="input-group mb-3">
@@ -2596,7 +2595,7 @@ if(isset($_GET['type'])){
           <label for="exampleInputEmail1">Phone:</label>
           <input type="number" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="phone" placeholder="Full Name" value="<?php echo $row['phone'] ?>">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          
         </div>
 
         <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
@@ -2635,7 +2634,7 @@ if(isset($_GET['type'])){
                   <div id="registerBox">
                   <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
                   <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  
                   </div>
                   </div>
 

@@ -350,7 +350,7 @@
                 </div>
             </div>
                 <?php
-            }
+            }elseif($_POST['type'] == 'electronics'){}
         }
         
         ?>
