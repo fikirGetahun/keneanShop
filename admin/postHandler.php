@@ -191,7 +191,11 @@ if(isset(
         $out12 = $admin->carPostAdder($addr,$title,$type, $status,
         $fuleKind, $posterId, $fixidOrN, $up[0],$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob, $forWho, $rentStatus, $whyRent );
         
-        echo 'Post Succesfully!';
+        if($out12){
+          echo 'Post Succesfully!';
+        }else{
+          echo 'error';
+        }
       }
 
 

@@ -158,12 +158,12 @@ $('#forRentOrSell').on('change', function(){
           <label for="exampleInputEmail1" class="fs-6  " ><?php echo $lang['sellOrRent'] ?></label><br>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Owner">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Rent">
           <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
         </div>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Broker">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Sell">
           <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
         </div>
         </div>
@@ -644,12 +644,12 @@ elseif($_GET['type'] == 'house'){
           <label for="exampleInputEmail1" class="fs-5" ><?php echo $lang['sellOrRent'] ?></label><br>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Owner">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Rent">
           <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
         </div>
 
         <div class="form-check form-check-inline" style="margin-left: 10%;">
-          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Broker">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Sell">
           <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
         </div>
         </div>
@@ -964,12 +964,12 @@ foreach($categorySort as $sorted){
           <label for="exampleInputEmail1" style="color: coral;" class="fs-6" ><?php echo $lang['sellOrRent'] ?></label><br>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Owner">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Rent">
           <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
         </div>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="Broker">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Sell">
           <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
         </div>
         </div>

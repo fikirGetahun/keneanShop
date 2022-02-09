@@ -207,11 +207,11 @@ function reload(x){
 <?php 
   if(isset($_GET['cat'])){
     // this category lister exclude the hometutor and zebegna because thy dont have the type colomen
-    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog'){
+    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog' && ( isset($_GET['type'])) && $_GET['type'] != 'land' ){
       ?>
  
-
   <div class="col-3">
+
         <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01" onchange="location = this.value;" >
               <option><?php if(isset($_GET['dbType'])){ echo $_GET['dbType']; }else{ echo $lang['Category']; } ?></option>
       
@@ -261,10 +261,17 @@ function reload(x){
 
 </select>
   </div>
-  <div class="input-group mb-3 col-3">
+
+<?php
+    }if(isset($_GET['cat'])){
+      ?>
+        <div class="input-group mb-3 col-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"><?php echo $lang['location'] ?></span>
+        </div>
         <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01"  onchange="reload(this.value)" >
-          <option selected > <?php echo $_SESSION['location'] ?></option>
-          <option value="All"  > All</option>
+          <option selected >  <?php echo $_SESSION['location'] ?></option>
+          <option value="All"> All </option>
           <?php
             foreach($city as $loc){
               ?>
@@ -280,9 +287,11 @@ function reload(x){
           ?>
         </select>
   </div>
-
-<?php
-    }elseif($_GET['cat'] == 'blog'){ // blog is not seted up yet
+      <?php
+    }
+    
+    
+    elseif($_GET['cat'] == 'blog'){ // blog is not seted up yet
       echo 'not yet';
     }
 
@@ -527,6 +536,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 <!-- <div id="accordion" class="col-2"> -->
 
 <!-- </div> -->
+<!-- this is the main listed dysplay of the posts tha above is the filters -->
  
   <div id="loop" class="col-md-12">
     <?Php
@@ -662,8 +672,19 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
                 <div class="post-details">
 
-                  <h5 class="card-title">  <?php echo $row['title'] ?></h5>
+                  <h5 class="card-title">  <?php echo $row['title'];
+                                // car year made display
+                                if($cat == 'car'){
+                                  ?>
+                                  <span class="text-success small"> Model <?php echo $row['status'] ?> </span>
+                                  <?php
+                                }
+                  
+                  ?></h5>
+          
                   <?php 
+
+
                   if($cat != 'charity'){
     ?>
                   <h6 class="card-text"><span class="text-danger small"><?php echo $row['price'] ?> Birr</span> </h6>

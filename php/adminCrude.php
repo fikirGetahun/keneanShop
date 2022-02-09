@@ -320,6 +320,7 @@ echo $mysql->error;
              '$price','$info','$forRentOrSell', '$postStatus', '$postDate',
              '$transmission', '$bodyStatus', '$km', '$ob', '$forWho', '$rentStatus', '$whyRent', '$ad' )";
 
+    echo $mysql->error;
             $ask = $mysql->query($q);
 
             return $ask;
