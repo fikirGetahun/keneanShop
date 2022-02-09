@@ -4,6 +4,8 @@
   require_once '../php/fetchApi.php';
 ?>
 <body>
+
+<div id="mememe">
     <?php
 
     if(isset($_GET['list'])){
@@ -19,7 +21,7 @@
             ?>
             <div id="adVieww" class="col-md-4">
             <div class="card mb-4 box-shadow">
-            <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+            <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">      
               <div class="card-body">
                 <p class="card-text"><?php echo $row['name'] ?></p>
                 <!-- <p class="card-text"><?php echo $row['price'] ?> Birr</p> -->
@@ -27,7 +29,7 @@
                   <div class="btn-group">
                     <a href="#viewDiscription" onclick="adView(<?php echo $row['id'] ?>)"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
                   </div>
-                  <small class="text-muted">9 mins</small>
+                  <!-- <small class="text-muted">9 mins</small> -->
                 </div>
               </div>
             </div>
@@ -41,7 +43,7 @@
         }
     
     ?>
-
+</div>
 </body>
 
 
