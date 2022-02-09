@@ -639,6 +639,11 @@ if(isset(
   $phone=$_POST['phone'];
   $pid = $_POST['postId'];
   $workStat=$_POST['workStat'];
+  $exp = $_POST['experience'];
+  $workType = $_POST['workType'];
+  $bidp = $_POST['bidp'];
+  $legalWp = $_POST['legalWp'];
+  $agentInfo = $_POST['agentInfo'];
   
 
     $out = $admin->zebegnaPostUpdate($name, $sex, $age, $address, $phone, $workStat, $pid);

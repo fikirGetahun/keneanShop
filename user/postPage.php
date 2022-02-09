@@ -655,12 +655,12 @@ elseif($_GET['type'] == 'house'){
         </div>
 
 
-        <div class="form-group">
-              <label for="exampleInputEmail1"><?php echo $lang['title'] ?></label>
-              <input type="text" class="form-control" id="nameTitle" 
+        <!-- <div class="form-group"> -->
+              <!-- <label for="exampleInputEmail1"><?php echo $lang['title'] ?></label> -->
+              <input type="text" hidden class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
-            </div>
-            <script src="../assets/jquery.js"></script>
+            <!-- </div> -->
+            <!-- <script src="../assets/jquery.js"></script> -->
 
         
 <div id="houseTypeLoader"></div>
@@ -765,12 +765,29 @@ foreach($categorySort as $sorted){
 
         
 
-             <div class="form-group">
-              <!-- <label for="exampleInputEmail1"><?php echo $lang['Wereda'] ?> :</label> -->
-              <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="wereda" placeholder="<?php echo $lang['Wereda'] ?> ">
-            </div>
+ 
+      <!-- kebele list -->
+      <div class="form-group">
+        <select class="form-select" aria-label="Default select example" name="wereda"  id="inputGroupSelect01">
+          <option ><?php echo $lang['Wereda'] ?></option>
+          <?php 
+             for($y=1;$y<=30;$y++){
+               if($y <= 9 ){
+                 ?>
+                 <option value="<?php echo $y ?>"><?php echo '0'.$y ?></option>
+                 <?php
+               }else{
+                ?>
+                <option value="<?php echo $y ?>"><?php echo $y ?></option>
+                <?php
+               }
 
+            }
+          ?>
+          
+
+        </select>
+        </div>
 
 
             <div class="form-group">
@@ -959,12 +976,11 @@ foreach($categorySort as $sorted){
 
 
 
-        <div class="form-group">
-              <label for="exampleInputEmail1"><?php echo $lang['title'] ?></label>
-              <input type="text" class="form-control" id="nameTitle" 
+        <!-- <div class="form-group"> -->
+               <input type="text" hidden class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
-            </div>
-            <script src="../assets/jquery.js"></script>
+            <!-- </div> -->
+            <!-- <script src="../assets/jquery.js"></script> -->
 
         
 <div id="houseTypeLoader"></div>
@@ -1093,7 +1109,7 @@ foreach($categorySort as $sorted){
         <div class="form-group">
           <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Description'] ?>"></textarea>
+          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
         </div>
 
         <div class="row">
@@ -1417,15 +1433,15 @@ if($_GET['type'] == 'vacancy'){
 
 <div id="cont" class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+      <div class="modal-header" style="background-color: navy;" >
+        <h5 class="modal-title" style="color: yellow;" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
         <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
       </div>
             <div class="modal-body">
 
             <section class="section">
           <div class="pagetitle">
-          <h5><?php echo $lang['vacancyPost'] ?></h5>
+       
 
         </div><!-- End Page Title -->
 
@@ -1434,7 +1450,7 @@ if($_GET['type'] == 'vacancy'){
         <form id="vacancyForm" action="postPage.php"  method="POST" >
           <input hidden name="uid" value="<?php echo $_SESSION['userId'] ?>">
         <div class="form-group">
-          <label for="exampleInputEmail1"><?php echo $lang['companyName'] ?></label>
+           
           <input type="text" class="form-control" id="companyName" 
           aria-describedby="emailHelp" name="companyName" placeholder="<?php echo $lang['companyName'] ?>">
         </div>
@@ -1491,8 +1507,7 @@ if($_GET['type'] == 'vacancy'){
 
        
         <div class="form-group">
-          <label for="exampleInputEmail1"><?php echo $lang['jobTitle'] ?></label>
-          <input type="text" class="form-control" id="jobTitle" 
+           <input type="text" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="jobTitle" placeholder="<?php echo $lang['jobTitle'] ?>">
         </div>
         <div class="input-group mb-3">
@@ -1528,20 +1543,17 @@ if($_GET['type'] == 'vacancy'){
           aria-describedby="emailHelp" name="Deadline" placeholder="<?php echo $lang['appDead'] ?>">
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1"><?php echo $lang['requierdPositionNo'] ?></label>
-          <input type="number" class="form-control" id="jobTitle" 
+           <input type="number" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="reqNo" placeholder="<?php echo $lang['requierdPositionNo'] ?>">
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1"><?php echo $lang['phone'] ?></label>
-          <input type="number" class="form-control" id="jobTitle" 
+           <input type="number" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1"><?php echo $lang['Salary'] ?>: </label>
-          <input type="number" class="form-control" id="jobTitle" 
+           <input type="number" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="salary" placeholder="<?php echo $lang['Salary'] ?>">
         </div>
 
@@ -1596,7 +1608,7 @@ if($_GET['type'] == 'vacancy'){
         <div class="form-group">
           <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="description" placeholder="<?php echo $lang['Description'] ?>"></textarea>
+          aria-describedby="emailHelp" name="description" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
         </div>
 
 
@@ -2194,9 +2206,9 @@ if($_GET['type'] == 'hotelWorker'){
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1"> <?php echo $lang['labelPrice'] ?>:</label>
+          <label for="exampleInputEmail1"> <?php echo $lang['Salary'] ?>:</label>
           <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Price'] ?>">
+          aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Salary'] ?>">
          </div>
 
          <div class="form-group">
@@ -2323,8 +2335,7 @@ if($_GET['type'] == 'zebegna'){
           <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
 
           <div class="form-group">
-          <label for="exampleInputEmail1"><?php echo $lang['fullName'] ?></label>
-          <input type="text" class="form-control" id="nameTitle" 
+           <input type="text" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="name" placeholder="<?php echo $lang['fullName'] ?>">
            </div>
 
@@ -2338,13 +2349,12 @@ if($_GET['type'] == 'zebegna'){
           </div>
 
           <div class="form-group">
-          <label for="exampleInputEmail1"><?php echo $lang['Age'] ?></label>
-          <input type="number" class="form-control" id="nameTitle" 
+            <input type="number" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="age" placeholder="<?php echo $lang['Age'] ?>">
          </div>
 
         <div  class="input-group mb-3" >
-        <select  class="form-select" aria-label="Default select example" name="location" id="">
+        <select  class="form-select" aria-label="Default select example" name="address" id="">
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -2378,7 +2388,7 @@ if($_GET['type'] == 'zebegna'){
         <div class="input-group mb-3">
  
         <select class="form-select" aria-label="Default select example" name="workStat" id="inputGroupSelect01">
-          <option selected><?php echo $lang['workStatus'] ?></option>
+          <option selected><?php echo $lang['workPos'] ?></option>
           <option value="All"><?php echo $lang['all'] ?></option>
           <option value="Company"><?php echo $lang['Company'] ?></option>
           <option value="Full Day"><?php echo $lang['private'] ?></option>
@@ -2390,11 +2400,63 @@ if($_GET['type'] == 'zebegna'){
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1"><?php echo $lang['phone'] ?>:</label>
-          <input type="number" class="form-control" id="nameTitle" 
+           <input type="number" class="form-control" id="nameTitle" 
           aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
          </div>
 
+
+         <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['Experience'] ?></label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="experience" placeholder="<?php echo $lang['Experience'] ?>"></textarea>
+         </div>
+
+         <div class="input-group mb-3">
+ 
+        <select class="form-select" aria-label="Default select example" name="workType" id="inputGroupSelect01">
+          <option selected><?php echo $lang['workHour'] ?></option>
+          <option value="Half Day"><?php echo $lang['halfDay'] ?></option>
+          <option value="Full Day"><?php echo $lang['fullDay'] ?></option>
+          <option value="Monthly"><?php echo $lang['Monthly'] ?></option>
+
+        </select>
+        </div>
+
+        <div class="form-group">
+           <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Salary'] ?>">
+         </div>
+
+
+
+        <h6><?php echo $lang['weaponQ'] ?></h6>
+
+<div class="form-check form-check-inline">
+  <input class="form-check-input" required type="radio" name="legalWp" id="inlineRadio1" value="YES">
+  <label class="form-check-label" for="inlineRadio1"><?php echo $lang['yes'] ?></label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" required type="radio" name="legalWp" id="inlineRadio2" value="NO">
+  <label class="form-check-label" for="inlineRadio2"><?php echo $lang['no'] ?></label>
+</div>
+
+        <h6><?php echo $lang['bidingPersonQ'] ?></h6>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" required type="radio" name="bidp" id="inlineRadio1" value="YES">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['yes'] ?></label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" required type="radio" name="bidp" id="inlineRadio2" value="NO">
+          <label class="form-check-label" for="inlineRadio2"><?php echo $lang['no'] ?></label>
+        </div>
+
+        <div class="form-group">
+        <h6 style="color: coral;" > <?php echo $lang['agentInfoQ'] ?></h6>
+
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="agentInfo" placeholder="<?php echo $lang['agentInfo'] ?>"></textarea>
+        </div>
 
 
         <div class="row">

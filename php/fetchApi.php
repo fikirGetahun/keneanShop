@@ -146,6 +146,22 @@ class fetch{
         }
 
 
+
+
+        /// 5 columemn
+        function allPostListerOn5ColumenD($table, $columen, $args, $columen2, $args2, $columen3, $args3, $columen4, $args4, $columen5, $args5, $limitStart, $limitEnd){
+            include "connect.php";
+            $q2 = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' AND `$columen4` = '$args4' AND `$columen5` = '$args5'  ORDER BY `postedDate` DESC";
+            $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' AND `$columen4` = '$args4' AND `$columen5` = '$args5'    ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";
+    
+            $ask2 = $mysql->query($q2);
+            $ask = $mysql->query($q);
+            echo $mysql->error;
+    
+            return array($ask, $ask2);
+        }
+
+
         //// to fetch data from a tabel and 5 colomen condition
         function allPostListerOn5Columen($table, $columen, $args, $columen2, $args2,
          $columen3, $args3, $columen4, $args4, $columen5, $args5  ){

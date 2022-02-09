@@ -58,88 +58,55 @@ $endPage =  $content_per_page;
   ///////////////////////////////////////////////////////////////
   if($ty == 'tender'){
 
-    $data = $admin->tenderPostCounter();
-    while($row = $data->fetch_assoc()){
+    $data = $get->allPostListerOnTableD('tender', $startPage, $endPage);
+    while($row = $data[0]->fetch_assoc()){
         if(!in_array($row['id'],$idArr)){
             $idArr[]= $row['id']; 
         ?>
-        <h6>Tender Post</h6>
-        <?php
-        $date1 = date('Y/m/d');
-        $date2 = $row['deadLine'];
-        // Calculating the difference in timestamps
-        $diff = strtotime($date2) - strtotime($date1);
-    
-        // 1 day = 24 hours
-        // 24 * 60 * 60 = 86400 seconds
-        $difff= abs(round($diff / 86400));
-        
-        if($difff < 3 ){
-            ?>
-            <div class="card mb-3" style="max-width: 540px; box-shadow:  10px 10px red; ">
-            <div class="row g-0">
-                <div class="col-md-4">
-                <?php 
-                $p = $admin->photoSplit($row['photoPath1']);
-                if(!empty($p)){
-                  ?>
-                  <img src="<?php echo $p[0]; ?>" class="img-fluid rounded-start" alt="...">
-                  <?php
-                }if(empty($row['photoPath1'])){
-                  ?>
-                  <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
-                  <?php
-                }
+ <h6>Tender Post</h6>
+                <?php
+                $date1 = date('Y/m/d');
+                $date2 = $row['deadLine'];
+                // Calculating the difference in timestamps
+                $diff = strtotime($date2) - strtotime($date1);
+            
+                // 1 day = 24 hours
+                // 24 * 60 * 60 = 86400 seconds
+                $difff= abs(round($diff / 86400));
                 
-                ?> 
-                                        </div>
-                <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $row['title'] ?></h5>
-                    <p class="card-text"><?php echo $row['info'] ?></p>
-                    <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
-                </div>
-                <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="editTender('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
-                </div>
-            </div>
-            </div>
-            <?php
-        }else{
-
-        
-          
-        ?>
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                
-                <?php 
-                $p = $admin->photoSplit($row['photoPath1']);
-                if(!empty($p)){
-                  ?>
-                  <img src="<?php echo $p[0]; ?>" class="img-fluid rounded-start" alt="...">
-                  <?php
-                }if(empty($row['photoPath1'])){
-                  ?>
-                  <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
-                  <?php
-                }
-                
-                ?> 
-                
-
-                </div>
-                <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $row['title'] ?></h5>
-                    <p class="card-text"><?php echo $row['info'] ?></p>
-                    <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
-                </div>
-                <a href="#vacancyPost"+'<?php echo $row['id']; ?>'" onclick="editTender('<?php echo $row['id']; ?>')" ><button class="btn btn-dark"  >Edit</button></a>
-                </div>
-            </div>
-        </div>
-
+                if($difff < 3 ){
+                    ?>
+                    <div class="card mb-3" style="max-width: 540px; box-shadow:  10px 10px red; ">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        <?php 
+                        $p = $admin->photoSplit($row['photoPath1']);
+                        if(!empty($p)){
+                          ?>
+                          <img src="<?php echo $p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <?php
+                        }if(empty($row['photoPath1'])){
+                          ?>
+                          <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+                          <?php
+                        }
+                        
+                        ?> 
+                                                </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['title'] ?></h5>
+                            <p class="card-text"><?php echo $row['info'] ?></p>
+                            <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
+                            <a href="../<?php echo $website ?>?cat=tender&label=Tender%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
+                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User <?php echo $row['posterId'] ?>
+                            </a>   
+                        </div>
+                        </div>
+                    </div>
+                    </div>
         <?php
         array_push($_SESSION['scroll'], $row['id'] );
 
@@ -157,20 +124,19 @@ $endPage =  $content_per_page;
   if($ty == 'ad' ){
 
 
-    $ad = $admin -> postAdShower();
-    ?>
+    $ad = $get->allPostListerOnTableD('ad', $startPage, $endPage);    ?>
     <div class="row">
       <script>
 
       </script>
     <?php
-    while($row = $ad->fetch_assoc()){
+    while($row = $ad[0]->fetch_assoc()){
 
       if(!in_array($row['id'],$idArr)){
         $idArr[]= $row['id']; 
         ?>
 
-        
+                
         <div id="adVieww" class="col-md-4">
       <div class="card mb-4 box-shadow">
         <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
@@ -178,15 +144,16 @@ $endPage =  $content_per_page;
           <p class="card-text"><?php echo $row['title'] ?></p>
           <p class="card-text"><?php echo $row['price'] ?> Birr</p>
           <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <a href="#viewDiscription" onclick="adView(<?php echo $row['id'] ?>)"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
-              <button type="button" onclick="adEdit(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
-            </div>
-            <small class="text-muted">9 mins</small>
+          <a href="../<?php echo $website ?>?cat=ad&postId=<?php echo $row['id'] ?>&label=Advertisment%20Post&type=product" >View</a>
+          <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+              <i class="bi-cart-fill me-1"></i>
+              View User <?php echo $row['posterId'] ?>
+          </a>   
           </div>
         </div>
       </div>
     </div>
+
 
         <?php
     array_push($_SESSION['scroll'], $row['id'] );  

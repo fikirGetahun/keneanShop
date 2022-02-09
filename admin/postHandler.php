@@ -424,7 +424,7 @@ if($up[4] == 'error'){
 //zebegna post adder handler api
 if(isset(
   $_POST['name'], $_POST['sex'], $_POST['age'],
-   $_POST['address'], $_POST['workStat'], $_POST['phone'], $_FILES['photo'], $_POST['posterId']
+   $_POST['address'], $_POST['workStat'], $_POST['phone'], $_FILES['photo'], $_POST['posterId'], $_POST['experience'], $_POST['workType'], $_POST['bidp'], $_POST['legalWp'], $_POST['agentInfo'], $_POST['price']
 )){
 
   $name =$_POST['name'];
@@ -435,6 +435,12 @@ if(isset(
   $fileVar = $_FILES['photo'];
   $pid = $_POST['posterId'];
   $workStat=$_POST['workStat'];
+  $exp = $_POST['experience'];
+  $workType = $_POST['workType'];
+  $bidp = $_POST['bidp'];
+  $legalWp = $_POST['legalWp'];
+  $agentInfo = $_POST['agentInfo'];
+  $salary = $_POST['price'];
   
   $up = $admin->uploadSinglePhoto('zebegna', $fileVar);
 
@@ -443,9 +449,9 @@ if(isset(
     print_r($up);
   }else{
 
-    $out = $admin->zebegnaPostAdder($name, $sex, $age, $address, $phone, $up[0], $workStat, $pid);
+    $out = $admin->zebegnaPostAdder($name, $sex, $age, $address, $phone, $up[0], $workStat, $pid, $agentInfo, $legalWp, $bidp, $workType, $exp, $salary );
     if($out){
-      echo 'Post Success';
+      echo 'Post Success'; 
     }else{
       echo 'Error on posting';
     }

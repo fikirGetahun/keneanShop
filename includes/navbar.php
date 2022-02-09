@@ -6,13 +6,6 @@
     session_start(); 
   } 
 
-  //location changer
-if(isset($_GET['loc'])){
-  $_SESSION['location'] = $_GET['loc'];
-}else{
-  $_SESSION['location'] = 'All';
-}
-
   if(!isset($_SESSION['location'] )){
     $_SESSION['location'] = 'All';
   }
@@ -240,26 +233,26 @@ function reload(x){
 
               ?> 
         
-        <li class="nav-item dropdown" style="z-index: 3;">
+        <!-- <li class="nav-item dropdown" style="z-index: 3;">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="small"> <?php echo $lang['location'] ?>: </span>
             <span id="pgad" class="small"><?php  echo $_SESSION['location']; ?></span>
 
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" onclick="reload('All')">All</a>
+            <a class="dropdown-item" onclick="reload('All')">All</a> -->
           <?php
-            foreach($city as $loc){
-              ?>
+            // foreach($city as $loc){
+            //   ?>
               
-              <a  class="dropdown-item" onclick="reload('<?php echo $loc;  ?>')" >  <?php echo $loc ?></a>
+            <!-- //   <a  class="dropdown-item" onclick="reload('<?php echo $loc;  ?>')" >  <?php echo $loc ?></a> -->
             
-              <?php
-              $i++;
-            }
+             <?php
+            //   $i++;
+            // }
           ?>
-          </ul>
-        </li>
+          <!-- </ul>
+        </li> -->
       </ul>
 
       <form  class="d-flex">

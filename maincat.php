@@ -142,8 +142,8 @@ function reload(x){
     type: 'GET',
     data: {loc : x},
     success: function (xx) { 
-      alert('loc')
-      window.location.reload()
+      // alert(xx)
+   window.location.reload()
      }
   })
 
@@ -169,7 +169,7 @@ function reload(x){
 </head>
 <body>
 
-<div id="all" class="container-fluid">
+<div id="all" class="container">
 
 <div class="row">
 
@@ -262,15 +262,19 @@ function reload(x){
 </select>
   </div>
   <div class="input-group mb-3 col-3">
-        <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01" onchange="location = this.value;" >
+        <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01"  onchange="reload(this.value)" >
           <option selected > <?php echo $_SESSION['location'] ?></option>
+          <option value="All"  > All</option>
           <?php
             foreach($city as $loc){
               ?>
               
-              <label onclick="reload('<?php echo $loc;  ?>')" ><?php echo $loc ?><option value="<?php echo  $_SERVER['REQUEST_URI']?>&loc=<?php echo $loc?>" > <?php echo $loc ?></option></label>
+              <!-- <label onclick="reload('<?php echo $loc;  ?>')" ><?php echo $loc ?><option value="<?php echo  $_SERVER['REQUEST_URI']?>&loc=<?php echo $loc?>" > <?php echo $loc ?></option></label> -->
             
+              <option value="<?php echo $loc ?>" > <?php echo $loc ?></option>
+
               <?php
+
               $i++;
             }
           ?>
@@ -387,24 +391,28 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 <?php  
 }
 
-    if($_GET['cat'] == 'housesell' ){
+    if($_GET['cat'] == 'housesell' &&  $_SESSION['location'] != 'All' ){ // if 'all' is chosen as a country the subcity and kebele wont appear.
       ?>
  
-    <div class="input-group mb-3 col-3">
-        <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location = this.value;"  >\
-        <option><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];}else{  echo $lang['subCity']; }  ?></option>
 
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" aria-expanded="false" data-parent="#accordion">
-      <div class="card-body">
-      <div class="row">
-    <div class="list-group" id="list-tab" role="tablist">
+
+ 
     <?php
-        $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
+        $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $_SESSION['location']);
         $city = array();
+        /// to check if the city chossen has a subcity if it has it goes through but if it hasent, then it doesnt appear
+        if($locc->num_rows != 0){
+          ?>
+          
+          <div class="input-group mb-3 col-3">
+        <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location = this.value;"  >
+        <option><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];}else{  echo $lang['subCity']; }  ?></option>
+          <?php
         while($rowLoc = $locc->fetch_assoc()){
             $city[]= $rowLoc['category'];
         }
+        
         sort($city);
         $i = 0;
         foreach($city as $loc){
@@ -457,10 +465,42 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
           <?php
           $i++;
         }
+        ?>
+              </select>
+    </div>
+        <?php
+      }
       ?>
 
-      </select>
-    </div>
+
+
+      <!-- kebele list -->
+      <div class="input-group mb-3 col-3">
+        <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location=this.value"  >
+          <option ><?php if(isset($_GET['dyArg2'])){ echo $_GET['dyArg2'];}else{  echo $lang['Wereda']; }?> <option>
+          <?php 
+             for($y=1;$y<=30;$y++){
+               if($y <= 9 ){
+                if(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'house' ){
+                 ?>
+                 <option value="./maincat.php?cat=housesell&type=house&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol2=wereda&dyArg2=<?php echo $y?>&dyCol=subCity&dyArg=<?php echo $_GET['dyArg']?>"><?php echo '0'.$y ?></option>
+                 <?php
+                }
+               }else{
+                if(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'house' ){
+                ?>
+                <option value="./maincat.php?cat=housesell&type=house&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol2=wereda&dyArg2=<?php echo $y?>&dyCol=subCity&dyArg=<?php echo $_GET['dyArg']?>"><?php echo $y ?></option>
+                <?php
+                }
+               }
+
+            }
+          ?>
+          
+
+        </select>
+        </div>
+
     </div>
       </div>
  
@@ -484,11 +524,11 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
   </div>
   
 
-<div id="accordion" class="col-2">
+<!-- <div id="accordion" class="col-2"> -->
 
-</div>
+<!-- </div> -->
  
-  <div id="loop" class="col-md-10">
+  <div id="loop" class="col-md-12">
     <?Php
 
       if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){
@@ -633,12 +673,13 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                   $date = $get->time_elapsed_string($row['postedDate']);
                   
                   ?>
-                  <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
+
+                  <h6 class="card-text"><i class="bi bi-geo-alt"></i> <?php echo $row['address'] ?></h6>
                   <div class="d-flex justify-content-between align-items-center">
                       
                   <span class="text-danger small"><?php echo $date ?></span>
 
-                  <small class="text-muted"><?php echo $row['view'] ?> views</small>
+                  
                   </div>
 
                 </div>
@@ -1058,7 +1099,28 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                   $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg, $startPage, $endPage);
                 }
               }
-              
+              elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
+                $dyCol = $_GET['dyCol'];
+                $dyArg = $_GET['dyArg'];
+                if(isset($_GET['search'])){ // if search is occured
+                  $search = $_GET['search'];
+                  $fetchPost = $get->search4C($cat,$dyCol, $dyArg, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                }else{
+                  $fetchPost = $get->allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg,'city', $_SESSION['location'], $startPage, $endPage);
+                }
+              }
+              elseif(isset($_GET['dyCol2'], $_GET['dyArg2'],$_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' ){ //dynamic colomen and arg with location selected
+                $dyCol = $_GET['dyCol'];
+                $dyArg = $_GET['dyArg'];
+                $dyCol2 = $_GET['dyCol2'];
+                $dyArg2 = $_GET['dyArg2'];
+                if(isset($_GET['search'])){ // if search is occured
+                  $search = $_GET['search'];
+                  $fetchPost = $get->search4C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $search, $startPage, $endPage);
+                }else{
+                  $fetchPost = $get->allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg, $dyCol2, $dyArg2, $startPage, $endPage);
+                }
+              }
               
               elseif($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
                 if(isset($_GET['search'])){ // if search is occured
@@ -1067,14 +1129,16 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 }else{
                   $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
                 }
-              }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
+              }elseif(isset($_GET['dyCol2'], $_GET['dyArg2'], $_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
+                $dyCol2 = $_GET['dyCol2'];
+                $dyArg2 = $_GET['dyArg2'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search4C($cat,$dyCol, $dyArg,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = $get->search5C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn4ColumenD($cat,$dyCol, $dyArg,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = $get->allPostListerOn5ColumenD($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
                 }
               }
               
@@ -1105,20 +1169,17 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
                 <div class="card-body">
-                  <h5 class="card-title">  <?php echo $row['title'] ?></h5>
+                  <h5 class="card-title">  <?php echo $row['type'] ?></h5>
+                  <h6><?php echo $row['forRentOrSell'] ?></h6>
+                  <h6 class="card-text"><span class="text-danger small"><?php echo $row['cost'] ?> Birr</span> </h6>
                   <?php 
-                  if($cat != 'charity'){
-    ?>
-                  <h6 class="card-text"><span class="text-danger small"><?php echo $row['cost'] ?></span> </h6>
 
-    <?php
-                  }
                   $date = $get->time_elapsed_string($row['postedDate']);
                   ?>
-                  <h6 class="card-text"> Location:  <?php echo $row['city'] ?></h6>
+                  <h6 class="card-text">   <?php echo $row['city'] ?> </h6>
                   <div class="d-flex justify-content-between align-items-center">
                   <span class="text-danger small"><?php echo $date ?></span>
-                      <small class="text-muted"><?php echo $row['view'] ?> views</small>
+                      
 
                   </div>
                   
@@ -1262,7 +1323,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                   <h6 class="card-text"> Location:  <?php echo $row['city'] ?></h6>
                   <div class="d-flex justify-content-between align-items-center">
                   <span class="text-danger small"><?php echo $date ?></span>
-                      <small class="text-muted"><?php echo $row['view'] ?> views</small>
+                      
 
                   </div>
                 </div>
@@ -1473,7 +1534,6 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
                 <div class="d-flex justify-content-between align-items-center">
                 <span class="text-danger small"><?php echo $date ?></span>
-                <span class="text-muted"><?php echo $row['view'] ?> views</span>         
 
                 </div>
 

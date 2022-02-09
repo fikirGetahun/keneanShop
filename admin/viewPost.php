@@ -247,8 +247,8 @@ $website = "shop2/Description.php";
             
             }
         }elseif($_GET['type'] == 'tender'){
-            $data = $admin->tenderPostCounter();
-            while($row = $data->fetch_assoc()){
+          $data = $get->allPostListerOnTableD('tender', 1, 6);
+            while($row = $data[0]->fetch_assoc()){
                 ?>
                 <h6>Tender Post</h6>
                 <?php
@@ -339,14 +339,14 @@ $website = "shop2/Description.php";
             }
         }
     }elseif($_GET['type'] == 'ad'){
-            $ad = $admin -> postAdShower();
+            $ad = $get->allPostListerOnTableD('ad', 1, 6);
             ?>
             <div class="row">
               <script>
 
               </script>
             <?php
-            while($row = $ad->fetch_assoc()){
+            while($row = $ad[0]->fetch_assoc()){
                 ?>
 
                 
@@ -373,12 +373,12 @@ $website = "shop2/Description.php";
             </div>
             <?php
     }elseif($_GET['type'] == 'car'){
-        $carOut = $admin->carPostLister();
+        $carOut = $get->allPostListerOnTableD('car', 1, 6)
         ?>
         <div class="row">
         <?php
         
-        while($cars = $carOut->fetch_assoc()){
+        while($cars = $carOut[0]->fetch_assoc()){
             ?>
             
                 
@@ -389,10 +389,10 @@ $website = "shop2/Description.php";
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
                   <div class="d-flex justify-content-between align-items-center">
-                  <a href="../<?php echo $website ?>?cat=car&postId=<?php echo $row['id'] ?>&label=Cars%20For%20Sell&type=" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                  <a href="../<?php echo $website ?>?cat=car&postId=<?php echo $cars['id'] ?>&label=Cars%20For%20Sell&type=" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $cars['posterId'] ?>')"   >
                       <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
+                      View User <?php echo $cars['posterId'] ?>
                   </a> 
                   </div>
                 </div>
@@ -425,10 +425,10 @@ $website = "shop2/Description.php";
                   <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
                   <h6><?php echo $cars['cost'] ?> Birr</h6>
                   <div class="d-flex justify-content-between align-items-center">
-                  <a href="../<?php echo $website ?>?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House%20Posts" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                  <a href="../<?php echo $website ?>?cat=housesell&type=house&postId=<?php echo $cars['id'] ?>&label=House%20Posts" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $cars['posterId'] ?>')"   >
                       <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
+                      View User <?php echo $cars['posterId'] ?>
                   </a> 
                   </div>
                 </div>
@@ -471,10 +471,10 @@ $website = "shop2/Description.php";
                 <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
                 <h6><?php echo $cars['price'] ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
-                <a href="../<?php echo $website ?>?cat=electronics&postId=<?php echo $row['id'] ?>&label=Electronics%20Post&type=" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                <a href="../<?php echo $website ?>?cat=electronics&postId=<?php echo $cars['id'] ?>&label=Electronics%20Post&type=" >View</a>
+                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $cars['posterId'] ?>')"   >
                       <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
+                      View User <?php echo $cars['posterId'] ?>
                   </a> 
                 </div>
               </div>
