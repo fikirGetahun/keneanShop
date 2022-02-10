@@ -775,7 +775,7 @@ foreach($categorySort as $sorted){
              for($y=1;$y<=30;$y++){
                if($y <= 9 ){
                  ?>
-                 <option value="<?php echo $y ?>"><?php echo '0'.$y ?></option>
+                 <option value="<?php echo '0'.$y ?>"><?php echo '0'.$y ?></option>
                  <?php
                }else{
                 ?>

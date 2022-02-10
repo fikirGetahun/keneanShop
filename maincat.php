@@ -1155,7 +1155,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 }else{
                   $fetchPost = $get->allPostListerOn2ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $startPage, $endPage);
                 }
-              }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' ){ //dynamic colomen and arg with location selected
+              }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' && !isset($_GET['dyCol2'], $_GET['dyArg2']) ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
@@ -1165,7 +1165,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                   $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg, $startPage, $endPage);
                 }
               }
-              elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
+              elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' && !isset($_GET['dyCol2'], $_GET['dyArg2']) ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
@@ -1188,7 +1188,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 }
               }
               
-              elseif($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
+              elseif($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) && !isset($_GET['dyCol2'], $_GET['dyArg2']) ){
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
                   $fetchPost = $get->search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);

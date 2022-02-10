@@ -144,15 +144,15 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 
  
 for($z=0;$z<14;$z++){
-  $r = rand(0,4);
-  $tab = $dbTables[$r];
+  $r = rand(0,4); 
+  $tab = $dbTables[$r];// to choose random table to fetch data off
   // echo $tab;
   if($pageLocation != 'All'){
-    $home = $get->allPostListerOnColumen($tab,'address', $pageLocation);
+    $home = $get->allPostListerOnColumen($tab,'address', $pageLocation); // if city is not all, then a city is selected so it always fetch data based on a city
   }else{
-    $home = $get->allPostListerOnTable($tab);
+    $home = $get->allPostListerOnTable($tab); // it fetches data from all city
   }
-  if($home->num_rows != 0){
+  if($home->num_rows != 0){  // if only a result occurs
   $i1= 1;
   while($row12 = $home->fetch_assoc()){
     
