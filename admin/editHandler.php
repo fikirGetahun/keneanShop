@@ -325,11 +325,13 @@ if(isset(
           if(isset(
             $_POST['bedRoomNo'],
             $_POST['bathRoomNo'],
-            $_POST['type']
+            $_POST['type'],
+            $_POST['spArea']
           )){
             $bedRoomNo = $_POST['bedRoomNo'];
             $bathRoomNo = $_POST['bathRoomNo'];
             $type = $_POST['type'];
+            $spArea = $_POST['spArea'];
           }
           $title = $_POST['title'];
           $houseOrLand =$_POST['houseOrLand'];
@@ -368,7 +370,7 @@ if(isset(
     
           
           $outH = $admin->updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
-          $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId, $ob );
+          $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId, $ob, $spArea );
           
           if($outH){
             echo 'Posted Successfully';

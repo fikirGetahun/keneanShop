@@ -255,15 +255,18 @@ if(isset(
       $bedRoomNo = ' ';
       $bathRoomNo = ' ';
       $type = " ";
+      $spArea = " ";
       
       if(isset(
         $_POST['bedRoomNo'],
         $_POST['bathRoomNo'],
-        $_POST['type']
+        $_POST['type'],
+        $_POST['spArea']
       )){
         $bedRoomNo = $_POST['bedRoomNo'];
         $bathRoomNo = $_POST['bathRoomNo'];
         $type = $_POST['type'];
+        $spArea = $_POST['spArea'];
       }
       $title = $_POST['title'];
       $houseOrLand =$_POST['houseOrLand'];
@@ -287,7 +290,7 @@ if(isset(
       }else{
         $outH = $admin->addHouseOrLandPost($title, $type, $houseOrLand, $city, $subCity, $wereda,
         $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info,
-         $posterId, $up[0], $ob );
+         $posterId, $up[0], $ob, $spArea );
         
          echo 'Post Succesfully!';
       }

@@ -57,7 +57,8 @@ $(document).ready(function(){
                     this.reset();
               });
               $('#alertVacancy').text(data)
-              // $('#alertVacancy').delay(5200).fadeOut(300);
+              $('#alertVacancy').delay(5200).fadeOut(1000);
+              location.reload()
             },
             processData: false,
         contentType: false
@@ -789,6 +790,14 @@ foreach($categorySort as $sorted){
         </select>
         </div>
 
+        <div class="form-group">
+              <!-- <label for="exampleInputEmail1"><?php echo $lang['spArea'] ?> : </label> -->
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="spArea" placeholder="<?php echo $lang['enArea'] ?>">
+            </div>
+
+
+
 
             <div class="form-group">
               <!-- <label for="exampleInputEmail1"><?php echo $lang['Area'] ?> : </label> -->
@@ -976,10 +985,10 @@ foreach($categorySort as $sorted){
 
 
 
-        <!-- <div class="form-group"> -->
-               <input type="text" hidden class="form-control" id="nameTitle" 
+        <div class="form-group">
+               <input type="text"  class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
-            <!-- </div> -->
+            </div>
             <!-- <script src="../assets/jquery.js"></script> -->
 
         
@@ -987,14 +996,9 @@ foreach($categorySort as $sorted){
 
 
 <div id="subCityBox" class="input-group mb-3">
-        <div class="input-group-prepend">
-        </div>
-        <select id="subCity" class="form-select" aria-label="Default select example" name="type" id="inputGroupSelect01">
-          <option value=" "><?php echo $lang['landType'] ?></option>
-          <option value="women">Jemo</option>
-          <option value="men">4 kilo</option>
-          <option value="otherSubCity">Other</option>          
-        </select>
+ 
+<input type="text"  class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="type" placeholder="<?php echo $lang['landType'] ?>">
         </div>
 
 
@@ -1067,12 +1071,28 @@ foreach($categorySort as $sorted){
 
 
 
-        <div class="form-group">
-              <label for="exampleInputEmail1"><?php echo $lang['Wereda'] ?> :</label>
-              <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="wereda" placeholder="<?php echo $lang['Wereda'] ?> ">
-            </div>
+      <!-- kebele list -->
+      <div class="form-group">
+        <select class="form-select" aria-label="Default select example" name="wereda"  id="inputGroupSelect01">
+          <option ><?php echo $lang['Wereda'] ?></option>
+          <?php 
+             for($y=1;$y<=30;$y++){
+               if($y <= 9 ){
+                 ?>
+                 <option value="<?php echo $y ?>"><?php echo '0'.$y ?></option>
+                 <?php
+               }else{
+                ?>
+                <option value="<?php echo $y ?>"><?php echo $y ?></option>
+                <?php
+               }
 
+            }
+          ?>
+          
+
+        </select>
+        </div>
 
 
             <div class="form-group">
@@ -1553,15 +1573,16 @@ if($_GET['type'] == 'vacancy'){
         </div>
 
         <div class="form-group">
-           <input type="number" class="form-control" id="jobTitle" 
-          aria-describedby="emailHelp" name="salary" placeholder="<?php echo $lang['Salary'] ?>">
+          <label><?php echo $lang['Salary'] ?></label>
+           <input type="text" class="form-control" id="jobTitle" 
+          aria-describedby="emailHelp" name="salary" placeholder=" <?php  echo $lang['salaryLable'] ?>">
         </div>
 
 
-        <div class="input-group mb-3">
+        <div hidden class="input-group mb-3">
         <div class="input-group-prepend">
         </div>
-        <select class="form-select" aria-label="Default select example" name="salaryStatus" id="inputGroupSelect01">
+        <select class="form-select" hidden aria-label="Default select example" name="salaryStatus" id="inputGroupSelect01">
           <option value=" "><?php echo $lang['salaryType'] ?></option>
           <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
           <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
@@ -1608,7 +1629,7 @@ if($_GET['type'] == 'vacancy'){
         <div class="form-group">
           <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="description" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
+          aria-describedby="emailHelp" name="description" placeholder="<?php echo $lang['jobDes'] ?>"></textarea>
         </div>
 
 
@@ -2021,7 +2042,7 @@ if($_GET['type'] == 'houseWorker'){
         <div class="form-group">
           <label for="exampleInputEmail1"><?php echo $lang['currentAddress2'] ?></label>
    
-          <select  class="form-select" aria-label="Default select example" name="address" id="">
+          <select  class="form-select" aria-label="Default select example" name="cAddress" id="">
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';

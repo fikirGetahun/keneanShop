@@ -109,14 +109,7 @@ if(isset($_POST['ban'], $_POST['id'])){
     }
 }
 
-//location changer
-if(isset($_GET['loc'])){
-    $_SESSION['location'] = $_GET['loc'];
-    echo 'in';
-  }else{
-    $_SESSION['location'] = 'All';
-    echo 'ina';
-  }
+
   
 
  // page number changer

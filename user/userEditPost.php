@@ -351,7 +351,7 @@ require_once "../php/adminCrude.php";
 
         <div class="form-group">
           <label for="exampleInputEmail1"><?php echo $lang['Salary'] ?>: </label>
-          <input type="number" class="form-control" id="jobTitle" 
+          <input type="text" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="salary" placeholder="phone number" value="<?php
                         $p = $admin->editVacancyPost($uidx);
                         $row = $p->fetch_assoc();
@@ -359,7 +359,7 @@ require_once "../php/adminCrude.php";
          </div>
 
 
-        <div class="form-group">
+        <!-- <div class="form-group">
         <label for="exampleInputEmail1"><?php echo $lang['salaryType'] ?>: </label>
 
         <select class="custom-select" name="salaryStatus" id="inputGroupSelect01">
@@ -371,7 +371,7 @@ require_once "../php/adminCrude.php";
           <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
           <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
         </select>
-        </div>
+        </div> -->
 
 
     <div class="form-group">
@@ -1302,6 +1302,13 @@ echo $tab;
           <option value="For Sell">For Sell</option>
         </select>
         </div>
+
+
+        <div class="form-group">
+              <!-- <label for="exampleInputEmail1"><?php echo $lang['spArea'] ?> : </label> -->
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="spArea" placeholder="<?php echo $lang['enArea'] ?>" value="<?php echo $houseRow['spArea'] ?>">
+            </div>
 
             <div class="form-group">
               <label for="exampleInputEmail1">Area :</label>

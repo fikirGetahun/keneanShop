@@ -362,16 +362,16 @@ echo $mysql->error;
 
         //house or land selles data adder block
         function addHouseOrLandPost($title,$type,$houseOrLand, $city, $subCity, $wereda,
-        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $posterId, $fName1, $ob){
+        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $posterId, $fName1, $ob, $spArea){
             include "connect.php";
             $postDate = date('Y-m-d H:i:s');
             $postStatus = 'ACTIVE';
             $q = "INSERT INTO `housesell`(`title`,`type`, `houseOrLand`, `city`, `subCity`, `wereda`, `area`,
              `bedRoomNo`, `bathRoomNo`, `cost`, `fixedOrN`, `forRentOrSell`, `info`, `posterId`,
-              `photoPath1`, `postedDate`, `postStatus`, `ownerBroker`)
+              `photoPath1`, `postedDate`, `postStatus`, `ownerBroker`, `spArea`)
              VALUES ('$title','$type','$houseOrLand', '$city', '$subCity', '$wereda',
          '$area', '$bedRoomNo', '$bathRoomNo', '$price', '$fixidOrN', '$forRentOrSell',
-        '$info', '$posterId', '$fName1', '$postDate', '$postStatus', '$ob')";
+        '$info', '$posterId', '$fName1', '$postDate', '$postStatus', '$ob', '$spArea')";
 
         $ask = $mysql->query($q);
         return $ask;
@@ -506,14 +506,14 @@ echo $mysql->error;
 
         //house update block
         function updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
-        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId, $ob ){
+        $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId, $ob, $spArea ){
             include "connect.php";
             $edited = 'YES';
             $postDate = date('Y-m-d H:i:s');
             $q = "UPDATE `housesell` SET `title`= '$title',`type`= '$type',`houseOrLand`= '$houseOrLand',
             `city`= '$city' ,`subCity`= '$subCity',`wereda`= '$wereda',`area`= '$area',
             `bedRoomNo`= '$bedRoomNo',`bathRoomNo`= '$bathRoomNo',`cost`= '$price',`fixedOrN`= '$fixidOrN',
-            `forRentOrSell`= '$forRentOrSell',`info`= '$info',`postedDate`='$postDate', `edited` = '$edited' , `ownerBroker` = '$ob'  WHERE `housesell`.`id` = '$postId'";
+            `forRentOrSell`= '$forRentOrSell',`info`= '$info',`postedDate`='$postDate', `edited` = '$edited' , `ownerBroker` = '$ob', `spArea` = '$spArea'  WHERE `housesell`.`id` = '$postId'";
 
             $ask = $mysql->query($q);
 

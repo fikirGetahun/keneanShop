@@ -992,11 +992,16 @@ if($_GET['cat'] == 'vacancy'){
         <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
         <div class="card">
                 <div class="card-header">
-                  <?php echo $row['type'] ?>
+                <h5 class="card-title"><?php echo $row['companyName'] ?></h5>
+
                   <?php 
                     $date = $get->time_elapsed_string($row['postedDate']);
                     // $sdate = $get->time_elapsed_string($row['startingDate']);
                     $dt = new DateTime($row['postedDate']);
+
+                    $dated=date_create($row['postedDate']);
+                    $exdate = date_format($dated,"F j, Y ");
+
 
                     $now = new DateTime();
                     $future_date = new DateTime($row['postedDate']);
@@ -1013,23 +1018,23 @@ if($_GET['cat'] == 'vacancy'){
                 <div class="card-body">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <h5 class="card-title"><?php echo $row['companyName'] ?></h5>
-                      
-                      <h5>Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></h5>
-                      <h5>Location: <?php echo $row['address'] ?></p></h5>
-                      <p><small class="text-muted">Phone: <?php echo $row['phone'] ?> </small></p>
+                      <h6>Deadline: <span class="text-danger"><?php echo $exdate ?></span></h6>
+                      <h6 class="card-title"> Category: <?php echo $row['type'] ?></h6>
+                      <h6 class="card-title"> Job Title : <?php echo $row['title'] ?></h6>
+                      <h6 class="card-title"> Type : <?php echo $row['positionType'] ?></h6>
+                      <h6 class="card-title"> Gender : <?php echo $row['sex'] ?></h6>
+                      <h6 class="card-title"> Requierd Position : <?php echo $row['positionNum'] ?></h6>
+                      <h6 class="card-title">Salary : <?php echo $row['salary'] ?></h6>
+                      <h6 class="card-title">   <?php echo $row['address'] ?></h6>
+                      <h6 class="card-title"> Phone: <?php echo $row['phone'] ?></h6>
+
 
                   </div>
 
-                    <small class="text-muted">Posted: <span class="text-success"><?php echo $date; ?></span></small>
                   </div>
                   
                   <p class="card-text"><span class="fw-bolder">Job Description: </span><?php echo $row['info'] ?></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                              <div class="btn-group">
-                                <a type="button" class="btn btn-sm btn-outline-warning">Fav</a>
-                              </div>
-                            </div>
+
                 </div>
               </div>
               <div class="btn-group">
@@ -1054,21 +1059,7 @@ if($_GET['cat'] == 'vacancy'){
               }
               ?>
               </div>
-              <div id="msgDiv">
 
-              <?php
-                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
-                      ?>
-                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
-                      <?php
-                    }elseif(!isset($_SESSION['userId'])){
-                      ?>
-                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
-                      <?php
-                    }
-                  
-                  ?>
-                  </div>
                   </div>
           <div class="d-flex justify-content-between align-items-center">
             <?php

@@ -7,6 +7,17 @@ include "includes/navbar.php";
 require_once "php/adminCrude.php";
 require_once "php/fetchApi.php";
 
+
+
+
+
+//location changer
+if(isset($_GET['loc'])){
+  $_SESSION['location'] = $_GET['loc'];
+  // echo 'in';
+}
+
+
 if(isset($_SESSION['userId'])){
   $userId = $_SESSION['userId'];
 }
@@ -207,7 +218,7 @@ function reload(x){
 <?php 
   if(isset($_GET['cat'])){
     // this category lister exclude the hometutor and zebegna because thy dont have the type colomen
-    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog' && ( isset($_GET['type'])) && $_GET['type'] != 'land' ){
+    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog' && ( isset($_GET['type']) && $_GET['type'] != 'land') || $_GET['cat'] == 'vacancy' ){
       ?>
  
   <div class="col-3">
@@ -269,16 +280,34 @@ function reload(x){
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><?php echo $lang['location'] ?></span>
         </div>
-        <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01"  onchange="reload(this.value)" >
+        <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01"  onchange="location=this.value;" >
           <option selected >  <?php echo $_SESSION['location'] ?></option>
-          <option value="All"> All </option>
+          <!-- <option value="All"> All </option> -->
           <?php
             foreach($city as $loc){
+              $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
+              $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
+              //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
+              if($params['dyCol'] && $params['dyArg']  ){
+                unset($params['dyCol']);
+                unset($params['dyArg']);
+              }
+              if($params['dyCol2'] && $params['dyArg2']  ){
+                unset($params['dyCol2']);
+                unset($params['dyArg2']);
+              }
+              // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
+              if($params['loc']){
+                unset($params['All']);
+              }
+
+              $string = http_build_query($params); // to build the corrected requst to normal get query format
               ?>
               
               <!-- <label onclick="reload('<?php echo $loc;  ?>')" ><?php echo $loc ?><option value="<?php echo  $_SERVER['REQUEST_URI']?>&loc=<?php echo $loc?>" > <?php echo $loc ?></option></label> -->
             
-              <option value="<?php echo $loc ?>" > <?php echo $loc ?></option>
+              <option value="<?php echo $urlll['path'].'?'.$string?>&loc=<?php echo $loc?>" > <?php echo $loc ?></option>
+              <!-- <option value="<?php echo $loc ?>" > <?php echo $loc ?></option> -->
 
               <?php
 
@@ -415,6 +444,9 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
           ?>
           
           <div class="input-group mb-3 col-3">
+          <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Sub City: </span>
+        </div>
         <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location = this.value;"  >
         <option><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];}else{  echo $lang['subCity']; }  ?></option>
           <?php
@@ -427,47 +459,23 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
         foreach($city as $loc){
           ?>
           <?php
-          if(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'house' && $_GET['arg'] == 'For Sell' ){
-            if(isset($_GET['dyArg']) && $_GET['dyArg'] == $loc ){ // to make active class
+          if(isset($_GET['type'], $_GET['arg']) ){
+            if($i == 0 && !isset($_GET['dyArg'])){ // this is the first subsity selecter and the !isset condition is the first element is selected if the dyArg is not set if it is the user has selected a subcity
+              if(!isset($_GET['dyArg'])){
+                $_GET['dyArg'] = $loc;  // since the wereda is selected when the subsity is selected, this sets the arg for subsity and when wereda is selected, it will always work
+              }
+         
               ?>
-            <option value="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>
-              <?php
-            }else{// to make unactive class
+              <option selected value="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>   
+                <?php
+            }
               ?>
             <option value="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>   
               <?php
-            }
-          }elseif(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'land' && $_GET['arg'] == 'For Sell' ){
-            if(isset($_GET['dyArg']) && $_GET['dyArg'] == $loc ){ // to make active class
-              ?>
-            <option value="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>
-              <?php
-            }else{// to make unactive class
-              ?>
-            <option value="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>   
-              <?php
-            }
-          }elseif(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'house' && $_GET['arg'] == 'For Rent' ){
-            if(isset($_GET['dyArg']) && $_GET['dyArg'] == $loc ){ // to make active class
-              ?>
-            <option value="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>
-              <?php
-            }else{// to make unactive class
-              ?>
-            <option value="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>   
-              <?php
-            }
-          }elseif(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'land' && $_GET['arg'] == 'For Rent' ){
-            if(isset($_GET['dyArg']) && $_GET['dyArg'] == $loc ){ // to make active class
-              ?>
-            <option value="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>
-              <?php
-            }else{// to make unactive class
-              ?>
-            <option value="maincat.php?cat=housesell&type=<?php echo $_GET['type'] ?>&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>   
-              <?php
-            }
+            
           }
+
+          
           
           ?>
         
@@ -477,15 +485,11 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
         ?>
               </select>
     </div>
-        <?php
-      }
-      ?>
-
-
-
+    
+        <!-- kebele when subcity is involved in the search query. it will use both dyCol1 and dyCol2 -->
       <!-- kebele list -->
       <div class="input-group mb-3 col-3">
-        <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location=this.value"  >
+        <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location=this.value;"  >
           <option ><?php if(isset($_GET['dyArg2'])){ echo $_GET['dyArg2'];}else{  echo $lang['Wereda']; }?> <option>
           <?php 
              for($y=1;$y<=30;$y++){
@@ -509,6 +513,44 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
         </select>
         </div>
+        <?php
+      } else{
+        ?>
+        
+        <!-- here if there is no subcity involved in the search tags, then this only uses dyCol  -->
+              <!-- kebele list -->
+      <div class="input-group mb-3 col-3">
+        <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location=this.value;"  >
+          <option ><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];}else{  echo $lang['Wereda']; }?> <option>
+          <?php 
+             for($y=1;$y<=30;$y++){
+               if($y <= 9 ){
+                if(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'house' ){
+                 ?>
+                 <option value="./maincat.php?cat=housesell&type=house&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=wereda&dyArg=<?php echo $y?>"><?php echo '0'.$y ?></option>
+                 <?php
+                }
+               }else{
+                if(isset($_GET['type'], $_GET['arg']) && $_GET['type'] == 'house' ){
+                ?>
+                <option value="./maincat.php?cat=housesell&type=house&arg=<?php echo $_GET['arg'] ?>&label=<?php echo $allLabel  ?>&dyCol=wereda&dyArg=<?php echo $y?>"><?php echo $y ?></option>
+                <?php
+                }
+               }
+
+            }
+          ?>
+          
+
+        </select>
+        </div>
+        
+        <?php
+      }
+      ?>
+
+
+
 
     </div>
       </div>
@@ -814,12 +856,14 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               ?>
                 <div class="card">
                     <div class="card-header">
-                      <?php echo $row['type'] ?>
+                     <h6><?php echo $row['type'] ?><h6>
                     </div>
                     <div class="card-body">
                       <div class="d-flex justify-content-between align-items-center">
                         <div>
-                          <h5 class="card-title"><?php echo $row['companyName'] ?></h5>
+                        <h5 class="card-title"><?php echo $row['companyName'] ?></h5> <br>
+                        <h5><?php echo $row['title'] ?><h5>
+                         
                       </div>
                       <?php 
                         $date = $get->time_elapsed_string($row['postedDate']);
@@ -832,12 +876,13 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
                         ;
                       ?>
-                        <small class="text-muted">Posted: <span class="text-success"><?php echo $date; ?></span></small>
+                   
                       </div>
                       
-                      <p class="card-text"><span class="fw-bolder">Job Description: </span><?php echo $row['info'] ?></p>
-                      <p><small class="text-muted">Location: <?php echo $row['address'] ?></small></p>
-                      <p><small class="text-muted">Phone:</small></p>
+                          <h6>Salary: <?php echo $row['salary'] ?></h6>
+                      <!-- <p class="card-text"><span class="fw-bolder">Job Description: </span><?php echo $row['info'] ?></p> -->
+                      <p><small class="text-muted">  <?php echo $row['address'] ?></small></p>
+                      <!-- <p><small class="text-muted">Phone:</small></p> -->
                       <div class="d-flex justify-content-between align-items-center">
                                   <div class="btn-group">
                                     <a href="./Description.php?cat=vacancy&label=Vacancy Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">View</a>
@@ -1616,8 +1661,8 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
             // echo $fetchPost[1]->num_rows;
             $pageCount = ceil($fetchPost[1]->num_rows/$content_per_page);
             for($j=1;$j<=$pageCount;$j++){
-              $urll = parse_url($_SERVER['REQUEST_URI']);
-              $urll = parse_str($urll['query'], $params);
+              $urll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
+              $urll = parse_str($urll['query'], $params); // to make an assoc array of all the parameter key with the value
               unset($params['page']);
               $string = http_build_query($params);
               // var_dump($string);
