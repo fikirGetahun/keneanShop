@@ -598,6 +598,8 @@ elseif($_GET['type'] == 'house'){
    
     })
 
+
+
     // $('#subCity').on('change',function(){
     //   if(this.value == "otherSubCity"){
     //     $('#subCityBox').load('admin/divTags.php #otherSubCity')
@@ -697,9 +699,29 @@ foreach($categorySort as $sorted){
         </select>
 </div>
 
+<script>
+
+
+  // sub city filter api
+  function hCity(x){
+    // alert(x)
+    $.ajax({
+        url: 'user/userApi.php',
+        type: 'post',
+        data: {
+          cityH: x
+        },
+        success: function(data){
+          // alert(data)
+          $('#subH').empty()
+          $('#subH').append(data)
+        }
+      })
+  }
+</script>
 
 <div  class="input-group mb-3" >
-        <select  class="form-select" aria-label="Default select example" name="city" id="">
+        <select  class="form-select" aria-label="Default select example" name="city" onchange="hCity(this.value)" id="">
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -731,36 +753,41 @@ foreach($categorySort as $sorted){
         </div>
 
         
-        <div  class="input-group mb-3" >
-        <select  class="form-select" aria-label="Default select example" name="subCity" id="">
+        <div id="subH"   class="input-group mb-3" >
+          <?php
+        require_once '../php/fetchApi.php';
+    $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+    $city = array();
+    if($locc->num_rows != 0){
+      ?>
+                <select  class="form-select" aria-label="Default select example" name="subCity" >
           <option><?php echo $lang['subCity'] ?></option>
-          <?php 
-              require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                $i = 0;
-                foreach($city as $loc){
-                  if($loc == 'Addis Ababa'){
-                    ?>
-                    <option selected ><?php echo $loc ?></option>
-                    <?php
-                  }else{
-                    ?>
-                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
-                    <?php
-                  }
-                  ?>
-                  
-                
-                  <?php
-                  $i++;
-                }
-              ?> 
-        </select>
+      <?php
+    while($rowLoc = $locc->fetch_assoc()){
+        $city[]= $rowLoc['category'];
+    }
+    sort($city);
+    $i = 0;
+    foreach($city as $loc){
+      if($loc == 'Addis Ababa'){
+        ?>
+        <option selected ><?php echo $loc ?></option>
+        <?php
+      }else{
+        ?>
+         <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+        <?php
+      }
+      ?>
+      
+    
+      
+      <?php
+      $i++;
+    }
+  }
+    ?>
+    </select>
         </div>
 
 
@@ -1002,72 +1029,97 @@ foreach($categorySort as $sorted){
         </div>
 
 
-        <div  class="input-group mb-3" >
-        <select  class="form-select" aria-label="Default select example" name="city" id="">
-          <option><?php echo $lang['city'] ?></option>
-          <?php 
-              require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                $i = 0;
-                foreach($city as $loc){
-                  if($loc == 'Addis Ababa'){
-                    ?>
-                    <option selected ><?php echo $loc ?></option>
-                    <?php
-                  }else{
-                    ?>
-                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
-                    <?php
-                  }
+     
+<script>
+
+
+// sub city filter api
+function hCity(x){
+  // alert(x)
+  $.ajax({
+      url: 'user/userApi.php',
+      type: 'post',
+      data: {
+        cityH: x
+      },
+      success: function(data){
+        // alert(data)
+        $('#subH').empty()
+        $('#subH').append(data)
+      }
+    })
+}
+</script>
+
+<div  class="input-group mb-3" >
+      <select  class="form-select" aria-label="Default select example" name="city" onchange="hCity(this.value)" id="">
+        <option><?php echo $lang['city'] ?></option>
+        <?php 
+            require_once '../php/fetchApi.php';
+              $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+              $city = array();
+              while($rowLoc = $locc->fetch_assoc()){
+                  $city[]= $rowLoc['category'];
+              }
+              sort($city);
+              $i = 0;
+              foreach($city as $loc){
+                if($loc == 'Addis Ababa'){
                   ?>
-                  
-                
+                  <option selected ><?php echo $loc ?></option>
                   <?php
-                  $i++;
-                }
-              ?> 
-        </select>
-        </div>
-
-
-
-        <div  class="input-group mb-3" >
-        <select  class="form-select" aria-label="Default select example" name="subCity" id="">
-          <option><?php echo $lang['subCity'] ?></option>
-          <?php 
-              require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                $i = 0;
-                foreach($city as $loc){
-                  if($loc == 'Addis Ababa'){
-                    ?>
-                    <option selected ><?php echo $loc ?></option>
-                    <?php
-                  }else{
-                    ?>
-                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
-                    <?php
-                  }
+                }else{
                   ?>
-                  
-                
+                   <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
                   <?php
-                  $i++;
                 }
-              ?> 
-        </select>
-        </div>
+                ?>
+                
+              
+                <?php
+                $i++;
+              }
+            ?> 
+      </select>
+      </div>
 
+      
+      <div id="subH"   class="input-group mb-3" >
+        <?php
+      require_once '../php/fetchApi.php';
+  $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+  $city = array();
+  if($locc->num_rows != 0){
+    ?>
+              <select  class="form-select" aria-label="Default select example" name="subCity" >
+        <option><?php echo $lang['subCity'] ?></option>
+    <?php
+  while($rowLoc = $locc->fetch_assoc()){
+      $city[]= $rowLoc['category'];
+  }
+  sort($city);
+  $i = 0;
+  foreach($city as $loc){
+    if($loc == 'Addis Ababa'){
+      ?>
+      <option selected ><?php echo $loc ?></option>
+      <?php
+    }else{
+      ?>
+       <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+      <?php
+    }
+    ?>
+    
+  
+    
+    <?php
+    $i++;
+  }
+}
+  ?>
+  </select>
+      </div>
 
 
 

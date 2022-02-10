@@ -109,7 +109,52 @@ if(isset($_POST['ban'], $_POST['id'])){
     }
 }
 
+/// subcity lister based on city api calculator
+if(isset($_POST['cityH'])){
+  ?>
 
+  <?php
+  // echo 'what';
+  $city = $_POST['cityH'];
+   require_once '../php/fetchApi.php';
+    $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $city);
+    $city = array();
+    if($locc->num_rows != 0){
+      ?>
+                <select  class="form-select" aria-label="Default select example" name="subCity" >
+          <option><?php echo $lang['subCity'] ?></option>
+      <?php
+    while($rowLoc = $locc->fetch_assoc()){
+        $city[]= $rowLoc['category'];
+    }
+    sort($city);
+    $i = 0;
+    foreach($city as $loc){
+      if($loc == 'Addis Ababa'){
+        ?>
+        <option selected ><?php echo $loc ?></option>
+        <?php
+      }else{
+        ?>
+         <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+        <?php
+      }
+      ?>
+      
+    
+      
+      <?php
+      $i++;
+    }
+    ?>
+    </select>
+    <?php
+  }else{
+?>
+<input hidden type="text" name="subCity" value="null">
+<?php
+  }
+ }
   
 
  // page number changer
