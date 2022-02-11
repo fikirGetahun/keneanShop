@@ -11,11 +11,6 @@ require_once "php/fetchApi.php";
 
 
 
-//location changer
-if(isset($_GET['loc'])){
-  $_SESSION['location'] = $_GET['loc'];
-  // echo 'in';
-}
 
 
 if(isset($_SESSION['userId'])){
@@ -634,13 +629,13 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
             $dyArg = $_GET['dyArg'];
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search2C($cat, $dyCol, $dyArg, 'address', $_SESSION['location'], $search, $startPage, $endPage );
+              $fetchPost = $get->search1C($cat, $dyCol, $dyArg, $search, $startPage, $endPage );
             }else{
               $fetchPost = $get->allPostListerOn2ColumenD($cat, $status, $off , $dyCol, $dyArg, $startPage, $endPage);
             }
           }
           
-          elseif($status != ' ' && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){ // for location based output
+          elseif($status != ' ' && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) && !isset($_GET['dbType']) ){ // for location based output
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
               $fetchPost = $get->search2C($cat, $status, $off, 'address', $_SESSION['location'], $search, $startPage, $endPage);
@@ -681,6 +676,15 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $fetchPost = $get->search2C($cat, $status, $off, 'type', $dbType,$search, $startPage, $endPage);
             }else{
               $fetchPost = $get->allPostListerOn2ColumenD($cat, $status, $off, 'type', $dbType, $startPage, $endPage);           
+            }
+
+          }elseif($status != ' ' && isset($_GET['dbType'])  && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){          
+            $dbType = $_GET['dbType'];
+            if(isset($_GET['search'])){ // if search is occured
+              $search = $_GET['search'];
+              $fetchPost = $get->search3C($cat, $status, $off, 'address', $_SESSION['location'], 'type', $dbType,$search, $startPage, $endPage);
+            }else{
+              $fetchPost = $get->allPostListerOn3ColumenD($cat, $status, $off, 'type', $dbType, 'address', $_SESSION['location'],  $startPage, $endPage);           
             }
 
           } 

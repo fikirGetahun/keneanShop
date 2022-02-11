@@ -501,7 +501,27 @@ if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_FILES['phot
 
 
 /////////////real estate posting api
-if(isset($_POST['posterId'], $_POST['title'], $_POST[]))
+if(isset($_POST['posterId'], $_POST['title'], $_POST['company'], $_POST['phone'], $_POST['email'], $_POST['price'], $_POST['fixidOrN'], $_POST['info'], $_FILES['photo'])){
+  // null data entery if real estate is not selected
+  $forRentOrSell = " ";
+  $workType = " ";
+  $city = " ";
+  $subCity = " ";
+  $wereda = " ";
+  $floor = " ";
+  if(isset($_POST['forRentOrSell'], $_POST['workType'],$_POST['city'], $_POST['subCity'], $_POST['wereda'], $_POST['floor'] )){
+    $forRentOrSell = $_POST['forRentOrSell'];
+    $workType = $_POST['workType'];
+    $city = $_POST['city'];
+    $subCity = $_POST['subCity'];
+    $wereda = $_POST['wereda'];
+    $floor = $_POST['floor'];
+  }
+
+  
+
+
+}
 
 
 ?>

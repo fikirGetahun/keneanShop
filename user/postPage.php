@@ -2879,7 +2879,7 @@ if($_GET['type'] == 'real'){
         <h6 style="color: coral;" > <?php echo $lang['Description'] ?></h6>
 
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="agentInfo" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
+          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
         </div>
 
 

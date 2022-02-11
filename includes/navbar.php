@@ -7,8 +7,16 @@
   } 
 
   if(!isset($_SESSION['location'] )){
+    echo 'bitch';
     $_SESSION['location'] = 'All';
   }
+
+  //location changer
+if(isset($_GET['loc'])){
+  $_SESSION['location'] = $_GET['loc'];
+  // echo 'in';
+}
+
 
 
   // if(!isset($_SESSION['location'])){
@@ -160,7 +168,7 @@ function reload(x){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="nav-link active" href="index.php?loc=All"  aria-current="page"  ><?php echo $lang['home'] ?></a>
+          <a class="nav-link active" href="index.php"  aria-current="page"  ><?php echo $lang['home'] ?></a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  ><?php echo $lang['big_discount'] ?></a>
