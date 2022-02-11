@@ -148,7 +148,11 @@ for($z=0;$z<14;$z++){
   $tab = $dbTables[$r];// to choose random table to fetch data off
   // echo $tab;
   if($pageLocation != 'All'){
+    if($tab == 'housesell'){
+      $home = $get->allPostListerOnColumen($tab,'city', $pageLocation); // if city is not all, then a city is selected so it always fetch data based on a city
+    }else{
     $home = $get->allPostListerOnColumen($tab,'address', $pageLocation); // if city is not all, then a city is selected so it always fetch data based on a city
+    }
   }else{
     $home = $get->allPostListerOnTable($tab); // it fetches data from all city
   }
@@ -189,15 +193,22 @@ for($z=0;$z<14;$z++){
           src="<?php $p = $admin->photoSplit($row12['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
           <div class="card-body">
+            <?php 
+              if($tab == 'housesell' || $tab == 'car'){
+                ?>
+                <h5 class="card-title"><?php echo $row12['forRentOrSell'] ?></h5>
+                <?php
+              }
+            ?>
             <h5 class="card-title"><?php echo $row12['title'] ?></h5>
             <?php
 
             if($tab != 'housesell' && $tab != 'charity'){
-              ?><h6 class="card-text">Price:<span class="text-danger small"><?php echo $row12['price'] ?></span> </h6>
+              ?><h6 class="card-text"><span class="text-danger small"><?php echo $row12['price'] ?></span> </h6>
               <?php
             }elseif($tab == 'housesell'){
               ?>
-              <h6 class="card-text">Price:<span class="text-danger small"><?php echo $row12['cost'] ?></span> </h6>
+              <h6 class="card-text"><span class="text-danger small"><?php echo $row12['cost'] ?></span> </h6>
               <?php
             }
             ?>
@@ -207,16 +218,15 @@ for($z=0;$z<14;$z++){
               <?php
               if($tab != 'charity' && $tab != 'housesell'){
                 ?>
-                 <h6 class="card-text">Location: <?php echo $row12['address'] ?></h6>
+                 <h6 class="card-text">  <?php echo $row12['address'] ?></h6>
                 <?php
               }elseif($tab == 'housesell'){
                 ?>
-                 <h6 class="card-text">Location: <?php echo $row12['city'] ?></h6>
+                 <h6 class="card-text"> <?php echo $row12['city'] ?></h6>
                 <?php
               }
               ?>
                
-              <small class="text-muted"> <?php echo $row12['view'] ?> views </small>
             </div>
           </div>
         </div>

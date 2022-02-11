@@ -192,6 +192,15 @@ if(isset($_POST['tabel'], $_POST['reciver'], $_POST['postFocus'], $_POST['msg'])
 
 if(isset($_GET['cv'])){
   ?>
+  <script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
+
+  })
+
+  })
+</script>
 <div id="contw" class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -201,7 +210,6 @@ if(isset($_GET['cv'])){
              <div class="modal-body  justify-content-center">
   <script>
     function nav(nav){
-
 $('#uploadDiv').load("user/postPage.php?type="+nav)
 }
   </script>
@@ -215,6 +223,42 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
 </div>
 </div>
   <?php
+}
+
+
+// real estatae
+if(isset($_GET['real'])){
+  ?>
+  <script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
+
+  })
+
+  })
+</script>
+  <div id="contw" class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['cvWork'] ?></h5>
+          <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+        </div>
+               <div class="modal-body  justify-content-center">
+    <script>
+      function nav2(nav, real){
+  $('#uploadDiv').load("user/postPage.php?type="+nav+"&real="+real)
+  }
+    </script>
+              <button class="btn btn-light btn-sm" onclick="nav2('real', 'realEstate')"  > <?php echo $lang['realEstate'] ?> </button> <br><br>
+              <button class="btn btn-light btn-sm"onclick="nav2('real', 'bank')" ><?php echo $lang['bankStock'] ?></button>  <br><br>
+              <button class="btn btn-light btn-sm" onclick="nav2('real', 'insurance')" ><?php echo $lang['Insurance'] ?></button> <br><br>
+              <br>
+            
+  </div>
+  </div>
+  </div>
+    <?php
 }
 
 ?>

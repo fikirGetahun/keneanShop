@@ -499,4 +499,9 @@ if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_FILES['phot
 }
 
 
+
+/////////////real estate posting api
+if(isset($_POST['posterId'], $_POST['title'], $_POST[]))
+
+
 ?>

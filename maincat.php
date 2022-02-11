@@ -292,13 +292,13 @@ function reload(x){
                 unset($params['dyCol']);
                 unset($params['dyArg']);
               }
-              if($params['dyCol2'] && $params['dyArg2']  ){
+              if($params['dyCol2'] && $params['dyArg2']){ 
                 unset($params['dyCol2']);
                 unset($params['dyArg2']);
               }
               // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
               if($params['loc']){
-                unset($params['All']);
+                unset($params['loc']);
               }
 
               $string = http_build_query($params); // to build the corrected requst to normal get query format

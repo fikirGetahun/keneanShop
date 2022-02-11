@@ -60,6 +60,7 @@
 </style>
 <!-- <script src="assets/jquery.js"  ></script> -->
 
+
 <script>
 
 
@@ -112,6 +113,11 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
 function cv(){
   // alert('in')
   $('#uploadDiv').load("user/userApi.php?cv=true")
+}
+
+function real(){
+  // alert('in')
+  $('#uploadDiv').load("user/userApi.php?real=true")
 }
 
 function reload(x){
@@ -179,7 +185,7 @@ function reload(x){
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="maincat.php"><span class="small"><?php echo $lang['realEstate'] ?></span></a>
+          <a class="nav-link active" href="maincat.php"><span class="small"><?php echo $lang['realLabel'] ?></span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -404,8 +410,8 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('house')"><?php echo $lang['house'] ?></button></p></div>
           <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('land')"><?php echo $lang['land'] ?></button></p></div>
 
-       <div class="col"> <p><button type="button" class="btn btn-light btn-sm col"><?php echo $lang['realEstate'] ?> </button></p></div>
-        <div id="ts" class="col" onclick="nav('car')" ><p><button type="button" class="btn btn-light btn-sm" > car </button></p></div>
+       <div class="col"> <p><button type="button" onclick="real()" class="btn btn-light btn-sm col"><?php echo $lang['sponsered'] ?> </button></p></div>
+        <div id="ts" class="col" onclick="nav('car')" ><p><button type="button" class="btn btn-light btn-sm" ><?php echo $lang['Car'] ?> </button></p></div>
           </div>
         <hr>
         <div class="row">
