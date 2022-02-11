@@ -1549,7 +1549,11 @@ return $ask;
          return $ask;
     }
     
-    
+    /// realestate insereting data
+    function realEstate(){
+        include "connect.php";
+        
+    }
 
 
     
