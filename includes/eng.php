@@ -187,7 +187,7 @@
         "floor"=>"Floor",
         "company"=>"Company Name",
         "CategoryReal"=>"Category", //ye realestate
-        ""=>"",
+        "enterPrice"=>"Type Price here!",
         ""=>"",
         ""=>"",
         ""=>"",

@@ -1763,10 +1763,32 @@ if($_GET['type'] == 'tender'){
           <input type="date" class="form-control" id="Deadline2" 
           aria-describedby="emailHelp" name="Deadline2" placeholder="<?php echo $lang['appDead'] ?>">
          </div>
+
+        <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?></label>
         <div class="form-group">
            <input type="number" class="form-control" id="phoneNo" 
-          aria-describedby="emailHelp" name="initialCost" placeholder="<?php echo $lang['initialCost'] ?>">
+          aria-describedby="emailHelp" name="initialCost" placeholder="<?php echo $lang['enterPrice'] ?>">
          </div>
+
+        <!-- phone number  -->
+        <div class="form-group">
+          <?php
+          $s = 251;
+          $phone = $_SESSION['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $_SESSION['phone'];
+          }else{
+            $phone= $_SESSION['phone'];
+          }
+          ?>
+                        <label for="exampleInputEmail1"> <?php echo $lang['phone'] ?> : </label>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="" value="+<?php 
+         echo  $phone?>">
+        </div>
+
         <div  class="form-group" >
         <label for="exampleInputEmail1"><?php echo $lang['tenderLC'] ?></label>
 

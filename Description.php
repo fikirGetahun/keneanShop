@@ -10,15 +10,10 @@ require_once "php/fetchApi.php";
 // session_start();
 	?>
 	<style>
-.zoom {
-  padding: 50px;
-  transition: transform .3s; /* Animation */
-  margin: 0 auto;
-}
 
-/* .zoom:hover { */
+/* .:hover { */
   /* transform: scale(1.5);  */
-  /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  /* (150%  - Note: if the  is too large, it will go outside of the viewport) */
 /* } */
 </style>
 
@@ -95,7 +90,7 @@ require_once "php/fetchApi.php";
                             </ol>
                             <div  class="carousel-inner">
                                 <div class="carousel-item active">
-                                <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                                 </div>
 
                                 <?php
@@ -103,7 +98,7 @@ require_once "php/fetchApi.php";
                                 if(!empty($p[1])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -114,7 +109,7 @@ require_once "php/fetchApi.php";
                                 if(!empty($p[2])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -221,7 +216,7 @@ require_once "php/fetchApi.php";
                             </ol>
                             <div  class="carousel-inner">
                                 <div class="carousel-item active">
-                                <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                                 </div>
 
                                 <?php
@@ -229,7 +224,7 @@ require_once "php/fetchApi.php";
                                 if(!empty($p[1])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -240,7 +235,7 @@ require_once "php/fetchApi.php";
                                 if(!empty($p[2])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -354,7 +349,7 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
@@ -362,7 +357,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -373,7 +368,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -479,7 +474,7 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
@@ -487,7 +482,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -498,7 +493,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -605,7 +600,7 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
@@ -613,7 +608,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -623,7 +618,7 @@ require_once "php/fetchApi.php";
                             $p = $admin->photoSplit($row['photoPath1']);
                             if(!empty($p[2])){
                                 ?>
-                            <div class="carousel-item zoom">
+                            <div class="carousel-item ">
                             <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
@@ -729,7 +724,7 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
@@ -737,7 +732,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -748,7 +743,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -775,20 +770,20 @@ require_once "php/fetchApi.php";
         <?php
           if(($row['ram'] != " " && $row['core'] != " " && $row['processor'] != " " && $row['size']  != " " )){
             ?>
-            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Ram: </label><?php echo $row['ram'] ?></p>
-            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Core: </label><?php echo $row['core'] ?></p>
-            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Processor: </label><?php echo $row['processor'] ?></p>
-            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Size: </label><?php echo $row['size'] ?></p>
+            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Ram: </label><?php echo $row['ram'] ?> GB</p>
+            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Core: </label><?php echo $row['core'] ?> </p>
+            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Processor: </label><?php echo $row['processor'] ?> Ghz</p>
+            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Size: </label><?php echo $row['size'] ?> Inch</p>
             <?php
           }
         
         ?>
 
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
-          <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
+       
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1"> <?php echo $lang['labelPrice'] ?> : </label>  <?php echo  number_format($row['price'])  ?><small class="text-muted"> Br</small></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
           <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
-
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -863,7 +858,7 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
@@ -871,7 +866,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -882,7 +877,7 @@ require_once "php/fetchApi.php";
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -1108,21 +1103,27 @@ if($_GET['cat'] == 'tender'){
         <h5 class=" text-center"><?php echo $row['title'] ?></h5>
         <div class="card">
                 <div class="card-header">
+                <!-- <h5 class="card-title"><?php echo $row['companyName'] ?></h5> -->
+
                   <?php echo $row['type'] ?>
                   <?php 
                     $date = $get->time_elapsed_string($row['postedDate']);
-                    $sdate = $get->time_elapsed_string($row['startingDate']);
+                    // $sdate = $get->time_elapsed_string($row['startingDate']);
                     $dt = new DateTime($row['postedDate']);
-                    $snow = new DateTime();
+
+                    $dated=date_create($row['postedDate']);
+                    $exdate = date_format($dated,"F j, Y ");
+                    $st = date_create(($row['startingDate']));
+                    $stdate = date_format($dated,"F j, Y ");
+
                     $now = new DateTime();
                     $future_date = new DateTime($row['postedDate']);
-                    $future_date2 = new DateTime($row['startingDate']);
-                    $sinterval = $future_date2->diff($snow);
-                   
+
+                    $snow = new DateTime();
 
                     $interval = $future_date->diff($now);
 
-                    
+                    $sinterval = $future_date->diff($snow);
 
                     ;
                   ?>
@@ -1130,9 +1131,11 @@ if($_GET['cat'] == 'tender'){
                 <div class="card-body">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                    <h5>Starting Date: <span class="text-danger"><?php echo $sinterval->format("%a days, %h hours") ?></span></h5>
-                      <h5>Deadline: <span class="text-danger"><?php echo $interval->format("%a days, %h hours") ?></span></h5>
-                      <h5>Location: <?php echo $row['address'] ?></p></h5>
+                    <h6>Starting Date: <span class="text-danger"><?php echo $stdate ?></span></h6>
+             
+                      <h6>Deadline: <span class="text-danger"><?php echo $exdate ?></span></h6>
+
+                      <h6>Location: <?php echo $row['address'] ?></p></h6>
                       <p><small class="text-muted">Phone: <?php echo $row['phone'] ?> </small></p>
 
                   </div>
@@ -1141,11 +1144,7 @@ if($_GET['cat'] == 'tender'){
                   </div>
                   
                   <p class="card-text"><span class="fw-bolder">Job Description: </span><?php echo $row['info'] ?></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                              <div class="btn-group">
-                                <a type="button" class="btn btn-sm btn-outline-warning">Fav</a>
-                              </div>
-                            </div>
+          
                 </div>
               </div>
               <div class="btn-group">
@@ -1170,21 +1169,7 @@ if($_GET['cat'] == 'tender'){
               }
               ?>
               </div>
-              <div id="msgDiv">
-
-              <?php
-                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
-                      ?>
-                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
-                      <?php
-                    }elseif(!isset($_SESSION['userId'])){
-                      ?>
-                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
-                      <?php
-                    }
-                  
-                  ?>
-                  </div>
+ 
                   </div>
           <div class="d-flex justify-content-between align-items-center">
             <?php
@@ -1525,7 +1510,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
                             </div>
                         </div>
 
@@ -1635,12 +1620,12 @@ if($_GET['cat'] == 'blog'){
     <div id="carouselExampleControls" class="carousel slide w-90" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
+      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
     </div>
     <?php if(!empty($p[1])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1648,7 +1633,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[2])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1657,7 +1642,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[3])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[3] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[3] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1665,7 +1650,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[4])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[4] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[4] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1673,7 +1658,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[5])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 zoom" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[5] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[5] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>

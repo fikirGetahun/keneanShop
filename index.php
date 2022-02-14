@@ -132,10 +132,21 @@ $pageLocation = $_SESSION['location'];
     </div>
     <br>
   </div>
+  <script>
+      function view(){
+        $.ajax({
+          url: 'homeScroll.php',
+          type: 'get',
+          success: function(dt){
+            $('#homeS').append(dt)
+          }
+        })
+      }
+    </script>
+  <br>
+  <br>
+  <div id="homeS" class="row">
 
-  <br>
-  <br>
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
     
     <?php
 
@@ -143,7 +154,7 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 'housesell');
 
  
-for($z=0;$z<14;$z++){
+for($z=0;$z<17;$z++){
   $r = rand(0,4); 
   $tab = $dbTables[$r];// to choose random table to fetch data off
   // echo $tab;
@@ -161,7 +172,7 @@ for($z=0;$z<14;$z++){
   while($row12 = $home->fetch_assoc()){
     
     ?>
-      <div class="col-3">
+      <div  class="col-3" style="height: 20%; overflow: hidden; min-height: 20%;" >
         <div class="card shadow-sm">
           <?php 
           if($tab == 'ad'){
@@ -189,7 +200,7 @@ for($z=0;$z<14;$z++){
           }
 
           ?>
-         <img class="bd-placeholder-img card-img-top" width="100%" height="150"
+         <img class="bd-placeholder-img card-img-top" width="100%" height="200"
           src="<?php $p = $admin->photoSplit($row12['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
           <div class="card-body">
@@ -204,11 +215,11 @@ for($z=0;$z<14;$z++){
             <?php
 
             if($tab != 'housesell' && $tab != 'charity'){
-              ?><h6 class="card-text"><span class="text-danger small"><?php echo $row12['price'] ?></span> </h6>
+              ?><h6 class="card-text"><span class="text-danger small"><?php echo $row12['price'] ?> Birr</span> </h6>
               <?php
             }elseif($tab == 'housesell'){
               ?>
-              <h6 class="card-text"><span class="text-danger small"><?php echo $row12['cost'] ?></span> </h6>
+              <h6 class="card-text"><span class="text-danger small"><?php echo number_format($row12['cost']) ?></span> Birr</h6>
               <?php
             }
             ?>
@@ -230,11 +241,14 @@ for($z=0;$z<14;$z++){
             </div>
           </div>
         </div>
+        
       </div>
+      
     <?php
     if($i1 == 2){break;}
     $i1++;
   }
+
 }else{
   echo 'No Result';
 }
@@ -246,6 +260,8 @@ for($z=0;$z<14;$z++){
   </div>
     </div>
   </div>
+  
+<button onclick="view()" > View More</button>
 
 </main>
 

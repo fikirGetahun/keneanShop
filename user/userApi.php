@@ -250,7 +250,8 @@ if(isset($_GET['real'])){
   $('#uploadDiv').load("user/postPage.php?type="+nav+"&real="+real)
   }
     </script>
-              <button class="btn btn-light btn-sm" onclick="nav2('real', 'realEstate')"  > <?php echo $lang['realEstate'] ?> </button> <br><br>
+              <button class="btn btn-light btn-sm" onclick="nav2('real', 'realEstate')"  > <?php echo $lang['realEstate'] ?> </button> 
+              <br><br>
               <!-- <button class="btn btn-light btn-sm"onclick="nav2('real', 'bank')" ><?php echo $lang['bankStock'] ?></button>  <br><br> -->
               <!-- <button class="btn btn-light btn-sm" onclick="nav2('real', 'insurance')" ><?php echo $lang['Insurance'] ?></button> <br><br> -->
               <br>

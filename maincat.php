@@ -1721,7 +1721,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
 
               // this is to show the max page numbers displayed on page.. then it will break.
-              if($j == $pageNumberPerPAGE){
+              if($j == $pageNumberPerPAGE + $_SESSION['pgn'] - 1){
                 break;
               }
             }
