@@ -1589,6 +1589,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 <?php 
                   if($type == 'hometTutor'){
                     ?>
+
                     <h5> <h5><?php echo $row['Price'] ?></h5>  <?php $row['paymentStatus'] ?></h5>
                     <?php
                   }
@@ -1658,28 +1659,85 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
             ?>
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-end">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    <?php
+    $pageNumberPerPAGE = 2; 
+    
+    if(isset($_GET['end']) && $_GET['end'] != 0){
+      $_SESSION['pgn'] =  $_GET['end'];
+    }
+    elseif(isset($_GET['end']) && $_GET['end'] > 0 || !isset($_GET['end'])){
+      $_SESSION['pgn'] =  1;
+    }
+    
+    ?>
+    <li class="page-item">
+      <?php
+
+      if($_SESSION['pgn']!= 1){
+        $urll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
+        $urll = parse_str($urll['query'], $params); // to make an assoc array of all the parameter key with the value
+        unset($params['page']);
+        unset($params['end']);
+        $string = http_build_query($params);
+        ?>
+        <a class="page-link" href="maincat.php?<?php echo $string ?>&end=<?php echo $_SESSION['pgn']-$pageNumberPerPAGE ?>"  >Previous</a>
+        <?php
+      }
+      ?>
     </li>
             <?php
             // echo $fetchPost[1]->num_rows;
+
             $pageCount = ceil($fetchPost[1]->num_rows/$content_per_page);
-            for($j=1;$j<=$pageCount;$j++){
+            for($j= $_SESSION['pgn'];$j<=$pageCount;$j++){
               $urll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
               $urll = parse_str($urll['query'], $params); // to make an assoc array of all the parameter key with the value
               unset($params['page']);
+              unset($params['end']);
               $string = http_build_query($params);
               // var_dump($string);
               // $string = str_replace('+', '%20', $string);
+       
+
+              if(isset($_GET['page'])){
+                if($_GET['page'] == $j){
+                  ?>
+                  <li class="page-item active"><a class="page-link" href="maincat.php?<?php echo $string ?>&page=<?php echo $j ?>&end=0"><?php echo $j ?></a></li>
+                  <?php
+                }else{
+                  ?>
+                  <li class="page-item"><a class="page-link " href="maincat.php?<?php echo $string ?>&page=<?php echo $j ?>&end=0"><?php echo $j ?></a></li>
+                  <?php
+                }
+              }elseif($j == 1 ){
+                ?>
+                <li class="page-item active"><a class="page-link" href="maincat.php?<?php echo $string ?>&page=<?php echo $j ?>&end=0"><?php echo $j ?></a></li>
+                <?php    
+              }else{
+                ?>
+                <li class="page-item"><a class="page-link " href="maincat.php?<?php echo $string ?>&page=<?php echo $j ?>&end=0"><?php echo $j ?></a></li>
+                <?php               
+              }
 
 
+              // this is to show the max page numbers displayed on page.. then it will break.
+              if($j == $pageNumberPerPAGE){
+                break;
+              }
+            }
+            ?>
+            <?php
+
+            // this is a limit condition so that it doesent show the next button if there is not more page numbers are available
+            if($j + 1 < $pageCount){
               ?>
-    <li class="page-item"><a class="page-link" href="maincat.php?<?php echo $string ?>&page=<?php echo $j ?>"><?php echo $j ?></a></li>
+              <a class="page-link" href="maincat.php?<?php echo $string ?>&page=<?php echo $j+1 ?>&end=<?php echo $j+1 ?>">Next</a>
               <?php
             }
             ?>
-      <a class="page-link" href="#">Next</a>
     </li>
+
+
   </ul>
 </nav>
             <?php

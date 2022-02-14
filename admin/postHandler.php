@@ -501,25 +501,53 @@ if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_FILES['phot
 
 
 /////////////real estate posting api
-if(isset($_POST['posterId'], $_POST['title'], $_POST['company'], $_POST['phone'], $_POST['email'], $_POST['price'], $_POST['fixidOrN'], $_POST['info'], $_FILES['photo'])){
+if(isset($_POST['posterId'], $_POST['title'], $_POST['company'], $_POST['phone'], $_POST['email'], $_POST['price'], $_POST['rsType'], $_POST['fixidOrN'], $_POST['info'], $_FILES['photo'])){
   // null data entery if real estate is not selected
   $forRentOrSell = " ";
-  $workType = " ";
+  $rsType = " ";
   $city = " ";
   $subCity = " ";
   $wereda = " ";
   $floor = " ";
-  if(isset($_POST['forRentOrSell'], $_POST['workType'],$_POST['city'], $_POST['subCity'], $_POST['wereda'], $_POST['floor'] )){
+  $area = "";
+
+  $posterId = $_POST['posterId'];
+  $title = $_POST['title'];
+ $company = $_POST['company'];
+ $phonem = $_POST['phone'];
+$email = $_POST['email'];
+$price = $_POST['price'];
+$fixidOrN = $_POST['fixidOrN'];
+$info = $_POST['info'];
+$fileVar = $_FILES['photo'];
+
+
+
+  if(isset($_POST['forRentOrSell'], $_POST['workType'],$_POST['city'], $_POST['subCity'], $_POST['wereda'], $_POST['floor'] , $_POST['area'])){
     $forRentOrSell = $_POST['forRentOrSell'];
-    $workType = $_POST['workType'];
+    $rsType= $_POST['rsType'];
     $city = $_POST['city'];
     $subCity = $_POST['subCity'];
     $wereda = $_POST['wereda'];
     $floor = $_POST['floor'];
+    $area = $_POST['area'];
   }
 
-  
 
+  
+  $up = $admin->uploadPhotos('realestate', $fileVar);
+  if($up[4] == 'error'){
+    foreach($up as $val){
+      echo $val;
+    }
+  }elseif($up[4] == 'work'){
+    $enter = $admin->realEstate($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area  , $email, $price, $fixidOrN, $info, $up[0]);
+    if($enter){
+      echo 'Posted Successfully.';
+    }else{
+      echo 'Error';
+    }
+  }
 
 }
 

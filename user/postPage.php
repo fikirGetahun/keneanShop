@@ -2675,7 +2675,7 @@ if($_GET['type'] == 'real'){
 <!-- category  -->
 <div  class="input-group mb-3">
  
- <select id="catRs" class="form-select" aria-label="Default select example" name="workType" id="inputGroupSelect01">
+ <select id="catRs" class="form-select" aria-label="Default select example" name="rsType" id="inputGroupSelect01">
    <option selected><?php echo $lang['CategoryReal'] ?></option>
    <option value="Commercial RS">Commercial RS</option>
    <option value="Hotel and Lodging">Hotel and Lodging</option>

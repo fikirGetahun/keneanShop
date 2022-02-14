@@ -855,6 +855,8 @@ echo $mysql->error;
             $amount = 3;
             if($tableName == 'blog'){
                 $amount = 6;
+            }else{
+                $amount = 3;
             }
             if($count <= $amount ){
                 for($i=0;$i<=$count-1;$i++){
@@ -920,6 +922,13 @@ echo $mysql->error;
                             $dbPath .= ',';
                         }
                         $dbPath .= './uploads/blogPhoto/'.$uploadName;
+                    }
+                    if($tableName == 'realestate'){
+                        $uploadPath[] = '../uploads/realEstate/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= './uploads/realEstate/'.$uploadName;
                     }
 
 
@@ -1079,6 +1088,8 @@ echo $mysql->error;
             $amount = $count;
             if($tableName == 'blog'){
                 $amount = 6;
+            }else{
+                $amount = 3;
             }
             if($count <= $amount ){
                 for($i=0;$i<=$count-1;$i++){
@@ -1521,7 +1532,7 @@ return $ask;
             $ask = $mysql->query($q);
 
             return $ask;
-        }
+        } 
 
 
        ////blog uploader
@@ -1550,8 +1561,14 @@ return $ask;
     }
     
     /// realestate insereting data
-    function realEstate(){
+    function realEstate($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area   , $email, $price, $fixidOrN, $info, $up){
         include "connect.php";
+        $postedDate = date('Y-m-d H:i:s');
+        $q = "INSERT INTO `realestate`(  `type`, `title`, `company`, `address`, `subCity`, `wereda`, `phone`, `email`, `area`, `floor`, `price`, `priceType`, `photoPath1`, `info`, `postedDate`, `posterId`) VALUES  ('$rsType', '$title', '$company', '$city', '$subCity', '$wereda', '$phonem', '$email',  '$area', '$floor', '$price', '$fixidOrN', '$up', '$info', '$postedDate', '$posterId' )";
+
+        $ask = $mysql->query($q);
+
+        return $ask;
         
     }
 
