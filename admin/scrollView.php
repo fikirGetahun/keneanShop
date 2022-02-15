@@ -1,7 +1,7 @@
 <?php
         ob_start();
         session_start();
-        
+        $website = "shop2/Description.php";
 $content_per_page = 6;
 $page = $_SESSION['adminPage'];
 $startPage = ($page * $content_per_page) - $content_per_page;

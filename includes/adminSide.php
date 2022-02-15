@@ -1,6 +1,6 @@
 <?php
-include "includes/header.php";
-  require_once "php/adminCrude.php";
+include "../includes/header.php";
+  require_once "../php/adminCrude.php";
 
   $url = $_SERVER['REQUEST_URI'];
 ob_start();
@@ -22,16 +22,16 @@ if(!isset($_SESSION)){
   <meta content="" name="keywords">
 
   <!-- Vendor CSS Files -->
-  <link href="admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="admin/assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
   <script src="assets/jquery.js" type="text/javascript"></script>
   <script>
     $(document).ready(function(){
@@ -47,52 +47,52 @@ if(!isset($_SESSION)){
           $('#postBox').load('postPage.php?'+$.param({type: "tender", uid: '<?php echo $uid; ?>'}))
         }
         if(location.hash == '#adduser'){
-          $('#postBox').load('admin/adminRegister.php');
+          $('#postBox').load('adminRegister.php');
         }
         if(location.hash == '#viewHomeTutor'){
           // $('#vac1').empty()
-          $('#postBox').load('admin/postPage.php?'+$.param({type: "home", uid: '<?php echo $uid; ?>'}))
+          $('#postBox').load('postPage.php?'+$.param({type: "home", uid: '<?php echo $uid; ?>'}))
         }
         if(location.hash == '#viewTenderPost'){
           $('#vac1').empty()
-          $('#postBox').load('admin/viewPost.php?'+$.param({type: 'tender'}))
+          $('#postBox').load('viewPost.php?'+$.param({type: 'tender'}))
         }
         if(location.hash == '#viewVacancyPost'){
           $('#vac1').empty()
-          $('#postBox').load('admin/viewPost.php?'+$.param({type: 'vacancy'}))
+          $('#postBox').load('viewPost.php?'+$.param({type: 'vacancy'}))
         }
         if(location.hash == '#viewAd'){
          $('#vac1').empty()
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
         }
 
     });
 
 
     $('#homeTutor').click(function(){
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "home", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "home", uid: '<?php echo $uid; ?>'}))
       })
 
     $('#addUser').click(function(){
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
-        $('#postBox').load('admin/adminRegister.php');
+        $('#postBox').load('adminRegister.php');
       })
 
     $('#editTender').click(function(){
       $('#vac1').empty()
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: 'tender'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: 'tender'}))
       })
 
       $('#editVacancy').click(function(){
         $('#vac1').empty()
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: 'vacancy'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: 'vacancy'}))
       })
 
       $('#viewHomeTutorPerson').click(function(){
         // $('#postBox').load('editPost.php?'+$.param({type: 'viewVacancy', uid: '<?php echo $uid; ?>'}))
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: 'homeTutor'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: 'homeTutor'}))
       })
 
       
@@ -100,108 +100,108 @@ if(!isset($_SESSION)){
       $('#postVacancy').click(function(){
         
       
-          $('#postBox').load('admin/postPage.php?'+$.param({type: "postVacancy", uid: '<?php echo $uid; ?>'}))
+          $('#postBox').load('postPage.php?'+$.param({type: "postVacancy", uid: '<?php echo $uid; ?>'}))
           // history.pushState('vacancy', 'Post Vacancy', currentUrl+'postVacancy')
       })
 
       $('#postTender').click(function(){
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "tender", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "tender", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewPtag').click(function(){
-        $('#postBox').load('admin/profileViewPanel.php?'+$.param({uid: '<?php echo $uid;  ?>'}))
+        $('#postBox').load('profileViewPanel.php?'+$.param({uid: '<?php echo $uid;  ?>'}))
       })
 
       $('#postAd').click(function(){
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#houseKeeper').click(function(){
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#hotelWorker').click(function(){
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#zebegnaWorker').click(function(){
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
       })
       
       
 
       $('#carPost').click(function(){
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#postCharity').click(function(){
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "big", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "big", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#postBig').click(function(){
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#housePost').click(function(){
         
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#postBlog').click(function(){
         
-        $('#postBox').load('admin/postPage.php?'+$.param({type: "blog", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('postPage.php?'+$.param({type: "blog", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewAd').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewAd2').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: "bigDiscount", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#houseKeeper').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: "houseKeeper", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewCar').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: "car", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewHouse').click(function(){
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: "house", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewCharity').click(function(e){
         e.preventDefault()
         $('#vac1').empty()
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: "charity", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: "charity", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#viewHotelPerson').click(function(e){
         e.preventDefault()
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: "hotel", uid: '<?php echo $uid; ?>'}))
       })
       
       $('#zebegnaView').click(function(){
         $('#vac1').empty()
-        $('#postBox').load('admin/viewPost.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
+        $('#postBox').load('viewPost.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
       })
 
       $('#adCategory').click(function(){
-        $('#postBox').load('admin/addCategory.php', {type: 'ad'})
+        $('#postBox').load('addCategory.php', {type: 'ad'})
       })
 
       $('#viewYourPost').click(function(){
-        $('#postBox').load('admin/userPostViewPage.php', {id: '<?php echo $uid; ?>' })
+        $('#postBox').load('userPostViewPage.php', {id: '<?php echo $uid; ?>' })
       })
       
       $('#elecCategory').click(function(){
-        $('#postBox').load('admin/addCategory.php', {type: 'electronics' })
+        $('#postBox').load('addCategory.php', {type: 'electronics' })
       })
 
 
@@ -340,7 +340,7 @@ if(!isset($_SESSION)){
 
         <li class="message-item">
           <a href="#">
-            <img src="admin/assets/img/messages-1.jpg" alt="" class="rounded-circle">
+            <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
             <div>
               <h4>Maria Hudson</h4>
               <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -354,7 +354,7 @@ if(!isset($_SESSION)){
 
         <li class="message-item">
           <a href="#">
-            <img src="admin/assets/img/messages-2.jpg" alt="" class="rounded-circle">
+            <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
             <div>
               <h4>Anna Nelson</h4>
               <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -368,7 +368,7 @@ if(!isset($_SESSION)){
 
         <li class="message-item">
           <a href="#">
-            <img src="admin/assets/img/messages-3.jpg" alt="" class="rounded-circle">
+            <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
             <div>
               <h4>David Muldon</h4>
               <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -459,7 +459,7 @@ if(!isset($_SESSION)){
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="admin.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -499,7 +499,7 @@ if(!isset($_SESSION)){
             </a>
           </li>
           <li>
-            <a  id=" " href=""  >
+            <a  id=" " href="./membersList.php"  >
               <i class="bi bi-circle"></i><span>Members List</span>
             </a>
           </li>
@@ -519,17 +519,17 @@ if(!isset($_SESSION)){
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
           <li>
-            <a id="editVacancy" href="#viewVacancyPost">
+            <a id="editVacancy" href="./viewPost.php?type=vacancy&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>View Vacancy PostS</span>
             </a>
           </li>
           <li>
-            <a id="editTender" href="#viewTenderPost">
+            <a id="editTender" href="./viewPost.php?type=tender&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>View Tender PostS</span>
             </a>
           </li>
           <li>
-            <a id="viewAd" href="#viewAd">
+            <a id="viewAd" href="./viewPost.php?type=ad&uid=<?php echo $uid; ?>"> 
               <i class="bi bi-circle"></i><span>View AD PostS</span>
             </a>
           </li>
@@ -537,7 +537,7 @@ if(!isset($_SESSION)){
           <script>
             $(document).ready(function(){
               document.addEventListener("DOMContentLoaded", function (){
-                if(window.location.href=== "http://localhost/shop2/admin/viewPost/electronics") {
+                if(window.location.href=== "http://localhost/shop2/viewPost/electronics") {
 
 alert('wiork')
 }
@@ -545,7 +545,7 @@ alert('wiork')
 
                 $('#elecView').click(function(){
 
-                $('#postBox').load('admin/viewPost.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
+                $('#postBox').load('viewPost.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
                 // history.pushState({type: 'electronics'},'', './viewPost.php?type=electronics&uid=<?php echo $uid; ?>')
                 })
 
@@ -553,51 +553,51 @@ alert('wiork')
           </script>
 
           <li>
-            <a id="elecView" href="#elecView">
+            <a id="elecView" href="./viewPost.php?type=electronics&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>View Electronics PostS</span>
             </a>
           </li>
           <li>
-            <a id="viewCar" href="#viewCar">
+            <a id="viewCar" href="./viewPost.php?type=car&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>View Car PostS</span>
             </a>
           </li>
           <li>
-            <a id="viewHouse" href="#viewHouse">
+            <a id="viewHouse" href="./viewPost.php?type=house&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>View House PostS</span>
             </a>
           </li>
           <li>
-            <a id="viewCharity" href="#viewCharity">
+            <a id="viewCharity" href="./viewPost.php?type=charity&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>View Charity Post</span>
             </a>
           </li>
           <li>
-            <a id="viewAd2" href="#viewAd2">
+            <a id="viewAd2" href="./viewPost.php?type=bigDiscount&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>View BigDiscount Ads Post</span>
             </a>
           </li>
 
           <li>
-            <a id="viewHomeTutorPerson" href="#viewHomeTutorPerson">
+            <a id="viewHomeTutorPerson" href="./viewPost.php?type=homeTutor&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>Home Tutor Pepole </span>
             </a>
           </li>
 
           <li>
-            <a id="viewHotelPerson" href="#viewHotelPerson">
+            <a id="viewHotelPerson" href="./viewPost.php?type=hotel&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>Hotel Worker Pepole </span>
             </a>
           </li>
 
           <li>
-            <a id="houseKeeper" href="#houseKeeper">
+            <a id="houseKeeper" href="./viewPost.php?type=houseKeeper&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>House Worker Pepole </span>
             </a>
           </li>
 
           <li>
-            <a id="zebegnaView" href="#zebegnaView">
+            <a id="zebegnaView" href="./viewPost.php?type=zebegna&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>Security Gaurd Pepole </span>
             </a>
           </li>
@@ -609,7 +609,7 @@ alert('wiork')
 
 // document.addEventListener('popstate', (event) => {
 //   alert(location)
-//     if(location == 'http://localhost/shop2/admin/admin.php/post'){
+//     if(location == 'http://localhost/shop2/admin.php/post'){
       
 //       $('#postBox').load('postPage.php?type=electronics&uid=89')
 //     }
@@ -617,19 +617,19 @@ alert('wiork')
 
               $(document).ready(function(){
                 $('#carCategory').click(function(){
-                  $('#postBox').load('admin/addCategory.php', {type: 'car'})
+                  $('#postBox').load('addCategory.php', {type: 'car'})
                 })
                 $('#postElectronics').click(function(e){
                   e.preventDefault()
-                  // history.pushState({type: 'electronics'}, '', 'http://localhost/shop2/admin/admin.php/post')
-                  // $('#postBox').load('http://localhost/shop2/admin/postPage.php?type=electronics&uid=89')
+                  // history.pushState({type: 'electronics'}, '', 'http://localhost/shop2/admin.php/post')
+                  // $('#postBox').load('http://localhost/shop2/postPage.php?type=electronics&uid=89')
                   // window.location.href = 'postPage.php?type=electronics&uid=<?php echo $uid ?>'
-                  $('#postBox').load('admin/postPage.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
+                  $('#postBox').load('postPage.php?'+$.param({type: "electronics", uid: '<?php echo $uid; ?>'}))
                 })
                 // window.onpopstate = function (event) {
                   
                 //   if(event.state.type == 'electronics'){
-                //     $('#postBox').load('http://localhost/shop2/admin/postPage.php?type=electronics&uid=89')
+                //     $('#postBox').load('http://localhost/shop2/postPage.php?type=electronics&uid=89')
                 //   } 
                 // }
                
@@ -637,11 +637,11 @@ alert('wiork')
 
 
                 $('#vacancyCategory').click(function(){
-                  $('#postBox').load('admin/addCategory.php', {type: 'vacancy'})
+                  $('#postBox').load('addCategory.php', {type: 'vacancy'})
                 })
 
                 $('#houseCategory').click(function(){
-                  $('#postBox').load('admin/addCategory.php', {type: 'house'})
+                  $('#postBox').load('addCategory.php', {type: 'house'})
                 })
 
 
@@ -659,7 +659,7 @@ alert('wiork')
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-            <a id="postVacancy" href="#content">
+            <a id="postVacancy" href="./postPage.php?type=vacancy"> 
               <i class="bi bi-circle "></i><span>Post Vacancy</span>
             </a>
             <a id="vacancyCategory" style="padding-left: 60px;" href="#vacancyCatagory">
@@ -668,17 +668,17 @@ alert('wiork')
             </a>
           </li>
           <li>
-            <a id="postTender" href="#postTender">
+            <a id="postTender" href="./postPage.php?type=tender">
               <i class="bi bi-circle"></i><span>Post Tender</span>
             </a>
           </li>
           <li>
-            <a id="postBlog" href="#postBlog">
+            <a id="postBlog" href="./postPage.php?type=blog">
               <i class="bi bi-circle"></i><span>Post Blog</span>
             </a>
           </li>
           <li>
-            <a id="postElectronics" href='#postElectronics'>
+            <a id="postElectronics" href='./postPage.php?type=electronics'>
               <i class="bi bi-circle"></i><span>Post Electronics</span>
             </a>
             <a id="elecCategory" style="padding-left: 60px;" href="#elecCategory">
@@ -688,19 +688,21 @@ alert('wiork')
           </li>
 
           <li>
-            <a id="postCharity" href='#postCharity'>
+            <a id="postCharity" href='./postPage.php?type=charity'>
               <i class="bi bi-circle"></i><span>Post Charity</span>
             </a>
           </li>
 
+
+
           <li>
-            <a id="postBig" href='#postBig'>
+            <a id="postBig" href='./postPage.php?type=bidAd'>
               <i class="bi bi-circle"></i><span>Post Big Discount Advertisment</span>
             </a>
           </li>
 
           <li>
-            <a id="carPost" href="#carPost">
+            <a id="carPost" href="./postPage.php?type=car">
               <i class="bi bi-circle"></i><span>Post Cars</span>
             </a>
 
@@ -712,7 +714,7 @@ alert('wiork')
             </a>
           </li>
           <li>
-            <a id="housePost" href="#housePost">
+            <a id="housePost" href="./postPage.php?type=house">
               <i class="bi bi-circle"></i><span>Post House</span>
             </a>
             <a id="houseCategory" style="padding-left: 60px;" href="#houseCatagory">
@@ -721,7 +723,12 @@ alert('wiork')
             </a>
           </li>
           <li>
-            <a id="postAd" href="#postAd">
+            <a id="postCharity" href='./postPage.php?type=land'>
+              <i class="bi bi-circle"></i><span>Post Land</span>
+            </a>
+          </li>
+          <li>
+            <a id="postAd" href="./postPage.php?type=ad">
               <i class="bi bi-circle"></i><span>Post Advertisment</span>
             </a>
             <a id="adCategory" style="padding-left: 60px;" href="#adCategory">
@@ -745,23 +752,23 @@ alert('wiork')
         <ul id="tables2-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
           <li>
-            <a id="homeTutor" href="#viewHomeTutor">
+            <a id="homeTutor" href="./postPage.php?type=homeTutor">
               <i class="bi bi-circle"></i><span>Home Tutor [Upload Your Portoflio]</span>
             </a>
           </li>
           <li>
-            <a id="houseKeeper" href="#viewVacancyPost">
+            <a id="houseKeeper" href="./postPage.php?type=houseWorker">
               <i class="bi bi-circle"></i><span>House Keeper [Upload Your Portoflio]</span>
             </a>
           </li>
           <li>
-            <a id="hotelWorker" href="#viewVacancyPost">
+            <a id="hotelWorker" href="./postPage.php?type=hotelWorker">
               <i class="bi bi-circle"></i><span>Hotel Worker [Upload Your Portoflio]</span>
             </a>
           </li>
 
           <li>
-            <a id="zebegnaWorker" href="#viewVacancyPost">
+            <a id="zebegnaWorker" href="./postPage.php?type=zebegna">
               <i class="bi bi-circle"></i><span>Security Gaurd[Upload Your Portoflio]</span>
             </a>
           </li>

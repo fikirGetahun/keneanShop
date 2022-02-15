@@ -1,5 +1,5 @@
 <?php
-  // include "adminSide.php";
+  include "../includes/adminSide.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,21 +31,21 @@ if(isset($_GET['uid'])){
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="admin/assets/img/favicon.png" rel="icon">
-  <link href="admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -98,7 +98,7 @@ if(isset($_GET['uid'])){
     $('form').on('submit', function(e){
           e.preventDefault()
           $.ajax({
-            url: 'admin/postHandler.php',
+            url: 'postHandler.php',
             type: 'post',
             data:  new FormData( this ),
             success : function(data){
@@ -117,7 +117,7 @@ if(isset($_GET['uid'])){
 
     $('#city').on('change',function(){
       if(this.value == "otherCity"){
-        $('#cityBox').load('admin/divTags.php #otherCity')
+        $('#cityBox').load('divTags.php #otherCity')
  
       }
    
@@ -125,21 +125,21 @@ if(isset($_GET['uid'])){
 
     $('#subCity').on('change',function(){
       if(this.value == "otherSubCity"){
-        $('#subCityBox').load('admin/divTags.php #otherSubCity')
+        $('#subCityBox').load('divTags.php #otherSubCity')
       }
       
     })
 
     $('#HorL').on('change', function(){
       if(this.value == "HOUSE"){
-        $('#houseTypeLoader').load("admin/divTags.php #houseType")
-        $('#bedOrBath').load('admin/divTags.php #bedBath')
+        $('#houseTypeLoader').load("divTags.php #houseType")
+        $('#bedOrBath').load('divTags.php #bedBath')
       }
     })
 
     $('#sCar').on('change', function(){
       if(this.value == "OTHER"){
-        $('#typeC').load("admin/divTags.php #typeCar")
+        $('#typeC').load("divTags.php #typeCar")
       }
     })
 
@@ -156,308 +156,469 @@ if(isset($_GET['uid'])){
   <!-- ======= Sidebar ======= -->
 
 
-  <main id="main" class="container">
+  <main id="postBox" class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    
 
+ <!--  <script src="assets/jquery.js" ></script> -->
  
-    <?php
-      // if post vacancy is selected it loads this if block
-      if(isset($_GET['type'])){
-        if($_GET['type'] == "postVacancy"){
+ <?php
+ include "../includes/lang.php";
+ ?>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script>
+  // this function sends the selected address to api. that api sets the address to a session then the session will be
+  // the input to the database
+  function handler(address){
+    $('#jiji').hide();
+    $('#dbad').val(address); 
+    $('#ADD').text(address);
+  }
+
+  function typeHandler(data, apiId, showId, hideId){
+    $('#'+hideId).hide()
+    $('#'+apiId).val(data)
+    $('#'+showId).text(data)
+    if(data == "Cloth and Shoe"){
+    $('#targetLoader').load('divTags.php #targetFor')
+  }else{
+    $('#targetLoader').empty()
+  }
+
+  if(data == 'Computer and Laptop'){
+    $('#computer').load('divTags.php #sizeInch,#proc,#storage,#core,#ram')
+  }else{
+    $('#computer').empty()
+  }
+  }
+
+  // function to load the categoty of post based on the needed div tag from divTags.php provided by onclick event
+  function typeLoader(divId){
+    $('#z').load('user/divTags.php #'+divId)
+  }
+
+
+</script>
+<script>
+$(document).ready(function(){
+
+  /// this will triger the address list for selecting address for all of the forms
+  $('#ADD').click(function(){
+  $('#z').load('user/divTags.php #jiji')
+})
+
+        
+    $('form').on('submit', function(e){
+          e.preventDefault()
+          $.ajax({
+            url: 'postHandler.php',
+            type: 'post',
+            data:  new FormData( this ),
+            success : function(data){
+              $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text(data)
+              $('#alertVacancy').delay(5200).fadeOut(1000);
+              location.reload()
+            },
+            processData: false,
+        contentType: false
+          })
+          
+
+    })
+
+})
+</script>
+
+<?php
+include "../includes/header.php";
+require_once "../php/adminCrude.php";
+require_once "../php/fetchApi.php";
+
+ob_start();
+if(!isset($_SESSION)){
+  session_start();
+}
+
+$_SESSION['address'] = 'Addis Ababa';
+
+// if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
+//     echo 'login';
+//     header('Location: login.php');
+    
+// }
+
+if(isset($_GET['type'],$_SESSION['userId'])){
+
+
+    if($_GET['type'] == 'car' ){
         ?>
+
+
+
+
+<script>
+
+    $(document).ready(function(){
+    $('#cl').click(function(){
+    location.reload();
+
+    })
+    $('#rentS').hide()
+  $('#forWho').hide()
+  $('#whyRent').hide();
+$('#forRentOrSell').on('change', function(){
+    if(this.value == 'For Rent'){
+      $('#rentS').show();
+      $('#forWho').show();
+      $('#whyRent').show();
+    }else{
+      $('#rentS').hide()
+      $('#forWho').hide()
+      $('#whyRent').hide();
+    }
+  
+})
+
+$('#fsell').on('change', function(){
+  if(this.value == 'For Sell'){
+      $('#rentS').hide()
+      $('#forWho').hide()
+      $('#whyRent').hide();
+    }
+  
+})
+
+
+    })
+
+
+</script>
+
+
+
+<div id="contw" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+      <!-- <h5><?php echo $lang['carAdPost'] ?></h5> -->
+            <div id="carVl" class="modal-body">
+            <form  method="POST" enctype="multipart/form-data" >
+          <input hidden name="posterId2" value="<?php echo $_SESSION['userId'] ?>">
+
+
+          <div class="form-group">
+          <label for="exampleInputEmail1" class="fs-6 " ><?php echo $lang['ownerBroker'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="ownerBroker" id="inlineRadio1" value="Owner">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['owner'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="ownerBroker" id="inlineRadio1" value="Broker">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['broker'] ?></label>
+        </div>
+        </div>
+
+
+          <div class="form-group">
+          <label for="exampleInputEmail1" class="fs-6  " ><?php echo $lang['sellOrRent'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="forRentOrSell" value="For Rent">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="fsell" value="For Sell">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
+        </div>
+        </div>
+
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="type2" id="s">
+          <option><?php echo $lang['carModel'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc=   $admin->allCategoryLister('car');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  
+                  
+                  
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
+
+
+          <div class="form-group">
+              <label for="exampleInputEmail1"><?php echo $lang['carTitle'] ?></label>
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['carPlaceholder'] ?>">
+              
+            </div>
+
+
+
+
+
+
+
+
+
      
-      <section class="section">
-          <div class="pagetitle">
-          <h1>Vacancy Post</h1>
-          <nav>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item">Icons</li>
-              <li class="breadcrumb-item active">Bootstrap</li>
-            </ol>
-          </nav>
-        </div><!-- End Page Title -->
-        <p>
-        Here you have to fill the requiered fields inorder to post the Vacancy Application.
-        </p>
 
-        <div id="vacancyBox" class="container">
-        <form id="vacancyForm" action="postPage.php"  method="POST" >
-          <input hidden name="uid" value="<?php echo $uidx; ?>">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Company Name</label>
-          <input type="text" class="form-control" id="companyName" 
-          aria-describedby="emailHelp" name="companyName" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <script>
-            $(document).ready(function(){
-              $('#jobTT').on('change', function(){
-                if(this.value == 'OTHER'){
-                  $('#jt').load('admin/divTags.php #jobType')
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="address" id="s">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
                 }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
                 
-              })
-            })
-
-          </script>
-        <div id="jt" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Type Of JOBS</label>
-          </div>
-
-
-          <div id="jobT">
-          <select class="custom-select" name="jobType" id="jobTT">
-            <option selected>Choose...</option>
-            <?php
-                $vacancyCat = $admin->vacancyCategoryLister();
-                while($vacancyCatRow = $vacancyCat->fetch_assoc()){
-                  ?>
-                  <option value="<?php echo $vacancyCatRow['category'] ?>"><?php echo $vacancyCatRow['category'] ?></option>
                   <?php
+                  $i++;
                 }
-              ?>
-          </select>
-          </div>
-
-
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Job Title</label>
-          <input type="text" class="form-control" id="jobTitle" 
-          aria-describedby="emailHelp" name="jobTitle" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Position Type</label>
-        </div>
-        <select class="custom-select" name="positionType" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Full Time">Full Time</option>
-          <option value="Part Time">Part Time</option>
-          <option value="Temporary">Temporary</option>
-          <option value="Contractual">Contractual </option>
+              ?> 
         </select>
         </div>
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-        </div>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Male">Mele</option>
-          <option value="Female">Female</option>
-          <option value="Both">Both</option>
+
+
+
+
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="rentStatus" id="rentS">
+          <option  > <?php echo $lang['rentStatus'] ?></option>
+          <option value="With Driver"> <?php echo $lang['withDriver'] ?></option>
+          <option selected value="Car Only"><?php echo $lang['carOnly'] ?></option>
         </select>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Deadline</label>
-          <input type="date" class="form-control" id="Deadline" 
-          aria-describedby="emailHelp" name="Deadline" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Requierd Position No</label>
-          <input type="number" class="form-control" id="jobTitle" 
-          aria-describedby="emailHelp" name="reqNo" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Phone Number</label>
-          <input type="number" class="form-control" id="jobTitle" 
-          aria-describedby="emailHelp" name="phone" placeholder="phone number">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="forWho" id="forWho">
+          <option value=" " ><?php echo $lang['rentFor'] ?></option>
+          <option value="All"><?php echo $lang['all'] ?></option>
+          <option value="Private"><?php echo $lang['private'] ?></option>
+          <option value="Govormental Offices"><?php echo $lang['govormentalOffices'] ?></option>
+          <option value="Private Company"><?php echo $lang['privateCompany'] ?></option>
+          <option value="NGO"><?php echo $lang['ngo'] ?></option>
+        </select>
         </div>
 
         
-            <div class="col-sm-6">
-              <label for="country" class="form-label">Location</label>
-              <select class="form-select" id="country" name="location" required>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
-            </div>
-
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
-          <textarea type="text" class="form-control" id="des" 
-          aria-describedby="emailHelp" name="description" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-          <input type="submit" onclick="x()" value="POST">
-        <!-- <button type="submit" onclick="x()" class="btn btn-primary">Submit</button> -->
-        </form>
-        </div>
-        <div id="alertVacancy"></div>
-      
-      </section>
-        
-        <?php
-        }
-      }
-      
-      //if post tender is selected it loads this if block
-      if(isset($_GET['type'])){
-        if($_GET['type'] == 'tender'){
-          ?>
-    <div class="pagetitle">
-      <h1>Tender Post</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Icons</li>
-          <li class="breadcrumb-item active">Bootstrap</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-    <section class="section">
-        <p>
-        Here you have to fill the requiered fields inorder to post the Tender.
-        </p>
-
-        <div id="vacancyBox" class="container">
-        <form id="tenderForm"  method="POST" >
-        <input hidden name="uid" value="<?php echo $uidx; ?>">
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Tender Title</label>
-          <input type="text" class="form-control" id="tenderType" 
-          aria-describedby="emailHelp" name="title" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Tender Type</label>
-          <input type="text" class="form-control" id="tenderType" 
-          aria-describedby="emailHelp" name="tenderType" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Starting date</label>
-          <input type="date" class="form-control" id="startingDate" 
-          aria-describedby="emailHelp" name="startDate" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Deadline</label>
-          <input type="date" class="form-control" id="Deadline2" 
-          aria-describedby="emailHelp" name="Deadline2" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Initial Cost</label>
-          <input type="number" class="form-control" id="phoneNo" 
-          aria-describedby="emailHelp" name="initialCost" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="col-sm-6">
-              <label for="country" class="form-label">Location</label>
-              <select class="form-select" id="country" name="location2" required>
-              <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                foreach($city as $loc){
-                  ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
-                  <?php
-                }
-              ?>                
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
-            </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
+        <div class="form-group" id="whyRent">
+          <label for="exampleInputEmail1"><?php echo $lang['whyRent'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="description2" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="whyRent" placeholder="Description"></textarea>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['descWhyRent'] ?></small>
         </div>
 
+
+
+            <div class="input-group mb-3">
+        <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01">
+          <option ><?php echo $lang['yearMade']  ?></option>
+          <?php 
+            $cYear = date('Y');
+            for($y=1990;$y<=$cYear;$y++){
+              ?>
+              <option value="<?php echo $y ?>"><?php echo $y ?></option>
+              <?php
+            }
+          ?>
+          
+
+        </select>
+        </div>
+
+
+
+
+
+        <div class="input-group mb-3">
+        <select class="form-select" aria-label="Default select example" name="fuleKind" id="inputGroupSelect01">
+          <option selected><?php echo $lang['fuleType'] ?></option>
+          <option value="Benzene"><?php echo $lang['benzene'] ?></option>
+          <option value="Diesel"><?php echo $lang['diesel'] ?></option>
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <select class="form-select" aria-label="Default select example" name="transmission" id="inputGroupSelect01">
+          <option selected><?php echo $lang['Transmission'] ?></option>
+          <option value="automatic"><?php echo $lang['Automatic'] ?></option>
+          <option value="manual"><?php echo $lang['Manual'] ?></option>
+        </select>
+        </div>
+
+        <div class="form-group">
+ 
+ 
+              <select  class="form-select" aria-label="Default select example" name="bodyStatus" id="forWho">
+          <option value=" " ><?php echo $lang['bodyStatus'] ?></option>
+          <option value="Slightly Good"><?php echo $lang['slightlyGood'] ?></option>
+          <option value="Good"><?php echo $lang['Good'] ?></option>
+          <option value="Very Good"><?php echo $lang['veryGood'] ?></option>
+          <option value="Excellent"><?php echo $lang['Excellent'] ?></option>
+         </select>
+
+        </div>
+
+        <div class="form-group">
+              <!-- <label for="exampleInputEmail1"> <?php echo $lang['km'] ?>:</label> -->
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="km" placeholder="<?php echo $lang['km'] ?>">
+        </div>
+
+        <div class="input-group mb-3">
+        <select class="form-select" aria-label="Default select example" name="fixidOrN" id="inputGroupSelect01">
+          <option selected><?php echo $lang['priceType'] ?></option>
+          <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
+        </select>
+        </div>
+
+        <div class="form-group">
+        <label for="exampleInputEmail1"> <?php echo $lang['labelPrice'] ?>:</label>
+          <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price2" placeholder="<?php echo $lang['Price'] ?>">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info2" placeholder="<?php echo $lang['Description'] ?>"></textarea>
+        </div>
+ 
+
+
+        <i class="bi bi-file-plus"> </i>
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photo  [Optional] </label>
-          <input type="file" class="form-control" id="photo" name="photo" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <input type="submit" onclick="x()" value="POST">
-        <div id="alertVacancy"></div>
-        </form>
-        </div>
-      
-      </section>
-                    
           
-          <?php
-        }
-      }
 
     
-    if(isset($_GET['type'])){
-      if($_GET['type'] == 'ad'){
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
+          <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
+        </div>
+
+        <input type="submit" value="POST">
+        <div id="alertVacancy"></div>
+          </form>
+            </div>
+        </div><!-- /.modal-content -->
+      <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+
+
+      
+      </div><!-- /.modal-dialog -->
+        
+<!-- Modal HTML Markup -->
+
+    
+
+        <?php
+
+    }
+/////////////////////////////////////ad post/////////////////////////
+    elseif($_GET['type'] == 'ad'){
         ?>
-        <h5>Post Advertisment</h5>
+<script>
+    $(document).ready(function(){
+    $('#cl').click(function(){
+    location.reload();
+
+    })
+
+    })
+</script>
+<div id="cont" class="modal-dialog">
+<div class="modal-content"  >
+      <div class="modal-header" style="background-color: blue;"  >
+        <h5 class="modal-title" style="color: yellow;"  id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+      <div class="modal-body">
+        <!-- <h5><?php echo $lang['postAd'] ?></h5> -->
         <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
-        <input hidden name="posterId" value="<?php echo $uidx; ?>">
+        <input hidden name="posterId" value="<?php echo $_SESSION['userId']?>">
         <input hidden name="big" value="NOT">
 
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Title</Title></label>
+          <label for="exampleInputEmail1" ><?php echo $lang['enterTitle'] ?></label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="title" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
         </div>
 
 <script>
+  function cloth(){
+    alert('change')
+  if(this.value == "Cloth and Shoe"){
+    $('#targetLoader').load('divTags.php #targetFor')
+  }else{
+    $('#targetLoader').empty()
+  }
+  }
 
 $(document).ready(function(){
-$('#tCategory').on('change', function(){
+$('#selchange').on('change', function(){
+  // alert('change')
   if(this.value == "Cloth and Shoe"){
-    $('#targetLoader').load('admin/divTags.php #targetFor')
+    $('#targetLoader').load('divTags.php #targetFor')
+  }else{
+    $('#targetLoader').empty()
   }
  
 })
 
-$('#tCategory').on('change', function(){
-  if(this.value == "OTHER"){
-    $('#adTy').load('admin/divTags.php #otherAd')
-  }
+// $('#tCategory').on('change', function(){
+//   if(this.value == "OTHER"){
+//     $('#adTy').load('divTags.php #otherAd')
+//   }
  
-})
+// })
 
 
 
@@ -465,25 +626,33 @@ $('#tCategory').on('change', function(){
 
 </script>
 
-        <div id="adTy"  class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
-          </div>
-          <select id="tCategory" class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-            ?><?php
-              $out11 = $admin->adsCategoryLister();
-              while($r = $out11->fetch_assoc()){
-              ?>
-            
-            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
-            <?php
-              }
-            ?>
 
 
-          </select>
+<div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="type" id="selchange">
+          <option selected ><?php echo $lang['adsCategory'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $admin->allCategoryLister('ad');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  
+      
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
+
 
         <div id="targetLoader">
 
@@ -492,361 +661,851 @@ $('#tCategory').on('change', function(){
 
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Price :</label>
+          <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?> :</label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="price" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Price'] ?>">
         </div>
 
-        <div class="col-sm-6">
-              <label for="country" class="form-label">Location</label>
-              <select class="form-select" id="country" name="address" required>
-              <?php 
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="address" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
                 }
                 sort($city);
+                $i = 0;
                 foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
                   ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  
+                
                   <?php
+                  $i++;
                 }
-              ?>                
+              ?> 
+        </select>
+        </div>
 
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
-
-            </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Phone Number</label>
+          <label for="exampleInputEmail1"><?php echo $lang['phone'] ?></label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="phone" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="phone" value="<?php echo $_SESSION['phone'] ?>">
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Offer Shipping</label>
-        </div>
-        <select class="custom-select" name="shipping" id="inputGroupSelect01">
-          <option value="NO" selected>NO</option>
-          <option value="YES">YES</option>
+        <select class="form-select" aria-label="Default select example" name="shipping" id="inputGroupSelect01">
+          <option selected> <?php echo $lang['offerDelivery'] ?></option>
+          <option ><?php echo $lang['no'] ?></option>
+          <option value="YES"><?php echo $lang['yes'] ?></option>
 
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Description'] ?>"></textarea>
         </div>
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
         </div>
 
-    <!-- <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 2</label>
-          <input type="file" class="form-control" id="photo" 
-           name="photo2" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
 
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 3</label>
-          <input type="file" class="form-control" id="photo" 
-           name="photo3" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-        </div> -->
 
-        <input type="submit" onclick="x()" value="POST">
+        <input type="submit" value="POST">
         <div id="alertVacancy"></div>
         </form>
+      </div>
+</div>
+      <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+</div>
+        
         <?php
+    }
+
+// big discount post
+elseif($_GET['type'] == 'bidAd'){
+  ?>
+<script>
+$(document).ready(function(){
+$('#cl').click(function(){
+location.reload();
+
+})
+
+})
+</script>
+<div id="cont" class="modal-dialog">
+<div class="modal-content"  >
+<div class="modal-header" style="background-color: blue;"  >
+  <h5 class="modal-title" style="color: yellow;"  id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+  <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+</div>
+<div class="modal-body">
+  <!-- <h5><?php echo $lang['postAd'] ?></h5> -->
+  <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
+  <input hidden name="posterId" value="<?php echo $_SESSION['userId']?>">
+  <input hidden name="big" value="ACTIVE">
+
+
+  <div class="form-group">
+    <label for="exampleInputEmail1" ><?php echo $lang['enterTitle'] ?></label>
+    <input type="text" class="form-control" id="nameTitle" 
+    aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
+  </div>
+
+<script>
+function cloth(){
+alert('change')
+if(this.value == "Cloth and Shoe"){
+$('#targetLoader').load('divTags.php #targetFor')
+}else{
+$('#targetLoader').empty()
+}
+}
+
+$(document).ready(function(){
+$('#selchange').on('change', function(){
+// alert('change')
+if(this.value == "Cloth and Shoe"){
+$('#targetLoader').load('divTags.php #targetFor')
+}else{
+$('#targetLoader').empty()
+}
+
+})
+
+// $('#tCategory').on('change', function(){
+//   if(this.value == "OTHER"){
+//     $('#adTy').load('divTags.php #otherAd')
+//   }
+
+// })
+
+
+
+})
+
+</script>
+
+
+
+<div  class="input-group mb-3" >
+  <select  class="form-select" aria-label="Default select example" name="type" id="selchange">
+    <option selected ><?php echo $lang['adsCategory'] ?></option>
+    <?php 
+        require_once '../php/fetchApi.php';
+          $locc= $admin->allCategoryLister('ad');
+          $city = array();
+          while($rowLoc = $locc->fetch_assoc()){
+              $city[]= $rowLoc['category'];
+          }
+          sort($city);
+          $i = 0;
+          foreach($city as $loc){
+
+              ?>
+               <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+              <?php
+            
+
+            $i++;
+          }
+        ?> 
+  </select>
+  </div>
+
+
+  <div id="targetLoader">
+
+  </div>
+
+
+
+  <div class="form-group">
+    <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?> :</label>
+    <input type="text" class="form-control" id="nameTitle" 
+    aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Price'] ?>">
+  </div>
+
+  <div  class="input-group mb-3" >
+  <select  class="form-select" aria-label="Default select example" name="address" id="">
+    <option><?php echo $lang['city'] ?></option>
+    <?php 
+        require_once '../php/fetchApi.php';
+          $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+          $city = array();
+          while($rowLoc = $locc->fetch_assoc()){
+              $city[]= $rowLoc['category'];
+          }
+          sort($city);
+          $i = 0;
+          foreach($city as $loc){
+            if($loc == 'Addis Ababa'){
+              ?>
+              <option selected ><?php echo $loc ?></option>
+              <?php
+            }else{
+              ?>
+               <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+              <?php
+            }
+            ?>
+            
+          
+            <?php
+            $i++;
+          }
+        ?> 
+  </select>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1"><?php echo $lang['phone'] ?></label>
+    <input type="text" class="form-control" id="nameTitle" 
+    aria-describedby="emailHelp" name="phone" value="<?php echo $_SESSION['phone'] ?>">
+  </div>
+
+  <div class="input-group mb-3">
+  <select class="form-select" aria-label="Default select example" name="shipping" id="inputGroupSelect01">
+    <option selected> <?php echo $lang['offerDelivery'] ?></option>
+    <option ><?php echo $lang['no'] ?></option>
+    <option value="YES"><?php echo $lang['yes'] ?></option>
+
+  </select>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
+    <textarea type="text" class="form-control" id="des2" 
+    aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Description'] ?>"></textarea>
+  </div>
+
+  <div class="row">
+  <div id="registerBox">
+  <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
+    <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+    <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
+  </div>
+
+
+
+  <input type="submit" value="POST">
+  <div id="alertVacancy"></div>
+  </form>
+</div>
+</div>
+<!-- /// to select address like jiji style -->
+<div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+</div>
+  
+  <?php
+}
+
+///////////////house//////////////
+elseif($_GET['type'] == 'house'){
+    ?>
+    
+
+    <script>
+    $(document).ready(function(){
+    $('#cl').click(function(){
+    location.reload();
+
+    })
+
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+      $('#selHouseType').on('change',function(){
+        // alert('inhh')
+        if(this.value == 'OTHER'){
+          $('#houseTypeLoader').load('divTags.php #houseTypeOther')
+        }
+      })
+
+      $('#city').on('change',function(){
+      if(this.value == "otherCity"){
+        $('#cityBox').load('divTags.php #otherCity')
+ 
       }
-      }if(isset($_GET['type'])){
-        if($_GET['type'] == 'car'){
-          ?>
-          <h5>Post Car Ads</h5>
-          <form action="postPage.php" method="POST" enctype="multipart/form-data" >
-          <input hidden name="posterId2" value="<?php echo $uidx; ?>">
+   
+    })
+
+
+
+    // $('#subCity').on('change',function(){
+    //   if(this.value == "otherSubCity"){
+    //     $('#subCityBox').load('divTags.php #otherSubCity')
+    //   }
+      
+    // })
+
+    $('#HorL').on('change', function(){
+      if(this.value == "HOUSE"){
+        $('#houseTypeLoader').load("divTags.php #houseType")
+        $('#bedOrBath').load('divTags.php #bedBath')
+      }
+    })
+
+    })
+  </script>
+<div id="cont" class="modal-dialog">
+<div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+      <div class="modal-body">
+      <!-- <h5><?php echo $lang['houseAd'] ?></h5> -->
+             <form id="car" action="postPage.php" method="POST" enctype="multipart/form-data" >
+             <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">    
+             <input hidden name="houseOrLand" value="HOUSE">
+
+             <div class="form-group">
+          <label for="exampleInputEmail1" class="fs-5" ><?php echo $lang['ownerBroker'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="ownerBroker" id="inlineRadio1" value="Owner">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['owner'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline" style="margin-left: 13%;">
+          <input class="form-check-input"   type="radio" name="ownerBroker" id="inlineRadio1" value="Broker">
+          <label class="form-check-label"  for="inlineRadio1"><?php echo $lang['broker'] ?></label>
+        </div>
+        </div>
+
 
           <div class="form-group">
-              <label for="exampleInputEmail1">Title</label>
-              <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="title" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
+          <label for="exampleInputEmail1" class="fs-5" ><?php echo $lang['sellOrRent'] ?></label><br>
 
-              <div id="typeC" class="input-group mb-3">
-            <div  class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01"> Car Type: </label>
-            </div>
-            <select id="sCar" class="custom-select" name="type2" id="inputGroupSelect01">
-              <option selected>Choose...</option>
-              <?php
-                $carCat = $admin->carCategoryLister();
-                while($carCatRow = $carCat->fetch_assoc()){
-                  ?>
-                  <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
-                  <?php
-                }
-              ?>
-              
-            </select>
-            </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Rent">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
+        </div>
 
-            <div class="input-group mb-3">
+        <div class="form-check form-check-inline" style="margin-left: 10%;">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Sell">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
+        </div>
+        </div>
+
+
+        <!-- <div class="form-group"> -->
+              <!-- <label for="exampleInputEmail1"><?php echo $lang['title'] ?></label> -->
+              <input type="text" hidden class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
+            <!-- </div> -->
+            <!-- <script src="../assets/jquery.js"></script> -->
+
+        
+<div id="houseTypeLoader"></div>
+
+<div id="houseType" class="input-group mb-3">
+  
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Status Of Car: </label>
         </div>
-        <select class="custom-select" name="status2" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="NEW">New</option>
-          <option value="OLD">Old</option>
-        </select>
-        </div>
+        <select class="form-select" aria-label="Default select example" name="type" id="selHouseType">
+          <option selected><?php echo $lang['houseType'] ?></option>
+<?php
+require_once "../php/adminCrude.php";
+$tab = $_GET['cat'];
+$categorySort = array();
+$category = $admin->allCategoryLister('housesell');
+while($rowc = $category->fetch_assoc()){
+  $categorySort[] = $rowc['category'];
+}
+sort($categorySort);
+foreach($categorySort as $sorted){
+  echo $tab;
+  ?>
+  <option value="<?php echo $sorted ?>"><?php echo $sorted ?></option>
+  
+  <?php
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
-        </div>
-        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
-          <option value="Owner">Owner</option>
-          <option value="Broker">Broker</option>
-        </select>
-        </div>
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
-        </div>
-        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="For Rent">For Rent</option>
-          <option value="For Sell">For Sell</option>
-        </select>
-        </div>
+    
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Rent Status: </label>
-        </div>
-        <select class="custom-select" name="rentStatus" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="With Driver">With Driver</option>
-          <option value="Car Only">Car Only</option>
-        </select>
-        </div>
+    }
 
-        <div class="col-sm-6">
-              <label for="country" class="form-label">Location</label>
-              <select class="form-select" id="country" name="address" required>
-              <?php 
+?>
+        </select>
+</div>
+
+<script>
+
+
+  // sub city filter api
+  function hCity(x){
+    // alert(x)
+    $.ajax({
+        url: 'user/userApi.php',
+        type: 'post',
+        data: {
+          cityH: x
+        },
+        success: function(data){
+          // alert(data)
+          $('#subH').empty()
+          $('#subH').append(data)
+        }
+      })
+  }
+</script>
+
+<div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="city" onchange="hCity(this.value)" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
                 }
                 sort($city);
+                $i = 0;
                 foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
                   ?>
-                  <option value="<?php echo $loc ?>"><?php echo $loc ?></option> 
+                  
+                
                   <?php
+                  $i++;
                 }
-              ?>                
+              ?> 
+        </select>
+        </div>
 
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country. 
-              </div>
+        
+        <div id="subH"   class="input-group mb-3" >
+          <?php
+        require_once '../php/fetchApi.php';
+    $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+    $city = array();
+    if($locc->num_rows != 0){
+      ?>
+                <select  class="form-select" aria-label="Default select example" name="subCity" >
+          <option><?php echo $lang['subCity'] ?></option>
+      <?php
+    while($rowLoc = $locc->fetch_assoc()){
+        $city[]= $rowLoc['category'];
+    }
+    sort($city);
+    $i = 0;
+    foreach($city as $loc){
+      if($loc == 'Addis Ababa'){
+        ?>
+        <option selected ><?php echo $loc ?></option>
+        <?php
+      }else{
+        ?>
+         <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+        <?php
+      }
+      ?>
+      
+    
+      
+      <?php
+      $i++;
+    }
+  }
+    ?>
+    </select>
+        </div>
+
+
+        
+
+ 
+      <!-- kebele list -->
+      <div class="form-group">
+        <select class="form-select" aria-label="Default select example" name="wereda"  id="inputGroupSelect01">
+          <option ><?php echo $lang['Wereda'] ?></option>
+          <?php 
+             for($y=1;$y<=30;$y++){
+               if($y <= 9 ){
+                 ?>
+                 <option value="<?php echo '0'.$y ?>"><?php echo '0'.$y ?></option>
+                 <?php
+               }else{
+                ?>
+                <option value="<?php echo $y ?>"><?php echo $y ?></option>
+                <?php
+               }
+
+            }
+          ?>
+          
+
+        </select>
+        </div>
+
+        <div class="form-group">
+              <!-- <label for="exampleInputEmail1"><?php echo $lang['spArea'] ?> : </label> -->
+              <input type="text" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="spArea" placeholder="<?php echo $lang['enArea'] ?>">
+            </div>
+
+
+
+
+            <div class="form-group">
+              <!-- <label for="exampleInputEmail1"><?php echo $lang['Area'] ?> : </label> -->
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="area" placeholder="<?php echo $lang['Area'] ?>">
+            </div>
+
+            <div id="bedOrBath">
 
             </div>
 
+            <div id="bedBath">
+<div class="form-group">
+              <!-- <label for="exampleInputEmail1"><?php echo $lang['numberOfBedRoom'] ?> :</label> -->
+ 
+              <select class="form-select" aria-label="Default select example" name="bedRoomNo" id="inputGroupSelect01">
+          <option selected > <?php echo $lang['numberOfBedRoom'] ?></option>
+          <option value="0" >0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+
+        </select>
+            </div>
+
+            <div class="form-group">
+              <!-- <label for="exampleInputEmail1"><?php echo $lang['bathOfBedRoom'] ?> :</Title></label> -->
+    
+          <select class="form-select" aria-label="Default select example" name="bathRoomNo" id="inputGroupSelect01">
+          <option selected> <?php echo $lang['bathOfBedRoom'] ?></option>
+          <option value="0" >0</option>
+          <option value="1" >1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+
+        </select>
+            </div>
+</div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?> :</Title></label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="cost" placeholder="<?php echo $lang['Price'] ?>">
+            </div>
+
+
+
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Fule Kind: </label>
-        </div>
-        <select class="custom-select" name="fuleKind" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Benzene">Benzene</option>
-          <option value="Diesel">Diesel</option>
+
+        <select class="form-select" aria-label="Default select example" name="fixidOrN" id="inputGroupSelect01">
+          <option selected> <?php echo $lang['priceType'] ?></option>
+          <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
         </select>
         </div>
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Transmission Type: </label>
-        </div>
-        <select class="custom-select" name="transmission" id="inputGroupSelect01">
-          <option value="automatic">Automatic</option>
-          <option value="manual">Manual</option>
-        </select>
-        </div>
-
         <div class="form-group">
-              <label for="exampleInputEmail1">Body Status :</label>
-              <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="bodyStatus" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-              <label for="exampleInputEmail1">Km Range :</label>
-              <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="km" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
-        </div>
-        <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Fixed">Fixed</option>
-          <option value="Negotiatable">Negotiatable</option>
-          <option value="Negotiatable">Slightly Negotiable</option>
-        </select>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Price : </label>
-          <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="price2" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info2" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="info" placeholder=""><?php echo $lang['placeHolderDes'] ?>  </textarea>
         </div>
 
-
-
+      
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
         </div>
 
-        <input type="submit" onclick="x()" value="POST">
+
+        <input type="submit" value="Post">
         <div id="alertVacancy"></div>
-          </form>
-          
-          <?php
-        }if(isset($_GET['type'])){
-          if($_GET['type'] == 'house'){
-            ?>
-            <h5>House Ad Post</h5>
-             <form id="car" action="postPage.php" method="POST" enctype="multipart/form-data" >
-             <input hidden name="posterId" value="<?php echo $uidx; ?>">
+             </form>
+      </div>
+</div>
+      <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+</div>
 
-             <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">House Or Land </label>
-        </div>
-        <select id="HorL"  class="custom-select" name="houseOrLand" id="inputGroupSelect01">
-          <option selected value=" "></option>
-          <option value="HOUSE">House</option>
-          <option value="LAND">Land</option>
-        </select>
-        
-        </div>
 
-        <div class="form-group">
-              <label for="exampleInputEmail1">Title</label>
-              <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="title" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <script src="../assets/jquery.js"></script>
+    <?php
+}elseif($_GET['type'] == 'land'){
+  ?>
+  
   <script>
+    $(document).ready(function(){
+    $('#cl').click(function(){
+    location.reload();
+
+    })
+
+    })
+</script>
+
+<script>
     $(document).ready(function(){
       $('#selHouseType').on('change',function(){
         alert('inhh')
         if(this.value == 'OTHER'){
-          $('#houseTypeLoader').load('admin/divTags.php #houseTypeOther')
+          $('#houseTypeLoader').load('divTags.php #houseTypeOther')
         }
       })
+
+      $('#city').on('change',function(){
+      if(this.value == "otherCity"){
+        $('#cityBox').load('divTags.php #otherCity')
+ 
+      }
+   
+    })
+
+    $('#subCity').on('change',function(){
+      if(this.value == "otherSubCity"){
+        $('#subCityBox').load('divTags.php #otherSubCity')
+      }
+      
+    })
+
+    $('#HorL').on('change', function(){
+      if(this.value == "HOUSE"){
+        $('#houseTypeLoader').load("divTags.php #houseType")
+        $('#bedOrBath').load('divTags.php #bedBath')
+      }
+    })
+
     })
   </script>
+<div id="cont" class="modal-dialog">
+<div class="modal-content">
+      <div class="modal-header" style="background-color: blue;"  >
+        <h5 class="modal-title" style="color: yellow;" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+      <div class="modal-body">
+      <!-- <h5>Land Ad Post</h5> -->
+             <form id="car" action="postPage.php" method="POST" enctype="multipart/form-data" >
+             <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
+             <input hidden name="houseOrLand" value="LAND">
+
+
+             <div class="form-group">
+          <label for="exampleInputEmail1" style="color: coral;"  class="fs-6" ><?php echo $lang['ownerBroker'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="ownerBroker" id="inlineRadio1" value="Owner">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['owner'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="ownerBroker" id="inlineRadio1" value="Broker">
+          <label class="form-check-label"   for="inlineRadio1"><?php echo $lang['broker'] ?></label>
+        </div>
+        </div>
+
+
+          <div class="form-group">
+          <label for="exampleInputEmail1" style="color: coral;" class="fs-6" ><?php echo $lang['sellOrRent'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Rent">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="inlineRadio1" value="For Sell">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
+        </div>
+        </div>
+
+
+
+        <div class="form-group">
+               <input type="text"  class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
+            </div>
+            <!-- <script src="../assets/jquery.js"></script> -->
+
         
 <div id="houseTypeLoader"></div>
 
 
-        <div id="cityBox" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> City :</label>
+<div id="subCityBox" class="input-group mb-3">
+ 
+<input type="text"  class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="type" placeholder="<?php echo $lang['landType'] ?>">
         </div>
-        <select class="custom-select" name="city" id="city">
-          <option selected>Choose...</option>
-          <option value="women">Addis Ababa</option>
-          <option value="men">Gonder</option>
-          <option value="both">BahirDar</option>
-          <option value="otherCity">Other</option>
+
+
+     
+<script>
+
+
+// sub city filter api
+function hCity(x){
+  // alert(x)
+  $.ajax({
+      url: 'user/userApi.php',
+      type: 'post',
+      data: {
+        cityH: x
+      },
+      success: function(data){
+        // alert(data)
+        $('#subH').empty()
+        $('#subH').append(data)
+      }
+    })
+}
+</script>
+
+<div  class="input-group mb-3" >
+      <select  class="form-select" aria-label="Default select example" name="city" onchange="hCity(this.value)" id="">
+        <option><?php echo $lang['city'] ?></option>
+        <?php 
+            require_once '../php/fetchApi.php';
+              $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+              $city = array();
+              while($rowLoc = $locc->fetch_assoc()){
+                  $city[]= $rowLoc['category'];
+              }
+              sort($city);
+              $i = 0;
+              foreach($city as $loc){
+                if($loc == 'Addis Ababa'){
+                  ?>
+                  <option selected ><?php echo $loc ?></option>
+                  <?php
+                }else{
+                  ?>
+                   <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                  <?php
+                }
+                ?>
+                
+              
+                <?php
+                $i++;
+              }
+            ?> 
+      </select>
+      </div>
+
+      
+      <div id="subH"   class="input-group mb-3" >
+        <?php
+      require_once '../php/fetchApi.php';
+  $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+  $city = array();
+  if($locc->num_rows != 0){
+    ?>
+              <select  class="form-select" aria-label="Default select example" name="subCity" >
+        <option><?php echo $lang['subCity'] ?></option>
+    <?php
+  while($rowLoc = $locc->fetch_assoc()){
+      $city[]= $rowLoc['category'];
+  }
+  sort($city);
+  $i = 0;
+  foreach($city as $loc){
+    if($loc == 'Addis Ababa'){
+      ?>
+      <option selected ><?php echo $loc ?></option>
+      <?php
+    }else{
+      ?>
+       <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+      <?php
+    }
+    ?>
+    
+  
+    
+    <?php
+    $i++;
+  }
+}
+  ?>
+  </select>
+      </div>
+
+
+
+      <!-- kebele list -->
+      <div class="form-group">
+        <select class="form-select" aria-label="Default select example" name="wereda"  id="inputGroupSelect01">
+          <option ><?php echo $lang['Wereda'] ?></option>
+          <?php 
+             for($y=1;$y<=30;$y++){
+               if($y <= 9 ){
+                 ?>
+                 <option value="<?php echo $y ?>"><?php echo '0'.$y ?></option>
+                 <?php
+               }else{
+                ?>
+                <option value="<?php echo $y ?>"><?php echo $y ?></option>
+                <?php
+               }
+
+            }
+          ?>
+          
+
         </select>
         </div>
 
-        <div id="subCityBox" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> SubCity : </label>
-        </div>
-        <select id="subCity" class="custom-select" name="subCity" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="women">Jemo</option>
-          <option value="men">4 kilo</option>
-          <option value="otherSubCity">Other</option>          
-        </select>
-        </div>
-
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
-        </div>
-        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
-          <option value="Owner">Owner</option>
-          <option value="Broker">Broker</option>
-        </select>
-        </div>
-        
-
-             <div class="form-group">
-              <label for="exampleInputEmail1">Wereda :</label>
-              <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="wereda" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-
-            <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
-        </div>
-        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="For Rent">For Rent</option>
-          <option value="For Sell">For Sell</option>
-        </select>
-        </div>
 
             <div class="form-group">
-              <label for="exampleInputEmail1">Area :</Title></label>
+              <label for="exampleInputEmail1"><?php echo $lang['Area'] ?> : </label>
               <input type="number" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="area" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="area" placeholder="<?php echo $lang['Area'] ?>">
             </div>
+
 
             <div id="bedOrBath">
 
@@ -855,102 +1514,150 @@ $('#tCategory').on('change', function(){
 
 
             <div class="form-group">
-              <label for="exampleInputEmail1">Price :</Title></label>
+              <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?> :</Title></label>
               <input type="number" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="cost" placeholder="Company Name">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              aria-describedby="emailHelp" name="cost" placeholder="<?php echo $lang['Price'] ?>">
             </div>
 
 
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
-        </div>
-        <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Fixed">Fixed</option>
-          <option value="Negotiatable">Negotiatable</option>
-          <option value="Negotiatable">Slightly Negotiable</option>
+
+        <select class="form-select" aria-label="Default select example" name="fixidOrN" id="inputGroupSelect01">
+          <option selected> <?php echo $lang['priceType'] ?></option>
+          <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
         </div>
 
-      
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
         </div>
 
 
         <input type="submit" value="Post">
         <div id="alertVacancy"></div>
              </form>
-            
-            
-            <?php
-          }
+      </div>
+</div>
+      <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+</div>
 
-        }
-      }
-//////////////////////////////////////////////////////////////////////    
-    if(isset($_GET['type'])){
-      if($_GET['type'] == 'electronics'){
-        ?>
-      <h5>Post Electronics Items</h5>
-      <form  method="POST" enctype="multipart/form-data" >
-      <input hidden name="posterId" value="<?php echo $uidx; ?>">
+  
+  <?php
+}
+
+///////// electronics/////////////
+
+if($_GET['type'] == 'electronics'){
+    ?>
+  
+  
+  
+
+
+
+<!-- <script src="assets/jquery.js"  ></script> -->
+<script>
+    $(document).ready(function(){
+    $('#cl').click(function(){
+    location.reload();
+
+    })
+
+    })
+</script>
+
+<div id="cont" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: Navy;"  >
+        <h5 class="modal-title" style="color: yellow;"  id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+            <div class="modal-body">
+
+
+       <form  method="POST" enctype="multipart/form-data" >
+      <input hidden name="posterId" value="<?php echo $_SESSION['userId'] ?>">
 
       <div class="form-group">
-          <label for="exampleInputEmail1">Title</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="titleElc" placeholder="Title of Your Post">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="titleElc" placeholder="<?php echo $lang['title'] ?>">
         </div>
         <script>
 $(document).ready(function(){
 $('#sElc').on('change', function(){
-  if(this.value == 'Computer Laptop'){
-    $('#computer').load('admin/divTags.php #sizeInch,#proc,#storage,#core,#ram')
+  if(this.value == 'Computer and Laptop'){
+    $('#computer').load('divTags.php #sizeInch,#proc,#storage,#core,#ram')
+  }else{
+    $('#computer').empty()
   }
 })
 })
 
 </script>
-          <div id="typeC" class="input-group mb-3">
-        <div  class="input-group-prepend">
-        <label class="input-group-text" for="inputGroupSelect01"> Electronics Type: </label>
-        </div>
-        <select id="sElc" class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Computer Laptop">Computer Laptop</option>
-          <?php
-            $carCat = $admin->carCategoryLister();
-            while($carCatRow = $carCat->fetch_assoc()){
-              ?>
-              <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
-              <?php
-            }
-          ?>
-          
+
+
+<div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="type" id="sElc">
+          <option><?php echo $lang['elecCat'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumen('adCategory', 'tableName', 'electronics');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
         </select>
         </div>
 
+
+
+
+
+
+
+
+
         <div class="input-group mb-3">
     <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect01"> Status Of Item: </label>
-    </div>
-    <select class="custom-select" name="status" id="inputGroupSelect01">
-      <option selected value="NEW">New</option>
-      <option value="OLD">Old</option>
+     </div>
+    <select class="form-select" aria-label="Default select example" name="status" id="inputGroupSelect01">
+    
+    <option selected value="NEW"><?php echo $lang['statusOfItem'] ?></option>
+      <option   value="NEW"><?php echo $lang['new'] ?></option>
+      <option value="MEDIUM"><?php echo $lang['Medium'] ?></option>
+      <option value="OLD"><?php echo $lang['Old'] ?></option>
     </select>
     </div>
 
@@ -958,452 +1665,870 @@ $('#sElc').on('change', function(){
 
     <div id="computer"></div>
 
-    <div class="form-group">
-      <label for="exampleInputEmail1">Price : </label>
-      <input type="number" class="form-control" id="nameTitle" 
-      aria-describedby="emailHelp" name="price" placeholder="Price in Birr">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
 
-    <div class="form-group">
-          <label for="exampleInputEmail1">Address :</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Your Address">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="address" id="">
+          <option><?php echo $lang['city'] ?> </option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
         </div>
 
 
 
+        <div class="form-group">
+      <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?> : </label>
+      <input type="number" class="form-control" id="nameTitle" 
+      aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Price'] ?> ">
+     </div>
+
 
     <div class="form-group">
-      <label for="exampleInputEmail1">Describtion</label>
+      <label for="exampleInputEmail1"><?php echo $lang['Description'] ?> </label>
       <textarea type="text" class="form-control" id="des2" 
-      aria-describedby="emailHelp" name="info" placeholder="Detailed Info"></textarea>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
     </div>
 
     <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
     </div>
 
-    <input type="submit" onclick="x()" value="POST">
+    <input type="submit" value="POST">
     <div id="alertVacancy"></div>
       </form>
 
-        <?php
-      }
-    }
 
-/////////////////////////////////////////////////////////////////
-    if(isset($_GET['type'])){
-      if($_GET['type'] == 'big' ){
-        ?>
-        <form  method="POST" enctype="multipart/form-data">
-
-        <input hidden name="posterId" value="<?php echo $uidx; ?>">
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Charity Title</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="title" placeholder="Title">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1"> Address  </label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="location" placeholder="Title">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Phone no:</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="phone" placeholder="Title">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-
-        <div class="form-group">
-      <label for="exampleInputEmail1">Describtion</label>
-      <textarea type="text" class="form-control" id="des2" 
-      aria-describedby="emailHelp" name="info" placeholder="Detailed Info"></textarea>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
-
-
-        <div class="row">
-            <div id="registerBox">
-            <label for="exampleInputEmail1">Upload Photos</label>
-              <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div id="alertVacancy"></div>
-        <input type="submit"  value="POST">
-
-        </form>
-        
-        <?php
-      }
+            </div>
+        </div><!-- /.modal-content -->
+              <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+    </div><!-- /.modal-dialog -->
     
-    }
-///////////////////////////////////////
-    if(isset($_GET['type'])){
-      if($_GET['type'] == 'bigDiscount'){
-        ?>
-        <h5>Big Discount Post Advertisment</h5>
-        <form id="adPost" action="postPage.php"   method="POST" enctype="multipart/form-data">
-        <input hidden name="posterId" value="<?php echo $uidx; ?>">
-        <input hidden name="big" value="ACTIVE">
+    
+    <?php
+}
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Title</Title></label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="title" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
+//////////// charity ad post////////////////
+if($_GET['type'] == 'charity'){
+    ?>
+    
+    
+<!-- <script src="assets/jquery.js"  ></script> -->
 <script>
+    $(document).ready(function(){
+    $('#cl').click(function(){
+    location.reload();
 
-$(document).ready(function(){
-$('#tCategory').on('change', function(){
-  if(this.value == "Cloth and Shoe"){
-    $('#targetLoader').load('admin/divTags.php #targetFor')
-  }
- 
-})
+    })
 
-$('#tCategory').on('change', function(){
-  if(this.value == "OTHER"){
-    $('#adTy').load('admin/divTags.php #otherAd')
-  }
- 
-})
-
-
-
-})
-
+    })
 </script>
 
-        <div id="adTy"  class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Type or Catagory</label>
-          </div>
-          <select id="tCategory" class="custom-select" name="type" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-            ?><?php
-              $out11 = $admin->adsCategoryLister();
-              while($r = $out11->fetch_assoc()){
-              ?>
-            
-            <option value="<?php echo $r['category'] ?>">	<?php echo $r['category'] ?> </option>
-            <?php
-              }
-            ?>
+<div id="cont" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: yellow;">
+        <h5 class="modal-title" style="color: blue;" id="exampleModalLabel"><?php echo $lang['upload']?></h5>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+            <div class="modal-body">
 
+            <form  method="POST" enctype="multipart/form-data">
 
-          </select>
-        </div>
+<input hidden name="posterId" value="<?php echo $_SESSION['userId'] ?>">
 
-        <div id="targetLoader">
+<div class="form-group">
+   <input type="text" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
+</div>
 
-        </div>
-
-
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Price :</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="price" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address </label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Phone Number</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="phone" placeholder="Company Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Offer Shipping</label>
-        </div>
-        <select class="custom-select" name="shipping" id="inputGroupSelect01">
-          <option value="NO" selected>NO</option>
-          <option value="YES">YES</option>
-
+<div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="address" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
         </select>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Describtion</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+<div class="form-group">
+  
+  <input type="text" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
+</div>
 
-        <div class="row">
+
+<div class="form-group">
+      <label for="exampleInputEmail1"><?php echo $lang['Description'] ?> </label>
+      <textarea type="text" class="form-control" id="des2" 
+      aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
+    </div>
+
+    <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
+    </div>
+
+
+<input type="submit"  value="POST">
+<div id="alertVacancy"></div>
+</form>
+
+            </div>
+        </div><!-- /.modal-content -->
+              <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+    </div><!-- /.modal-dialog -->
+        
+    
+    <?php
+}
+
+////////vacancy post form //////////////////
+
+if($_GET['type'] == 'vacancy'){
+    ?>
+    
+    <!-- <script src="assets/jquery.js"  ></script> -->
+<script>
+    $(document).ready(function(){
+    $('#cl').click(function(){
+    location.reload();
+
+    })
+
+    })
+</script>
+
+<div id="cont" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: navy;" >
+        <h5 class="modal-title" style="color: yellow;" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+            <div class="modal-body">
+
+            <section class="section">
+          <div class="pagetitle">
+       
+
+        </div><!-- End Page Title -->
+
+
+        <div id="vacancyBox" class="container">
+        <form id="vacancyForm" action="postPage.php"  method="POST" >
+          <input hidden name="uid" value="<?php echo $_SESSION['userId'] ?>">
+        <div class="form-group">
+           
+          <input type="text" class="form-control" id="companyName" 
+          aria-describedby="emailHelp" name="companyName" placeholder="<?php echo $lang['companyName'] ?>">
+        </div>
+        <!-- <script>
+            $(document).ready(function(){
+              $('#jobTT').on('change', function(){
+                if(this.value == 'OTHER'){
+                  $('#jt').load('divTags.php #jobType')
+                }
+                
+              })
+            })
+
+          </script> -->
+
+  
+          <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="jobType" id="">
+          <option><?php echo $lang['jobType'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $admin->allCategoryLister('vacancy');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
-    <!-- <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 2</label>
-          <input type="file" class="form-control" id="photo" 
-           name="photo2" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
 
-    <div id="registerBox">
-    <label for="exampleInputEmail1">Upload Profile Photo 3</label>
-          <input type="file" class="form-control" id="photo" 
-           name="photo3" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-        </div> -->
+
+  
+
+
+
+       
+        <div class="form-group">
+           <input type="text" class="form-control" id="jobTitle" 
+          aria-describedby="emailHelp" name="jobTitle" placeholder="<?php echo $lang['jobTitle'] ?>">
+        </div>
+        <div class="input-group mb-3">
+        <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01">
+          <option selected><?php echo $lang['positionType'] ?></option>
+          <option value="Full Time"><?php echo $lang['fullTime'] ?></option>
+          <option value="Part Time"><?php echo $lang['partTime'] ?></option>
+          <option value="Temporary"><?php echo $lang['Temporary'] ?></option>
+          <option value="Contractual"> <?php echo $lang['Contractual'] ?></option>
+        </select>
+        </div>
+
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+        </div>
+        <select class="form-select" aria-label="Default select example" name="sex" id="inputGroupSelect01">
+          <option value=" "><?php echo $lang['Gender'] ?></option>
+          <option value="Male"><?php echo $lang['Male'] ?></option>
+          <option value="Female"><?php echo $lang['Female'] ?></option>
+          <option value="Both"><?php echo $lang['Both'] ?></option>
+        </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['appStart'] ?>:</label>
+          <input type="date" class="form-control" id="Deadline" 
+          aria-describedby="emailHelp" name="appStart" placeholder="<?php echo $lang['appStart'] ?>">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['appDead'] ?></label>
+          <input type="date" class="form-control" id="Deadline" 
+          aria-describedby="emailHelp" name="Deadline" placeholder="<?php echo $lang['appDead'] ?>">
+        </div>
+        <div class="form-group">
+           <input type="number" class="form-control" id="jobTitle" 
+          aria-describedby="emailHelp" name="reqNo" placeholder="<?php echo $lang['requierdPositionNo'] ?>">
+        </div>
+
+        <div class="form-group">
+           <input type="number" class="form-control" id="jobTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
+        </div>
+
+        <div class="form-group">
+          <label><?php echo $lang['Salary'] ?></label>
+           <input type="text" class="form-control" id="jobTitle" 
+          aria-describedby="emailHelp" name="salary" placeholder=" <?php  echo $lang['salaryLable'] ?>">
+        </div>
+
+
+        <div hidden class="input-group mb-3">
+        <div class="input-group-prepend">
+        </div>
+        <select class="form-select" hidden aria-label="Default select example" name="salaryStatus" id="inputGroupSelect01">
+          <option value=" "><?php echo $lang['salaryType'] ?></option>
+          <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+          <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
+        </select>
+        </div>
+
+
+
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="location" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="description" placeholder="<?php echo $lang['jobDes'] ?>"></textarea>
+        </div>
+
 
         <input type="submit" onclick="x()" value="POST">
         <div id="alertVacancy"></div>
-        </form>
-        
-        
-        <?php
-      }
-      //////////////////////////////////////////////////////
-    }if(isset($_GET['type'])){
-      if($_GET['type'] == 'home'){
-        ?>
-        <h5>Home Tutor Job Application</h5>
 
-        <form  method="POST" enctype="multipart/form-data">
-        <input hidden name="posterId" value="<?php echo $uidx; ?>">
+            </div>
+        </div><!-- /.modal-content -->
+              <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+    </div><!-- /.modal-dialog -->
+    
+    <?php
+}
+
+//////////////////tender post////////////////////
+if($_GET['type'] == 'tender'){
+    ?>
+    
+    <!-- <script src="assets/jquery.js"  ></script> -->
+<script>
+    $(document).ready(function(){
+    $('#cl').click(function(){
+    location.reload();
+
+    })
+
+    })
+</script>
+
+<div id="cont" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: Navy;" >
+        <h6 class="modal-title" style="color: yellow;" id="exampleModalLabel"><?php echo $lang['upload'] ?></h6>
+        <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+      </div>
+            <div class="modal-body">
+
+            <div class="pagetitle">
+      <!-- <h5><?php echo $lang['tenderPost'] ?></h5> -->
+
+    </div><!-- End Page Title -->
+    <section class="section">
+ 
+
+        <div id="vacancyBox" class="container">
+        <form id="tenderForm"  method="POST" >
+        <input hidden name="uid" value="<?php echo $_SESSION['userId']; ?>">
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Full Name</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="name" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+           <input type="text" class="form-control" id="tenderType" 
+          aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
+         </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['tenderType'] ?></label>
+          <input type="text" class="form-control" id="tenderType" 
+          aria-describedby="emailHelp" name="tenderType" placeholder="<?php echo $lang['tenderTypeW'] ?>">
         </div>
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['startingDate'] ?></label>
+          <input type="date" class="form-control" id="startingDate" 
+          aria-describedby="emailHelp" name="startDate" placeholder="<?php echo $lang['startingDate'] ?> ">
+         </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['appDead'] ?></label>
+          <input type="date" class="form-control" id="Deadline2" 
+          aria-describedby="emailHelp" name="Deadline2" placeholder="<?php echo $lang['appDead'] ?>">
+         </div>
+
+        <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?></label>
+        <div class="form-group">
+           <input type="number" class="form-control" id="phoneNo" 
+          aria-describedby="emailHelp" name="initialCost" placeholder="<?php echo $lang['enterPrice'] ?>">
+         </div>
+
+        <!-- phone number  -->
+        <div class="form-group">
+          <?php
+          $s = 251;
+          $phone = $_SESSION['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $_SESSION['phone'];
+          }else{
+            $phone= $_SESSION['phone'];
+          }
+          ?>
+                        <label for="exampleInputEmail1"> <?php echo $lang['phone'] ?> : </label>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="" value="+<?php 
+         echo  $phone?>">
         </div>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Male">Mele</option>
-          <option value="Female">Female</option>
+
+        <div  class="form-group" >
+        <label for="exampleInputEmail1"><?php echo $lang['tenderLC'] ?></label>
+
+        <select  class="form-select" aria-label="Default select example" name="location2" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
         </select>
         </div>
-
         <div class="form-group">
-          <label for="exampleInputEmail1">Educational Background:</label>
+          <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="eduBackground" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Range </label>
-        </div>
-        <select class="custom-select" name="clientRange" id="inputGroupSelect01">
-          <option value="1-8">1-8 Grade</option>
-          <option value="9-12">9-10</option>
-          <option value="9-10">9-10</option>
-          <option value="10-11">10-11</option>
-          <option value="11-12">11-12</option>
-
-        </select>
-        </div>
-
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Payment Status</label>
-        </div>
-        <select class="custom-select" name="paymentStatus" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Horly">Hourly</option>
-          <option value="Dayly">Dayly</option>
-          <option value="Monthly">Monthly</option>
-
-        </select>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Price:</label>
-          <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="price" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Phone </label>
-          <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="phone" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="address" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <h6>If you are representing  or if you are Agent, please fill the next form.</h6>
-          <label for="exampleInputEmail1">Company Info</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="companyInfo" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Description About You</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="info" placeholder="info"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="description2" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
+         </div>
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
-          <input type="file" class="form-control" id="photo" name="photo" multiple >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?> [Optional] </label>
+          <input type="file" class="form-control" id="photo" name="photo" >
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
         </div>
-        
 
-
-        <input type="submit" onclick="x()" value="POST">
+        <input type="submit" value="POST">
         <div id="alertVacancy"></div>
         </form>
-        <?php
-      }
-      /////////////////////////////////////////////
-    }if(isset($_GET['type'])){
-      if($_GET['type'] == 'houseKeeper'){
-        ?>
-           <h5>House Keeper Job Application</h5>
+        </div>
+      
+      </section>
+                    
+
+            </div>
+        </div><!-- /.modal-content -->
+              <!-- /// to select address like jiji style -->
+      <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+    </div><!-- /.modal-dialog -->
+        
+    
+    
+    <?php
+}
+
+
+/////////////// home tutore job
+if($_GET['type'] == 'homeTutor'){
+  ?>
+  
+  <!-- <script src="assets/jquery.js"  ></script> -->
+<script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
+
+  })
+
+  })
+</script>
+
+<div id="cont" class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" style="color: green;" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+      <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+    </div>
+          <div class="modal-body">
+
+          <!-- <h5><?php echo $lang['homeTutor'] ?></h5> -->
+
+<form  method="POST" enctype="multipart/form-data">
+<input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
+
+<div class="form-group">
+  <label for="exampleInputEmail1"><?php echo $lang['fullName'] ?></label>
+  <input type="text" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="name" placeholder="<?php echo $lang['fullName'] ?>">
+ </div>
+
+<div class="input-group mb-3">
+ 
+<select class="form-select" aria-label="Default select example" name="sex" id="inputGroupSelect01">
+  <option selected><?php echo $lang['Gender'] ?></option>
+  <option value="Male"><?php echo $lang['Male'] ?></option>
+  <option value="Female"><?php echo $lang['Female'] ?></option>
+</select>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1"><?php echo $lang['educationalBackground'] ?>:</label>
+  <textarea type="text" class="form-control" id="des2" 
+  aria-describedby="emailHelp" name="eduBackground" placeholder="<?php echo $lang['educationalBackground'] ?>"></textarea>
+ </div>
+
+
+<div class="input-group mb-3">
+<select class="form-select" aria-label="Default select example" name="clientRange" id="inputGroupSelect01">
+  <option value=" "><?php echo $lang['Range'] ?></option>
+  <option value="1-8">1-8 <?php echo $lang['Grade'] ?></option>
+  <option value="9-12">9-12 <?php echo $lang['Grade'] ?></option>
+  <option value="9-10">9-10 <?php echo $lang['Grade'] ?></option>
+  <option value="10-11">10-11 <?php echo $lang['Grade'] ?></option>
+  <option value="11-12">11-12 <?php echo $lang['Grade'] ?></option>
+
+</select>
+</div>
+
+<div class="input-group mb-3">
+ 
+<select class="form-select" aria-label="Default select example" name="paymentStatus" id="inputGroupSelect01">
+  <option selected><?php echo $lang['paymentStatus'] ?></option>
+  <option value="Hourly"><?php echo $lang['Hourly'] ?></option>
+  <option value="Dayly"><?php echo $lang['Dayly'] ?></option>
+  <option value="Monthly"><?php echo $lang['Monthly'] ?></option>
+
+</select>
+</div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?>:</label>
+  <input type="number" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Price'] ?>">
+ </div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1"><?php echo $lang['phone'] ?>:</label>
+  <input type="number" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
+ </div>
+
+<div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="address" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
+
+<div class="form-group">
+  <h6 style="color: coral;" ><?php echo $lang['agentInfoQ'] ?></h6>
+  <textarea type="text" class="form-control" id="des2" 
+  aria-describedby="emailHelp" name="companyInfo" placeholder="<?php echo $lang['agentInfo'] ?>"></textarea>
+ </div>
+
+<div class="form-group">
+  <label for="exampleInputEmail1"><?php echo $lang['Description'] ?>   </label>
+  <textarea type="text" class="form-control" id="des2" name="info" ></textarea>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['descriptionPhotocv'] ?></small>
+</div>
+
+<div class="row">
+<div id="registerBox">
+<label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
+  <input type="file" class="form-control" id="photo" name="photo" multiple >
+</div>
+
+ 
+<input type="submit" value="POST">
+<div id="alertVacancy"></div>
+</form>
+
+          </div>
+      </div><!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+  </div><!-- /.modal-dialog -->
+      
+  
+  
+  <?php
+}
+
+
+////// House WORKER////
+if($_GET['type'] == 'houseWorker'){
+  ?>
+  
+  <!-- <script src="assets/jquery.js"  ></script> -->
+<script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
+
+  })
+
+  })
+</script>
+
+<div id="cont" class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h6 class="modal-title" style="color: green;" id="exampleModalLabel"><?php echo $lang['upload'] ?></h6>
+      <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+    </div>
+          <div class="modal-body">
+
           <form  method="POST" enctype="multipart/form-data">
-          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+          <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
           <input hidden name="hotelOrHouse" value="HOUSE">
           <div class="form-group">
-          <label for="exampleInputEmail1">Full Name</label>
+          <label for="exampleInputEmail1"><?php echo $lang['fullName'] ?></label>
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="name" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
+          aria-describedby="emailHelp" name="name" placeholder="<?php echo $lang['fullName'] ?>">
+           </div>
 
           <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-        </div>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Male">Mele</option>
-          <option value="Female">Female</option>
+ 
+        <select class="form-select" aria-label="Default select example" name="sex" id="inputGroupSelect01">
+          <option selected><?php echo $lang['Gender'] ?></option>
+          <option value="Male"><?php echo $lang['Male'] ?></option>
+          <option value="Female"><?php echo $lang['Female'] ?></option>
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Age</label>
           <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="age" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          aria-describedby="emailHelp" name="age" placeholder="<?php echo $lang['Age'] ?>">
+         </div>
+
+ 
+        <div class="input-group mb-3">
+        
+        <select class="form-select" aria-label="Default select example" name="religion" id="inputGroupSelect01">
+          <option selected><?php echo $lang['Religion'] ?></option>
+          <option value="Orthodox"><?php echo $lang['Orthodox'] ?></option>
+          <option value="Muslim"><?php echo $lang['Muslim'] ?></option>
+          <option value="Protestant"><?php echo $lang['Protestant'] ?></option>
+          <option value="Other"><?php echo $lang['Other'] ?></option>
+
+        </select>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Religion</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="religion" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="address" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Work Type</label>
-        </div>
-        <select class="custom-select" name="workType" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Half Day">Half Day</option>
-          <option value="Full Day">Full Day</option>
-          <option value="Monthly">Monthly</option>
+ 
+        <select class="form-select" aria-label="Default select example" name="workType" id="inputGroupSelect01">
+          <option selected><?php echo $lang['workType'] ?></option>
+          <option value="Half Day"><?php echo $lang['halfDay'] ?></option>
+          <option value="Full Day"><?php echo $lang['fullDay'] ?></option>
+          <option value="Monthly"><?php echo $lang['Monthly'] ?></option>
 
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Price:</label>
+          <label for="exampleInputEmail1"> <?php echo $lang['labelPrice'] ?>:</label>
           <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="price" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Price'] ?>">
+         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Experience</label>
+          <label for="exampleInputEmail1"><?php echo $lang['Experience'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="experience" placeholder="info"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="experience" placeholder="<?php echo $lang['Experience'] ?>"></textarea>
+         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Current Address</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="cAddress" placeholder="info"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          <label for="exampleInputEmail1"><?php echo $lang['currentAddress2'] ?></label>
+   
+          <select  class="form-select" aria-label="Default select example" name="cAddress" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+         </div>
 
 
 
-        <div class="form-group">
-        <h6>If you are an agent, then fill your discription</h6>
-          <label for="exampleInputEmail1">Agent Info</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="agentInfo" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
 
-<br>
-        <h5>Can You Provide Biding Person</h5>
+
+        <h6><?php echo $lang['bidingPersonQ'] ?></h6>
 
         <div class="form-check form-check-inline">
           <input class="form-check-input" required type="radio" name="bidp" id="inlineRadio1" value="YES">
-          <label class="form-check-label" for="inlineRadio1">Yes</label>
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['yes'] ?></label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline" style="margin-left: 10%;" >
           <input class="form-check-input" required type="radio" name="bidp" id="inlineRadio2" value="NO">
-          <label class="form-check-label" for="inlineRadio2">No</label>
+          <label class="form-check-label" for="inlineRadio2"><?php echo $lang['no'] ?></label>
         </div>
 
+        <br>
+        <div class="form-group">
+        <h6 style="color: coral;"> <?php echo $lang['agentInfoQ'] ?></h6>
+           <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="agentInfo" placeholder="<?php echo $lang['agentInfo'] ?>"></textarea>
+         </div>
+
+  
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file"  class="form-control" id="photo" name="photo"  >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['descriptionPhotocv'] ?></small>
         </div>
 
 
@@ -1414,119 +2539,199 @@ $('#tCategory').on('change', function(){
           
 
 
-          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          <input class="btn btn-dark" type="submit" value="POST">
           <div id="alertVacancy"></div>
           </form>
-        <?php
-        /////////////////////////////////////////////////////////////////////////
-      }if(isset($_GET['type'])){
-        if($_GET['type'] == 'hotel'){
-          ?>
-            <h5>House Keeper Job Application</h5>
+   
+
+          </div>
+      </div><!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+  </div><!-- /.modal-dialog -->
+      
+  
+  
+  <?php
+}
+
+
+////// hotel worker
+if($_GET['type'] == 'hotelWorker'){
+  ?>
+  
+  <!-- <script src="assets/jquery.js"  ></script> -->
+<script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
+
+  })
+
+  })
+</script>
+
+<div id="cont" class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" style="color: green;" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+      <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+    </div>
+          <div class="modal-body">
+
           <form  method="POST" enctype="multipart/form-data">
-          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+          <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
           <input hidden name="hotelOrHouse" value="HOTEL">
           <div class="form-group">
-          <label for="exampleInputEmail1">Full Name</label>
+          <!-- <label for="exampleInputEmail1"><?php echo $lang['fullName'] ?></label> -->
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="name" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
+          aria-describedby="emailHelp" name="name" placeholder="<?php echo $lang['fullName'] ?>">
+           </div>
 
           <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-        </div>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Male">Mele</option>
-          <option value="Female">Female</option>
+ 
+        <select class="form-select" aria-label="Default select example" name="sex" id="inputGroupSelect01">
+          <option selected><?php echo $lang['Gender'] ?></option>
+          <option value="Male"><?php echo $lang['Male'] ?></option>
+          <option value="Female"><?php echo $lang['Female'] ?></option>
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Age</label>
+          <!-- <label for="exampleInputEmail1"><?php echo $lang['Age'] ?></label> -->
           <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="age" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="age" placeholder="<?php echo $lang['Age'] ?>">
+         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Field </label>
+          <!-- <label for="exampleInputEmail1"><?php echo $lang['Field'] ?></label> -->
           <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="field" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="field" placeholder="<?php echo $lang['Field'] ?>">
+         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div  class="form-group" >
+        <label for="exampleInputEmail1"><?php echo $lang['currentAddress2'] ?></label>
+        <select  class="form-select" aria-label="Default select example" name="address" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Work Type</label>
-        </div>
-        <select class="custom-select" name="workType" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Half Day">Half Day</option>
-          <option value="Full Day">Full Day</option>
-          <option value="Monthly">Monthly</option>
+ 
+        <select class="form-select" aria-label="Default select example" name="workType" id="inputGroupSelect01">
+          <option selected><?php echo $lang['workType'] ?></option>
+          <option value="Half Day"><?php echo $lang['halfDay'] ?></option>
+          <option value="Full Day"><?php echo $lang['fullDay'] ?></option>
+          <option value="Monthly"><?php echo $lang['Monthly'] ?></option>
 
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Price:</label>
+          <label for="exampleInputEmail1"> <?php echo $lang['Salary'] ?>:</label>
           <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="price" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+          aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Salary'] ?>">
+         </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Experience</label>
+         <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['Experience'] ?></label>
           <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="experience" placeholder="info"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Current Address</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="cAddress" placeholder="info"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
+          aria-describedby="emailHelp" name="experience" placeholder="<?php echo $lang['Experience'] ?>"></textarea>
+         </div>
 
 
         <div class="form-group">
-        <h6>If you are an agent, then fill your discription</h6>
-          <label for="exampleInputEmail1">Agent Info</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="agentInfo" placeholder="location"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label for="exampleInputEmail1"><?php echo $lang['currentAddress'] ?></label>
+ 
+          <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="cAddress" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
+         </div>
 
-<br>
-        <h5>Can You Provide Biding Person</h5>
+
+
+
+
+ 
+
+
+        <h6><?php echo $lang['bidingPersonQ'] ?></h6>
 
         <div class="form-check form-check-inline">
           <input class="form-check-input" required type="radio" name="bidp" id="inlineRadio1" value="YES">
-          <label class="form-check-label" for="inlineRadio1">Yes</label>
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['yes'] ?></label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" required type="radio" name="bidp" id="inlineRadio2" value="NO">
-          <label class="form-check-label" for="inlineRadio2">No</label>
+          <label class="form-check-label" for="inlineRadio2"><?php echo $lang['no'] ?></label>
         </div>
+ 
+        <div class="form-group">
+         <h6 style="color: coral;" > <?php echo $lang['agentInfoQ'] ?></h6>
 
+           <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="agentInfo" placeholder="<?php echo $lang['agentInfo'] ?>"></textarea>
+         </div>
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
-          <input type="file"  class="form-control" id="photo" name="photo"  >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
+          <input type="file" required class="form-control" id="photo" name="photo"  >
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['descriptionPhotocv'] ?></small>
         </div>
 
 
@@ -1537,85 +2742,176 @@ $('#tCategory').on('change', function(){
           
 
 
-          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          <input class="btn btn-dark" type="submit" value="POST">
           <div id="alertVacancy"></div>
           </form>
 
-          <?php
-        }
-      }
-    }
+          </div>
+      </div><!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+  </div><!-- /.modal-dialog -->
+      
+  
+  
+  <?php
+}
+//////// zebegna 
+if($_GET['type'] == 'zebegna'){
+  ?>
+  
+  <!-- <script src="assets/jquery.js"  ></script> -->
+<script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
 
-    /////////////////////////////////////////////
-    if(isset($_GET['type'])){
-      if($_GET['type'] == 'zebegna'){
-        ?>
-        
+  })
 
-        <form  method="POST" enctype="multipart/form-data">
-          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+  })
+</script>
+
+<div id="cont" class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+      <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+    </div>
+          <div class="modal-body">
+
+          <form  method="POST" enctype="multipart/form-data">
+          <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
 
           <div class="form-group">
-          <label for="exampleInputEmail1">Full Name</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="name" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="name" placeholder="<?php echo $lang['fullName'] ?>">
+           </div>
 
           <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-        </div>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Male">Mele</option>
-          <option value="Female">Female</option>
+          
+          <select class="form-select" aria-label="Default select example" name="sex" id="inputGroupSelect01">
+            <option selected><?php echo $lang['Gender'] ?></option>
+            <option value="Male"><?php echo $lang['Male'] ?></option>
+            <option value="Female"><?php echo $lang['Female'] ?></option>
+          </select>
+          </div>
+
+          <div class="form-group">
+            <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="age" placeholder="<?php echo $lang['Age'] ?>">
+         </div>
+
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="address" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
         </select>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Age</label>
-          <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="age" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="address" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Work Status</label>
-        </div>
-        <select class="custom-select" name="workStat" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="Company">Company</option>
-          <option value="Full Day">Private</option>
-          <option value="House">House</option>
-          <option value="Hotel">Hotel</option>
-          <option value="Banks">Banks</option>
+ 
+        <select class="form-select" aria-label="Default select example" name="workStat" id="inputGroupSelect01">
+          <option selected><?php echo $lang['workPos'] ?></option>
+          <option value="All"><?php echo $lang['all'] ?></option>
+          <option value="Company"><?php echo $lang['Company'] ?></option>
+          <option value="Full Day"><?php echo $lang['private'] ?></option>
+          <option value="House"><?php echo $lang['House'] ?></option>
+          <option value="Hotel"><?php echo $lang['Hotel'] ?></option>
+          <option value="Banks"><?php echo $lang['Banks'] ?></option>
 
         </select>
         </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Phone:</label>
-          <input type="number" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="phone" placeholder="Full Name">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+           <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="<?php echo $lang['phone'] ?>">
+         </div>
+
+
+         <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['Experience'] ?></label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="experience" placeholder="<?php echo $lang['Experience'] ?>"></textarea>
+         </div>
+
+         <div class="input-group mb-3">
+ 
+        <select class="form-select" aria-label="Default select example" name="workType" id="inputGroupSelect01">
+          <option selected><?php echo $lang['workHour'] ?></option>
+          <option value="Half Day"><?php echo $lang['halfDay'] ?></option>
+          <option value="Full Day"><?php echo $lang['fullDay'] ?></option>
+          <option value="Monthly"><?php echo $lang['Monthly'] ?></option>
+
+        </select>
         </div>
 
+        <div class="form-group">
+           <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Salary'] ?>">
+         </div>
+
+
+
+        <h6><?php echo $lang['weaponQ'] ?></h6>
+
+<div class="form-check form-check-inline">
+  <input class="form-check-input" required type="radio" name="legalWp" id="inlineRadio1" value="YES">
+  <label class="form-check-label" for="inlineRadio1"><?php echo $lang['yes'] ?></label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" required type="radio" name="legalWp" id="inlineRadio2" value="NO">
+  <label class="form-check-label" for="inlineRadio2"><?php echo $lang['no'] ?></label>
+</div>
+
+        <h6><?php echo $lang['bidingPersonQ'] ?></h6>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" required type="radio" name="bidp" id="inlineRadio1" value="YES">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['yes'] ?></label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" required type="radio" name="bidp" id="inlineRadio2" value="NO">
+          <label class="form-check-label" for="inlineRadio2"><?php echo $lang['no'] ?></label>
+        </div>
+
+        <div class="form-group">
+        <h6 style="color: coral;" > <?php echo $lang['agentInfoQ'] ?></h6>
+
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="agentInfo" placeholder="<?php echo $lang['agentInfo'] ?>"></textarea>
+        </div>
 
 
         <div class="row">
         <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file"  class="form-control" id="photo" name="photo" >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['descriptionPhotocv'] ?></small>
         </div>
 
 
@@ -1626,23 +2922,385 @@ $('#tCategory').on('change', function(){
           
 
 
-          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          <input class="btn btn-dark" type="submit" value="POST">
           <div id="alertVacancy"></div>
           </form>
-        
-        
-        
+
+          </div>
+      </div><!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+  </div><!-- /.modal-dialog -->
+      
+  
+  
+  <?php
+}
+
+///// real estate posting
+if($_GET['type'] == 'real'){
+  ?>
+  
+  <!-- <script src="assets/jquery.js"  ></script> -->
+<script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
+
+  })
+
+  })
+</script>
+
+<div id="cont" class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+      <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+    </div>
+          <div class="modal-body">
+
+          <form  method="POST" enctype="multipart/form-data">
+          <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
+
+          <?php
+          if(isset($_GET['real']) && $_GET['real'] == 'realEstate'){
+            ?>
+            <!-- for rent or sell  -->
+<div class="form-group">
+          <label for="exampleInputEmail1" class="fs-6  " ><?php echo $lang['sellOrRent'] ?></label><br>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="forRentOrSell" value="For Rent">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forRent'] ?></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"  type="radio" name="forRentOrSell" id="fsell" value="For Sell">
+          <label class="form-check-label" for="inlineRadio1"><?php echo $lang['forSell'] ?></label>
+        </div>
+        </div>
+            <?php
+          }
+          
+          ?>
+
+
+
+          <!-- title -->
+          <div class="form-group">
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="title" placeholder="<?php echo $lang['title'] ?>">
+          </div>
+
+          <!-- company name -->
+          <div class="form-group">
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="company" placeholder="<?php echo $lang['company'] ?>">
+          </div>
+
+
+          <script>
+
+
+  // sub city filter api
+  function hCity(x){
+    // alert(x)
+    $.ajax({
+        url: 'user/userApi.php',
+        type: 'post',
+        data: {
+          cityH: x
+        },
+        success: function(data){
+          // alert(data)
+          $('#subH').empty()
+          $('#subH').append(data)
+        }
+      })
+  }
+</script>
+
+
+<?php
+    if(isset($_GET['real']) && $_GET['real'] == 'realEstate'){
+      ?>
+    
+<script>
+  $(document).ready(function(){
+    $('#catRs').on('change', function(){
+      if(this.value == "Industrial RS" || this.value == "Land For RS" || this.value == "Hotel and Lodging"){
+        $('#rsFloor').hide()
+      }else{
+        $('#rsFloor').show()
+      }
+    })
+  })
+</script>
+
+<!-- category  -->
+<div  class="input-group mb-3">
+ 
+ <select id="catRs" class="form-select" aria-label="Default select example" name="rsType" id="inputGroupSelect01">
+   <option selected><?php echo $lang['CategoryReal'] ?></option>
+   <option value="Commercial RS">Commercial RS</option>
+   <option value="Hotel and Lodging">Hotel and Lodging</option>
+   <option value="Industrial RS">Industrial RS</option>
+   <option value="Land For RS">Land For RS</option>
+   <option value="Mixed Use">Mixed Use</option>
+   <option value="Office Space">Office Space</option>
+   <option value="Residential Rs">Residential Rs</option>
+
+ </select>
+ </div> 
+     <?php
+    }
+      ?>
+
+
+
+<!--  city list -->
+
+<div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="city" onchange="hCity(this.value)" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
+
+        <?php
+        // subcity and kebele only for realestate filter block
+        if(isset($_GET['real'])){
+          if($_GET['real'] == 'realEstate'){
+            ?>
+            <!-- sub city list -->
+
+        <div id="subH"   class="input-group mb-3" >
+          <?php
+        require_once '../php/fetchApi.php';
+    $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+    $city = array();
+    if($locc->num_rows != 0){
+      ?>
+                <select  class="form-select" aria-label="Default select example" name="subCity" >
+          <option><?php echo $lang['subCity'] ?></option>
+      <?php
+    while($rowLoc = $locc->fetch_assoc()){
+        $city[]= $rowLoc['category'];
+    }
+    sort($city);
+    $i = 0;
+    foreach($city as $loc){
+      if($loc == 'Addis Ababa'){
+        ?>
+        <option selected ><?php echo $loc ?></option>
+        <?php
+      }else{
+        ?>
+         <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
         <?php
       }
+      ?>
+      
+    
+      
+      <?php
+      $i++;
     }
+  }
+    ?>
+    </select>
+        </div>
+
+         
+      <!-- kebele list -->
+      <div class="form-group">
+        <select class="form-select" aria-label="Default select example" name="wereda"  id="inputGroupSelect01">
+          <option ><?php echo $lang['Wereda'] ?></option>
+          <?php 
+             for($y=1;$y<=30;$y++){
+               if($y <= 9 ){
+                 ?>
+                 <option value="<?php echo '0'.$y ?>"><?php echo '0'.$y ?></option>
+                 <?php
+               }else{
+                ?>
+                <option value="<?php echo $y ?>"><?php echo $y ?></option>
+                <?php
+               }
+
+            }
+          ?>
+          
+
+        </select>
+        </div>
+
+            <!-- area  -->
+            <div class="form-group">
+              <label for="exampleInputEmail1"><?php echo $lang['Area'] ?> : </label>
+              <input type="number" class="form-control" id="nameTitle" 
+              aria-describedby="emailHelp" name="area" placeholder="<?php echo $lang['Area'] ?>">
+            </div>
 
 
-    if(isset($_GET['type'])){
+            <!-- floor  -->
+      <div id="rsFloor" class="form-group">
+        <select class="form-select" aria-label="Default select example" name="floor"  id="inputGroupSelect01">
+          <option ><?php echo $lang['floor'] ?></option>
+          <option value="G"> Ground </option>
+          <option value="1"> 1 <sup>st</sup> </option>
+          <option value="2"> 2 <sup>nd</sup> </option>
+          <option value="3"> 3 <sup>rd</sup> </option>
+          <?php 
+             for($y=4;$y<=20;$y++){
+                ?>
+                <option value="<?php echo $y ?>"><?php echo $y ?> <sup>th</sup></option>
+                <?php
+            
+
+            }
+          ?>
+          
+
+        </select>
+        </div>
+
+            <?php
+          } 
+        }
+
+        ?>
+
+
+
+
+
+        <!-- phone number  -->
+        <div class="form-group">
+                        <label for="exampleInputEmail1"><?php echo $lang['phone'] ?> : </label>
+           <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder=" " value="<?php echo $_SESSION['phone'] ?>">
+        </div>
+
+        <!-- email  -->
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['email'] ?></label>
+           <input type="email" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="email" placeholder="<?php echo $lang['emailex'] ?>">
+        </div>
+
+
+                
+<!-- price  -->
+<div class="form-group">
+  <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?> :</label>
+  <input type="number" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Price'] ?>">
+</div>
+
+
+
+
+<!-- price type  -->
+<div class="input-group mb-3">
+
+<select class="form-select" aria-label="Default select example" name="fixidOrN" id="inputGroupSelect01">
+  <option selected> <?php echo $lang['priceType'] ?></option>
+  <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+  <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+  <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
+</select>
+</div>
+        
+
+ 
+
+        <div class="form-group">
+        <h6 style="color: coral;" > <?php echo $lang['Description'] ?></h6>
+
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Descriptionmore'] ?>"></textarea>
+        </div>
+
+
+        <div class="row">
+        <div id="registerBox">
+        <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
+          <input type="file"  class="form-control" id="photo" name="photo[]"  multiple>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['descriptionPhotocv'] ?></small>
+        </div>
+
+
+
+
+
+
+          
+
+
+          <input class="btn btn-dark" type="submit" value="POST">
+          <div id="alertVacancy"></div>
+          </form>
+
+          </div>
+      </div><!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+  </div><!-- /.modal-dialog -->
+
+      <?php
+
+}
+}
+  if(isset($_GET['type'])){
       if($_GET['type'] == 'blog'){
 
 
 ?>
+  <!-- <script src="assets/jquery.js"  ></script> -->
+  <script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
 
+  })
+
+  })
+</script>
+<div id="cont" class="modal-dialog">
+  <div class="modal-content">
+
+  <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+      <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+    </div>
+          <div class="modal-body">
 
 <form  method="POST" enctype="multipart/form-data">
           <input hidden name="posterId" value="<?php echo $uidx; ?>">
@@ -1693,24 +3351,31 @@ $('#tCategory').on('change', function(){
           <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
           <div id="alertVacancy"></div>
           </form>
-
+  </div>
+</div>
+</div>
 
 <?php
 
 
       }
+  
+ 
+}
 
-    }
+
+
 ?>
 
 
   </main><!-- End #main -->
+ 
 
+     
 
 </body>
-
-</html>
 <?php
 
-// include "adminFooter.php";
+include "../includes/adminFooter.php";
 ?>
+</html>

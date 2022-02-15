@@ -2,7 +2,7 @@
 require_once "../php/fetchApi.php";
 require_once "../php/auth.php";
 require_once "../php/adminCrude.php";
-// include "adminSide.php";
+include "../includes/adminSide.php";
 
 if(isset($_POST['poster'])){
     $userPoster = $_POST['poster'];
@@ -178,5 +178,5 @@ foreach($dbTables as $posts){
     </div>
     <?php
 
-// include "adminFooter.php";
+include "../includes/adminFooter.php";
 ?>

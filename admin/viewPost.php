@@ -1,5 +1,5 @@
 <?php
-    // include "../includes/adminSide.php";
+    include "../includes/adminSide.php";
     require_once "../php/fetchApi.php";
     require_once "../php/adminCrude.php";
 
@@ -16,11 +16,26 @@
     $_SESSION['adminPage'] = 0;
 
     
-$website = "shop2/Description.php";
+$website = "Description.php";
 
     
 ?>
-<div id="allin">
+
+<div id="postBox">
+<main id="main" class="main">
+
+<div class="pagetitle">
+  <h1>Dashboard x</h1>
+  <h4><?php echo $row2['firstName'].''.$row2['lastName']  ?></h4>  <br>
+  <h6>AUTHERIZATION: <?php echo $row2['auth'] ?></h6>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+  </nav>
+</div> 
+<div id="postBox" class="container">
 <!-- <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -36,7 +51,7 @@ $website = "shop2/Description.php";
             $(document).ready(function(){
               $(window).on('hashchange', function(e) {
                 if(location.hash == '#userSee'){
-                  $('#allin').load('admin/userInfo.php', {poster: id})
+                  $('#allin').load('userInfo.php', {poster: id})
                 }
               })
             })
@@ -52,7 +67,7 @@ $website = "shop2/Description.php";
                 function adminPage(){
                   // alert('bitch')
                   $.ajax({
-                    url:'admin/editHandler.php',
+                    url:'editHandler.php',
                     type: 'GET',
                     data:{
                       adminPage : true   , //echo the type of the post to be viewd
@@ -60,7 +75,7 @@ $website = "shop2/Description.php";
                     success: function(data){
                       // alert(data)
                       $.ajax({
-                      url:'admin/scrollView.php',
+                      url:'scrollView.php',
                       type: 'GET',
                       data:{
                         type : '<?php echo $_SESSION['type']; ?>', //echo the type of the post to be viewd
@@ -76,31 +91,31 @@ $website = "shop2/Description.php";
                 }
 
             function uinfo(id){
-                $('#allin').load('admin/userInfo.php', {poster: id})
+                $('#allin').load('userInfo.php', {poster: id})
                 history.pushState({type: 'seeU', id:id}, '', 'http://localhost/shop2/admin.php#userSee')
 
             }
             $
         </script>
-  <link href="admin/assets/img/favicon.png" rel="icon">
-  <link href="admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
   
 
   <!-- Template Main CSS File -->
-  <link href="admin/assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
   <!-- <script src="../assets/js/scroll.js"></script> -->
 
 
@@ -124,7 +139,7 @@ $website = "shop2/Description.php";
 
 
       // $.ajax({
-      //   url:'admin/scrollView.php',
+      //   url:'scrollView.php',
       //   type: 'GET',
       //   data:{
       //     type : '<?php echo $_SESSION['type']; ?>', //echo the type of the post to be viewd
@@ -150,39 +165,39 @@ $website = "shop2/Description.php";
 
       function edit(uid){
         $('#allin').empty()
-        $('#allin').load('admin/editPost.php?'+$.param({type: 'vacancy', pid: uid}))
+        $('#allin').load('editPost.php?'+$.param({type: 'vacancy', pid: uid}))
       }
 
       function editTender(uid){
         $('#allin').empty()
-        $('#allin').load('admin/editPost.php?'+$.param({type: 'tender', pid: uid}))
+        $('#allin').load('editPost.php?'+$.param({type: 'tender', pid: uid}))
       }
 
       function adEdit(uid){
         $('#allin').empty()
-        $('#allin').load('admin/editPost.php?'+$.param({type: 'ad', pid: uid}))
+        $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: uid}))
       }
 
       function editCar(pid){
         $('#allin').empty()
-        $('#allin').load('admin/editPost.php?'+$.param({type: 'car', pid: pid}))
+        $('#allin').load('editPost.php?'+$.param({type: 'car', pid: pid}))
       }
 
       function editHouse(pid){
         $('#allin').empty()
-        $('#postBox').load('admin/editPost.php?'+$.param({type: 'house', pid: pid}))
+        $('#postBox').load('editPost.php?'+$.param({type: 'house', pid: pid}))
       }
       function adView(id){
         $('#allin').empty()
-                  $('#allin').load('admin/discriptionPage.php', {type: 'ad',pid: id})
+                  $('#allin').load('discriptionPage.php', {type: 'ad',pid: id})
                 }
 
       function viewCar(id){
-        $('#allin').load('admin/discriptionPage.php', {type: 'car',pid: id})
+        $('#allin').load('discriptionPage.php', {type: 'car',pid: id})
                 
       }
       function houseView(id){
-        $('#allin').load('admin/discriptionPage.php', {type: 'house',pid: id})
+        $('#allin').load('discriptionPage.php', {type: 'house',pid: id})
 
       }
 
@@ -204,7 +219,7 @@ $website = "shop2/Description.php";
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="admin/assets/album.css" rel="stylesheet">
+    <link href="assets/album.css" rel="stylesheet">
   </head>
   <div id="vac1">
     <?php
@@ -446,12 +461,12 @@ $website = "shop2/Description.php";
       ?>
       <script>
         function elcView(id){
-          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('admin/editPost.php?'+$.param({type: 'electronics', pid: id}))
+          $('#allin').load('editPost.php?'+$.param({type: 'electronics', pid: id}))
 
         }
 
@@ -493,12 +508,12 @@ elseif($_GET['type'] == 'charity'){
   ?>
         <script>
         function elcView(id){
-          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('admin/editPost.php?'+$.param({type: 'charity', pid: id}))
+          $('#allin').load('editPost.php?'+$.param({type: 'charity', pid: id}))
 
         }
 
@@ -536,12 +551,12 @@ elseif($_GET['type'] == 'bigDiscount'){
   ?>
         <script>
         function elcView(id){
-          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('admin/editPost.php?'+$.param({type: 'ad', pid: id})) 
+          $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: id})) 
 
         }
 
@@ -584,12 +599,12 @@ elseif($_GET['type'] == 'homeTutor'){
 
   <script>
         function elcView(id){
-          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('admin/editPost.php?'+$.param({type: 'homeTutor', pid: id})) 
+          $('#allin').load('editPost.php?'+$.param({type: 'homeTutor', pid: id})) 
 
         }
 
@@ -637,12 +652,12 @@ if(isset($_GET['type'])){
     
     <script>
         function elcView(id){
-          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('admin/editPost.php?'+$.param({type: 'hotel', pid: id})) 
+          $('#allin').load('editPost.php?'+$.param({type: 'hotel', pid: id})) 
 
         }
 
@@ -689,12 +704,12 @@ if(isset($_GET['type'])){
     
     <script>
         function elcView(id){
-          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('admin/editPost.php?'+$.param({type: 'houseKeeper', pid: id})) 
+          $('#allin').load('editPost.php?'+$.param({type: 'houseKeeper', pid: id})) 
 
         }
 
@@ -743,12 +758,12 @@ if(isset($_GET['type'])){
     
     <script>
         function elcView(id){
-          $('#allin').load('admin/discriptionPage.php', {type: 'electronics',pid: id})
+          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
         }
 
         function editElc(id){
-          $('#allin').load('admin/editPost.php?'+$.param({type: 'zebegna', pid: id})) 
+          $('#allin').load('editPost.php?'+$.param({type: 'zebegna', pid: id})) 
 
         }
 
@@ -792,8 +807,9 @@ if(isset($_GET['type'])){
     </div>
     ?>
               <button onclick="adminPage()" >View More <?php echo $_SESSION['adminPage'] ?></button>
-            
+      </div>
+</main>
             <?php
  
-// include "../includes/adminFooter.php";
+include "../includes/adminFooter.php";
 ?>

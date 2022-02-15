@@ -220,7 +220,6 @@ foreach($dbTables as $posts){
           <div  class="col-md-3">
               <div class="card mb-4 box-shadow ">
                 <?php 
-                
                 if($posts == 'car' || $posts =='electronics' || $posts == 'charity' || $posts == 'ad'){
                   if($posts == 'ad'){
                     if($row['bigDiscount'] == 'ACTIVE'){
@@ -671,18 +670,19 @@ foreach($dbTables as $posts){
 
         <!-- <link href="assets/css/innerMsg.css" rel="stylesheet" id="bootstrap-css"> -->
 
+        <!-- this is the left side of the message to show the post item, or the admin if its the admin  -->
         <div class="col-md-12 col-xl-12 chat">
 					<div class="card">
 						<div class="card-header msg_head">
 							<div class="d-flex bd-highlight">
 								<div class="d-flex justify-content-start mb-4">
                   <?php
-                if($_SESSION['auth'] == 'ADMIN' || $rowAuth['auth'] == 'ADMIN' || $_SESSION['auth'] == 'EDITOR' || $rowAuth['auth'] == 'EDITOR'){
+                if($_SESSION['auth'] == 'ADMIN' || $rowAuth['auth'] == 'ADMIN' || $_SESSION['auth'] == 'EDITOR' || $rowAuth['auth'] == 'EDITOR'){ // if the loged user or the msg reciver user is admin or editor, then the post item will be changed to admin thumnail.
               ?>
-              <img src="assets/img/pp.png" class="img-thumbnail  col-2" alt="...">
-              <h5 class="col-2">Admin</h5>
+              <img src="assets/img/pp.png" class="img-thumbnail  col-3" alt="...">
+              <h6 class="col-4">Admin</h6>
               <?php
-            }else{
+            }else{ // if the loged user or the msg reciver user is not admin or editor, then the post item will be displayed here
               ?>
               <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">
                                 <!-- <div class="col-8 h4 text-danger"> -->
@@ -696,20 +696,62 @@ foreach($dbTables as $posts){
             ?>
 
 
-                  </div>
+            <!-- here is to copy users and items info to the membership -->
+            <?php
+            if($_SESSION['auth'] == 'ADMIN'  || $_SESSION['auth'] == 'EDITOR' ){ 
+              ?>
+              <script>
 
+              </script>
+              <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">  <br>
+                                <!-- <div class="col-8 h4 text-danger"> -->
+									<h6><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+                if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </h6>
+
+                <button class="btn btn-dark" onclick="" >Copy Link</button>
+ 
+              <?php
+              
+            }
+            ?>
+
+
+
+
+                  </div>
+<!-- here the right side of the inner message will be displayed  -->
                   <?php
-                    if($rowAuth['auth'] == 'USER' ){
+                    if($rowAuth['auth'] == 'USER' ){ // if the reciver is a USER, then the users name and profile photo will be shown on the right side of the inner message
                       ?>
                       
-                <div class="d-flex justify-content-end mb-4">
+                <div class="d-flex justify-content-end  mb-4">
                   <!-- <div class="col-8 h4 text-danger"> -->
-                  <h5><?php echo $row2['firstName'].' '.$row2['lastName'] ?></h5>
-									<p></p>
+                  <?php
+                  if($row2['photoPath1'] != 'FILE_NOT_UPLOADED'){ // if there is no profile pic, then it will be changed to display the website logo pic
+                    ?>
+                 <h5><?php echo $row2['firstName'].' '.$row2['lastName'] ?></h5>
                   <img src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?> " class="col-3 img-thumbnail">
+                    <?php
+                  }else{ // if there is a profile pic 
+                    ?>
+                      <h5><?php echo $row2['firstName'].' '.$row2['lastName'] ?></h5>
+                    <img class="col-4"  src="./admin/assets/img/zumra.png" pt-2">
+                    <?php
+                  }
+                  ?>
+									<p></p>
 
 								  <!-- </div> -->
                 </div>
+                      <?php
+                    }
+                    elseif($rowAuth['auth'] == 'ADMIN' || $rowAuth['auth'] == 'EDITOR'){
+                      ?>
+                  <div class="d-flex justify-content-end mb-4">
+                  <h6><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+                if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </h6>
+                  <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">
+                   </div>
                       <?php
                     }
 
@@ -805,7 +847,7 @@ foreach($dbTables as $posts){
               <input hidden type="text" name="tabel" value="<?php echo $tb ?>" >
               <input hidden type="text" name="reciver" value="<?php echo $reciver ?>" >
               <input hidden type="text" name="postFocus" value="<?php echo $postFocus ?>" >
-                <textarea type="text" class="form-control" id="des2" 
+                <textarea type="text" class="form-control" id="mssg" 
               aria-describedby="emailHelp" name="msg" placeholder="Type Here.."></textarea>
               <div class="d-flex justify-content-end mb-4">
                   <button type="submit" class="btn btn-dark" >Send</button>
