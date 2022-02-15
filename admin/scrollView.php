@@ -1,7 +1,7 @@
 <?php
         ob_start();
         session_start();
-        $website = "shop2/Description.php";
+        $website = "Description.php";
 $content_per_page = 6;
 $page = $_SESSION['adminPage'];
 $startPage = ($page * $content_per_page) - $content_per_page;
@@ -22,32 +22,32 @@ $endPage =  $content_per_page;
           if(!in_array($row['id'],$idArr)){
             $idArr[]= $row['id'];  
           ?>
-          <h6>Vacancy Post</h6>
+                <h6>Vacancy Post</h6>
 
 
+<div id="sc"  class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+        <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+        <div class="card-body">
+            <h5 class="card-title">Position :<?php echo $row['title'] ?></h5>
+            <p class="card-text">Job Type :<?php echo $row['positionType'] ?></p>
+            <p class="card-text">Deadline :<?php echo $row['deadLine'] ?></p>
+            <p class="card-text">Requierd Position :<?php echo $row['positionNum'] ?></p>
+            <p class="card-text">Job Type :<?php echo $row['info'] ?></p>
+            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+            <a href="../<?php echo $website ?>?cat=vacancy&label=Vacancy%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
+            <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                <i class="bi-cart-fill me-1"></i>
+                View User 
+            </a>  
+            </div>
+        </div>
+    </div>
+</div>
 
-          <div id="sc"  class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                        <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Position :<?php echo $row['title'] ?></h5>
-                            <p class="card-text">Job Type :<?php echo $row['positionType'] ?></p>
-                            <p class="card-text">Deadline :<?php echo $row['deadLine'] ?></p>
-                            <p class="card-text">Requierd Position :<?php echo $row['positionNum'] ?></p>
-                            <p class="card-text">Job Type :<?php echo $row['info'] ?></p>
-                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                            <a href="../<?php echo $website ?>?cat=vacancy&label=Vacancy%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
-                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
-                                <i class="bi-cart-fill me-1"></i>
-                                View User <?php echo $row['posterId'] ?>
-                            </a>   
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
           <?php
           array_push($_SESSION['scroll'], $row['id'] );
@@ -63,7 +63,7 @@ $endPage =  $content_per_page;
         if(!in_array($row['id'],$idArr)){
             $idArr[]= $row['id']; 
         ?>
- <h6>Tender Post</h6>
+                <h6>Tender Post</h6>
                 <?php
                 $date1 = date('Y/m/d');
                 $date2 = $row['deadLine'];
@@ -83,7 +83,7 @@ $endPage =  $content_per_page;
                         $p = $admin->photoSplit($row['photoPath1']);
                         if(!empty($p)){
                           ?>
-                          <img src="<?php echo $p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
                           <?php
                         }if(empty($row['photoPath1'])){
                           ?>
@@ -99,14 +99,55 @@ $endPage =  $content_per_page;
                             <p class="card-text"><?php echo $row['info'] ?></p>
                             <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
                             <a href="../<?php echo $website ?>?cat=tender&label=Tender%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
-                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                            <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
                                 <i class="bi-cart-fill me-1"></i>
-                                View User <?php echo $row['posterId'] ?>
+                                View User 
                             </a>   
                         </div>
                         </div>
                     </div>
                     </div>
+                    <?php
+                }else{
+
+                
+                  
+                ?>
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        
+                        <?php 
+                        $p = $admin->photoSplit($row['photoPath1']);
+                        if(!empty($p)){
+                          ?>
+                          <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <?php
+                        }if(empty($row['photoPath1'])){
+                          ?>
+                          <img src="./assets/img/zumra.png" class="img-fluid rounded-start" alt="...">
+                          <?php
+                        }
+                        
+                        ?> 
+                        
+
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['title'] ?></h5>
+                            <p class="card-text"><?php echo $row['info'] ?></p>
+                            <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
+                            <a href="../<?php echo $website ?>?cat=tender&label=Tender%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
+                            <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>    
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
         <?php
         array_push($_SESSION['scroll'], $row['id'] );
 
@@ -137,22 +178,22 @@ $endPage =  $content_per_page;
         ?>
 
                 
-        <div id="adVieww" class="col-md-4">
-      <div class="card mb-4 box-shadow">
-        <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
-        <div class="card-body">
-          <p class="card-text"><?php echo $row['title'] ?></p>
-          <p class="card-text"><?php echo $row['price'] ?> Birr</p>
-          <div class="d-flex justify-content-between align-items-center">
-          <a href="../<?php echo $website ?>?cat=ad&postId=<?php echo $row['id'] ?>&label=Advertisment%20Post&type=product" >View</a>
-          <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
-              <i class="bi-cart-fill me-1"></i>
-              View User <?php echo $row['posterId'] ?>
-          </a>   
-          </div>
-        </div>
-      </div>
-    </div>
+<div id="adVieww" class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+                <div class="card-body">
+                  <p class="card-text"><?php echo $row['title'] ?></p>
+                  <p class="card-text"><?php echo $row['price'] ?> Birr</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                  <a href="../<?php echo $website ?>?cat=ad&postId=<?php echo $row['id'] ?>&label=Advertisment%20Post&type=product" >View</a>
+                  <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>     
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
         <?php
@@ -181,23 +222,22 @@ if($ty == 'car' ){
       $idArr[]= $cars['id']; 
       ?>
       
-          
       <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
-          <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
-          <div class="card-body">
-            <p class="card-text"><?php echo $cars['title'] ?></p>
-            <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" onclick="viewCar(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" onclick="editCar(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+              <div class="card mb-4 box-shadow">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+                <div class="card-body">
+                  <p class="card-text"><?php echo $cars['title'] ?></p>
+                  <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                  <a href="../<?php echo $website ?>?cat=car&postId=<?php echo $cars['id'] ?>&label=Cars%20For%20Sell&type=" >View</a>
+                  <a href="./userInfo.php?poster=<?php echo $cars['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                  </div>
+                </div>
               </div>
-              <small class="text-muted">9 mins</small>
             </div>
-          </div>
-        </div>
-      </div>
       <?php
      array_push($_SESSION['scroll'], $cars['id'] );  
   }
@@ -225,24 +265,24 @@ if($ty == 'house' ){
       $idArr[]= $cars['id']; 
       ?>
       
-          
+                
       <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
-          <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
-          <div class="card-body">
-            <p class="card-text"><?php echo $cars['title'] ?></p>
-            <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
-            <h6><?php echo $cars['cost'] ?> Birr</h6>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" onclick="houseView(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" onclick="editHouse(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+              <div class="card mb-4 box-shadow">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+                <div class="card-body">
+                  <p class="card-text"><?php echo $cars['title'] ?></p>
+                  <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
+                  <h6><?php echo $cars['cost'] ?> Birr</h6>
+                  <div class="d-flex justify-content-between align-items-center">
+                  <a href="../<?php echo $website ?>?cat=housesell&type=house&postId=<?php echo $cars['id'] ?>&label=House%20Posts" >View</a>
+                  <a href="./userInfo.php?poster=<?php echo $cars['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                  </div>
+                </div>
               </div>
-              <small class="text-muted">9 mins</small>
             </div>
-          </div>
-        </div>
-      </div>
       <?php
     array_push($_SESSION['scroll'], $cars['id'] );  
   }
@@ -282,22 +322,22 @@ if($ty == 'electronics'){
       
           
       <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
-          <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
-          <div class="card-body">
-            <p class="card-text"><?php echo $cars['title'] ?></p>
-            <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
-            <h6><?php echo $cars['price'] ?> Birr</h6>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" onclick="elcView(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" onclick="editElc(<?php echo $cars['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <p class="card-text"><?php echo $cars['title'] ?></p>
+                <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
+                <h6><?php echo $cars['price'] ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=electronics&postId=<?php echo $cars['id'] ?>&label=Electronics%20Post&type=" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $cars['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>   
+                </div>
               </div>
-              <small class="text-muted">9 mins</small>
             </div>
           </div>
-        </div>
-      </div>
       <?php
       array_push($_SESSION['scroll'], $cars['id'] );  
   }
@@ -336,17 +376,17 @@ if($ty == 'charity'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['phone'] ?> </h6>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <div class="d-flex justify-content-between align-items-center"> 
+                <a href="../<?php echo $website ?>?cat=charity&postId=<?php echo $row['id'] ?>&label=Charity%20Post&type=" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
               </div>
             </div>
@@ -388,17 +428,17 @@ if($ty == 'bigDiscount'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <div class="d-flex justify-content-between align-items-center"> 
+                <a href="../<?php echo $website ?>?cat=ad&postId=<?php echo $row['id'] ?>&label=Big%20Discount%20Advertisment&type=big" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
               </div>
             </div>
@@ -444,18 +484,18 @@ if($ty == 'homeTutor'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['Name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
                 <p class="card-text">Info : <?php echo $row['info'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['Price']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
+                <a href="../<?php echo $website ?>?cat=jobhometutor&postId=<?php echo $row['id'] ?>&label=Home%20Tutor&type=homeTutor" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
               </div>
             </div>
@@ -500,23 +540,23 @@ if($ty == 'hotel'){
         
             
         <div class="col-md-4">
-          <div class="card mb-4 box-shadow">
-            <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
-            <div class="card-body">
-              <p class="card-text">Name: <?php echo $row['name'] ?></p>
-              <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
-              <p class="card-text">Info : <?php echo $row['experience'] ?> Birr</p>
-              <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <p class="card-text">Name: <?php echo $row['name'] ?></p>
+                <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
+                <p class="card-text">Info : <?php echo $row['experience'] ?> Birr</p>
+                <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=hotelhouse&postId=<?php echo $row['id'] ?>&label=Hotel%20Job%20Seeker&type=hotelWorker" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
-                <small class="text-muted">9 mins</small>
               </div>
             </div>
           </div>
-        </div>
 
 <?php
   array_push($_SESSION['scroll'], $row['id'] );
@@ -556,24 +596,25 @@ if($ty == 'houseKeeper'){
         ?>
         
             
+              
         <div class="col-md-4">
-          <div class="card mb-4 box-shadow">
-            <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
-            <div class="card-body">
-              <p class="card-text">Name: <?php echo $row['name'] ?></p>
-              <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
-              <p class="card-text">Info : <?php echo $row['experience'] ?> Birr</p>
-              <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <p class="card-text">Name: <?php echo $row['name'] ?></p>
+                <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
+                <p class="card-text">Info : <?php echo $row['experience'] ?> Birr</p>
+                <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=hotelhouse&postId=<?php echo $row['id'] ?>&label=Home%20Keeper%20Seeker&type=houseWorker" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>   
                 </div>
-                <small class="text-muted">9 mins</small>
               </div>
             </div>
           </div>
-        </div>
 
 <?php
   array_push($_SESSION['scroll'], $row['id'] );
@@ -610,26 +651,24 @@ if($ty == 'zebegna'){
       if(!in_array($row['id'],$idArr)){
         $idArr[]= $row['id'];
         ?>
-        
-            
-        <div class="col-md-4">
-          <div class="card mb-4 box-shadow">
-            <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
-            <div class="card-body">
-              <p class="card-text">Name: <?php echo $row['name'] ?></p>
-              <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
-              <p class="card-text">phone : <?php echo $row['phone'] ?> Birr</p>
-              <h6> : <?php echo $row['address']  ?> Birr</h6>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" onclick="elcView(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" onclick="editElc(<?php echo $row['id'] ?>)" class="btn btn-sm btn-outline-secondary">Edit</button>
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <p class="card-text">Name: <?php echo $row['name'] ?></p>
+                <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
+                <p class="card-text">phone : <?php echo $row['phone'] ?> Birr</p>
+                <h6> : <?php echo $row['address']  ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
-                <small class="text-muted">9 mins</small>
               </div>
             </div>
           </div>
-        </div>
 
 <?php
 array_push($_SESSION['scroll'], $row['id'] );

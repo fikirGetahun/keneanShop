@@ -50,7 +50,7 @@ $website = "Description.php";
   <script>
             $(document).ready(function(){
               $(window).on('hashchange', function(e) {
-                if(location.hash == '#userSee'){
+                if(location.hash == ''){
                   $('#allin').load('userInfo.php', {poster: id})
                 }
               })
@@ -59,7 +59,7 @@ $website = "Description.php";
                 window.onpopstate = function (event) {
                   
                   if(event.state.type == 'seeU'){
-                    $('#allin').load('http://localhost/shop2/admin.php#userSee')
+                    $('#allin').load('http://localhost/shop2/admin.php')
                   } 
                 }
 
@@ -90,12 +90,8 @@ $website = "Description.php";
 
                 }
 
-            function uinfo(id){
-                $('#allin').load('userInfo.php', {poster: id})
-                history.pushState({type: 'seeU', id:id}, '', 'http://localhost/shop2/admin.php#userSee')
 
-            }
-            $
+            
         </script>
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -248,10 +244,10 @@ $website = "Description.php";
                             <p class="card-text">Job Type :<?php echo $row['info'] ?></p>
                             <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                             <a href="../<?php echo $website ?>?cat=vacancy&label=Vacancy%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
-                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                            <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
                                 <i class="bi-cart-fill me-1"></i>
-                                View User <?php echo $row['posterId'] ?>
-                            </a>   
+                                View User 
+                            </a>  
                             </div>
                         </div>
                     </div>
@@ -285,7 +281,7 @@ $website = "Description.php";
                         $p = $admin->photoSplit($row['photoPath1']);
                         if(!empty($p)){
                           ?>
-                          <img src="<?php echo $p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
                           <?php
                         }if(empty($row['photoPath1'])){
                           ?>
@@ -301,9 +297,9 @@ $website = "Description.php";
                             <p class="card-text"><?php echo $row['info'] ?></p>
                             <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
                             <a href="../<?php echo $website ?>?cat=tender&label=Tender%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
-                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                            <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
                                 <i class="bi-cart-fill me-1"></i>
-                                View User <?php echo $row['posterId'] ?>
+                                View User 
                             </a>   
                         </div>
                         </div>
@@ -323,7 +319,7 @@ $website = "Description.php";
                         $p = $admin->photoSplit($row['photoPath1']);
                         if(!empty($p)){
                           ?>
-                          <img src="<?php echo $p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
                           <?php
                         }if(empty($row['photoPath1'])){
                           ?>
@@ -341,10 +337,10 @@ $website = "Description.php";
                             <p class="card-text"><?php echo $row['info'] ?></p>
                             <p class="card-text"><small class="text-muted"><?php echo $row['deadLine'] ?></small></p>
                             <a href="../<?php echo $website ?>?cat=tender&label=Tender%20Post&postId=<?php echo $row['id'] ?>&type=" >View</a>
-                            <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
+                            <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
                                 <i class="bi-cart-fill me-1"></i>
-                                View User <?php echo $row['posterId'] ?>
-                            </a>   
+                                View User 
+                            </a>    
                         </div>
                         </div>
                     </div>
@@ -367,16 +363,16 @@ $website = "Description.php";
                 
                 <div id="adVieww" class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $row['title'] ?></p>
                   <p class="card-text"><?php echo $row['price'] ?> Birr</p>
                   <div class="d-flex justify-content-between align-items-center">
                   <a href="../<?php echo $website ?>?cat=ad&postId=<?php echo $row['id'] ?>&label=Advertisment%20Post&type=product" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
-                  </a>   
+                  <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>     
                   </div>
                 </div>
               </div>
@@ -399,16 +395,16 @@ $website = "Description.php";
                 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
                   <div class="d-flex justify-content-between align-items-center">
                   <a href="../<?php echo $website ?>?cat=car&postId=<?php echo $cars['id'] ?>&label=Cars%20For%20Sell&type=" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $cars['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $cars['posterId'] ?>
-                  </a> 
+                  <a href="./userInfo.php?poster=<?php echo $cars['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                   </div>
                 </div>
               </div>
@@ -434,17 +430,17 @@ $website = "Description.php";
                 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
                   <h6><?php echo $cars['cost'] ?> Birr</h6>
                   <div class="d-flex justify-content-between align-items-center">
                   <a href="../<?php echo $website ?>?cat=housesell&type=house&postId=<?php echo $cars['id'] ?>&label=House%20Posts" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $cars['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $cars['posterId'] ?>
-                  </a> 
+                  <a href="./userInfo.php?poster=<?php echo $cars['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                   </div>
                 </div>
               </div>
@@ -480,17 +476,17 @@ $website = "Description.php";
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $cars['title'] ?></p>
                 <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
                 <h6><?php echo $cars['price'] ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=electronics&postId=<?php echo $cars['id'] ?>&label=Electronics%20Post&type=" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $cars['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $cars['posterId'] ?>
-                  </a> 
+                <a href="./userInfo.php?poster=<?php echo $cars['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>   
                 </div>
               </div>
             </div>
@@ -527,17 +523,17 @@ elseif($_GET['type'] == 'charity'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['phone'] ?> </h6>
                 <div class="d-flex justify-content-between align-items-center"> 
                 <a href="../<?php echo $website ?>?cat=charity&postId=<?php echo $row['id'] ?>&label=Charity%20Post&type=" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
-                  </a> 
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
               </div>
             </div>
@@ -570,17 +566,17 @@ elseif($_GET['type'] == 'bigDiscount'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
                 <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center"> 
                 <a href="../<?php echo $website ?>?cat=ad&postId=<?php echo $row['id'] ?>&label=Big%20Discount%20Advertisment&type=big" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
-                  </a> 
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
               </div>
             </div>
@@ -617,7 +613,7 @@ elseif($_GET['type'] == 'homeTutor'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['Name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -625,10 +621,10 @@ elseif($_GET['type'] == 'homeTutor'){
                 <h6>Phone : <?php echo $row['Price']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=jobhometutor&postId=<?php echo $row['id'] ?>&label=Home%20Tutor&type=homeTutor" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
-                  </a> 
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
               </div>
             </div>
@@ -670,7 +666,7 @@ if(isset($_GET['type'])){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -678,10 +674,10 @@ if(isset($_GET['type'])){
                 <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=hotelhouse&postId=<?php echo $row['id'] ?>&label=Hotel%20Job%20Seeker&type=hotelWorker" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
-                  </a> 
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
               </div>
             </div>
@@ -722,7 +718,7 @@ if(isset($_GET['type'])){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -730,10 +726,10 @@ if(isset($_GET['type'])){
                 <h6>Phone : <?php echo $row['price']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=hotelhouse&postId=<?php echo $row['id'] ?>&label=Home%20Keeper%20Seeker&type=houseWorker" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
-                  </a> 
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>   
                 </div>
               </div>
             </div>
@@ -776,7 +772,7 @@ if(isset($_GET['type'])){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -784,10 +780,10 @@ if(isset($_GET['type'])){
                 <h6> : <?php echo $row['address']  ?> Birr</h6>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
-                  <a href="#userSee" class="btn btn-outline-dark flex-shrink-0" onclick="uinfo('<?php echo $row['posterId'] ?>')"   >
-                      <i class="bi-cart-fill me-1"></i>
-                      View User <?php echo $row['posterId'] ?>
-                  </a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
                 </div>
               </div>
             </div>

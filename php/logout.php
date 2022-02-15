@@ -6,5 +6,5 @@ session_destroy();
 $uid = $_SESSION['idz'];
 
 $out = $auth->lastLoged($uid);
-header('Location: admin.php')
+header('Location: ../admin/admin.php')
 ?>
