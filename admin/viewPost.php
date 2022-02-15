@@ -281,7 +281,7 @@ $website = "Description.php";
                         $p = $admin->photoSplit($row['photoPath1']);
                         if(!empty($p)){
                           ?>
-                          <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <img src="<?php echo ''.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
                           <?php
                         }if(empty($row['photoPath1'])){
                           ?>
@@ -319,7 +319,7 @@ $website = "Description.php";
                         $p = $admin->photoSplit($row['photoPath1']);
                         if(!empty($p)){
                           ?>
-                          <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <img src="<?php echo ''.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
                           <?php
                         }if(empty($row['photoPath1'])){
                           ?>
@@ -363,7 +363,7 @@ $website = "Description.php";
                 
                 <div id="adVieww" class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $row['title'] ?></p>
                   <p class="card-text"><?php echo $row['price'] ?> Birr</p>
@@ -395,7 +395,7 @@ $website = "Description.php";
                 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
@@ -430,7 +430,7 @@ $website = "Description.php";
                 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
@@ -476,7 +476,7 @@ $website = "Description.php";
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $cars['title'] ?></p>
                 <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
@@ -523,7 +523,7 @@ elseif($_GET['type'] == 'charity'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
@@ -566,7 +566,7 @@ elseif($_GET['type'] == 'bigDiscount'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
@@ -613,7 +613,7 @@ elseif($_GET['type'] == 'homeTutor'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['Name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -666,7 +666,7 @@ if(isset($_GET['type'])){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -718,7 +718,7 @@ if(isset($_GET['type'])){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -772,7 +772,7 @@ if(isset($_GET['type'])){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
