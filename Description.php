@@ -129,7 +129,7 @@ require_once "php/fetchApi.php";
           <div class="col-md-6">
             <div class="card-body">
               <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">For Rent or Sell: </label> <?php echo $row['forRentOrSell'] ?></p>
+              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Purpose: </label> <?php echo $row['forRentOrSell'] ?></p>
 
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Item Provider :</label> <?php echo $row['ownerBroker'] ?></p>
@@ -139,10 +139,11 @@ require_once "php/fetchApi.php";
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">KM: </label> <?php echo $row['km'] ?></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Body Status: </label> <?php echo $row['bodyStatus'] ?></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Fixed or Negossioable: </label> <?php echo $row['fixidOrN'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
-              <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
+
+              <p class="card-text"> <?php echo  number_format($row['price']) ?><small class="text-muted"> Br</small></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-              <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
+              <p class="card-text">Phone No:<span class="fw-bolder">+251933418787</span> </p>
+              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
               <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -262,10 +263,22 @@ require_once "php/fetchApi.php";
               }
               ?>
                <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Phone :</label> <?php echo $row['phone'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
-              <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
+
+              <p class="card-text"> <?php echo number_format($row['price']) ?><small class="text-muted"> Br</small></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-              <p class="card-text">Phone No:<span class="fw-bolder"><?php echo $row['phone'] ?></span> </p>
+              <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
               <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
               </div>
@@ -395,10 +408,11 @@ require_once "php/fetchApi.php";
           }
           ?>
            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Phone :</label> <?php echo $row['phone'] ?></p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
+
           <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-          <p class="card-text">Phone No:<span class="fw-bolder"><?php echo $row['phone'] ?></span> </p>
+          <p class="card-text">Phone No:<span class="fw-bolder">+251933418787</span> </p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -524,8 +538,20 @@ require_once "php/fetchApi.php";
           <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Bath Room: </label> <?php echo $row['bathRoomNo'] ?></p> -->
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Fixed or Negossioable: </label> <?php echo $row['fixedOrN'] ?></p>
           <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p> -->
-          <p class="card-text"> <?php echo $row['cost'] ?><small class="text-muted">Br</small></p>
-          <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
+          <p class="card-text"> <?php echo number_format($row['cost']) ?><small class="text-muted"> Br</small></p>
+           <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -648,9 +674,21 @@ require_once "php/fetchApi.php";
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Area: </label><?php echo $row['area'] ?> MeterSquare</p>
 
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Fixed or Negossioable: </label> <?php echo $row['fixedOrN'] ?></p>
+
+          <p class="card-text"> <?php echo number_format($row['cost']) ?><small class="text-muted"> Br</small></p>
+           <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
-          <p class="card-text"> <?php echo $row['cost'] ?><small class="text-muted">Br</small></p>
-          <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -765,25 +803,36 @@ require_once "php/fetchApi.php";
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
 
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type : </label> <?php echo $row['type'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Status: </label><?php echo $row['status'] ?></p>
         <?php
           if(($row['ram'] != " " && $row['core'] != " " && $row['processor'] != " " && $row['size']  != " " )){
             ?>
-            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Ram: </label><?php echo $row['ram'] ?> GB</p>
-            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Core: </label><?php echo $row['core'] ?> </p>
-            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Processor: </label><?php echo $row['processor'] ?> Ghz</p>
-            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Size: </label><?php echo $row['size'] ?> Inch</p>
+            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Ram: </label><?php echo ' '.$row['ram'] ?> GB</p>
+            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Core: </label><?php echo ' '.$row['core'] ?> </p>
+            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Processor: </label><?php echo ' '.$row['processor'] ?> Ghz</p>
+            <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Size: </label><?php echo ' '.$row['size'] ?> Inch</p>
             <?php
           }
         
         ?>
 
        
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1"> <?php echo $lang['labelPrice'] ?> : </label>  <?php echo  number_format($row['price'])  ?><small class="text-muted"> Br</small></p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-          <p class="card-text">Phone No:<span class="fw-bolder">0910289422</span> </p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1"> <?php echo $lang['labelPrice'] ?> : </label>  <?php echo  ' '.number_format($row['price'])  ?><small class="text-muted"> Br</small></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo ' '.$row['address'] ?></span> </p>
+           <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo ' '.$row['info'] ?></p>
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -900,8 +949,20 @@ require_once "php/fetchApi.php";
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
 
 
+           <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
+          
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
-          <p class="card-text">Phone No:<span class="fw-bolder"><?php echo $row['phone'] ?></span> </p>
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -1021,8 +1082,20 @@ if($_GET['cat'] == 'vacancy'){
                       <h6 class="card-title"> Requierd Position : <?php echo $row['positionNum'] ?></h6>
                       <h6 class="card-title">Salary : <?php echo $row['salary'] ?></h6>
                       <h6 class="card-title">   <?php echo $row['address'] ?></h6>
-                      <h6 class="card-title"> Phone: <?php echo $row['phone'] ?></h6>
+                      <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
 
+          <h6 class="card-title"> Phone: <?php echo $phone ?></h6>
 
                   </div>
 
@@ -1136,7 +1209,20 @@ if($_GET['cat'] == 'tender'){
                       <h6>Deadline: <span class="text-danger"><?php echo $exdate ?></span></h6>
 
                       <h6>Location: <?php echo $row['address'] ?></p></h6>
-                      <p><small class="text-muted">Phone: <?php echo $row['phone'] ?> </small></p>
+                     
+                      <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
+          <p><small class="text-muted">Phone:<?php echo $phone ?></small></p>
 
                   </div>
 
@@ -1226,13 +1312,22 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Payment:</label>< <?php echo $row['paymentStatus'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Price: </label><?php echo $row['Price'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Agent Info: </label> <?php echo $row['companyInfo'] ?></p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
-          <p class="card-text"> <?php echo $row['Price'] ?><small class="text-muted">Br</small></p>
+
+          <p class="card-text"> <?php echo  number_format($row['Price']) ?><small class="text-muted"> Br</small></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-          <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $row['phone'] ?></span> </p>
-          <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
-          </div>
+          <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -1323,13 +1418,29 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
 
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Gender :</label> <?php echo $row['sex'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Age :</label> <?php echo $row['age'] ?></p>
-          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Work Status: </label><?php echo $row['workStat'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Work Position: </label><?php echo $row['workStat'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Experience: </label><?php echo $row['experience'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Work Hour: </label><?php echo $row['workHour'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Can You Provide Biding Person ?  ANSWER: </label><?php echo $row['bid'] ?></p>
+          <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Do you own Lageal Weapon ?  ANSWER: </label><?php echo $row['weapon'] ?></p>
+
+          
           <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Agent Info: </label> <?php echo $row['companyInfo'] ?></p> -->
           <!-- <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p> -->
           <!-- <p class="card-text"> <?php echo $row['Price'] ?><small class="text-muted">Br</small></p> -->
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-          <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $row['phone'] ?></span> </p>
-
+          <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -1429,9 +1540,20 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Experience: </label><?php echo $row['experience'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Agent Info: </label> <?php echo $row['agentInfo'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Can You Provide Biding Person ?  ANSWER: </label><?php echo $row['bidingPerson'] ?></p>
-          <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
+          <p class="card-text"> <?php echo number_format($row['price']) ?><small class="text-muted"> Br</small></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-          <p class="card-text">Phone No:<span class="fw-bolder"> <?php echo $phoneU['phone'] ?></span> </p>
+          <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -1527,13 +1649,24 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Religion :</label>< <?php echo $row['religion'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Experience: </label><?php echo $row['experience'] ?></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Agent Info: </label> <?php echo $row['agentInfo'] ?></p>
+          <p class="card-text"> <?php echo number_format($row['price']) ?><small class="text-muted">Br</small></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Can You Provide Biding Person ?  ANSWER: </label><?php echo $row['bidingPerson'] ?></p>
           <p class="card-text"> <?php echo $row['price'] ?><small class="text-muted">Br</small></p>
           <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['address'] ?></span> </p>
-          <p class="card-text">Phone Nso:<span class="fw-bolder"> <?php echo $row['phone'] ?></span> </p>
-          <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-warning">Add To Fav</button>
-          </div>
+          <?php
+          $s = 251;
+          $phone = $row['phone'];
+          if($phone[0] = 0){
+            $phone = $s.$phone;
+          }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+            $phone= $row['phone'];
+          }else{
+            $phone= $row['phone'];
+          }
+          ?>
+          <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
+
+ 
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
@@ -1774,12 +1907,12 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
                 <?php 
                 if($cat != 'charity' && !isset($_GET['type'])){
   ?>
-                <h6 class="card-text"><span class="text-danger small"><?php echo $row2['price'] ?> Birr</span> </h6>
+                <h6 class="card-text"><span class="text-danger small"><?php echo number_format($row2['price']) ?> Birr</span> </h6>
   
   <?php
                 }elseif(isset($_GET['type']) && $type == 'house' || $type == 'land'){
                   ?>
-                  <h6 class="card-text"><span class="text-danger small"><?php echo $row2['cost'] ?> Birr</span> </h6>
+                  <h6 class="card-text"><span class="text-danger small"><?php echo  number_format($row2['cost']) ?> Birr</span> </h6>
                   
                   <h6 class="card-text">Location: <?php echo $row2['city'] ?></h6><?php
                 }
@@ -1808,21 +1941,7 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
               }
               ?>
               </div>
-              <div id="msgDiv">
-
-              <?php
-                    if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
-                      ?>
-                  <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
-                      <?php
-                    }elseif(!isset($_SESSION['userId'])){
-                      ?>
-                      <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
-                      <?php
-                    }
-                  
-                  ?>
-                  </div>
+ 
                   </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <?php

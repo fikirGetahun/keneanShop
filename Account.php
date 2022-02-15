@@ -110,7 +110,18 @@ $('.btn-close').click(function(){
 
     <div>
       <div class="row">
-      <img src="<?php echo $urow['photoPath1']?>" class="w-25 h-25 " alt="...">
+        <?php
+        if($urow['photoPath1'] != 'FILE_NOT_UPLOADED'){
+          ?>
+        <img class="w-25 h-25" src="<?php echo $urow['photoPath1']?>"pt-2">
+          <?php
+        }else{
+          ?>
+          <img src="./admin/assets/img/zumra.png"pt-2">
+          <?php
+        }
+        ?>
+      <!-- <img src="<?php echo $urow['photoPath1']?>" class="w-25 h-25 " alt="..."> -->
       <h5 class="col-6">Name : <?php echo $urow['firstName'].' '.$urow['lastName'] ?></h5>
 
       </div>
@@ -696,8 +707,6 @@ foreach($dbTables as $posts){
                   <h5><?php echo $row2['firstName'].' '.$row2['lastName'] ?></h5>
 									<p></p>
                   <img src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?> " class="col-3 img-thumbnail">
-       
-
 
 								  <!-- </div> -->
                 </div>

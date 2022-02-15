@@ -116,8 +116,8 @@ $(document).ready(function(){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
             <hr class="my-4">
-          <button class="w-50 btn btn-primary mx-auto " type="submit">Continue to checkout</button>
-          <div id="alertVacancy" ></div>
+          <button class="w-50 btn btn-primary mx-auto " type="submit">Continue to checkout</button> 
+             <a class="btn btn-primary mx-auto" href="login.php" > LogIn </a> 
           </div>
 
           
