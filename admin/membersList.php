@@ -17,7 +17,7 @@ if(!isset($_SESSION)){
 ?> 
 
 <body>
-
+<div >
 <main id="main" class="main">
 
 <div class="pagetitle">
@@ -34,26 +34,57 @@ if(!isset($_SESSION)){
 <div id="postBox" class="container">
     <?php
 
+$_SESSION['mbScroll'] = 1;
+
     if(isset($_GET['list'])){
-        $member = $get->allPostListerOnTable('membership');
+        $member = $get->allPostListerOnTableD('mambership', 1 , 2);
 
         ?>
-        <div class="row">
-        <script>
-
+                <script>
+          function scr(){
+            $.ajax({
+              url: 'editHandler.php',
+              type: 'GET',
+              data : {cSession : 's'},
+              success: function(dt){
+                $.ajax({
+              url: 'memberScroll.php',
+              type: 'get',
+              data : {cp : dt},
+              success: function(dtc){
+                $('#mb').append(dtc)
+              }
+            })
+                
+              }
+            })
+          }
         </script>
+        <div id="mb" class="row">
+
         <?php
-        while( $row = $member->fetch_assoc()){
+        while( $row = $member[0]->fetch_assoc()){
+
             ?>
             <div id="adVieww" class="col-md-4">
             <div class="card mb-4 box-shadow">
-            <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">      
+            <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">      
               <div class="card-body">
                 <p class="card-text"><?php echo $row['name'] ?></p>
                 <!-- <p class="card-text"><?php echo $row['price'] ?> Birr</p> -->
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <a href="#viewDiscription" onclick="adView(<?php echo $row['id'] ?>)"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+                    <a href="./membersList.php?view=true&mid=<?php echo $row['id'] ?>"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+                    <?php
+                      if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
+                        $tbb = $_GET['tb'];
+                        $pos = $_GET['post'];
+                        $client = $_GET['client'];
+                        ?>
+                        <a href="../Account.php?message=true&inner=true&tb=<?php echo $tbb ?>&reciver=<?php echo $row['userId'] ?>&post=<?php echo $pos ?>&forwarded=true&client=<?php echo $client ?>" > Send Link</a> 
+                        <?php
+                      }
+                    ?>
                   </div>
                   <!-- <small class="text-muted">9 mins</small> -->
                 </div>
@@ -62,9 +93,52 @@ if(!isset($_SESSION)){
           </div>
 
               <?php
+         
           }
           ?>
+         
           </div>
+          <button onclick="scr()">View More</button>
+          <?php
+        }
+
+/// this block is to view the members info
+        if(isset($_GET['view'], $_GET['mid'])){
+          $mid = $_GET['mid'];
+          $member = $get->allPostListerOnColumen('mambership', 'id', $mid);
+          $row = $member->fetch_assoc();
+          ?>
+          <div class="container">
+          <div class="card w-25 float-left ">
+        <?php
+        if($row['photoPath1'] != ' '){
+          ?>
+          <img class="img-thumbnail" src="assets/img/zumra.png)" class="card-img-top" alt="...">
+          <?php
+        }else{
+          ?>
+                <img class="img-thumbnail" src="<?php echo '../'.$row['photoPath1']?>" class="card-img-top" alt="...">
+
+          <?php
+        }
+        ?>
+    
+      </div>
+
+      <h5 >Name : <?php echo $row['name']?></h5><br>
+    <h5> Location <?php echo $row['city'] ?>  </h5><br>
+    <h5> Wereda: <?php echo $row['wereda'] ?> </h5><br>
+    <h5> Phone 1: <?php echo $row['phone1'] ?> </h5><br>
+    <h5> Phone 2: <?php echo $row['phone2'] ?> </h5><br>
+    <h5> what does initiate: <?php echo $row['what_does_initiate'] ?> </h5><br>
+    <h5> do you have other job: <?php echo $row['do_you_have_other_job'] ?> </h5><br>
+    <h5> Have You done Broker Before : <?php echo $row['broker_before'] ?> </h5><br>
+    <h5> Do You have business License : <?php echo $row['business_license'] ?> </h5><br>
+    <h5> Commission Type: <?php echo $row['commission_type'] ?> </h5><br>
+    <h5> question: <?php echo $row['question'] ?> </h5><br>
+
+          </div>
+          
           <?php
         }
     
@@ -72,6 +146,7 @@ if(!isset($_SESSION)){
 </div>
       </div>
 </main>
+      </div>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -105,5 +180,4 @@ if(!isset($_SESSION)){
 </body>
 
 </html>
-</body>
 
