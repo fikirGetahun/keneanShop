@@ -494,12 +494,12 @@ if(!isset($_SESSION)){
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a  id="addUser" href="#adduser"  >
+            <a  id="addUser" href="./adminRegister.php"  >
               <i class="bi bi-circle"></i><span>Add User</span>
             </a>
           </li>
           <li>
-            <a  id=" " href="./membersList.php"  >
+            <a  id=" " href="./membersList.php?list=true"  >
               <i class="bi bi-circle"></i><span>Members List</span>
             </a>
           </li>
@@ -565,6 +565,11 @@ alert('wiork')
           <li>
             <a id="viewHouse" href="./viewPost.php?type=house&uid=<?php echo $uid; ?>">
               <i class="bi bi-circle"></i><span>View House PostS</span>
+            </a>
+          </li>
+          <li>
+            <a id="viewHouse" href="./viewPost.php?type=land&uid=<?php echo $uid; ?>">
+              <i class="bi bi-circle"></i><span>View Land PostS</span>
             </a>
           </li>
           <li>

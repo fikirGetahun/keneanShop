@@ -1,6 +1,6 @@
 <?php
-    // include('../includes/header.php');
-    // include "adminSide.php";
+    include('../includes/header.php');
+    include "../includes/adminSide.php";
 
     require_once "../php/adminCrude.php";
 
@@ -59,6 +59,20 @@
     })
       })
   </script>
+    <main id="main" class="main">
+
+<div class="pagetitle">
+  <h1>Dashboard x</h1>
+  <h4><?php echo $row2['firstName'].''.$row2['lastName']  ?></h4>  <br>
+  <h6>AUTHERIZATION: <?php echo $row2['auth'] ?></h6>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+  </nav>
+</div> 
+<div id="postBox" class="container">
 <div class="container">
   <form id="registerBox"  method="POST" enctype="multipart/form-data" >
     <div id="registerBox2">
@@ -140,7 +154,9 @@
   <div id="alertVacancy"></div>
     
   </div>
+</div>
+    </main>
   <?php
 
-// include "adminFooter.php";
+include "../includes/adminFooter.php";
 ?>

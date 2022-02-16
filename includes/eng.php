@@ -186,7 +186,7 @@
         "realLabel"=>"Sponsered*Stocks",
         "floor"=>"Floor",
         "company"=>"Company Name",
-        "CategoryReal"=>"Category", //ye realestate
+        "CategoryReal"=>"Category",  
         "enterPrice"=>"Type Price here!",
         ""=>"",
         ""=>"",

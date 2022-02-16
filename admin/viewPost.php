@@ -281,7 +281,7 @@ $website = "Description.php";
                         $p = $admin->photoSplit($row['photoPath1']);
                         if(!empty($p)){
                           ?>
-                          <img src="<?php echo ''.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
                           <?php
                         }if(empty($row['photoPath1'])){
                           ?>
@@ -319,7 +319,7 @@ $website = "Description.php";
                         $p = $admin->photoSplit($row['photoPath1']);
                         if(!empty($p)){
                           ?>
-                          <img src="<?php echo ''.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
+                          <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
                           <?php
                         }if(empty($row['photoPath1'])){
                           ?>
@@ -348,9 +348,11 @@ $website = "Description.php";
 
                 <?php
             }
+            array_push($_SESSION['scroll'], $row['id']) ;
+
         }
     }elseif($_GET['type'] == 'ad'){
-            $ad = $get->allPostListerOnTableD('ad', 1, 6);
+            $ad = $get->allPostListerOnColumenD('ad','bigDiscount', 'NOT' , 1, 6);
             ?>
             <div class="row">
               <script>
@@ -363,7 +365,7 @@ $website = "Description.php";
                 
                 <div id="adVieww" class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $row['title'] ?></p>
                   <p class="card-text"><?php echo $row['price'] ?> Birr</p>
@@ -384,7 +386,7 @@ $website = "Description.php";
             </div>
             <?php
     }elseif($_GET['type'] == 'car'){
-        $carOut = $get->allPostListerOnTableD('car', 1, 6)
+        $carOut = $get->allPostListerOnTableD('car', 1, 6);
         ?>
         <div class="row">
         <?php
@@ -395,7 +397,7 @@ $website = "Description.php";
                 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
@@ -419,18 +421,18 @@ $website = "Description.php";
         
         
     }elseif($_GET['type'] == 'house'){
-        $hOut = $admin->houseOrLandPostLister();
+        $hOut = $get->allPostListerOnColumenD('housesell','houseOrLand', 'HOUSE' , 1, 6);
         ?>
         <div class="row">
         <?php
         
-        while($cars = $hOut->fetch_assoc()){
+        while($cars = $hOut[0]->fetch_assoc()){
             ?>
             
                 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
@@ -451,32 +453,56 @@ $website = "Description.php";
         </div>
         <?php
     }
-    //////////////////////////////////////////////////////////
-    elseif($_GET['type'] == 'electronics'){
-      $hOut = $admin->electronicsViewLister();
+
+    /// land post lister
+    elseif($_GET['type'] == 'land'){
+      $hOut = $get->allPostListerOnColumenD('housesell','houseOrLand', 'LAND' , 1, 6);
       ?>
-      <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
-
-        }
-
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'electronics', pid: id}))
-
-        }
-
-      </script>
       <div class="row">
       <?php
       
-      while($cars = $hOut->fetch_assoc()){
+      while($cars = $hOut[0]->fetch_assoc()){
           ?>
           
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <p class="card-text"><?php echo $cars['title'] ?></p>
+                <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
+                <h6><?php echo $cars['cost'] ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=housesell&type=house&postId=<?php echo $cars['id'] ?>&label=House%20Posts" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $cars['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                              <i class="bi-cart-fill me-1"></i>
+                              View User 
+                          </a>  
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php
+      }
+      ?>
+      </div>
+      <?php
+  }
+    //////////////////////////////////////////////////////////
+    elseif($_GET['type'] == 'electronics'){
+      $hOut = $get->allPostListerOnTableD('electronics', 1, 6);
+      ?>
+ 
+      <div class="row">
+      <?php
+      
+      while($cars = $hOut[0]->fetch_assoc()){
+          ?>
+          
+              
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $cars['title'] ?></p>
                 <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
@@ -500,30 +526,19 @@ $website = "Description.php";
 
 /////////////////////////////////////////////////////////
 elseif($_GET['type'] == 'charity'){
-  $out = $admin->allPostsLister('charity');
+  $out = $get->allPostListerOnTableD('charity', 1, 6);
   ?>
-        <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
-
-        }
-
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'charity', pid: id}))
-
-        }
-
-      </script>
+ 
       <div class="row">
       <?php
       
-      while(  $row = $out->fetch_assoc()){
+      while(  $row = $out[0]->fetch_assoc()){
           ?>
           
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
@@ -545,28 +560,17 @@ elseif($_GET['type'] == 'charity'){
 //////////////////////////////////////////
 elseif($_GET['type'] == 'bigDiscount'){
   ?>
-        <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
-
-        }
-
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: id})) 
-
-        }
-
-      </script>
+ 
       <div class="row">
       <?php
-        $out = $admin->bigDiscountLister();
-      while($row = $out->fetch_assoc()){
+        $out = $get->allPostListerOnColumenD('ad','bigDiscount', 'ACTIVE' , 1, 6);
+      while($row = $out[0]->fetch_assoc()){
           ?>
           
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
@@ -588,32 +592,21 @@ elseif($_GET['type'] == 'bigDiscount'){
 //////////////////////////////////////
 elseif($_GET['type'] == 'homeTutor'){
 
-  $out = $admin->allPostsLister('jobhometutor');
+  $out = $get->allPostListerOnTableD('jobhometutor', 1, 6);
   
   ?>
   
 
-  <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
-
-        }
-
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'homeTutor', pid: id})) 
-
-        }
-
-      </script>
+ 
       <div class="row">
       <?php
-      while(  $row = $out->fetch_assoc()){
+      while(  $row = $out[0]->fetch_assoc()){
           ?>
           
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['Name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -642,7 +635,7 @@ elseif($_GET['type'] == 'homeTutor'){
 //////////////////////////////////////
 if(isset($_GET['type'])){
   if($_GET['type'] == 'hotel'){
-    $out = $admin->allPostColumenView('hotelOrHouse', 'hotelhouse', 'HOTEL');
+    $out = $get->allPostListerOnColumenD('hotelOrHouse', 'hotelhouse', 'HOTEL', 1, 6);
 
     ?>
     
@@ -660,13 +653,13 @@ if(isset($_GET['type'])){
       </script>
       <div class="row">
       <?php
-      while(  $row = $out->fetch_assoc()){
+      while(  $row = $out[0]->fetch_assoc()){
           ?>
           
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -694,31 +687,20 @@ if(isset($_GET['type'])){
 if(isset($_GET['type'])){
   if($_GET['type'] == 'houseKeeper'){
 
-    $out = $admin->allPostColumenView('hotelOrHouse', 'hotelhouse', 'HOUSE');
+    $out =  $get->allPostListerOnColumenD('hotelOrHouse', 'hotelhouse', 'HOUSE', 1, 6);
 
     ?>
     
-    <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
-
-        }
-
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'houseKeeper', pid: id})) 
-
-        }
-
-      </script>
+ 
       <div class="row">
       <?php
-      while(  $row = $out->fetch_assoc()){
+      while(  $row = $out[0]->fetch_assoc()){
           ?>
           
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -748,31 +730,20 @@ if(isset($_GET['type'])){
 if(isset($_GET['type'])){
   if($_GET['type'] == 'zebegna'){
 
-    $out = $admin->allPostsLister('zebegna');
+    $out = $get->allPostListerOnTableD('zebegna',1,6);
 
     ?>
     
-    <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
-        }
-
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'zebegna', pid: id})) 
-
-        }
-
-      </script>
       <div class="row">
       <?php
-      while(  $row = $out->fetch_assoc()){
+      while(  $row = $out[0]->fetch_assoc()){
           ?>
           
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -802,7 +773,7 @@ if(isset($_GET['type'])){
     ?>
     </div>
     ?>
-              <button onclick="adminPage()" >View More <?php echo $_SESSION['adminPage'] ?></button>
+              <button onclick="adminPage()" >View More </button>
       </div>
 </main>
             <?php

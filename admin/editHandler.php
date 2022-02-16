@@ -8,6 +8,12 @@ if(!isset($_SESSION)){
   session_start();
 }
 
+//to update the current page of memebers list
+if(isset($_GET['cSession'])){
+  $_SESSION['mbScroll'] =   $_SESSION['mbScroll'] + 2;
+  // echo $_SESSION['mbScroll']; 
+}
+
 
 ////////live post counter
 if(isset($_POST['count'], $_POST['table'])){

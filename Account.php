@@ -699,16 +699,18 @@ foreach($dbTables as $posts){
             <!-- here is to copy users and items info to the membership -->
             <?php
             if($_SESSION['auth'] == 'ADMIN'  || $_SESSION['auth'] == 'EDITOR' ){ 
+              // here the session var memberForward will hold the link to be forwarded by the admin to a member of the website
+              $_SESSION['memberForward'] = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
               ?>
               <script>
 
               </script>
-              <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">  <br>
+              <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-2 img-thumbnail">  <br>
                                 <!-- <div class="col-8 h4 text-danger"> -->
 									<h6><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                 if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </h6>
-
-                <button class="btn btn-dark" onclick="" >Copy Link</button>
+                <!-- HERE the forward get requets will activate the send to member button on the membership list page on the admin panel. -->
+                <a class="btn btn-dark" href="admin/membersList.php?list=true&forward=true&tb=<?php echo $tb?>&post=<?php echo $postFocus ?>&client=<?php echo $reciver ?>"  >Copy Link and Send to Other</a>
  
               <?php
               
@@ -775,6 +777,7 @@ foreach($dbTables as $posts){
 						</div>
 						<div class="card-body msg_card_body">
               <?php
+              echo $_SESSION['userId'];
                 // to fetch all the messages of this particular user and post
                 $innerMsg = $get->innerMsgFetcher($tb, $_SESSION['userId'], $postFocus, $reciver);
                 if($innerMsg->num_rows != 0){
@@ -789,8 +792,20 @@ foreach($dbTables as $posts){
                         <img src="<?php $p = $admin->photoSplit($row1['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
                       </div>
                       <div class="msg_cotainer bg-success">
-                        <?php echo  $rowInnerMsg['msg'] ?>
-                        <?php 
+                      <?php
+
+                      $splitMsg = explode(',',$rowInnerMsg['msg'] );
+                      
+                      // here if the next msg after comma is 'send', then it only show the go to client button so that the website member can automatically go to the client
+                      if(isset($splitMsg[1])){
+                        ?>
+                        <a href="<?php echo $splitMsg[0] ?>" > Go To Client.</a>
+                        <?php
+                      }else{  // else it only echo out the msg 
+                        echo $splitMsg[0];
+                      }
+                      ?>
+                        <?php                        
                             $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
                          ?>
                         <span class="text-danger"><?php echo $date ?></span>
@@ -802,7 +817,22 @@ foreach($dbTables as $posts){
                     ?>
 <div class="d-flex justify-content-start mb-4">
 <div class="msg_cotainer ">
-                      <?php echo $rowInnerMsg['msg'] ?>
+                          <?php
+
+                          $splitMsg = explode(',',$rowInnerMsg['msg'] );
+
+                          // here if the next msg after comma is 'send', then it only show the go to client button so that the website member can automatically go to the client
+                          if(isset($splitMsg[1])){       
+                            ?>
+                            <a href="<?php echo $splitMsg[0] ?>" > Go To Client.</a>
+                            <?php
+                          }else{  // else it only echo out the msg 
+                            echo $splitMsg[0];
+                            
+                            // echo $splitMsg[1];
+                            // var_dump($rowInnerMsg['msg']);
+                          }
+                          ?>
                         <?php 
                             $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
                          ?>
@@ -847,8 +877,26 @@ foreach($dbTables as $posts){
               <input hidden type="text" name="tabel" value="<?php echo $tb ?>" >
               <input hidden type="text" name="reciver" value="<?php echo $reciver ?>" >
               <input hidden type="text" name="postFocus" value="<?php echo $postFocus ?>" >
+              <?php
+                //if admin sendes forwarded text from admin panel, then it automaticaly will be in the textarea form so that it will send it to the member
+                if(isset($_GET['forwarded'], $_GET['client'])){
+                  $cl = $_GET['client'];
+                  $furl = "./Account.php?message=true&inner=true&tb=".$tb."&reciver=".$cl."&post=".$postFocus;
+                  ?>
+                  <!-- <a href="<?php echo $furl ?>" >Go To User</a> -->
                 <textarea type="text" class="form-control" id="mssg" 
+              aria-describedby="emailHelp" name="msg" placeholder="Type Here.."><?php echo $furl.',send'?> </textarea>
+                  <?php
+                }else{ // empty form if there is no forwarded text 
+                  ?>
+              <textarea type="text" class="form-control" id="mssg" 
               aria-describedby="emailHelp" name="msg" placeholder="Type Here.."></textarea>
+                  <?php
+                }
+              
+              
+              ?>
+
               <div class="d-flex justify-content-end mb-4">
                   <button type="submit" class="btn btn-dark" >Send</button>
               </div>

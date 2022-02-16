@@ -211,12 +211,12 @@ $endPage =  $content_per_page;
 
 if($ty == 'car' ){
 
-  $carOut = $admin->carPostLister();
+  $carOut =$get->allPostListerOnTableD('car', $startPage, $endPage)
   ?>
   <div class="row">
   <?php
   
-  while($cars = $carOut->fetch_assoc()){
+  while($cars = $carOut[0]->fetch_assoc()){
 
     if(!in_array($cars['id'],$idArr)){
       $idArr[]= $cars['id']; 
@@ -254,12 +254,54 @@ if($ty == 'car' ){
 /////////////////// house post////////////
 if($ty == 'house' ){
 
-  $hOut = $admin->houseOrLandPostLister();
+  $hOut = $get->allPostListerOnColumenD('housesell','houseOrLand', 'HOUSE' , $startPage, $endPage);
   ?>
   <div class="row">
   <?php
   
-  while($cars = $hOut->fetch_assoc()){
+  while($cars = $hOut[0]->fetch_assoc()){
+    
+    if(!in_array($cars['id'],$idArr)){
+      $idArr[]= $cars['id']; 
+      ?>
+      
+                
+      <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+                <div class="card-body">
+                  <p class="card-text"><?php echo $cars['title'] ?></p>
+                  <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
+                  <h6><?php echo $cars['cost'] ?> Birr</h6>
+                  <div class="d-flex justify-content-between align-items-center">
+                  <a href="../<?php echo $website ?>?cat=housesell&type=house&postId=<?php echo $cars['id'] ?>&label=House%20Posts" >View</a>
+                  <a href="./userInfo.php?poster=<?php echo $cars['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                  </div>
+                </div>
+              </div>
+            </div>
+      <?php
+    array_push($_SESSION['scroll'], $cars['id'] );  
+  }
+  }
+  ?>
+  </div>
+  <?php
+
+}
+
+////LAND POST
+if($ty == 'land' ){
+
+  $hOut = $get->allPostListerOnColumenD('housesell','houseOrLand', 'LAND' , $startPage, $endPage);
+  ?>
+  <div class="row">
+  <?php
+  
+  while($cars = $hOut[0]->fetch_assoc()){
     
     if(!in_array($cars['id'],$idArr)){
       $idArr[]= $cars['id']; 
@@ -297,24 +339,13 @@ if($ty == 'house' ){
 
 if($ty == 'electronics'){
 
-  $hOut = $admin->electronicsViewLister();
+  $hOut = $get->allPostListerOnTableD('electronics', $startPage, $endPage);
   ?>
-  <script>
-    function elcView(id){
-      $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
-    }
-
-    function editElc(id){
-      $('#allin').load('editPost.php?'+$.param({type: 'electronics', pid: id}))
-
-    }
-
-  </script>
   <div class="row">
   <?php
   
-  while($cars = $hOut->fetch_assoc()){
+  while($cars = $hOut[0]->fetch_assoc()){
 
     if(!in_array($cars['id'],$idArr)){
       $idArr[]= $cars['id'];
@@ -351,24 +382,13 @@ if($ty == 'electronics'){
 ////////////////////charity view//
 if($ty == 'charity'){
 
-  $out = $admin->allPostsLister('charity');
+  $out = $get->allPostListerOnTableD('charity', $startPage, $endPage);
   ?>
-        <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
-
-        }
-
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'charity', pid: id}))
-
-        }
-
-      </script>
+ 
       <div class="row">
       <?php
       
-      while(  $row = $out->fetch_assoc()){
+      while(  $row = $out[0]->fetch_assoc()){
         if(!in_array($row['id'],$idArr)){
           $idArr[]= $row['id'];
           ?>
@@ -405,22 +425,10 @@ if($ty == 'charity'){
 if($ty == 'bigDiscount'){
 
   ?>
-        <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
-
-        }
-
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: id})) 
-
-        }
-
-      </script>
       <div class="row">
       <?php
-        $out = $admin->bigDiscountLister();
-      while($row = $out->fetch_assoc()){
+        $out = $get->allPostListerOnColumenD('housesell','bigDiscount', 'ACTIVE' , $startPage, $endPage);
+      while($row = $out[0]->fetch_assoc()){
         if(!in_array($row['id'],$idArr)){
           $idArr[]= $row['id'];
           ?>
@@ -457,26 +465,15 @@ if($ty == 'bigDiscount'){
 if($ty == 'homeTutor'){
 
 
-  $out = $admin->allPostsLister('jobhometutor');
+  $out = $get->allPostListerOnTableD('jobhometutor', $startPage, $endPage);
   
   ?>
   
 
-  <script>
-        function elcView(id){
-          $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
-
-        }
-
-        function editElc(id){
-          $('#allin').load('editPost.php?'+$.param({type: 'homeTutor', pid: id})) 
-
-        }
-
-      </script>
+ 
       <div class="row">
       <?php
-      while(  $row = $out->fetch_assoc()){
+      while(  $row = $out[0]->fetch_assoc()){
         if(!in_array($row['id'],$idArr)){
           $idArr[]= $row['id'];
           ?>
@@ -515,7 +512,7 @@ if($ty == 'homeTutor'){
 /////////////hotel
 if($ty == 'hotel'){
 
-  $out = $admin->allPostColumenView('hotelOrHouse', 'hotelhouse', 'HOTEL');
+  $out = $get->allPostListerOnColumenD('hotelOrHouse', 'hotelhouse', 'HOTEL', $startPage, $endPage);
 
   ?>
   
@@ -533,7 +530,7 @@ if($ty == 'hotel'){
     </script>
     <div class="row">
     <?php
-    while(  $row = $out->fetch_assoc()){
+    while(  $row = $out[0]->fetch_assoc()){
       if(!in_array($row['id'],$idArr)){
         $idArr[]= $row['id'];
         ?>
@@ -572,25 +569,14 @@ if($ty == 'hotel'){
 ////////////////house keeper
 if($ty == 'houseKeeper'){
 
-  $out = $admin->allPostColumenView('hotelOrHouse', 'hotelhouse', 'HOUSE');
+  $out =  $get->allPostListerOnColumenD('hotelOrHouse', 'hotelhouse', 'HOUSE', $startPage, $endPage);
 
   ?>
   
-  <script>
-      function elcView(id){
-        $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
-
-      }
-
-      function editElc(id){
-        $('#allin').load('editPost.php?'+$.param({type: 'houseKeeper', pid: id})) 
-
-      }
-
-    </script>
+ 
     <div class="row">
     <?php
-    while(  $row = $out->fetch_assoc()){
+    while(  $row = $out[0]->fetch_assoc()){
       if(!in_array($row['id'],$idArr)){
         $idArr[]= $row['id'];
         ?>
@@ -629,25 +615,14 @@ if($ty == 'houseKeeper'){
 //////////////////zebegna
 if($ty == 'zebegna'){
 
-  $out = $admin->allPostsLister('zebegna');
+  $out = $get->allPostListerOnTableD('zebegna',1,6);
 
   ?>
   
-  <script>
-      function elcView(id){
-        $('#allin').load('discriptionPage.php', {type: 'electronics',pid: id})
 
-      }
-
-      function editElc(id){
-        $('#allin').load('editPost.php?'+$.param({type: 'zebegna', pid: id})) 
-
-      }
-
-    </script>
     <div class="row">
     <?php
-    while(  $row = $out->fetch_assoc()){
+    while(  $row = $out[0]->fetch_assoc()){
       if(!in_array($row['id'],$idArr)){
         $idArr[]= $row['id'];
         ?>
