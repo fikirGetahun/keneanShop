@@ -144,13 +144,16 @@ $('.btn-close').click(function(){
       }
     ?>
   <?php
+    // to output the number of unseen msgs, we use the outer msgs function
+    $seen = $get->outerMsgFetcherSeen($_SESSION['userId']);
+    $numUnseen = $seen->num_rows;
   if(isset($_GET['message'])){
     ?>
-    <a class="nav-item nav-link active" href="./Account.php?message=true&outter=true">Messages</a>
+    <a class="nav-item nav-link active" href="./Account.php?message=true&outter=true">Messages <span class="badge badge-danger"><?php if($numUnseen != 0){ echo ' '.$numUnseen; } ?></span></a>
     <?php
   }else{
     ?>
-    <a class="nav-item nav-link" href="./Account.php?message=true&outter=true">Messages</a>
+    <a class="nav-item nav-link" href="./Account.php?message=true&outter=true">Messages <span class="badge badge-danger"><?php if($numUnseen != 0){ echo ' '.$numUnseen; } ?></span></a>
     <?php
   }
   
@@ -584,7 +587,20 @@ foreach($dbTables as $posts){
           }
           ?>
         <div class="card">
-        <a class="link"  href="Account.php?message=true&inner=true&tb=<?php echo $o['tableName'] ?>&reciver=<?php echo $otherUser ?>&post=<?php echo $o['postId'] ?>" ><div class="card-body row">
+          <?php 
+            // to mark unread msgs
+            if($o['seen'] == 'new'){ // if the msg is unseen it will send an unseen request to the inner msg so that it updates it to seen after they click the unread msg
+              ?>
+        <a class="link stretched-link"  href="Account.php?message=true&inner=true&tb=<?php echo $o['tableName'] ?>&reciver=<?php echo $otherUser ?>&post=<?php echo $o['postId'] ?>&unseen=true" > </a>
+              <?php
+            }else{
+              ?>
+              <a class="link stretched-link"  href="Account.php?message=true&inner=true&tb=<?php echo $o['tableName'] ?>&reciver=<?php echo $otherUser ?>&post=<?php echo $o['postId'] ?>" > </a>
+              <?php
+            } 
+          ?>
+
+        <div class="card-body row">
             
             <?php 
             // to fetch the post photo and title to be displayed 
@@ -628,7 +644,17 @@ foreach($dbTables as $posts){
                 <?php
               }
             ?>
+            <?php 
+              // to mark unread msgs
+              if($o['seen'] == 'new'){
+                ?>
+                 <span class="badge badge-danger"><?php if($numUnseen != 0){ echo ' New'; } ?></span>
+                <?php
+              } 
+            ?>
+           
           </div></a>
+          
         </div>
           <?php
         }
@@ -782,6 +808,13 @@ foreach($dbTables as $posts){
                 $innerMsg = $get->innerMsgFetcher($tb, $_SESSION['userId'], $postFocus, $reciver);
                 if($innerMsg->num_rows != 0){
                 while($rowInnerMsg = $innerMsg->fetch_assoc()){
+                  // to change the unseen to seen if there is a seen value of 'new' which is unseen. it has to do this every msg render b/c every new msg will have a 'new' in the seen coloumn
+                  if($rowInnerMsg['seen'] == 'new' && $rowInnerMsg['user1'] != $_SESSION['userId'] && isset($_GET['unseen'])){
+                    $seeen = $get->seenMsg($rowInnerMsg['id']);
+                  }
+
+
+
                   // if the loged user id is in a the user1 colomen, this means its the sender. so the message will be placed in a sendder div, else its the reciver so the msg will be placed in a reciver div
                   if($rowInnerMsg['user1'] == $_SESSION['userId']){
                   ?>
@@ -877,6 +910,7 @@ foreach($dbTables as $posts){
               <input hidden type="text" name="tabel" value="<?php echo $tb ?>" >
               <input hidden type="text" name="reciver" value="<?php echo $reciver ?>" >
               <input hidden type="text" name="postFocus" value="<?php echo $postFocus ?>" >
+              <!-- <input hidden type="text" name="seen" -->
               <?php
                 //if admin sendes forwarded text from admin panel, then it automaticaly will be in the textarea form so that it will send it to the member
                 if(isset($_GET['forwarded'], $_GET['client'])){

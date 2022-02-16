@@ -115,9 +115,29 @@ $_SESSION['mbScroll'] = 1;
           ?>
           <img class="img-thumbnail" src="assets/img/zumra.png)" class="card-img-top" alt="...">
           <?php
+                      if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
+                        $tbb = $_GET['tb'];
+                        $pos = $_GET['post'];
+                        $client = $_GET['client'];
+                        ?>
+                        <a href="../Account.php?message=true&inner=true&tb=<?php echo $tbb ?>&reciver=<?php echo $row['userId'] ?>&post=<?php echo $pos ?>&forwarded=true&client=<?php echo $client ?>" > Send Link</a> 
+                        <?php
+                      }
+                    ?>
+          <?php
         }else{
           ?>
                 <img class="img-thumbnail" src="<?php echo '../'.$row['photoPath1']?>" class="card-img-top" alt="...">
+                <?php
+                      if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
+                        $tbb = $_GET['tb'];
+                        $pos = $_GET['post'];
+                        $client = $_GET['client'];
+                        ?>
+                        <a href="../Account.php?message=true&inner=true&tb=<?php echo $tbb ?>&reciver=<?php echo $row['userId'] ?>&post=<?php echo $pos ?>&forwarded=true&client=<?php echo $client ?>" > Send Link</a> 
+                        <?php
+                      }
+                    ?>
 
           <?php
         }

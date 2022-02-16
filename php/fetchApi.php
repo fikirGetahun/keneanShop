@@ -472,7 +472,7 @@ class fetch{
             function msgSender($tableOfPost, $postId ,$senderId, $receiverId, $msg ){
                 include "connect.php";
                 $date = date('Y-m-d H:i:s');
-                $q = "INSERT INTO `msg`(  `tableName`, `postId`, `user1`, `user2`, `msg`, `postedDate`) VALUES ('$tableOfPost' , '$postId', '$senderId', '$receiverId', '$msg', '$date' )";
+                $q = "INSERT INTO `msg`(  `tableName`, `postId`, `user1`, `user2`, `msg`, `postedDate`, `seen`) VALUES ('$tableOfPost' , '$postId', '$senderId', '$receiverId', '$msg', '$date', 'new' )";
 
                 $ask = $mysql->query($q);
 
@@ -499,13 +499,41 @@ class fetch{
                 // the ' where or ' will only let us select the messages associated with a single user with sending and reciveing end, so the distict key word will filter only ones that are linked with one post in a single table
                 $q = "SELECT `postedDate`, `tableName`,`postId`,`user1`,`user2`,`msg`,`seen`  FROM `msg` WHERE (`user1` = '$userx' OR `user2` = '$userx') AND `id` IN (
                     SELECT max(`id`) FROM `msg` GROUP BY `tableName`,`postId`  DESC
-                ) ORDER BY `postedDate` DESC ";
+                ) ORDER BY `postedDate` DESC "; // the IN() function is to select the top one msg from all of msgs asscosiated, the GROUP BY will group all msgs by table name separetlly and the IN() function will let us sellect the most recent or the top or the last msg on that particular table(which also contains the post id to)
 
                 $ask = $mysql->query($q);
                 echo $mysql->error;
 
                 return $ask;
-            }///distnict
+            } 
+
+            // to query unseen msgs
+       
+            function outerMsgFetcherSeen($userx){
+                include "connect.php";
+
+                // the ' where or ' will only let us select the messages associated with a single user with sending and reciveing end, so the distict key word will filter only ones that are linked with one post in a single table
+                $q = "SELECT `postedDate`, `tableName`,`postId`,`user1`,`user2`,`msg`,`seen`  FROM `msg` WHERE (  `user2` = '$userx') AND `id` IN (
+                    SELECT max(`id`) FROM `msg` GROUP BY `tableName`,`postId`  DESC
+                ) AND `seen` = 'new'    ORDER BY `postedDate` DESC  "; // the IN() function is to select the top one msg from all of msgs asscosiated, the GROUP BY will group all msgs by table name separetlly and the IN() function will let us sellect the most recent or the top or the last msg on that particular table(which also contains the post id to)
+
+                $ask = $mysql->query($q);
+                echo $mysql->error;
+
+                return $ask;
+            } 
+
+            //update the unseen msg to seen
+            function seenMsg($msgId){
+                include "connect.php";
+                $q = "UPDATE `msg` SET  `seen`= 'SEEN'  WHERE `id` = '$msgId'";
+                $ask = $mysql->query($q);
+                echo $mysql->error;
+
+                return $ask;
+            }
+
+            ///distnict
 
 
 

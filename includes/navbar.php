@@ -260,7 +260,7 @@ function reload(x){
             // foreach($city as $loc){
             //   ?>
               
-            <!-- //   <a  class="dropdown-item" onclick="reload('<?php echo $loc;  ?>')" >  <?php echo $loc ?></a> -->
+            <!-- //   <a  class="dropdown-item" onclick="reload('<?php  echo $loc;  ?>')" >  <?php echo $loc ?></a> -->
             
              <?php
             //   $i++;
@@ -371,9 +371,14 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
   
 }
 if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
+  // to output the number of unseen msgs, we use the outer msgs function
+  $seen = $get->outerMsgFetcherSeen($_SESSION['userId']);
+  $numUnseen = $seen->num_rows;
+
+
 ?>
 
-<a class="btn btn-light" href="./Account.php?yourPost=true"  ><?php echo $lang['acc'] ?></a>
+<a class="btn btn-light" href="./Account.php?yourPost=true"  ><?php echo $lang['acc'] ?><span class="badge badge-danger"><?php if($numUnseen != 0){ echo ' '.$numUnseen; } ?></span></a>
 <a class="btn btn-light"  href="./user/logout.php"   ><?php echo $lang['logout'] ?></a>
 
 
