@@ -679,12 +679,12 @@ foreach($dbTables as $posts){
 
 
           // to check if any of the users are admin/ editor / user
-          $authCH = $get->allPostListerOnColumen('user','id',$o['user2']);
+          $authCH = $get->allPostListerOnColumen('user','id',$otherUser);
           $rowAuth = $authCH->fetch_assoc();
 
             ?>
             <?php
-            if($_SESSION['auth'] == 'ADMIN' || $rowAuth['auth'] == 'ADMIN' || $_SESSION['auth'] == 'EDITOR' || $rowAuth['auth'] == 'EDITOR'){
+            if($_SESSION['auth'] == 'ADMIN'  || $_SESSION['auth'] == 'EDITOR'  ){
               ?>
               <img src="assets/img/pp.png" class="img-thumbnail  col-2" alt="...">
               <h5 class="col-2">Admin</h5>
@@ -701,11 +701,17 @@ foreach($dbTables as $posts){
             <p class="card-text col-2"><?php echo $you.' '.$o['msg'] ?></p>
             <p class="card-text col-2"><small class="text-muted"></small><?php echo $date ?></p>
             <?php
-              if( $rowAuth['auth'] == 'USER' ){
+              if($rowAuth['auth'] == 'USER' ){
                 ?>
-                  <h5 class="col-2"><?php echo $ur['firstName'] ?></h5>
+                  <h5 class="col-2"><?php echo $ur['firstName'] ?> </h5>
                   <img src="<?php  $p = $admin->photoSplit($ur['photoPath1']); echo $p[0] ;  ?>" class="img-thumbnail col-2" alt="..."> 
 
+                <?php
+              }elseif($rowAuth['auth'] == 'ADMIN'){
+                ?>
+              <img src="assets/img/pp.png" class="img-thumbnail  col-2" alt="...">
+              <h5 class="col-2">Admin</h5>              
+                
                 <?php
               }
             ?>
