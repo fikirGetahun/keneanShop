@@ -78,19 +78,20 @@ include "../includes/header.php";
 
 
 
-    // $('#editV').on('submit', function(e){
-    //   e.preventDefault()
-    //   $.ajax({
-    //     url: 'admin/editHandler.php',
-    //     type: 'post',
-    //     data: $('#editV').serialize(),
-    //     success : function(){
-    //       $('#alertVacancy').text('Edit SUCCESSFULL!  ')
-    //     }
-    //   })
-    //   return false;
+    $('#editV').on('submit', function(e){
+      alert('informs')
+      e.preventDefault()
+      $.ajax({
+        url: 'admin/editHandler.php',
+        type: 'post',
+        data: $('#editV').serialize(),
+        success : function(){
+          $('#alertVacancy').text('Edit SUCCESSFULL!  ')
+        }
+      })
+      return false;
 
-    // })
+    })
 
     // $('#editT').on('submit', function(e){
     //   alert('inform')
@@ -170,7 +171,7 @@ require_once "../php/adminCrude.php";
 
 
     <div id="vacancyBox" class="container">
-  <form    method="POST"  >
+  <form  id="editV"  method="POST" enctype="multipart"  >
       <input hidden name="pid" value="<?php echo $uidx; ?>">
     <div class="form-group">
       <label for="exampleInputEmail1"><?php echo $lang['companyName'] ?></label>
@@ -198,7 +199,7 @@ require_once "../php/adminCrude.php";
           </script>
 
 <div  class="form-group" >
-<label class="input-group-text" for="inputGroupSelect01"><?php echo $lang['jobType'] ?></label>
+<label  for="inputGroupSelect01"><?php echo $lang['jobType'] ?></label>
 
         <select  class="custom-select" name="jobType" id="">
           <option selected  ><?php echo $row['type'] ?></option>
@@ -244,7 +245,7 @@ require_once "../php/adminCrude.php";
     </div>
     <div class="form-group">
 
-      <label class="input-group-text" for="inputGroupSelect01"><?php echo $lang['positionType'] ?></label>
+      <label   for="inputGroupSelect01"><?php echo $lang['positionType'] ?></label>
 
     <select class="custom-select" name="positionType" id="inputGroupSelect01">
       <option selected><?php 
@@ -359,19 +360,7 @@ require_once "../php/adminCrude.php";
          </div>
 
 
-        <!-- <div class="form-group">
-        <label for="exampleInputEmail1"><?php echo $lang['salaryType'] ?>: </label>
 
-        <select class="custom-select" name="salaryStatus" id="inputGroupSelect01">
-          <option selected ><?php
-                        $p = $admin->editVacancyPost($uidx);
-                        $row = $p->fetch_assoc();
-          echo $row['salaryStatus'] ?></option>
-           <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
-          <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
-          <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
-        </select>
-        </div> -->
 
 
     <div class="form-group">
@@ -388,7 +377,7 @@ require_once "../php/adminCrude.php";
  
     </div>
       <!-- <input type="submit"   value="POST"> -->
-    <button type="submit"   class="btn btn-primary">post</button>
+      <input type="submit" value="Save Changes">
     <div id="alertVacancy"></div>
 
 </form>
@@ -478,7 +467,7 @@ require_once "../php/adminCrude.php";
     </div>
   
     <div  class="input-group mb-3" >
-        <select  class="custom-select" name="location" id="">
+        <select  class="custom-select" name="location2" id="">
           <option><?php echo $row['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -509,7 +498,13 @@ require_once "../php/adminCrude.php";
         </select>
         </div>
 
+        <div class="form-group">
 
+          <label for="exampleInputEmail1"> <?php echo $lang['phone'] ?> : </label>
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder="" value="+<?php 
+         echo  $row['phone']?>">
+        </div>
 
     <div class="form-group">
       <label for="exampleInputEmail1"><?php echo $lang['Description'] ?></label>
@@ -652,7 +647,7 @@ $('#selchange').on('change', function(){
 ?>
 
 <div id="targetLoader" class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01"> <?php echo $lang['for'] ?>: </label>
         </div>
         <select class="custom-select" name="for" id="inputGroupSelect01">
@@ -908,7 +903,7 @@ $('#forRentOrSell').on('change', function(){
         </div>
 
             <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01"> <?php echo $lang['ownerBroker'] ?>: </label>
         </div>
         <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
@@ -919,7 +914,7 @@ $('#forRentOrSell').on('change', function(){
         </div>
 
             <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01"> <?php echo $lang['yearMade']  ?>: </label>
         </div>
         <select class="custom-select" name="status2" id="inputGroupSelect01">
@@ -1008,7 +1003,7 @@ $('#forRentOrSell').on('change', function(){
 
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="form-group" for="inputGroupSelect01"> <?php echo $lang['Transmission'] ?>: </label>
         </div>
  
@@ -1156,7 +1151,7 @@ foreach($pp as $photo){
         </div>
 
         <div class="form-group">
-              <label for="exampleInputEmail1">Title</label>
+              <label for="exampleInputEmail1">Titles</label>
               <input type="text" class="form-control" id="nameTitle" 
               aria-describedby="emailHelp" name="title" placeholder="Company Name" 
               value="<?php echo $houseRow['title'] ?> "
@@ -1168,36 +1163,35 @@ foreach($pp as $photo){
 <div id="houseTypeLoader">
 
 
-        <div id="houseType" class="input-group mb-3">
+<div id="houseType" class="input-group mb-3">
   
-  <div class="input-group-prepend">
-    <label class="input-group-text" for="inputGroupSelect01"> Type : </label>
-  </div>
-  <select class="custom-select" name="type" id="selHouseType">
-    <option selected><?php echo $houseRow['type'] ?> </option>
+        <div class="form-group">
+        </div>
+        <select class="form-select" aria-label="Default select example" name="type" id="selHouseType">
+          <option selected><?php echo $houseRow['type'] ?></option>
 <?php
 require_once "../php/adminCrude.php";
 $tab = $_GET['cat'];
 $categorySort = array();
 $category = $admin->allCategoryLister('housesell');
 while($rowc = $category->fetch_assoc()){
-$categorySort[] = $rowc['category'];
+  $categorySort[] = $rowc['category'];
 }
 sort($categorySort);
 foreach($categorySort as $sorted){
-echo $tab;
+  echo $tab;
+  ?>
+  <option value="<?php echo $sorted ?>"><?php echo $sorted ?></option>
+  
+  <?php
+
+
+    
+
+    }
+
 ?>
-<option value="<?php echo $sorted ?>"><?php echo $sorted ?></option>
-
-<?php
-
-
-
-
-}
-
-?>
-  </select>
+        </select>
 </div>
 </div>
 
@@ -1205,8 +1199,30 @@ echo $tab;
 
 
             
+<script>
+
+
+  // sub city filter api
+  function hCity(x){
+    // alert(x)
+    $.ajax({
+        url: 'user/userApi.php',
+        type: 'post',
+        data: {
+          cityH: x
+        },
+        success: function(data){
+          // alert(data)
+          $('#subH').empty()
+          $('#subH').append(data)
+        }
+      })
+  }
+</script>
+
 <div  class="input-group mb-3" >
-        <select  class="custom-select" name="city" id="">
+<label>City: </label>
+        <select  class="form-select" aria-label="Default select example" name="city" onchange="hCity(this.value)" id="">
           <option><?php echo $houseRow['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -1237,51 +1253,86 @@ echo $tab;
         </select>
         </div>
 
- 
-        <div  class="input-group mb-3" >
-        <select  class="custom-select" name="subCity" id="">
+        
+<?php
+//if there is subcity setted this subcity block will be renderd
+if($houseRow['subCity'] != ' '){
+  ?>
+         <div id="subH"   class="input-group mb-3" >
+        <label>Sub City: </label>
+          <?php
+        require_once '../php/fetchApi.php';
+    $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+    $city = array();
+    if($locc->num_rows != 0){
+      ?>
+                <select  class="form-select" aria-label="Default select example" name="subCity" >
           <option><?php echo $houseRow['subCity'] ?></option>
-          <?php 
-              require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                $i = 0;
-                foreach($city as $loc){
-                  if($loc == 'Addis Ababa'){
-                    ?>
-                    <option selected ><?php echo $loc ?></option>
-                    <?php
-                  }else{
-                    ?>
-                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
-                    <?php
-                  }
-                  ?>
-                  
-                
-                  <?php
-                  $i++;
-                }
-              ?> 
-        </select>
-        </div>
+      <?php
+    while($rowLoc = $locc->fetch_assoc()){
+        $city[]= $rowLoc['category'];
+    }
+    sort($city);
+    $i = 0;
+    foreach($city as $loc){
+      if($loc == 'Addis Ababa'){
+        ?>
+        <option selected ><?php echo $loc ?></option>
+        <?php
+      }else{
+        ?>
+         <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+        <?php
+      }
+      ?>
+      
+    
+      
+      <?php
+      $i++;
+    }
+  }
+    ?>
+    </select>
+        </div> 
+  <?php
+}
+
+?>
+
+
+
+
         
 
-             <div class="form-group">
-              <label for="exampleInputEmail1">Wereda :</label>
-              <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="wereda" placeholder="Company Name"
-              value="<?php echo $houseRow['wereda'] ?> "
-              >
-              
-            </div>
+ 
+      <!-- kebele list -->
+      <div class="form-group">
+        <label>Wereda: </label>
+        <select class="form-select" aria-label="Default select example" name="wereda"  id="inputGroupSelect01">
+          <option ><?php echo $houseRow['wereda'] ?></option>
+          <?php 
+             for($y=1;$y<=30;$y++){
+               if($y <= 9 ){
+                 ?>
+                 <option value="<?php echo '0'.$y ?>"><?php echo '0'.$y ?></option>
+                 <?php
+               }else{
+                ?>
+                <option value="<?php echo $y ?>"><?php echo $y ?></option>
+                <?php
+               }
+
+            }
+          ?>
+          
+
+        </select>
+        </div>
+
 
             <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
         </div>
         <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
@@ -1293,7 +1344,7 @@ echo $tab;
         
 
             <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
         </div>
         <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
@@ -1356,7 +1407,7 @@ echo $tab;
 
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
         </div>
         <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
@@ -1502,7 +1553,7 @@ echo $tab;
             </div>
 
             <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01"> Owner Or Broker: </label>
         </div>
         <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
@@ -1514,7 +1565,7 @@ echo $tab;
         
 
             <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01"> For Rent or Sell: </label>
         </div>
         <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
@@ -1550,7 +1601,7 @@ echo $tab;
 
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01"> Fixed Or Negotiatable </label>
         </div>
         <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
@@ -1742,7 +1793,7 @@ $('#sElc').on('change', function(){
         ?>
 </div>
         <div class="input-group mb-3">
-    <div class="input-group-prepend">
+    <div class="form-group">
       <label class="input-group-text" for="inputGroupSelect01"> Status Of Item: </label>
     </div>
     <select class="custom-select" name="status" id="inputGroupSelect01">
@@ -2004,13 +2055,11 @@ foreach($pp as $photo){
 <div class="form-group">
   <label for="exampleInputEmail1">Full Name</label>
   <input type="text" class="form-control" id="nameTitle" 
-  aria-describedby="emailHelp" name="name" placeholder="Full Name"  value="<?php echo $row['Name'] ?>">
+  aria-describedby="emailHelp" name="name" placeholder="Full Name"  value="<?php echo $row['name'] ?>">
 </div>
 
-<div class="input-group mb-3">
-<div class="input-group-prepend">
-  <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-</div>
+<div class="form-group">
+   <label  for="inputGroupSelect01">Gender</label>
 <select class="custom-select" name="sex" id="inputGroupSelect01">
   <option selected value="<?php echo $row['sex'] ?>" ><?php echo $row['sex'] ?></option>
   <option value="Male">Mele</option>
@@ -2025,11 +2074,9 @@ foreach($pp as $photo){
 </div>
 
 
-<div class="input-group mb-3">
-<div class="input-group-prepend">
-  <label class="input-group-text" for="inputGroupSelect01">Range </label>
-</div>
-<select class="custom-select" name="clientRange" id="inputGroupSelect01">
+<div class="form-group">
+   <label   for="inputGroupSelect01">Range </label>
+ <select class="custom-select" name="clientRange" id="inputGroupSelect01">
   <option value="<?php echo $row['clientRange'] ?>" ><?php echo $row['clientRange'] ?></option>
   <option value="1-8">1-8 Grade</option>
   <option value="9-12">9-10</option>
@@ -2040,11 +2087,9 @@ foreach($pp as $photo){
 </select>
 </div>
 
-<div class="input-group mb-3">
-<div class="input-group-prepend">
-  <label class="input-group-text" for="inputGroupSelect01">Payment Status</label>
-</div>
-<select class="custom-select" name="paymentStatus" id="inputGroupSelect01">
+<div class="form-group">
+   <label for="inputGroupSelect01">Payment Status</label>
+ <select class="custom-select" name="paymentStatus" id="inputGroupSelect01">
   <option selected value="<?php echo $row['paymentStatus'] ?>" ><?php echo $row['paymentStatus'] ?></option>
   <option value="Horly">Hourly</option>
   <option value="Dayly">Dayly</option>
@@ -2185,10 +2230,8 @@ foreach($pp as $photo){
           aria-describedby="emailHelp" name="name" placeholder="Full Name" value="<?php echo $row['name'] ?>">
           </div>
 
-          <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-        </div>
+        <div class="form-group">
+          <label for="inputGroupSelect01">Gender</label>
         <select class="custom-select" name="sex" id="inputGroupSelect01">
           <option selected value="<?php echo $row['sex'] ?>" ><?php echo $row['sex'] ?></option>
           <option value="Male">Mele</option>
@@ -2239,12 +2282,10 @@ foreach($pp as $photo){
         </select>
         </div>
 
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Work Type</label>
-        </div>
+        <div class="form-group">
+          <label   for="inputGroupSelect01">Work Type</label>
         <select class="custom-select" name="workType" id="inputGroupSelect01">
-          <option selected value="<?php echo $row['workType'] ?>" ><?php echo $row['workType'] ?></option>
+          <option selected value="<?php echo $row['type'] ?>" ></option>
           <option value="Half Day">Half Day</option>
           <option value="Full Day">Full Day</option>
           <option value="Monthly">Monthly</option>
@@ -2375,7 +2416,7 @@ if(isset($_GET['type'])){
           </div>
 
           <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01">Gender</label>
         </div>
         <select class="custom-select" name="sex" id="inputGroupSelect01">
@@ -2430,7 +2471,7 @@ if(isset($_GET['type'])){
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01">Work Type</label>
         </div>
         <select class="custom-select" name="workType" id="inputGroupSelect01">
@@ -2561,7 +2602,7 @@ if(isset($_GET['type'])){
           </div>
 
           <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01">Gender</label>
         </div>
         <select class="custom-select" name="sex" id="inputGroupSelect01">
@@ -2584,7 +2625,7 @@ if(isset($_GET['type'])){
         </div>
 
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
+        <div class="form-group">
           <label class="input-group-text" for="inputGroupSelect01">Work Status</label>
         </div>
         <select class="custom-select" name="workStat" id="inputGroupSelect01">

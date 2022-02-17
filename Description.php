@@ -1164,7 +1164,19 @@ if($_GET['cat'] == 'tender'){
                       </ol>
                       <div  class="carousel-inner">
                           <div class="carousel-item active">
-                          <img class="d-block w-100" src="admin/assets/img/zumra.png" alt="First slide">
+                            <?php 
+                              if($row['photoPath1'] == ' '){
+                                ?>
+                                <img class="d-block w-100" src="admin/assets/img/zumra.png" alt="First slide">
+                                <?php
+                              }else{
+                                ?>
+                          <img class="d-block w-100" src="<?php echo $row['photoPath1'] ?>" alt="First slide">
+                                <?php
+                              }
+
+                            ?>
+            
                           </div>
 
                       </div>

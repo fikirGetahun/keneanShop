@@ -35,6 +35,17 @@ if(!isset($_SESSION)){
     <?php
 
 $_SESSION['mbScroll'] = 1;
+if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
+  $tbb = $_GET['tb'];
+  $pos = $_GET['post'];
+  $client = $_GET['client'];
+  $forward = $_GET['forward'];
+}else{
+  $tbb = false;
+  $pos =false;
+  $client = false;
+  $forward = false;
+}
 
     if(isset($_GET['list'])){
         $member = $get->allPostListerOnTableD('mambership', 1 , 2);
@@ -50,7 +61,12 @@ $_SESSION['mbScroll'] = 1;
                 $.ajax({
               url: 'memberScroll.php',
               type: 'get',
-              data : {cp : dt},
+              data : {
+                forward : '<?php  echo $forward ?>',
+                tb: '<?php echo $tbb ?>',
+                post : '<?php echo $pos ?>',
+                client : '<?php echo $client ?>'
+              },  
               success: function(dtc){
                 $('#mb').append(dtc)
               }
@@ -74,14 +90,20 @@ $_SESSION['mbScroll'] = 1;
                 <!-- <p class="card-text"><?php echo $row['price'] ?> Birr</p> -->
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <a href="./membersList.php?view=true&mid=<?php echo $row['id'] ?>"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+
                     <?php
                       if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
                         $tbb = $_GET['tb'];
                         $pos = $_GET['post'];
                         $client = $_GET['client'];
                         ?>
+                        <a href="./membersList.php?view=true&mid=<?php echo $row['id'] ?>&tb=<?php echo $tbb ?>&post=<?php echo $pos ?>&forward=true&client=<?php echo $client ?>"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+                        
                         <a href="../Account.php?message=true&inner=true&tb=<?php echo $tbb ?>&reciver=<?php echo $row['userId'] ?>&post=<?php echo $pos ?>&forwarded=true&client=<?php echo $client ?>" > Send Link</a> 
+                        <?php
+                      }else{
+                        ?>
+                        <a href="./membersList.php?view=true&mid=<?php echo $row['id'] ?>"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
                         <?php
                       }
                     ?>

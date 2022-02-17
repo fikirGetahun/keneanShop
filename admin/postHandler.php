@@ -105,7 +105,7 @@ if(isset(
     $_POST['Deadline2'],
      $_POST['initialCost'],
      $_POST['location2'],
-     $_POST['description2'],$_POST['uid'], $_POST['title']
+     $_POST['description2'],$_POST['uid'], $_POST['title'], $_POST['phone']
      )
      ){
 
@@ -119,19 +119,24 @@ if(isset(
       $info = $_POST['description2'];
       $id2 = $_POST['uid'];
       $title = $_POST['title'];
+      $phone = $_POST['phone'];
 
-      if ($_FILES['photo']['size'] == 0 && $_FILES['photo']['error'] == 0){
+      if (isset($_FILES['photo']) && $_FILES['photo']['size'] != 0 ){
         $fileName1 = $_FILES['photo'];
 
         $up = $admin->uploadSinglePhoto('tender', $fileName1);
         if($up[4] == 'error'){
           print_r($up);
         }else{
-          $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, $up[0]   );
-          echo 'Post Succesfully!';
+          $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, $up[0], $phone   );
+          if($db){
+            echo 'Post Succesfullypho!';
+          }else{
+            echo 'error';
+          }
         }
       }else{
-        $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, ' '  );
+        $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, ' ', $phone  );
         if($db){
           echo 'Post Succesfully!';
         }else{

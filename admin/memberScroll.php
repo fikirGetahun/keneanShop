@@ -38,7 +38,7 @@ require_once "../php/adminCrude.php";
                   <div class="btn-group">
                     <a href="./membersList.php?view=true&mid=<?php echo $row['id'] ?>"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
                     <?php
-                      if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
+                      if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client']) && $_GET['forward'] == true && $_GET['tb'] == true && $_GET['post']== true && $_GET['client'] == true){
                         $tbb = $_GET['tb'];
                         $pos = $_GET['post'];
                         $client = $_GET['client'];

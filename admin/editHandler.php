@@ -136,7 +136,7 @@ if(isset(
   $_POST['companyName'], $_POST['jobType'], 
   $_POST['jobTitle'], $_POST['positionType'],
   $_POST['Deadline'], $_POST['reqNo'], $_POST['location'], $_POST['appStart'],
-  $_POST['description'],$_POST['pid'], $_POST['sex'], $_POST['phone'], $_POST['salary'], $_POST['salaryStatus']
+  $_POST['description'],$_POST['pid'], $_POST['sex'], $_POST['phone'], $_POST['salary']
   )){
     $companyName = $_POST['companyName'];
     $jobType =$_POST['jobType'];
@@ -149,7 +149,6 @@ if(isset(
     $id = $_POST['pid'];
     $phone = $_POST['phone'];
     $salary = $_POST['salary'];
-    $salaryStatus = $_POST['salaryStatus'];
     $appStart = $_POST['appStart'];
 
     $ask = $admin->updateVacancyPost($phone, $jobType, $positionType, $companyName,
@@ -186,7 +185,7 @@ if(isset(
       $db = $admin->updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title   );
 
       if($db){
-        echo 'Posted Successfully';
+        echo 'Saved Changes!';
       }
       else{
         echo 'error';
@@ -240,7 +239,7 @@ if(isset(
 
       $adEdit = $admin->updateAdPost( $type, $price, $address, $phone, $for, $title, $info, $postId);
       if($adEdit){
-        echo 'Posted Successfully';
+        echo 'Saved Changes!';
       }
       else{
         echo 'error';
@@ -307,7 +306,7 @@ if(isset(
        $fixidOrN,$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob, $rentStatus, $forWho, $whyRent, $addrr);
 
        if($out12){
-        echo 'Posted Successfully';
+        echo 'Saved Changes!';
       }
       else{
         echo 'error';
@@ -328,6 +327,7 @@ if(isset(
           $bedRoomNo = ' ';
           $bathRoomNo = ' ';
           $type = " ";
+          $spArea = " ";
           if(isset(
             $_POST['bedRoomNo'],
             $_POST['bathRoomNo'],
@@ -379,7 +379,7 @@ if(isset(
           $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId, $ob, $spArea );
           
           if($outH){
-            echo 'Posted Successfully';
+            echo 'Saved Changes!';
           }
           else{
             echo 'error';

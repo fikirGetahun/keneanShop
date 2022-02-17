@@ -14,12 +14,12 @@
         }
 
         //insert tender post
-        function addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id, $title, $photo ){
+        function addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id, $title, $photo, $phone ){
             include('connect.php');
             $postStatus = 'ACTIVE';
             $date = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `tender`( `title`,`type`, `startingDate`, `deadLine`, `address`, `initialCost`, `info`, `posterId`, `postedDate`, `postStatus`, `photoPath1`)
-             VALUES ( '$title' ,'$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date', '$postStatus', '$photo' )";
+            $q = "INSERT INTO `tender`( `title`,`type`, `startingDate`, `deadLine`, `address`, `initialCost`, `info`, `posterId`, `postedDate`, `postStatus`, `photoPath1`, `phone`)
+             VALUES ( '$title' ,'$tenderType', '$startingDate', '$deadLine', '$location', '$initialCost', '$info ', '$id', '$date', '$postStatus', '$photo', '$phone' )";
 
              $ask = $mysql->query($q);
              return $ask;
@@ -92,7 +92,7 @@
             $edited = 'YES';
             $q = "UPDATE `tender` SET `type`='$tenderType',
             `startingDate`='$startingDate',`deadLine`='$deadLine',`address`='$location',
-            `initialCost`='$initialCost',`info`='$info',`postedDate`='$date', `title`= '$title', `edited` = '$edited' WHERE `tender`.`id` = '$id2' ";
+            `initialCost`='$initialCost',`info`='$info', `title`= '$title', `edited` = '$edited' WHERE `tender`.`id` = '$id2' ";
 
             $ask = $mysql->query($q);
             return $ask;

@@ -14,7 +14,7 @@ require_once "php/adminCrude.php";
 $dbTables = array('ad', 'car', 'charity', 'electronics',
 'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse' );
 
-$excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+$excluded = array('zebegna', 'jobhometutor', 'hotelhouse', 'housesell' );
 
 $user = $get->aSinglePostView($_SESSION['userId'], 'user');
 $urow = $user->fetch_assoc();
@@ -281,15 +281,80 @@ foreach($dbTables as $posts){
                 <div class="card-body">
                   <?php
                   if(!in_array($posts, $excluded)){
+                    if($posts == 'vacancy'){
+                      ?>
+                      <h5>Vacancy Post</h5>
+                      <?php
+                    }elseif($posts == 'car'){
+                      ?>
+                      <h5>Car Post</h5>
+                      <?php
+                    }elseif($posts == 'tender'){
+                      ?>
+                      <h5>Tender Post</h5>
+                      <?php
+                    }elseif($posts == 'ad'){
+                      ?>
+                      <h5>Ad Post</h5>
+                      <?php
+                    }elseif($posts == 'electronics'){
+                      ?>
+                      <h5>Electronics Post</h5>
+                      <?php
+                    }elseif($posts == 'charity'){
+                      ?>
+                      <h5>Charity Post</h5>
+                      <?php
+                    }
+
+                    
                     ?>
                     <p class="card-text"><?php echo $row['title'] ?></p>
                     <?php
+                  }
+                  elseif($posts == 'housesell'){
+                    if($row['houseOrLand'] == 'HOUSE'){
+                      ?>
+                      <h5>House Post</h5>
+                      <p class="card-text"><?php echo $row['type'] ?></p>
+                      <?php
+                    }else{
+                      ?>
+                      <h5>Land Post</h5>
+                      <p class="card-text"><?php echo $row['type'] ?></p>
+                      <?php                      
+                    }
+                  }elseif($posts == 'jobhometutor'){
+                    ?>
+                    <h5>Home Tutor Post</h5>
+                    <p class="card-text"><?php echo $row['name'] ?></p> 
+
+                    <?php
+                  }elseif($posts == 'zebegna'){
+                    ?>
+                    <h5>Security Gaurd Post</h5>
+                    <p class="card-text"><?php echo $row['name'] ?></p> 
+
+                    <?php
+                  }elseif($posts == 'hotelhouse'){
+                    if($row['hotelOrHouse'] == 'HOUSE'){
+                      ?>
+                      <h5>House Jobs Post</h5>
+                      <p class="card-text"><?php echo $row['name'] ?></p> 
+                      <?php
+                    }else{
+                      ?>
+                      <h5>Hotel Jobs Post</h5>
+                      <p class="card-text"><?php echo $row['name'] ?></p> 
+                      <?php
+                    }
                   }
                   else{
                     ?>
                     <p class="card-text"><?php echo $row['name'] ?></p> 
                     <?php
                   }
+                 
                   ?>
                   
                   <div class="d-flex justify-content-between align-items-center">
@@ -356,7 +421,7 @@ foreach($dbTables as $posts){
       <div id="editInput2<?php echo $row['id'] ?>" class="modal-body">
       <div class="row">
           <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', 'housex', '<?php echo $row['id'] ?>', 'editInput2<?php echo $row['id'] ?>')">Edit</button></p></div>
-          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">>Delete</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', '<?php echo $posts ?>')">Delete</button></p></div>
       </div>
                       
       </div>
@@ -731,12 +796,12 @@ foreach($dbTables as $posts){
               <script>
 
               </script>
-              <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-2 img-thumbnail">  <br>
+              <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class="col-2 w-10  ">  <br>
                                 <!-- <div class="col-8 h4 text-danger"> -->
 									<h6><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                 if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </h6>
                 <!-- HERE the forward get requets will activate the send to member button on the membership list page on the admin panel. -->
-                <a class="btn btn-dark" href="admin/membersList.php?list=true&forward=true&tb=<?php echo $tb?>&post=<?php echo $postFocus ?>&client=<?php echo $reciver ?>"  >Copy Link and Send to Other</a>
+                <a class="link col" href="admin/membersList.php?list=true&forward=true&tb=<?php echo $tb?>&post=<?php echo $postFocus ?>&client=<?php echo $reciver ?>"  >Copy Link and Send to Other</a>
  
               <?php
               
