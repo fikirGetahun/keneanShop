@@ -9,6 +9,13 @@ if(!isset($_SESSION)){
 }
   $uid = $_SESSION['idz'];
 
+  if(isset($_GET['loc'])){
+    $_SESSION['location'] = $_GET['loc'];
+    // echo 'in';
+  }
+  
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -108,9 +115,9 @@ if(!isset($_SESSION)){
         $('#postBox').load('postPage.php?'+$.param({type: "tender", uid: '<?php echo $uid; ?>'}))
       })
 
-      $('#viewPtag').click(function(){
-        $('#postBox').load('profileViewPanel.php?'+$.param({uid: '<?php echo $uid;  ?>'}))
-      })
+      // $('#viewPtag').click(function(){
+      //   $('#postBox').load('profileViewPanel.php?'+$.param({uid: '<?php echo $uid;  ?>'}))
+      // })
 
       $('#postAd').click(function(){
         $('#postBox').load('postPage.php?'+$.param({type: "ad", uid: '<?php echo $uid; ?>'}))
@@ -192,17 +199,17 @@ if(!isset($_SESSION)){
         $('#postBox').load('viewPost.php?'+$.param({type: "zebegna", uid: '<?php echo $uid; ?>'}))
       })
 
-      $('#adCategory').click(function(){
-        $('#postBox').load('addCategory.php', {type: 'ad'})
-      })
+      // $('#adCategory').click(function(){
+      //   $('#postBox').load('addCategory.php', {type: 'ad'})
+      // })
 
       $('#viewYourPost').click(function(){
         $('#postBox').load('userPostViewPage.php', {id: '<?php echo $uid; ?>' })
       })
       
-      $('#elecCategory').click(function(){
-        $('#postBox').load('addCategory.php', {type: 'electronics' })
-      })
+      // $('#elecCategory').click(function(){
+      //   $('#postBox').load('addCategory.php', {type: 'electronics' })
+      // })
 
 
 
@@ -409,7 +416,7 @@ if(!isset($_SESSION)){
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+          <a class="dropdown-item d-flex align-items-center" href="#">
             <i class="bi bi-person"></i>
             <span>My Profile</span>
           </a>
@@ -471,12 +478,13 @@ if(!isset($_SESSION)){
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#viewPtag" id="viewPtag" >
+            <a href="../Account.php?setting=true" id="viewPtag" >       
+
               <i class="bi bi-circle"></i><span>View Profile</span>
             </a>
           </li>
           <li>
-            <a href="#viewYourPost" id="viewYourPost" >
+            <a href="../Account.php?yourPost=true" id="" >
               <i class="bi bi-circle"></i><span>View Your Posts</span>
             </a>
           </li>
@@ -641,13 +649,13 @@ alert('wiork')
           
 
 
-                $('#vacancyCategory').click(function(){
-                  $('#postBox').load('addCategory.php', {type: 'vacancy'})
-                })
+                // $('#vacancyCategory').click(function(){
+                //   $('#main').load('addCategory.php', {type: 'vacancy'})
+                // })
 
-                $('#houseCategory').click(function(){
-                  $('#postBox').load('addCategory.php', {type: 'house'})
-                })
+                // $('#houseCategory').click(function(){
+                //   $('#main').load('addCategory.php', {type: 'house'})
+                // })
 
 
 
@@ -667,7 +675,7 @@ alert('wiork')
             <a id="postVacancy" href="./postPage.php?type=vacancy"> 
               <i class="bi bi-circle "></i><span>Post Vacancy</span>
             </a>
-            <a id="vacancyCategory" style="padding-left: 60px;" href="#vacancyCatagory">
+            <a id="vacancyCategory" style="padding-left: 60px;" href="./addCategory.php?type=vacancy">
               <i class="
               bi bi-circle"></i><span>Add Vacancy Category</span>
             </a>
@@ -686,7 +694,7 @@ alert('wiork')
             <a id="postElectronics" href='./postPage.php?type=electronics'>
               <i class="bi bi-circle"></i><span>Post Electronics</span>
             </a>
-            <a id="elecCategory" style="padding-left: 60px;" href="#elecCategory">
+            <a id="elecCategory" style="padding-left: 60px;" href="./addCategory.php?type=electronics">
               <i class="
               bi bi-circle"></i><span>Add Electronics Category</span>
             </a>
@@ -713,7 +721,7 @@ alert('wiork')
 
 
 
-            <a id="carCategory" style="padding-left: 60px;" href="#carCatagory">
+            <a id="carCategory" style="padding-left: 60px;" href="./addCategory.php?type=car">
               <i class="
               bi bi-circle"></i><span>Add Cars Category</span>
             </a>
@@ -722,7 +730,7 @@ alert('wiork')
             <a id="housePost" href="./postPage.php?type=house">
               <i class="bi bi-circle"></i><span>Post House</span>
             </a>
-            <a id="houseCategory" style="padding-left: 60px;" href="#houseCatagory">
+            <a id="houseCategory" style="padding-left: 60px;" href="./addCategory.php?type=house">
               <i class="
               bi bi-circle"></i><span>Add House Category</span>
             </a>
@@ -736,7 +744,7 @@ alert('wiork')
             <a id="postAd" href="./postPage.php?type=ad">
               <i class="bi bi-circle"></i><span>Post Advertisment</span>
             </a>
-            <a id="adCategory" style="padding-left: 60px;" href="#adCategory">
+            <a id="adCategory" style="padding-left: 60px;" href="./addCategory.php?type=ad">
               <i class="
               bi bi-circle"></i><span>Add ADs Category</span>
             </a>

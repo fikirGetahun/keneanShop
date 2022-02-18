@@ -1,4 +1,5 @@
 <?php 
+    include "../includes/adminSide.php";
 
 require_once "../php/adminCrude.php";
 
@@ -42,7 +43,7 @@ if(isset($_POST['elc'])){
                 e.preventDefault()
                 
                 $.ajax({
-                    url: 'admin/addCategory.php',
+                    url: 'addCategory.php',
                     type: 'post',
                     data: $('form').serialize(),
                     success: function(){
@@ -57,99 +58,99 @@ if(isset($_POST['elc'])){
 
         })
         function edit(id){
-            $('#editAd'+id).load("admin/adCatEdit.php",{id: id, type: "ad"})
+            $('#editAd'+id).load("adCatEdit.php",{id: id, type: "ad"})
         }
 
         function editCar(id){
-            $('#editAd'+id).load("admin/adCatEdit.php",{id: id, type: "car"})
+            $('#editAd'+id).load("adCatEdit.php",{id: id, type: "car"})
         }
 
         function editVacancy(id){
-            $('#editAd'+id).load("admin/adCatEdit.php",{id: id, type: "vacancy"})
+            $('#editAd'+id).load("adCatEdit.php",{id: id, type: "vacancy"})
         }
         
         function editHouse(id){
-            $('#editAd'+id).load("admin/adCatEdit.php",{id: id, type: "house"})
+            $('#editAd'+id).load("adCatEdit.php",{id: id, type: "house"})
         }
 
         function editElec(id){
-            $('#editAd'+id).load("admin/adCatEdit.php",{id: id, type: "elec"})
+            $('#editAd'+id).load("adCatEdit.php",{id: id, type: "elec"})
         }
 
         function update(){
-            $("#xx").load("admin/divTags.php #cBox"); 
-            $("#xx").load("admin/divTags.php #cBox"); 
-            $("#xx").load("admin/divTags.php #cBox"); 
-            $("#xx").load("admin/divTags.php #cBox"); 
-            $("#xx").load("admin/divTags.php #cBox"); 
-            $("#xx").load("admin/divTags.php #cBox"); 
+            $("#xx").load("divTags.php #cBox"); 
+            $("#xx").load("divTags.php #cBox"); 
+            $("#xx").load("divTags.php #cBox"); 
+            $("#xx").load("divTags.php #cBox"); 
+            $("#xx").load("divTags.php #cBox"); 
+            $("#xx").load("divTags.php #cBox"); 
         }
 
         function updateHouse(){
-        $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
     }
 
         function adDelete(id){
-                $('#delete').load('admin/adCatEdit.php', {id: id, type : 'adDelete'})
-                $("#xx").load("admin/divTags.php #cBox"); 
-                $("#xx").load("admin/divTags.php #cBox"); 
-                $("#xx").load("admin/divTags.php #cBox"); 
-                $("#xx").load("admin/divTags.php #cBox"); 
-                $("#xx").load("admin/divTags.php #cBox"); 
-                $("#xx").load("admin/divTags.php #cBox"); 
+                $('#delete').load('adCatEdit.php', {id: id, type : 'adDelete'})
+                $("#xx").load("divTags.php #cBox"); 
+                $("#xx").load("divTags.php #cBox"); 
+                $("#xx").load("divTags.php #cBox"); 
+                $("#xx").load("divTags.php #cBox"); 
+                $("#xx").load("divTags.php #cBox"); 
+                $("#xx").load("divTags.php #cBox"); 
             }
 
 
             function elecDelete(id){
-                $('#delete').load('admin/adCatEdit.php', {id: id, type : 'elecDel'})
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#delete').load('adCatEdit.php', {id: id, type : 'elecDel'})
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
             }
 
             function carDelete(id){
-                $('#delete').load('admin/adCatEdit.php', {id: id, type : 'carDelete'})
-                $('#xx2').load('admin/divTags.php #carCat');
-        $('#xx2').load('admin/divTags.php #carCat');
-        $('#xx2').load('admin/divTags.php #carCat');
-        $('#xx2').load('admin/divTags.php #carCat');
+                $('#delete').load('adCatEdit.php', {id: id, type : 'carDelete'})
+                $('#xx2').load('divTags.php #carCat');
+        $('#xx2').load('divTags.php #carCat');
+        $('#xx2').load('divTags.php #carCat');
+        $('#xx2').load('divTags.php #carCat');
             }
 
             function vacDelete(id){
-                $('#delete').load('admin/adCatEdit.php', {id: id, type : 'vacancyDelete'})
-                $('#xx3').load('admin/divTags.php #vacancyCat');
-        $('#xx3').load('admin/divTags.php #vacancyCat');
-        $('#xx3').load('admin/divTags.php #vacancyCat');
-        $('#xx3').load('admin/divTags.php #vacancyCat');
+                $('#delete').load('adCatEdit.php', {id: id, type : 'vacancyDelete'})
+                $('#xx3').load('divTags.php #vacancyCat');
+        $('#xx3').load('divTags.php #vacancyCat');
+        $('#xx3').load('divTags.php #vacancyCat');
+        $('#xx3').load('divTags.php #vacancyCat');
             }
 
             function houseDelete(id){
-                $('#delete').load('admin/adCatEdit.php', {id: id, type : 'houseDelete'})
-                $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
-        $('#xxh').load('admin/divTags.php #houseCat')
+                $('#delete').load('adCatEdit.php', {id: id, type : 'houseDelete'})
+                $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
+        $('#xxh').load('divTags.php #houseCat')
             }
 
             function updateElc(){
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
             }
 
 
@@ -160,9 +161,12 @@ if(isset($_POST['elc'])){
 </head>
 <body>
     <div id="delete"></div>
-<?php
-if(isset($_POST['type'])){
-    if($_POST['type'] == 'ad'){
+    <div id="postBox">
+
+<main id="main" class="main">
+ <?php
+if(isset($_GET['type'])){
+    if($_GET['type'] == 'ad'){
         ?>
         
         <h3>Current Ads Category</h3>
@@ -213,7 +217,7 @@ if(isset($_POST['type'])){
   </tbody>
 </table>
 </div>
-<form  action="admin/addCategory.php" method="POST">
+<form  action="addCategory.php" method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>
     <input type="text" class="form-control" id="adCategory" 
@@ -225,7 +229,7 @@ if(isset($_POST['type'])){
 </form>
 
         <?php
-    }elseif($_POST['type'] == 'car'){
+    }elseif($_GET['type'] == 'car'){
         ?>
         <h3>Current Cars Category</h3>
 <div id="xx2">
@@ -280,10 +284,10 @@ if(isset($_POST['type'])){
 
     })
     function updateCar(){
-        $('#xx2').load('admin/divTags.php #carCat');
-        $('#xx2').load('admin/divTags.php #carCat');
-        $('#xx2').load('admin/divTags.php #carCat');
-        $('#xx2').load('admin/divTags.php #carCat');
+        $('#xx2').load('divTags.php #carCat');
+        $('#xx2').load('divTags.php #carCat');
+        $('#xx2').load('divTags.php #carCat');
+        $('#xx2').load('divTags.php #carCat');
     }
 
 </script>
@@ -300,7 +304,7 @@ if(isset($_POST['type'])){
 </form>
         
         <?php
-    }elseif($_POST['type'] == 'vacancy'){
+    }elseif($_GET['type'] == 'vacancy'){
         ?>
         <h3>Current Vacancy Category</h3>
 <div id="xx3">
@@ -357,10 +361,10 @@ if(isset($_POST['type'])){
 
     })
     function updateVacancy(){
-        $('#xx3').load('admin/divTags.php #vacancyCat');
-        $('#xx3').load('admin/divTags.php #vacancyCat');
-        $('#xx3').load('admin/divTags.php #vacancyCat');
-        $('#xx3').load('admin/divTags.php #vacancyCat');
+        $('#xx3').load('divTags.php #vacancyCat');
+        $('#xx3').load('divTags.php #vacancyCat');
+        $('#xx3').load('divTags.php #vacancyCat');
+        $('#xx3').load('divTags.php #vacancyCat');
     }
 
 </script>
@@ -376,7 +380,7 @@ if(isset($_POST['type'])){
 <input class="btn btn-light" type="submit" onclick="updateVacancy()" value="Add Category">
 </form>
         <?php
-    }elseif($_POST['type'] == 'house'){
+    }elseif($_GET['type'] == 'house'){
         ?>
                 <h3>Current house Category</h3>
 
@@ -443,7 +447,7 @@ if(isset($_POST['type'])){
 </form>
 
         <?php
-    }elseif($_POST['type'] == 'electronics'){
+    }elseif($_GET['type'] == 'electronics'){
         ?>
         
         
@@ -526,8 +530,10 @@ if(isset($_POST['type'])){
         <?php
     }
 }
+include "../includes/adminFooter.php";
 
 ?>
-
+</main>
+    </div>
 
 </body>

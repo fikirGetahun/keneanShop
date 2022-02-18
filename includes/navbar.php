@@ -8,7 +8,6 @@
   
 
   if(!isset($_SESSION['location'] )){
-    echo 'bitch';
     $_SESSION['location'] = 'All';
   }
 
@@ -238,20 +237,14 @@ function reload(x){
         </li>
         <?php 
               require_once 'php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                $i = 0;
+
 
               ?> 
         
         <!-- <li class="nav-item dropdown" style="z-index: 3;">
           <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="small"> <?php echo $lang['location'] ?>: </span>
-            <span id="pgad" class="small"><?php  echo $_SESSION['location']; ?></span>
+            <span class="small"> <?php  ?>: </span>
+            <span id="pgad" class="small"><?php  ?></span>
 
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -260,7 +253,7 @@ function reload(x){
             // foreach($city as $loc){
             //   ?>
               
-            <!-- //   <a  class="dropdown-item" onclick="reload('<?php  echo $loc;  ?>')" >  <?php echo $loc ?></a> -->
+            <!-- //   <a  class="dropdown-item" onclick="reload('<?php   ?>')" >  < ></a> -->
             
              <?php
             //   $i++;

@@ -2,6 +2,8 @@
 include 'includes/header.php';
 require_once "php/fetchApi.php";
 require_once "php/adminCrude.php";
+include 'includes/lang.php';
+
 ob_start();
 if(!isset($_SESSION)){
   session_start();
@@ -53,45 +55,126 @@ if(!isset($_SESSION)){
 
         </div>
         <!-- <div class="row"> -->
-        <div  class="col-md-4 mb-3" >
-        <label for="username">Address</label>
-        <select  class="custom-select" name="city" id="">
-          <option>Address</option>
-          <?php 
-              require_once 'php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-                $city = array();
-                while($rowLoc = $locc->fetch_assoc()){
-                    $city[]= $rowLoc['category'];
-                }
-                sort($city);
-                $i = 0;
-                foreach($city as $loc){
-                  if($loc == 'Addis Ababa'){
-                    ?>
-                    <option selected ><?php echo $loc ?></option>
-                    <?php
-                  }else{
-                    ?>
-                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
-                    <?php
-                  }
-                  ?>
-                  
-                
-                  <?php
-                  $i++;
-                }
-              ?> 
-        </select>
-        </div>
-        <div class="col-md-6">
-          <label for="username">Wereda/Kebele</label>
-          <div class="input-group">
-            <input type="text" class="form-control" id="username" placeholder="wereda" name="wereda" value=" " required>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
-          </div>
-        </div>
+<script>
+
+
+// sub city filter api
+function hCityz(x){
+  // alert(x)
+  $.ajax({
+      url: 'user/userApi.php',
+      type: 'post',
+      data: {
+        cityH: x
+      },
+      success: function(data){
+        // alert(data)
+        $('#subHx').empty()
+        $('#subHx').append(data)
+      }
+    })
+}
+</script>
+
+<div  class="input-group mb-3" >
+      <select  class="form-select" aria-label="Default select example" name="city"
+       onchange="hCityz(this.value)" id="">
+        <option><?php echo $lang['city'] ?></option>
+        <?php 
+            require_once 'php/fetchApi.php';
+              $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+              $city = array();
+              while($rowLoc = $locc->fetch_assoc()){
+                  $city[]= $rowLoc['category'];
+              }
+              sort($city);
+              $i = 0;
+              foreach($city as $loc){
+                if($loc == 'Addis Ababa'){
+                  ?>
+                  <option selected ><?php echo $loc ?></option>
+                  <?php
+                }else{
+                  ?>
+                   <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                  <?php
+                }
+                ?>
+                
+              
+                <?php
+                $i++;
+              }
+            ?> 
+      </select>
+      </div>
+
+      
+      <div id="subHx"   class="input-group mb-3" >
+        <?php
+      require_once 'php/fetchApi.php';
+  $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+  $city = array();
+  if($locc->num_rows != 0){
+    ?>
+              <select  class="form-select" aria-label="Default select example" name="subcity" >
+        <option><?php echo $lang['subCity'] ?></option>
+    <?php
+  while($rowLoc = $locc->fetch_assoc()){
+      $city[]= $rowLoc['category'];
+  }
+  sort($city);
+  $i = 0;
+  foreach($city as $loc){
+    if($loc == 'Addis Ababa'){
+      ?>
+      <option selected ><?php echo $loc ?></option>
+      <?php
+    }else{
+      ?>
+       <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+      <?php
+    }
+    ?>
+    
+  
+    
+    <?php
+    $i++;
+  }
+}
+  ?>
+  </select>
+      </div>
+
+
+      
+
+
+    <!-- kebele list -->
+    <div class="form-group">
+      <select class="form-select" aria-label="Default select example" name="wereda"  id="inputGroupSelect01">
+        <option ><?php echo $lang['Wereda'] ?></option>
+        <?php 
+           for($y=1;$y<=30;$y++){
+             if($y <= 9 ){
+               ?>
+               <option value="<?php echo '0'.$y ?>"><?php echo '0'.$y ?></option>
+               <?php
+             }else{
+              ?>
+              <option value="<?php echo $y ?>"><?php echo $y ?></option>
+              <?php
+             }
+
+          }
+        ?>
+        
+
+      </select>
+      </div>
 
         </div>
         <div class="row">
@@ -256,6 +339,11 @@ if(!isset($_SESSION)){
           $question = $_POST['question'];
           $userId = $_SESSION['userId'];
 
+          $subcity = ' ';
+          if(isset($_GET['subcity'])){
+            $subcity = $_GET['subcity'];
+          }
+
           $up = $admin->uploadSinglePhoto('mambership', $photoPath1);
           if($up[4] == 'error'){
             echo 'error file';
@@ -289,7 +377,5 @@ if(!isset($_SESSION)){
     </ul>
   </footer>
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-        <script src="form-validation.js"></script></body>
+
 </html>

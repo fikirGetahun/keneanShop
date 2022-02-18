@@ -2,6 +2,7 @@
   include "../includes/header.php";
   include "../includes/adminSide.php";
   require_once '../php/fetchApi.php';
+  include "../includes/lang.php";
 ?>
 <?php
 include "../includes/header.php";
@@ -46,8 +47,111 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
   $client = false;
   $forward = false;
 }
+?>
+
+
+
+
+<div class="input-group mb-3 col-3">
+<?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+
+              ?> 
+<div class="input-group-prepend">
+  <span class="input-group-text" id="basic-addon1"><?php echo $lang['location'] ?></span>
+</div>
+<select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01"  onchange="location=this.value;" >
+  <option selected >  <?php echo $_SESSION['location'] ?></option>
+  <!-- <option value="All"> All </option> -->
+  <?php
+    foreach($city as $loc){
+      $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
+      $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
+      //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
+      if($params['dyCol'] && $params['dyArg']  ){
+        unset($params['dyCol']);
+        unset($params['dyArg']);
+      }
+      if($params['dyCol2'] && $params['dyArg2']){ 
+        unset($params['dyCol2']);
+        unset($params['dyArg2']);
+      }
+      // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
+      if($params['loc']){
+        unset($params['loc']);
+      }
+
+      $string = http_build_query($params); // to build the corrected requst to normal get query format
+      ?>
+      
+      <!-- <label onclick="reload('<?php echo $loc;  ?>')" ><?php echo $loc ?><option value="<?php echo  $_SERVER['REQUEST_URI']?>&loc=<?php echo $loc?>" > <?php echo $loc ?></option></label> -->
+    
+      <option value="<?php echo $urlll['path'].'?'.$string?>&loc=<?php echo $loc?>" > <?php echo $loc ?></option>
+      <!-- <option value="<?php echo $loc ?>" > <?php echo $loc ?></option> -->
+
+      <?php
+
+      $i++;
+    }
+  ?>
+</select>
+</div>
+
+
+<div id="subHx"   class="input-group mb-3" >
+        <?php
+      require_once '../php/fetchApi.php';
+  $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $_SESSION['location']);
+  $city = array();
+  if($locc->num_rows != 0){
+    ?>
+              <select  class="form-select" aria-label="Default select example" name="subcity" >
+        <option><?php echo $lang['subCity'] ?></option>
+    <?php
+  while($rowLoc = $locc->fetch_assoc()){
+      $city[]= $rowLoc['category'];
+  }
+  sort($city);
+  $i = 0;
+  foreach($city as $loc){
+    if($loc == 'Addis Ababa'){
+      ?>
+      <option selected ><?php echo $loc ?></option>
+      <?php
+    }else{
+      ?>
+       <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+      <?php
+    }
+    ?>
+    
+  
+    
+    <?php
+    $i++;
+  }
+}else{
+  ?>
+  <option>No Sub City here!</option>
+  <?php
+}
+  ?>
+  </select>
+      </div>
+ <?php
 
     if(isset($_GET['list'])){
+
+        if(isset($_GET['loc'])){
+          $member = $get->allPostListerOnColumenD('mambership', 'city', $_SESSION['location'] , 1 , 2);
+        }
         $member = $get->allPostListerOnTableD('mambership', 1 , 2);
 
         ?>

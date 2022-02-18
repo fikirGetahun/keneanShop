@@ -58,7 +58,7 @@
             // alert('innn')
             e.preventDefault()
             $.ajax({
-                url: 'admin/adCatEdit.php',
+                url: 'adCatEdit.php',
                 type: 'post',
                 data: $('form').serialize(),
                 success: function(){
@@ -123,11 +123,11 @@ if(isset($_POST['type'])){
         <!-- <script src="assets/jquery.js"></script> -->
         <script>
             function updateElc(){
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
-                $('#xxh2').load('admin/divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
             }
 
         </script>

@@ -20,8 +20,8 @@ $website = "Description.php";
 
     
 ?>
-
 <div id="postBox">
+
 <main id="main" class="main">
 
 <div class="pagetitle">
@@ -35,7 +35,7 @@ $website = "Description.php";
     </ol>
   </nav>
 </div> 
-<div id="postBox" class="container">
+<div  class="container">
 <!-- <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">

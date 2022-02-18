@@ -271,6 +271,17 @@ function reload(x){
 <?php
     }if(isset($_GET['cat'])){
       ?>
+              <?php 
+              require_once 'php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+
+              ?> 
         <div class="input-group mb-3 col-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><?php echo $lang['location'] ?></span>
@@ -578,6 +589,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
   <div id="loop" class="col-md-12">
     <?Php
 
+
       if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){
           $cat = $_GET['cat'];
           $status = $_GET['status'];
@@ -687,7 +699,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $fetchPost = $get->allPostListerOn3ColumenD($cat, $status, $off, 'type', $dbType, 'address', $_SESSION['location'],  $startPage, $endPage);           
             }
 
-          } 
+          }
           
           
     ?>
@@ -1135,12 +1147,24 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $arg = $_GET['arg'];
               $label = $_GET['label'];
 
-            
+                     // if($arg == ' '&& $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){// to fetch houses with out for rent or for sell filter if location is all
+
+              // }elseif($arg == ' ' && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) )
+              // elseif(isset($_GET['dbType']) && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
+
+
+                // lela arif method, zemblh $arg == ' ' sihon bicha fetch variable keyir ok
+
+
               if(isset($_GET['dbType']) && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
               $dbType = $_GET['dbType'];
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $search, $startPage, $endPage);
+                if($arg == ' '){
+                  $fetchPost = $get->search2C($cat, 'houseOrLand', 'HOUSE',  'type', $dbType, $search, $startPage, $endPage);
+                }else{
+                  $fetchPost = $get->search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $search, $startPage, $endPage);
+                }
               }else{
                 $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $startPage, $endPage); 
               }
