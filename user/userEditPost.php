@@ -201,7 +201,7 @@ require_once "../php/adminCrude.php";
 <div  class="form-group" >
 <label  for="inputGroupSelect01"><?php echo $lang['jobType'] ?></label>
 
-        <select  class="custom-select" name="jobType" id="">
+        <select  class="form-select" name="jobType" id="">
           <option selected  ><?php echo $row['type'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -247,7 +247,7 @@ require_once "../php/adminCrude.php";
 
       <label   for="inputGroupSelect01"><?php echo $lang['positionType'] ?></label>
 
-    <select class="custom-select" name="positionType" id="inputGroupSelect01">
+    <select class="form-select" name="positionType" id="inputGroupSelect01">
       <option selected><?php 
                 $p = $admin->editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
@@ -262,7 +262,7 @@ require_once "../php/adminCrude.php";
 
     <div class="form-group">
     <label for="exampleInputEmail1"><?php echo $lang['Gender'] ?></label>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
+        <select class="form-select" name="sex" id="inputGroupSelect01">
           <option value=" "><?php echo $row['sex'] ?></option>
           <option value="Male"><?php echo $lang['Male'] ?></option>
           <option value="Female"><?php echo $lang['Female'] ?></option>
@@ -319,7 +319,7 @@ require_once "../php/adminCrude.php";
 
 
         <div  class="form-group" >
-        <select  class="custom-select" name="location" id="">
+        <select  class="form-select" name="location" id="">
           <option><?php echo $row['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -467,7 +467,7 @@ require_once "../php/adminCrude.php";
     </div>
   
     <div  class="input-group mb-3" >
-        <select  class="custom-select" name="location2" id="">
+        <select  class="form-select" name="location2" id="">
           <option><?php echo $row['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -585,10 +585,13 @@ foreach($pp as $photo){
   $(document).ready(function(){
 $('#selchange').on('change', function(){
   // alert('change')
+  $('#jj').hide()
   if(this.value == "Cloth and Shoe"){
+    $('#jj').show()
     $('#targetLoader').load('admin/divTags.php #targetFor')
   }else{
     $('#targetLoader').empty()
+    $('#jj').hide()
   }
  
 })
@@ -614,9 +617,9 @@ $('#selchange').on('change', function(){
         </div>
 
 
-        <div  class="input-group mb-3" >
+        <div  class="form-group" >
           <label><?php echo $lang['adsCategory'] ?></label>
-        <select  class="custom-select" name="type" id="selchange">
+        <select  class="form-select" name="type" id="selchange">
           <option selected ><?php echo $adRow['type'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -641,6 +644,20 @@ $('#selchange').on('change', function(){
         </div>
 
 
+        <div id="jj">
+        <div class="form-group">
+          <label  for="inputGroupSelect01"> <?php echo $lang['for'] ?>: </label>
+       
+        <select class="form-select" name="for" id="inputGroupSelect01">
+          <option value=" "><?php echo $lang['Gender'] ?></option>
+          <option value="Male"><?php echo $lang['Male'] ?></option>
+          <option value="Female"><?php echo $lang['Female'] ?></option>
+          <option value="Both"><?php echo $lang['Both'] ?></option>
+        </select>
+        </div>
+        </div>
+
+
 
         <?php
         if($adRow['for'] != " "){
@@ -649,14 +666,15 @@ $('#selchange').on('change', function(){
 <div id="targetLoader" class="input-group mb-3">
         <div class="form-group">
           <label  for="inputGroupSelect01"> <?php echo $lang['for'] ?>: </label>
-        </div>
-        <select class="custom-select" name="for" id="inputGroupSelect01">
+       
+        <select class="form-select" name="for" id="inputGroupSelect01">
           <option value=" "><?php echo $lang['Gender'] ?></option>
           <option value="Male"><?php echo $lang['Male'] ?></option>
           <option value="Female"><?php echo $lang['Female'] ?></option>
           <option value="Both"><?php echo $lang['Both'] ?></option>
         </select>
-    </div>
+        </div>
+</div>
 <?php
         }
         
@@ -676,9 +694,9 @@ $('#selchange').on('change', function(){
 
 
 
-        <div  class="input-group mb-3" >\
-          <label><?php echo $lang['city'] ?></label>
-        <select  class="custom-select" name="address" id="">
+        <div  class="form-group" >
+          <label> City </label>
+        <select  class="form-select" name="address" id="">
           <option><?php echo $adRow['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -718,8 +736,8 @@ $('#selchange').on('change', function(){
           >
          </div>
 
-        <div class="input-group mb-3">
-        <select class="custom-select" name="shipping" id="inputGroupSelect01">
+        <div class="form-group">
+        <select class="form-select" name="shipping" id="inputGroupSelect01">
           <option><?php echo $adRow['shipping'] ?></option>
           <option value="NO">NO</option>
           <option value="YES">YES</option>
@@ -842,7 +860,7 @@ $('#forRentOrSell').on('change', function(){
 
         <div  class="input-group mb-3" >
           <label><?php echo $lang['carModel'] ?></label>
-        <select  class="custom-select" name="type2" id="s">
+        <select  class="form-select" name="type2" id="s">
           <option><?php echo $carRow['type'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -868,10 +886,36 @@ $('#forRentOrSell').on('change', function(){
         </div>
 
 
+            
+        <script>
+          $(document).ready(function(){
+            $('#carar').hide()
+            $('#forRentOrSell').on('change', function(){
+              if(this.value == 'For Rent'){
+                $('#carar').show()
+              }else if(this.value == 'For Sell'){
+                $('#cfr').hide()
+                $('#carar').hide()
+              }
+            })
+          })
+        </script>
 
-          <div  class="input-group mb-3" >
+
+        <div class="form-group">
+          <label  for="inputGroupSelect01"> <?php echo $lang['sellOrRent'] ?>: </label>
+        <select class="form-select" name="forRentOrSell" id="forRentOrSell">
+          <option selected><?php echo $carRow['forRentOrSell'] ?></option>
+          <option value="For Rent"> <?php echo $lang['forRent'] ?></option>
+          <option value="For Sell"><?php echo $lang['forSell'] ?></option>
+        </select>
+        </div>
+
+
+
+          <div  class="form-group" >
             <label><?php echo $lang['city'] ?></label>
-        <select  class="custom-select" name="address" id="s">
+        <select  class="form-select" name="address" id="s">
           <option><?php echo $carRow['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -902,22 +946,23 @@ $('#forRentOrSell').on('change', function(){
         </select>
         </div>
 
-            <div class="input-group mb-3">
-        <div class="form-group">
+
+
+
+
+
+         <div class="form-group">
           <label  for="inputGroupSelect01"> <?php echo $lang['ownerBroker'] ?>: </label>
-        </div>
-        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
+         <select class="form-select" name="ownerBroker" id="inputGroupSelect01">
           <option selected value="<?php echo $carRow['ownerBroker'] ?>"><?php echo $carRow['ownerBroker'] ?></option>
           <option value="Owner"> <?php echo $lang['broker'] ?></option>
           <option value="Broker"> <?php echo $lang['owner'] ?></option>
         </select>
         </div>
 
-            <div class="input-group mb-3">
-        <div class="form-group">
+         <div class="form-group">
           <label  for="inputGroupSelect01"> <?php echo $lang['yearMade']  ?>: </label>
-        </div>
-        <select class="custom-select" name="status2" id="inputGroupSelect01">
+         <select class="form-select" name="status2" id="inputGroupSelect01">
           <option ><?php echo $carRow['status'] ?> ?></option>
           <?php 
             $cYear = date('Y');
@@ -932,25 +977,50 @@ $('#forRentOrSell').on('change', function(){
         </select>
         </div>
 
-        
+    
 
-        <div class="input-group mb-3">
-        <div class="form-group">
-          <label  for="inputGroupSelect01"> <?php echo $lang['sellOrRent'] ?>: </label>
-        </div>
-        <select class="custom-select" name="forRentOrSell" id="forRentOrSell">
-          <option selected><?php echo $carRow['forRentOrSell'] ?></option>
-          <option value="For Rent"> <?php echo $lang['forRent'] ?></option>
-          <option value="For Sell"><?php echo $lang['forSell'] ?></option>
+        <!-- // if the post has no for rent select feild, then when the user selects the for rent option, this div will automatically pop up. when it pops out it hides the for rent options bellow this div if there any for rent options -->
+
+        <div id="carar">
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="rentStatus" id="rentS">
+          <option  > <?php echo $lang['rentStatus'] ?></option>
+          <option value="With Driver"> <?php echo $lang['withDriver'] ?></option>
+          <option selected value="Car Only"><?php echo $lang['carOnly'] ?></option>
         </select>
         </div>
+
+        
+        <div  class="input-group mb-3" >
+        <select  class="form-select" aria-label="Default select example" name="forWho" id="forWho">
+          <option value=" " ><?php echo $lang['rentFor'] ?></option>
+          <option value="All"><?php echo $lang['all'] ?></option>
+          <option value="Private"><?php echo $lang['private'] ?></option>
+          <option value="Govormental Offices"><?php echo $lang['govormentalOffices'] ?></option>
+          <option value="Private Company"><?php echo $lang['privateCompany'] ?></option>
+          <option value="NGO"><?php echo $lang['ngo'] ?></option>
+        </select>
+        </div>
+
+        
+        <div class="form-group" id="whyRent">
+          <label for="exampleInputEmail1"><?php echo $lang['whyRent'] ?></label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="whyRent" placeholder="Description"></textarea>
+          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['descWhyRent'] ?></small>
+        </div>
+        </div>
+
+
+
 
         <?php
         if($carRow['forRentOrSell'] == 'For Rent'){
             ?>
           <div id="cfr">
-          <div  class="input-group mb-3" >
-        <select  class="custom-select" name="rentStatus" id="rentS">
+          <div  class="form-group" >
+          <label for="exampleInputEmail1"><?php echo $lang['rentStatus'] ?> </label>
+        <select  class="form-select" name="rentStatus" id="rentS">
         <option selected><?php echo $carRow['rentStatus'] ?></option>
         <option value="With Driver"> <?php echo $lang['withDriver'] ?></option>
           <option selected value="Car Only"><?php echo $lang['carOnly'] ?></option>
@@ -959,8 +1029,9 @@ $('#forRentOrSell').on('change', function(){
 
         
         <div  class="input-group mb-3" >
- 
-        <select  class="custom-select" name="forWho" id="forWho">
+        <label for="exampleInputEmail1"><?php echo $lang['rentFor'] ?> </label>
+
+        <select  class="form-select" name="forWho" id="forWho">
         <option selected><?php echo $carRow['forWho'] ?></option>
           <option value=" " ><?php echo $lang['rentFor'] ?></option>
           <option value="All"><?php echo $lang['all'] ?></option>
@@ -987,13 +1058,11 @@ $('#forRentOrSell').on('change', function(){
 
 
 
-        <div class="input-group mb-3">
-        <div class="form-group">
+         <div class="form-group">
           <label  for="inputGroupSelect01"> <?php echo $lang['fuleType'] ?>: </label>
-        </div>
- 
+  
 
-        <select class="custom-select" name="fuleKind" id="inputGroupSelect01">
+        <select class="form-select" name="fuleKind" id="inputGroupSelect01">
           <option selected></option>
           <option value="Benzene"><?php echo $lang['benzene'] ?></option>
           <option value="Diesel"><?php echo $lang['diesel'] ?></option>
@@ -1002,13 +1071,11 @@ $('#forRentOrSell').on('change', function(){
 
 
 
-        <div class="input-group mb-3">
-        <div class="form-group">
+         <div class="form-group">
           <label class="form-group" for="inputGroupSelect01"> <?php echo $lang['Transmission'] ?>: </label>
-        </div>
- 
+  
         
-        <select class="custom-select" name="transmission" id="inputGroupSelect01">
+        <select class="form-select" name="transmission" id="inputGroupSelect01">
           <option selected><?php echo $lang['Transmission'] ?></option>
           <option value="automatic"><?php echo $lang['Automatic'] ?></option>
           <option value="manual"><?php echo $lang['Manual'] ?></option>
@@ -1032,11 +1099,9 @@ $('#forRentOrSell').on('change', function(){
 
 
 
-        <div class="input-group mb-3">
-        <div class="form-control">
+         <div class="form-group">
           <label  for="inputGroupSelect01"> <?php echo $lang['priceType'] ?> </label>
-        </div>
-        <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
+         <select class="form-select" name="fixidOrN" id="inputGroupSelect01">
           <option selected><?php echo $lang['priceType'] ?></option>
           <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
           <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
@@ -1333,7 +1398,7 @@ if($houseRow['subCity'] != ' '){
 
         <div class="form-group">
           <label  for="inputGroupSelect01"> Owner Or Broker: </label>
-        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
+        <select class="form-select" name="ownerBroker" id="inputGroupSelect01">
           <option selected value="<?php echo $houseRow['ownerBroker'] ?> " ><?php echo $houseRow['ownerBroker'] ?> </option>
           <option value="Owner">Owner</option>
           <option value="Broker">Broker</option>
@@ -1343,7 +1408,7 @@ if($houseRow['subCity'] != ' '){
 
         <div class="form-group">
           <label  for="inputGroupSelect01"> For Rent or Sell: </label>
-        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
+        <select class="form-select" name="forRentOrSell" id="inputGroupSelect01">
           <option selected><?php echo $houseRow['forRentOrSell'] ?> </option>
           <option value="For Rent">For Rent</option>
           <option value="For Sell">For Sell</option>
@@ -1404,7 +1469,7 @@ if($houseRow['subCity'] != ' '){
 
         <div class="form-group">
           <label  for="inputGroupSelect01"> Fixed Or Negotiatable </label>
-        <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
+        <select class="form-select" name="fixidOrN" id="inputGroupSelect01">
           <option selected><?php echo $houseRow['fixedOrN'] ?> </option>
           <option value="Fixed">Fixed</option>
           <option value="Negotiatable">Negotiatable</option>
@@ -1524,33 +1589,147 @@ if($houseRow['subCity'] != ' '){
 
         
 
+            <div id="subCityBox" class="form-group">
+            <label for="exampleInputEmail1">Type</label>
+
+ <input type="text"  class="form-control" id="nameTitle" 
+               aria-describedby="emailHelp" name="type"  value="<?php echo $houseRow['type'] ?>">
+         </div>
+
+         <script>
 
 
-            <div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $houseRow['city'] ?></div>      
-                <input id="dbad" name="city" hidden value="<?php echo $houseRow['city'] ?>">   
-            </div>
-        <div class="input-group mb-3">
-            <div class="form-select" id="jijiShow" onclick="typeLoader('jijiSub')" ><?php echo $houseRow['subCity'] ?></div>      
-            <input id="jijiApi"  name="subCity" hidden value="<?php echo $houseRow['subCity'] ?> ">   
+// sub city filter api
+function hCity(x){
+  // alert(x)
+  $.ajax({
+      url: 'user/userApi.php',
+      type: 'post',
+      data: {
+        cityH: x
+      },
+      success: function(data){
+        // alert(data)
+        $('#subH').empty()
+        $('#subH').append(data)
+      }
+    })
+}
+</script>
 
-        </div>
+<div  class="form-group" >
+<label>City: </label>
+      <select  class="form-select" aria-label="Default select example" name="city" onchange="hCity(this.value)" id="">
+        <option><?php echo $houseRow['city'] ?></option>
+        <?php 
+            require_once '../php/fetchApi.php';
+              $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+              $city = array();
+              while($rowLoc = $locc->fetch_assoc()){
+                  $city[]= $rowLoc['category'];
+              }
+              sort($city);
+              $i = 0;
+              foreach($city as $loc){
+                if($loc == 'Addis Ababa'){
+                  ?>
+                  <option selected ><?php echo $loc ?></option>
+                  <?php
+                }else{
+                  ?>
+                   <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                  <?php
+                }
+                ?>
+                
+              
+                <?php
+                $i++;
+              }
+            ?> 
+      </select>
+      </div>
+
+      
+<?php
+//if there is subcity setted this subcity block will be renderd
+if($houseRow['subCity'] != ' '){
+?>
+       <div id="subH"   class="form-group" >
+      <label>Sub City: </label>
+        <?php
+      require_once '../php/fetchApi.php';
+  $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+  $city = array();
+  if($locc->num_rows != 0){
+    ?>
+              <select  class="form-select" aria-label="Default select example" name="subCity" >
+        <option><?php echo $houseRow['subCity'] ?></option>
+    <?php
+  while($rowLoc = $locc->fetch_assoc()){
+      $city[]= $rowLoc['category'];
+  }
+  sort($city);
+  $i = 0;
+  foreach($city as $loc){
+    if($loc == 'Addis Ababa'){
+      ?>
+      <option selected ><?php echo $loc ?></option>
+      <?php
+    }else{
+      ?>
+       <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+      <?php
+    }
+    ?>
+    
+  
+    
+    <?php
+    $i++;
+  }
+}
+  ?>
+  </select>
+      </div> 
+<?php
+}
+
+?>
+
+
+
+
+      
+
+
+    <!-- kebele list -->
+    <div class="form-group">
+      <label>Wereda: </label>
+      <select class="form-select" aria-label="Default select example" name="wereda"  id="inputGroupSelect01">
+        <option ><?php echo $houseRow['wereda'] ?></option>
+        <?php 
+           for($y=1;$y<=30;$y++){
+             if($y <= 9 ){
+               ?>
+               <option value="<?php echo '0'.$y ?>"><?php echo '0'.$y ?></option>
+               <?php
+             }else{
+              ?>
+              <option value="<?php echo $y ?>"><?php echo $y ?></option>
+              <?php
+             }
+
+          }
+        ?>
         
 
-             <div class="form-group">
-              <label for="exampleInputEmail1">Wereda :</label>
-              <input type="text" class="form-control" id="nameTitle" 
-              aria-describedby="emailHelp" name="wereda" placeholder="Company Name"
-              value="<?php echo $houseRow['wereda'] ?> "
-              >
-              
-            </div>
+      </select>
+      </div>
 
-            <div class="input-group mb-3">
         <div class="form-group">
           <label  for="inputGroupSelect01"> Owner Or Broker: </label>
-        </div>
-        <select class="custom-select" name="ownerBroker" id="inputGroupSelect01">
+        <select class="form-select" name="ownerBroker" id="inputGroupSelect01">
           <option selected value="<?php echo $houseRow['ownerBroker'] ?> " ><?php echo $houseRow['ownerBroker'] ?> </option>
           <option value="Owner">Owner</option>
           <option value="Broker">Broker</option>
@@ -1558,11 +1737,9 @@ if($houseRow['subCity'] != ' '){
         </div>
         
 
-            <div class="input-group mb-3">
         <div class="form-group">
           <label  for="inputGroupSelect01"> For Rent or Sell: </label>
-        </div>
-        <select class="custom-select" name="forRentOrSell" id="inputGroupSelect01">
+        <select class="form-select" name="forRentOrSell" id="inputGroupSelect01">
           <option selected><?php echo $houseRow['forRentOrSell'] ?> </option>
           <option value="For Rent">For Rent</option>
           <option value="For Sell">For Sell</option>
@@ -1594,11 +1771,9 @@ if($houseRow['subCity'] != ' '){
 
 
 
-        <div class="input-group mb-3">
         <div class="form-group">
           <label  for="inputGroupSelect01"> Fixed Or Negotiatable </label>
-        </div>
-        <select class="custom-select" name="fixidOrN" id="inputGroupSelect01">
+        <select class="form-select" name="fixidOrN" id="inputGroupSelect01">
           <option selected><?php echo $houseRow['fixedOrN'] ?> </option>
           <option value="Fixed">Fixed</option>
           <option value="Negotiatable">Negotiatable</option>
@@ -1699,7 +1874,7 @@ $('#sElc').on('change', function(){
  
         
 <div  class="input-group mb-3" >
-        <select  class="custom-select" name="type" id="sElc">
+        <select  class="form-select" name="type" id="sElc">
           <option><?php echo $elecRow['type'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -1786,11 +1961,9 @@ $('#sElc').on('change', function(){
         
         ?>
 </div>
-        <div class="input-group mb-3">
-    <div class="form-group">
+     <div class="form-group">
       <label  for="inputGroupSelect01"> Status Of Item: </label>
-    </div>
-    <select class="custom-select" name="status" id="inputGroupSelect01">
+     <select class="form-select" name="status" id="inputGroupSelect01">
       <option selected value="<?php echo $elecRow['status'] ?>"><?php echo $elecRow['status'] ?></option>
       <option   value="NEW"><?php echo $lang['new'] ?></option>
       <option value="MEDIUM"><?php echo $lang['Medium'] ?></option>
@@ -1816,7 +1989,7 @@ $('#sElc').on('change', function(){
 
  
     <div  class="input-group mb-3" >
-        <select  class="custom-select" name="address" id="">
+        <select  class="form-select" name="address" id="">
           <option><?php echo $elecRow['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -1925,14 +2098,11 @@ foreach($pp as $photo){
   value="<?php echo $cRow['title'] ?>">
 </div>
 
-<div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $cRow['address']; ?></div>      
-                <input id="dbad" name="address" hidden value="<?php echo $cRow['address']; ?>">   
-    </div>
+ 
 
 
     <div  class="input-group mb-3" >
-        <select  class="custom-select" name="address" id="">
+        <select  class="form-select" name="address" id="">
           <option><?php echo $cRow['address']; ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -2054,7 +2224,7 @@ foreach($pp as $photo){
 
 <div class="form-group">
    <label  for="inputGroupSelect01">Gender</label>
-<select class="custom-select" name="sex" id="inputGroupSelect01">
+<select class="form-select" name="sex" id="inputGroupSelect01">
   <option selected value="<?php echo $row['sex'] ?>" ><?php echo $row['sex'] ?></option>
   <option value="Male">Mele</option>
   <option value="Female">Female</option>
@@ -2070,7 +2240,7 @@ foreach($pp as $photo){
 
 <div class="form-group">
    <label   for="inputGroupSelect01">Range </label>
- <select class="custom-select" name="clientRange" id="inputGroupSelect01">
+ <select class="form-select" name="clientRange" id="inputGroupSelect01">
   <option value="<?php echo $row['clientRange'] ?>" ><?php echo $row['clientRange'] ?></option>
   <option value="1-8">1-8 Grade</option>
   <option value="9-12">9-10</option>
@@ -2083,7 +2253,7 @@ foreach($pp as $photo){
 
 <div class="form-group">
    <label for="inputGroupSelect01">Payment Status</label>
- <select class="custom-select" name="paymentStatus" id="inputGroupSelect01">
+ <select class="form-select" name="paymentStatus" id="inputGroupSelect01">
   <option selected value="<?php echo $row['paymentStatus'] ?>" ><?php echo $row['paymentStatus'] ?></option>
   <option value="Horly">Hourly</option>
   <option value="Dayly">Dayly</option>
@@ -2108,7 +2278,7 @@ foreach($pp as $photo){
  
 
     <div  class="input-group mb-3" >
-        <select  class="custom-select" name="address" id="">
+        <select  class="form-select" name="address" id="">
           <option><?php echo $row['address']; ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -2153,10 +2323,10 @@ foreach($pp as $photo){
 
 
 
-<input type="submit" onclick="x()" value="POST">
+<input type="submit" onclick="x()" value="Save Changes.">
 <div id="alertVacancy"></div>
 
-
+</form>
 
 
 <script>
@@ -2202,7 +2372,7 @@ foreach($pp as $photo){
             <?php
           }
            ?>
-</form>
+
 
 
       <?php
@@ -2226,7 +2396,7 @@ foreach($pp as $photo){
 
         <div class="form-group">
           <label for="inputGroupSelect01">Gender</label>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
+        <select class="form-select" name="sex" id="inputGroupSelect01">
           <option selected value="<?php echo $row['sex'] ?>" ><?php echo $row['sex'] ?></option>
           <option value="Male">Mele</option>
           <option value="Female">Female</option>
@@ -2245,7 +2415,7 @@ foreach($pp as $photo){
           aria-describedby="emailHelp" name="field" placeholder="Full Name" value="<?php echo $row['field'] ?>" >
         </div>
         <div  class="input-group mb-3" >
-        <select  class="custom-select" name="address" id="">
+        <select  class="form-select" name="address" id="">
           <option><?php echo $row['address']; ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -2278,7 +2448,7 @@ foreach($pp as $photo){
 
         <div class="form-group">
           <label   for="inputGroupSelect01">Work Type</label>
-        <select class="custom-select" name="workType" id="inputGroupSelect01">
+        <select class="form-select" name="workType" id="inputGroupSelect01">
           <option selected  > <?php echo $row['type'] ?></option>
           <option value="Half Day">Half Day</option>
           <option value="Full Day">Full Day</option>
@@ -2411,7 +2581,7 @@ if(isset($_GET['type'])){
 
         <div class="form-group">
           <label for="inputGroupSelect01">Gender</label>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
+        <select class="form-select" name="sex" id="inputGroupSelect01">
           <option selected value="<?php echo $row['sex'] ?>" ><?php echo $row['sex'] ?></option>
           <option value="Male">Mele</option>
           <option value="Female">Female</option>
@@ -2431,7 +2601,7 @@ if(isset($_GET['type'])){
         </div>
 
         <div  class="input-group mb-3" >
-        <select  class="custom-select" name="address" id="">
+        <select  class="form-select" name="address" id="">
           <option><?php echo $row['address']; ?></option>
           <?php 
               require_once '../php/fetchApi.php';
@@ -2464,8 +2634,8 @@ if(isset($_GET['type'])){
 
         <div class="form-group">
           <label  for="inputGroupSelect01">Work Type</label>
-        <select class="custom-select" name="workType" id="inputGroupSelect01">
-          <option selected ><?php echo $row['workType'] ?></option>
+        <select class="form-select" name="workType" id="inputGroupSelect01">
+          <option selected ><?php echo $row['type'] ?></option>
           <option value="Half Day">Half Day</option>
           <option value="Full Day">Full Day</option>
           <option value="Monthly">Monthly</option>
@@ -2521,6 +2691,8 @@ if(isset($_GET['type'])){
         </div><br>
 
         <input class="btn btn-dark" type="submit" onclick="x()" value="Save Changes">
+        <div id="alertVacancy"></div>
+
           </form>
 
         
@@ -2568,7 +2740,6 @@ if(isset($_GET['type'])){
           }
            ?>
 
-<div id="alertVacancy"></div>
 
              </form>
     <?php
@@ -2591,11 +2762,9 @@ if(isset($_GET['type'])){
           
           </div>
 
-          <div class="input-group mb-3">
         <div class="form-group">
           <label  for="inputGroupSelect01">Gender</label>
-        </div>
-        <select class="custom-select" name="sex" id="inputGroupSelect01">
+        <select class="form-select" name="sex" id="inputGroupSelect01">
           <option selected value="<?php echo $row['sex'] ?>" ><?php echo $row['sex'] ?></option>
           <option value="Male">Mele</option>
           <option value="Female">Female</option>
@@ -2608,17 +2777,43 @@ if(isset($_GET['type'])){
           aria-describedby="emailHelp" name="age" placeholder="Full Name" value="<?php echo $row['age'] ?>">
           
         </div>
+        <div  class="form-group" >
+        <label for="exampleInputEmail1">City:</label>
 
-        <div class="input-group mb-3">
-                <div class="form-select" id="ADD" ><?php echo $row['address'] ?></div>      
-                <input id="dbad" name="address" hidden value="<?php echo $row['address'] ?>">   
+        <select  class="form-select" aria-label="Default select example" name="address" id="">
+          <option><?php echo $lang['city'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
         </div>
 
-        <div class="input-group mb-3">
-        <div class="form-group">
-          <label  for="inputGroupSelect01">Work Status</label>
-        </div>
-        <select class="custom-select" name="workStat" id="inputGroupSelect01">
+         <div class="form-group">
+          <label  for="inputGroupSelect01"><?php echo $lang['workHour'] ?></label>
+         <select class="form-select" name="workStat" id="inputGroupSelect01">
           <option selected value="<?php echo $row['workStat'] ?>" ><?php echo $row['workStat'] ?></option>
           <option value="Company">Company</option>
           <option value="Full Day">Private</option>
@@ -2636,8 +2831,67 @@ if(isset($_GET['type'])){
           
         </div>
 
-        <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['Experience'] ?></label>
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="experience" placeholder="<?php echo $lang['Experience'] ?>"> <?php echo $row['experience'] ?></textarea>
+         </div>
+
+
+         <div class="input-group mb-3">
+         <label for="exampleInputEmail1"><?php echo $lang['workHour'] ?></label>
+          <select class="form-select" aria-label="Default select example" name="workType" id="inputGroupSelect01">
+            <option selected><?php echo $row['workHour'] ?></option>
+            <option value="Half Day"><?php echo $lang['halfDay'] ?></option>
+            <option value="Full Day"><?php echo $lang['fullDay'] ?></option>
+            <option value="Monthly"><?php echo $lang['Monthly'] ?></option>
+
+          </select>
+ </div>
+
+ <div class="form-group">
+           <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="price" placeholder="<?php echo $lang['Salary'] ?>" value="<?php echo $row['salary'] ?>" >
+         </div>
+
+
+         <h6><?php echo $lang['bidingPersonQ'] ?></h6>
+
+
+         <div class="form-group">
+          <select class="form-select" name="bidp" id="inputGroupSelect01">
+          <option selected value="<?php echo $row['bid'] ?>" ><?php echo $row['workStat'] ?></option>
+          <option value="YES"><?php echo $lang['yes'] ?></option>
+          <option value="NO"><?php echo $lang['no'] ?></option>
+        </select>
+        </div>
+
+
+        <h6><?php echo $lang['weaponQ'] ?></h6>
+
+        <div class="form-group">
+          <select class="form-select" name="legalWp" id="inputGroupSelect01">
+          <option selected  ><?php echo $row['weapon'] ?></option>
+          <option value="YES"><?php echo $lang['yes'] ?></option>
+          <option value="NO"><?php echo $lang['no'] ?></option>
+        </select>
+        </div>
+
+
+        <div class="form-group">
+        <h6 style="color: coral;" > <?php echo $lang['agentInfoQ'] ?></h6>
+
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="agentInfo" placeholder="<?php echo $lang['agentInfo'] ?>" value="<?php echo $row['agentInfo'] ?> " ></textarea>
+        </div>
+
+
+ 
+
+        <input class="btn btn-dark" type="submit" onclick="x()" value="Save Changes!">
         </form>
+        <div id="alertVacancy"></div>
+
         
         <script>
 // photo updater and deleter

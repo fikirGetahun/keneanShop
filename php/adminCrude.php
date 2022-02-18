@@ -722,6 +722,7 @@ echo $mysql->error;
             `core`= '$core',`edited`= '$edited', `phone` = '$phone' WHERE `electronics`.`id` = '$pid'";
 
             $ask = $mysql->query($q);
+            return $ask;
 
         }
 
@@ -1524,13 +1525,15 @@ return $ask;
 
 
         //zebegna update
-        function zebegnaPostUpdate($name, $sex, $age, $address, $phone, $workStat, $postId){
+        function zebegnaPostUpdate($name, $sex, $age, $address, $phone, $workStat, $postId,  $exp, $workType, $bidp, $legalWp, $agentInfo){
             include "connect.php";
             $q = "UPDATE `zebegna` SET  `name`='$name', `sex`='$sex', `age`='$age', `address`='$address',
-             `phone`='$phone', `workStat`='$workStat', `edited`= 'EDITED' WHERE `zebegna`.`id` = '$postId'";
+             `phone`='$phone', `workStat`='$workStat', `edited`= 'EDITED'
+             ,`experience` = '$exp' ,`workHour` = '$workType',`bid` = '$bidp',`weapon` = '$legalWp',`agentInfo` = '$agentInfo'
+              WHERE `zebegna`.`id` = '$postId'";
 
             $ask = $mysql->query($q);
-
+            
             return $ask;
         } 
 

@@ -102,31 +102,18 @@ if(isset($_POST['titleElc'],
         $ram = $_POST['ram'];
     }
 
-    if(isset($_FILES['elc1'])){
-        $fName1 = $_FILES['elc1']['name'];
-        $tmpName1 = $_FILES['elc1']['tmp_name'];
-        $adPhotoE = $admin->electronicsPhotoChange('photoPath1', $fName1, $tmpName1, $posterId);
-      }
 
-      if(isset($_FILES['elc2'])){
-        $fName2 = $_FILES['elc2']['name'];
-        $tmpName2 = $_FILES['elc2']['tmp_name'];
-        $adPhotoE = $admin->electronicsPhotoChange('photoPath2', $fName2, $tmpName2, $posterId);
-
-      }
-
-      if(isset($_FILES['elc3'])){
-        $fName3 = $_FILES['elc3']['name'];
-        $tmpName3 = $_FILES['elc3']['tmp_name'];
-        $adPhotoE = $admin->electronicsPhotoChange('photoPath3', $fName3, $tmpName3, $posterId);
-
-      }
     
 
 
     $out = $admin->updateElectronicsPost($type, $status, $title, $address, $price,
     $info, $ram, $processor, $size, $storage, $core, $posterId, $phone);
 
+    if($out){
+      echo 'Saved Changes!';
+    }else{
+      echo 'Error';
+    }
 
 }
 //vacancy edit handler
@@ -279,25 +266,6 @@ if(isset(
         $whyRent = $_POST['whyRent'];
       }
 
-      if(isset($_FILES['x1'])){
-        $fName1 = $_FILES['x1']['name'];
-        $tmpName1 = $_FILES['x1']['tmp_name'];
-        $adPhotoE = $admin->carPhotoChange('photoPath1', $fName1, $tmpName1, $postId);
-      }
-
-      if(isset($_FILES['x2'])){
-        $fName2 = $_FILES['x2']['name'];
-        $tmpName2 = $_FILES['x2']['tmp_name'];
-        $adPhotoE = $admin->carPhotoChange('photoPath2', $fName2, $tmpName2, $postId);
-
-      }
-
-      if(isset($_FILES['x3'])){
-        $fName3 = $_FILES['x3']['name'];
-        $tmpName3 = $_FILES['x3']['tmp_name'];
-        $adPhotoE = $admin->carPhotoChange('photoPath3', $fName3, $tmpName3, $postId);
-
-      }      
 
 
 
@@ -319,19 +287,18 @@ if(isset(
         if(isset(
           $_POST['houseOrLand'], $_POST['city'],$_POST['subCity'], $_POST['wereda'],
            $_POST['forRentOrSell'], $_POST['area'], $_POST['cost'], $_POST['fixidOrN'], 
-           $_POST['info'],$_POST['pid'], $_POST['title'], $_POST['ownerBroker']
+           $_POST['info'],$_POST['pid'], $_POST['title'], $_POST['ownerBroker'],$_POST['type']
         )){
           // echo 'inn house';
 
           // these variables will not be set if user choose house so initial value will be empty
           $bedRoomNo = ' ';
           $bathRoomNo = ' ';
-          $type = " ";
+          $type = $_POST['type'];
           $spArea = " ";
           if(isset(
             $_POST['bedRoomNo'],
             $_POST['bathRoomNo'],
-            $_POST['type'],
             $_POST['spArea']
           )){
             $bedRoomNo = $_POST['bedRoomNo'];
@@ -351,26 +318,6 @@ if(isset(
           $info=$_POST['info'];
           $postId = $_POST['pid'];
           $ob = $_POST['ownerBroker'];
-
-          if(isset($_FILES['xy1'])){
-            $fName1 = $_FILES['xy1']['name'];
-            $tmpName1 = $_FILES['xy1']['tmp_name'];
-            $adPhotoE = $admin->housePhotoChange('photoPath1', $fName1, $tmpName1, $postId);
-          }
-    
-          if(isset($_FILES['xy2'])){
-            $fName2 = $_FILES['xy2']['name'];
-            $tmpName2 = $_FILES['xy2']['tmp_name'];
-            $adPhotoE = $admin->housePhotoChange('photoPath2', $fName2, $tmpName2, $postId);
-    
-          }
-    
-          if(isset($_FILES['xy3'])){
-            $fName3 = $_FILES['xy3']['name'];
-            $tmpName3 = $_FILES['xy3']['tmp_name'];
-            $adPhotoE = $admin->housePhotoChange('photoPath3', $fName3, $tmpName3, $postId);
-    
-          }      
 
 
     
@@ -587,6 +534,12 @@ $phone = $_POST['phone'];
 $out = $admin->homeTutoreUpdate($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
 $phone, $cinfo, $info);
 
+if($out){
+  echo 'Saved Changes!';
+}
+else{
+  echo 'error';
+}
 
 
 }
@@ -637,7 +590,7 @@ echo 'inhottellz';
 //zebegna edit handler api
 if(isset(
   $_POST['name'], $_POST['sex'], $_POST['age'],
-   $_POST['address'], $_POST['workStat'], $_POST['phone'], $_POST['postId']
+   $_POST['address'], $_POST['workStat'], $_POST['phone'], $_POST['postId'], $_POST['experience'], $_POST['workType'], $_POST['price'], $_POST['bidp'], $_POST['legalWp'], $_POST['agentInfo'] 
 )){
 
   $name =$_POST['name'];
@@ -654,9 +607,9 @@ if(isset(
   $agentInfo = $_POST['agentInfo'];
   
 
-    $out = $admin->zebegnaPostUpdate($name, $sex, $age, $address, $phone, $workStat, $pid);
+    $out = $admin->zebegnaPostUpdate($name, $sex, $age, $address, $phone, $workStat, $pid, $exp, $workType, $bidp, $legalWp, $agentInfo   );
     if($out){
-      echo 'Post Success';
+      echo 'Saved Changes!';
     }else{
       echo 'Error on posting';
     }
