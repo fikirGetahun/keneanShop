@@ -511,6 +511,11 @@ if(!isset($_SESSION)){
               <i class="bi bi-circle"></i><span>Members List</span>
             </a>
           </li>
+          <li>
+            <a  id=" " href="./membersList.php?pending=true"  >
+              <i class="bi bi-circle"></i><span>Pending Members Lists</span>
+            </a>
+          </li>
 
         </ul>
       </li><!-- End Forms Nav -->

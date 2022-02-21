@@ -49,10 +49,14 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
 }
 ?>
 
+<?php
 
+if(isset($_GET['list']) || isset($_GET['pending'])){
+?>
 
+<div class="row" >
 
-<div class="input-group mb-3 col-3">
+<div class="col-3">
 <?php 
               require_once '../php/fetchApi.php';
                 $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
@@ -93,7 +97,7 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
       
       <!-- <label onclick="reload('<?php echo $loc;  ?>')" ><?php echo $loc ?><option value="<?php echo  $_SERVER['REQUEST_URI']?>&loc=<?php echo $loc?>" > <?php echo $loc ?></option></label> -->
     
-      <option value="<?php echo $urlll['path'].'?'.$string?>&loc=<?php echo $loc?>" > <?php echo $loc ?></option>
+      <option value="<?php echo '?'.$string?>&loc=<?php echo $loc?>" > <?php echo $loc ?></option>
       <!-- <option value="<?php echo $loc ?>" > <?php echo $loc ?></option> -->
 
       <?php
@@ -105,14 +109,21 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
 </div>
 
 
-<div id="subHx"   class="input-group mb-3" >
+<div id="subHx"   class="col-3"  >
         <?php
       require_once '../php/fetchApi.php';
+      $suburl = parse_url($_SERVER['REQUEST_URI']);
+      $setSub = parse_str($suburl['query'], $sub);
+
+      unset($sub['sub']); // to unset the existing subcity get request in the url. so that when another subcity is selected the old one will be removed
+
+      $subC = http_build_query($sub);
+
   $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $_SESSION['location']);
   $city = array();
   if($locc->num_rows != 0){
     ?>
-              <select  class="form-select" aria-label="Default select example" name="subcity" >
+              <select  class="form-select" aria-label="Default select example" onchange="location=this.value;"  name="subcity" >
         <option><?php echo $lang['subCity'] ?></option>
     <?php
   while($rowLoc = $locc->fetch_assoc()){
@@ -127,7 +138,7 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
       <?php
     }else{
       ?>
-       <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+       <option value="<?php echo '?'.$subC ?>&sub=<?php echo $loc ?>" ><?php echo $loc ?></option>
       <?php
     }
     ?>
@@ -137,26 +148,87 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
     <?php
     $i++;
   }
+  ?> </select>
+    </div><?php
 }else{
   ?>
-  <option>No Sub City here!</option>
+  
+  No Sub City here!
+</div>
   <?php
 }
   ?>
-  </select>
-      </div>
- <?php
+ 
+          <!-- kebele list -->
+          <div class="form-group col-3">
+            <?php
+            $weredaurl = parse_url($_SERVER['REQUEST_URI']);
+            $WU = parse_str($weredaurl['query'], $wer);
 
+            unset($wer['wereda']);
+            $wer = http_build_query($wer);
+            ?>
+        <select class="form-select" aria-label="Default select example" name="wereda" onchange="location=this.value;"  id="inputGroupSelect01">
+          <option ><?php echo $lang['Wereda'] ?></option>
+          <?php 
+             for($y=1;$y<=30;$y++){
+               if($y <= 9 ){
+                 ?>
+                 <option value="<?php echo '?'.$wer  ?>&wereda=<?php echo $y ?>"><?php echo '0'.$y ?></option>
+                 <?php
+               }else{
+                ?>
+                <option value="<?php echo '?'.$wer  ?>&wereda=<?php echo $y ?>"><?php echo $y ?></option>
+                <?php
+               }
+
+            }
+          ?>
+          
+
+        </select>
+        </div>
+
+
+</div>
+ <?php
+}
     if(isset($_GET['list'])){
 
+      $filterArr = array(); // this array holds the location, subcity, and wereda in a single arry when they are set. so that we implode it to string and pass it to the scroll view so that it loads the appropretelly filtered data
+
+      // echo $_SESSION['location'];
         if(isset($_GET['loc'])){
-          $member = $get->allPostListerOnColumenD('mambership', 'city', $_SESSION['location'] , 1 , 2);
+          $filterArr[0] = $_GET['loc'];
+          if(isset($_GET['sub'], $_GET['wereda'])){
+            $filterArr[1] = $_GET['sub'];
+            $filterArr[2] = $_GET['wereda'];
+            $we = $_GET['wereda'];
+            $su = $_GET['sub'];
+            $member = $get->allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su ,0 , 2);
+          }elseif(isset($_GET['sub'])){
+            $filterArr[1] = $_GET['sub'];
+            $subReq = $_GET['sub'];
+            $member = $get->allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq ,1 , 2);
+          }elseif($_GET['loc'] == 'All'){ // IF THE location is seted to 'ALL'
+            $filterArr[0] = 'All';
+            $member = $get->allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
+          }
+          else{
+            // $filterArr[0] = 'All';
+            $member = $get->allPostListerOn2ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES' ,0 , 2);
+          }
+        }else{
+          $filterArr[0] = 'All';
+          $member = $get->allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
         }
-        $member = $get->allPostListerOnTableD('mambership', 1 , 2);
+        $filter = implode($filterArr); // implode the arry values to string so that we pass it through a single parameter in the ajax script bellow
+        // $member = $get->allPostListerOnTableD('mambership', 1 , 2);
 
         ?>
                 <script>
           function scr(){
+            // alert('<?php echo $filter ?>')
             $.ajax({
               url: 'editHandler.php',
               type: 'GET',
@@ -169,7 +241,8 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
                 forward : '<?php  echo $forward ?>',
                 tb: '<?php echo $tbb ?>',
                 post : '<?php echo $pos ?>',
-                client : '<?php echo $client ?>'
+                client : '<?php echo $client ?>',
+                filter:  '<?php echo $filter ?>'
               },  
               success: function(dtc){
                 $('#mb').append(dtc)
@@ -183,6 +256,7 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
         <div id="mb" class="row">
 
         <?php
+        if($member[0]->num_rows != 0){
         while( $row = $member[0]->fetch_assoc()){
 
             ?>
@@ -226,6 +300,9 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
           </div>
           <button onclick="scr()">View More</button>
           <?php
+        }else{
+          echo 'No Result Found!';
+        }
         }
 
 /// this block is to view the members info
@@ -237,9 +314,9 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
           <div class="container">
           <div class="card w-25 float-left ">
         <?php
-        if($row['photoPath1'] != ' '){
+        if($row['photoPath1'] == null){
           ?>
-          <img class="img-thumbnail" src="assets/img/zumra.png)" class="card-img-top" alt="...">
+          <img class="img-thumbnail" src="assets/img/zumra.png" class="card-img-top" >
           <?php
                       if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
                         $tbb = $_GET['tb'];
@@ -263,13 +340,22 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
                         <a href="../Account.php?message=true&inner=true&tb=<?php echo $tbb ?>&reciver=<?php echo $row['userId'] ?>&post=<?php echo $pos ?>&forwarded=true&client=<?php echo $client ?>" > Send Link</a> 
                         <?php
                       }
+
+                      /// to accept or decline a member button when the 'pendingx' parameter is set that means the view page is requested from the pending page
+                      if(isset($_GET['pendingx'])){
+                        ?>
+                        <button class="btn btn-success" > Accept</button>
+                        <button class="btn btn-danger" > Decline </button>
+                        <?php
+                      }
+
                     ?>
 
           <?php
         }
         ?>
     
-      </div>
+      </div> <br>
 
       <h5 >Name : <?php echo $row['name']?></h5><br>
     <h5> Location <?php echo $row['city'] ?>  </h5><br>
@@ -286,6 +372,125 @@ if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
           </div>
           
           <?php
+        }
+
+  ////////////////////////////////////--------------------------------////////////////////
+
+        /// pending membership list
+        if(isset($_GET['pending'])){
+          $filterArr = array(); // this array holds the location, subcity, and wereda in a single arry when they are set. so that we implode it to string and pass it to the scroll view so that it loads the appropretelly filtered data
+
+          // echo $_SESSION['location'];
+            if(isset($_GET['loc'])){
+              $filterArr[0] = $_GET['loc'];
+              if(isset($_GET['sub'], $_GET['wereda'])){
+                $filterArr[1] = $_GET['sub'];
+                $filterArr[2] = $_GET['wereda'];
+                $we = $_GET['wereda'];
+                $su = $_GET['sub'];
+                $member = $get->allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null, 'wereda', $we, 'subCity', $su ,0 , 2);
+              }elseif(isset($_GET['sub'])){
+                $filterArr[1] = $_GET['sub'];
+                $subReq = $_GET['sub'];
+                $member = $get->allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq ,1 , 2);
+              }elseif($_GET['loc'] == 'All'){ // IF THE location is seted to 'ALL'
+                $filterArr[0] = 'All';
+                $member = $get->allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
+              }
+              else{
+                // $filterArr[0] = 'All';
+                $member = $get->allPostListerOn2ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null ,0 , 2);
+              }
+            }else{
+              $filterArr[0] = 'All';
+              $member = $get->allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
+            }
+            $filter = implode($filterArr); // implode the arry values to string so that we pass it through a single parameter in the ajax script bellow
+            // $member = $get->allPostListerOnTableD('mambership', 1 , 2);
+    
+            ?>
+                    <script>
+              function scrx(){
+                // alert('<?php echo $filter ?>')
+                $.ajax({
+                  url: 'editHandler.php',
+                  type: 'GET',
+                  data : {cSession : 's'},
+                  success: function(dt){
+                    $.ajax({
+                  url: 'memberScroll.php',
+                  type: 'get',
+                  data : {
+                    forward : '<?php  echo $forward ?>',
+                    tb: '<?php echo $tbb ?>',
+                    post : '<?php echo $pos ?>',
+                    client : '<?php echo $client ?>',
+                    filter:  '<?php echo $filter ?>',
+                    // this is a flag to show the page is in a pending membership page
+                    pending : 'true'  
+
+                  },  
+                  success: function(dtc){
+                    $('#mb').append(dtc)
+                  }
+                })
+                    
+                  }
+                })
+              }
+            </script>
+            <div id="mb" class="row">
+    
+            <?php
+            if($member[0]->num_rows != 0){
+            while( $row = $member[0]->fetch_assoc()){
+    
+                ?>
+                <div id="adVieww" class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">      
+                  <div class="card-body">
+                    <p class="card-text"><?php echo $row['name'] ?></p>
+                    <!-- <p class="card-text"><?php echo $row['price'] ?> Birr</p> -->
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+    
+                        <?php
+                          if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
+                            $tbb = $_GET['tb'];
+                            $pos = $_GET['post'];
+                            $client = $_GET['client'];
+                            ?>
+                            <a href="./membersList.php?view=true&mid=<?php echo $row['id'] ?>&tb=<?php echo $tbb ?>&post=<?php echo $pos ?>&forward=true&client=<?php echo $client ?>"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+                            
+                            <a href="../Account.php?message=true&inner=true&tb=<?php echo $tbb ?>&reciver=<?php echo $row['userId'] ?>&post=<?php echo $pos ?>&forwarded=true&client=<?php echo $client ?>" > Send Link</a> 
+                            <?php
+                          }else{
+                            ?>
+                            <a href="./membersList.php?view=true&mid=<?php echo $row['id'] ?>&pendingx=true"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+                            <?php
+                          }
+
+                          
+                        ?>
+                      </div>
+                      <!-- <small class="text-muted">9 mins</small> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+                  <?php
+             
+              }
+              ?>
+             
+              </div>
+              <button onclick="scrx()">View More Pending</button>
+              <?php
+            }else{
+              echo 'No Result Found!';
+            }
         }
     
     ?>
