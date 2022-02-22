@@ -62,9 +62,9 @@ $urow = $user->fetch_assoc();
 <div>
       <div class="card w-25 float-left ">
         <?php
-        if($urow['photoPath1'] != 'FILE_NOT_UPLOADED'){
+        if($urow['photoPath1'] == 'FILE_NOT_UPLOADED'){
           ?>
-          <img class="img-thumbnail" src="assets/img/zumra.png)" class="card-img-top" alt="...">
+          <img class="img-thumbnail" src="assets/img/zumra.png" class="card-img-top" alt="...">
           <?php
         }else{
           ?>

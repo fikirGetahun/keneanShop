@@ -119,7 +119,7 @@ function hCityz(x){
   $city = array();
   if($locc->num_rows != 0){
     ?>
-              <select  class="form-select" aria-label="Default select example" name="subcity" >
+              <select  class="form-select" aria-label="Default select example" name="subCity" >
         <option><?php echo $lang['subCity'] ?></option>
     <?php
   while($rowLoc = $locc->fetch_assoc()){
@@ -340,8 +340,8 @@ function hCityz(x){
           $userId = $_SESSION['userId'];
 
           $subcity = ' ';
-          if(isset($_GET['subcity'])){
-            $subcity = $_GET['subcity'];
+          if(isset($_GET['subCity'])){
+            $subcity = $_GET['subCity'];
           }
 
           $up = $admin->uploadSinglePhoto('mambership', $photoPath1);
@@ -349,7 +349,7 @@ function hCityz(x){
             echo 'error file';
             print_r($up);
           }else{
-            $mem = $get->member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $up[0], $broker_before, $business_license, $commission, $question, $userId);
+            $mem = $get->member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $up[0], $broker_before, $business_license, $commission, $question, $userId, $subcity);
             if($mem){
               echo 'Registerd ';
             }else{

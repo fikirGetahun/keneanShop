@@ -2,6 +2,7 @@
 
 require_once "../php/adminCrude.php";
 require_once "../php/fetchApi.php";
+require_once "../php/auth.php";
 
 ob_start();
 if(!isset($_SESSION)){
@@ -639,5 +640,18 @@ if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_POST['postI
 }
 
 // echo 'in api is';
+
+
+//// to accept and decline members in to the website
+if(isset($_GET['accOrdec'], $_GET['pid'])){
+  $accOrDec = $_GET['accOrdec'];
+  $p = $_GET['pid'];
+  if($accOrDec == 'accept'){
+    $ass = $get->updateOnColomen('mambership', 'approved', 'YES', $p);
+    // echo $ass;
+  }elseif($accOrDec == 'del' ){
+    $dell = $auth->postDeleter('mambership', $p );
+  }
+}
 
 ?>

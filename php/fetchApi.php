@@ -538,21 +538,30 @@ class fetch{
 
 
             /// membership register
-            function member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $photoPath1, $broker_before, $business_license, $commission_type, $question, $userId ){
+            function member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $photoPath1, $broker_before, $business_license, $commission_type, $question, $userId, $subcity ){
                 include "connect.php";
               
 
-                $q = "INSERT INTO `mambership`( `name`, `city`, `wereda`, `phone1`, `phone2`, `what_does_initiate`, `do_you_have_other_job`, `photoPath1`, `broker_before`, `business_license`, `commission_type`, `question`,  `userId`) VALUES ( '$name', '$city', '$wereda', '$phone1', '$phone2', '$what_does_initiate', '$do_you_have_other_job', '$photoPath1', '$broker_before', '$business_license', '$commission_type', '$question', '$userId ' )";
+                $q = "INSERT INTO `mambership`( `name`, `city`, `subcity`, `wereda`, `phone1`, `phone2`, `what_does_initiate`, `do_you_have_other_job`, `photoPath1`, `broker_before`, `business_license`, `commission_type`, `question`,  `userId`) VALUES ( '$name', '$city', '$subcity' ,'$wereda', '$phone1', '$phone2', '$what_does_initiate', '$do_you_have_other_job', '$photoPath1', '$broker_before', '$business_license', '$commission_type', '$question', '$userId ' )";
 
             
 
 
                 $ask = $mysql->query($q);
 
+
                 return $ask;
             }
 
-            
+            /// update the members status from not acepted to accepted
+            function updateOnColomen($table, $colomn1, $arg1, $pid ){
+                include 'connect.php';
+                $q = "UPDATE `$table` SET `$colomn1` = '$arg1' WHERE `id` = '$pid'";
+                $ask = $mysql->query($q);
+
+                echo $mysql->error;
+                return $ask;
+            }
 
 
 

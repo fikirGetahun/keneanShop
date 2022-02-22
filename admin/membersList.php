@@ -330,6 +330,42 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
           <?php
         }else{
           ?>
+
+    // a script tag to handle the accept and decline of members
+    <script>
+      function accDecl(choice){
+        if(choice == 'del'){
+          if(confirm('Are you sure you want to delete this user?') == true){
+            $.ajax({
+          url: 'editHandler.php',
+          type: 'get',
+          data: {
+            accOrdec : choice,
+            pid : '<?php echo $row['id'] ?>'
+          },
+          success: function(){
+            location = 'http://localhost/shop2/admin/membersList.php?pending=true'
+          }
+        })
+          }
+        }else{
+          $.ajax({
+          url: 'editHandler.php',
+          type: 'get',
+          data: {
+            accOrdec : choice,
+            pid : '<?php echo $row['id'] ?>'
+          },
+          success: function(x){
+            location = 'http://localhost/shop2/admin/membersList.php?pending=true'
+          }
+        })
+        }
+
+      }
+    </script>
+
+
                 <img class="img-thumbnail" src="<?php echo '../'.$row['photoPath1']?>" class="card-img-top" alt="...">
                 <?php
                       if(isset($_GET['forward'], $_GET['tb'], $_GET['post'], $_GET['client'])){
@@ -344,8 +380,8 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
                       /// to accept or decline a member button when the 'pendingx' parameter is set that means the view page is requested from the pending page
                       if(isset($_GET['pendingx'])){
                         ?>
-                        <button class="btn btn-success" > Accept</button>
-                        <button class="btn btn-danger" > Decline </button>
+                        <button class="btn btn-success" onclick="accDecl('accept')" > Accept</button>
+                        <button class="btn btn-danger"  onclick="accDecl('del')" > Decline </button>
                         <?php
                       }
 
