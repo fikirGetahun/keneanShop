@@ -104,7 +104,10 @@ class auth{
             $file = $row['photoPath1'];
             $singl = explode(',',$file);
             foreach($singl as $s){
-                unlink('.'.$s);
+                if($s){
+                    unlink('.'.$s);
+                }
+                
             }
             
         }

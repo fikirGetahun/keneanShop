@@ -8,6 +8,8 @@
 include "../includes/header.php";
   require_once "../php/adminCrude.php";
 
+  $_SESSION['mbScroll'] = 0; // this automaticaly sets the page session to 0 so that when the page is loaded again, it doesnt resume previous page number
+
   $url = $_SERVER['REQUEST_URI'];
 ob_start();
 if(!isset($_SESSION)){

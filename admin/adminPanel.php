@@ -55,7 +55,7 @@
 
 
                 <div class="card-body">
-                  <h5 class="card-title">Admins <span>| Today</span></h5>
+                  <h5 class="card-title"><a href="./allUserView.php?admin=true"> Admins <span>| Today</a></span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Normal Users <span>| Today</span></h5>
+                  <h5 class="card-title"><a href="./allUserView.php?user=true"> Normal Users <span>| Today</a></span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -101,7 +101,7 @@
 
 
                 <div class="card-body">
-                  <h5 class="card-title">Editors <span>| Today</span></h5>
+                  <h5 class="card-title"> <a href="./allUserView.php?editor=true"> Editors <span>| Today</a></span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">

@@ -43,6 +43,21 @@ $urow = $user->fetch_assoc();
           }
         }
 
+        function delUser(pid){
+          
+          if(confirm("Are You Sure You Want to Delete This User?") == true){
+            $.ajax({
+              url: 'editHandler.php',
+              type: 'POST',
+              data: {delete: true, table: 'user' , postId: pid},
+              success: function(data){
+                alert(data)
+                location.reload()
+              }
+            })
+          }
+        }
+
 
     function ban(id, ban){
         if(confirm("Are You Sure You Want to BAN user?") == true){
@@ -64,11 +79,11 @@ $urow = $user->fetch_assoc();
         <?php
         if($urow['photoPath1'] == 'FILE_NOT_UPLOADED'){
           ?>
-          <img class="img-thumbnail" src="assets/img/zumra.png" class="card-img-top" alt="...">
+          <img class="img-thumbnail" src="assets/img/zumra.png" class="card-img-top">
           <?php
         }else{
           ?>
-                <img class="img-thumbnail" src="<?php echo '../'.$urow['photoPath1']?>" class="card-img-top" alt="...">
+                <img class="img-thumbnail" src="<?php echo '../'.$urow['photoPath1']?>" class="card-img-top"  >
 
           <?php
         }
@@ -91,6 +106,7 @@ $urow = $user->fetch_assoc();
     } 
     ?>
     
+    <button  class="btn btn-danger" onclick="delUser('<?php echo $urow['id']  ?>')"  >Delete User</button>
         
 </div>
 <h2> User Posts</h2>

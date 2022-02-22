@@ -16,6 +16,12 @@ if(isset($_GET['cSession'])){
 }
 
 
+/// to update the current page of allusers
+if(isset($_GET['allUser'])){
+  $_SESSION['allUser'] =   $_SESSION['allUser'] + 10;
+}
+
+
 ////////live post counter
 if(isset($_POST['count'], $_POST['table'])){
   $table = $_POST['table'];

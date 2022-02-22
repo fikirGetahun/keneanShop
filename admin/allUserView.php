@@ -2,6 +2,8 @@
   
     require_once "../php/auth.php";
 require_once "../php/adminCrude.php";
+require "../php/fetchApi.php";
+
 include "../includes/adminSide.php";
 if(isset($_POST['id'])){
   $uid = $_POST['id'];
@@ -10,6 +12,8 @@ if(isset($_POST['id'])){
 $dbTables = array('ad', 'car', 'charity', 'electronics',
 'housesell', 'tender', 'vacancy', 'blog');
 
+
+$_SESSION['allUser'] = 0; // this automaticaly sets the page session to 0 so that when the page is loaded again, it doesnt resume previous page number
 
 
 ?>
@@ -105,34 +109,9 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 
   </script> -->
 </head> -->
-<script src="assets/jquery.js" type="text/javascript"></script>
+<!-- <script src="assets/jquery.js" type="text/javascript"></script> -->
 
 <script>
-        function allView(id, tb){
-          alert('sdfsdf')
-          $('#allin').load('admin/discriptionPage.php?', {type: tb,pid: id})
-
-        }
-
-        function allEdit(id,tb){
-          alert('sdfsdf')
-          $('#allin').load('admin/editPost.php?'+$.param({type: tb, pid: id})) 
-
-        }
-
-        function del(pid, table){
-          
-          if(confirm("Are You Sure You Want to Delete This Post?") == true){
-            $.ajax({
-              url: 'admin/editHandler.php',
-              type: 'POST',
-              data: {delete: true, table: table, postId: pid},
-              success: function(data){
-                alert(data)
-              }
-            })
-          }
-        }
 
         
       </script>
@@ -142,80 +121,97 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 <div id="postBox">
 
 <main id="main" class="main">
-<div class="row">
-<?php
 
+<h5>Zumra360 </h5>
 
-foreach($dbTables as $posts){  
-    $oneTablePostList = $auth->userPostsLister($uid, $posts);
-    
-    ?>
-
-<?php echo $posts ?>
-
-      <?php
-      while($row = $oneTablePostList->fetch_assoc()){  
-  
-        ?>
-      
-      <!-- <h2></h2> -->
-          <div  class="col-4">
-              <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="Card">
-                <div class="card-body">
-                  <p class="card-text"><?php echo $row['title'] ?></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a href="#viewDiscription" onclick="allView('<?php echo $row['id'] ?>', '<?php echo $posts ?>')"  ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
-                      <button type="button" onclick="allEdit('<?php echo $row['id'] ?>', '<?php echo $posts ?>')" class="btn btn-sm btn-outline-secondary">Edit</button>
-                      <button type="button" onclick="del('<?php echo $row['id'] ?>', '<?php echo $posts ?>')" class="btn btn-sm btn-outline-secondary">Delete</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-        
-
-
-            <table class="table">
+<div class=" ">
+<table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name </th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Auth</th>
+      <th scope="col">---</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-        <?php
+<?php
 
+
+
+
+if(isset($_GET['user'])){
+  $selected= 'user';
+  $oneTablePostList = $get->allPostListerOnColumenD('user', 'auth', 'USER', 0 , 10);
+}elseif(isset($_GET['editor'])){
+  $selected= 'editor';
+  $oneTablePostList = $get->allPostListerOnColumenD('user', 'auth', 'EDITOR', 0 , 10);
+}elseif(isset($_GET['admin'])){
+  $selected= 'admin';
+  $oneTablePostList = $get->allPostListerOnColumenD('user', 'auth', 'ADMIN', 0 , 10);
+}
+    
+    ?>
+<script>
+  function usrScroll(){
+
+    // the firist ajax request is for changing the page number, when the request goes, it adds 10 to the session variable that holds the page no of the 
+    $.ajax({
+      url: 'editHandler.php',
+      type: 'get',
+      data:{
+        allUser: 'true'
+      },
+      success: function(){
+                $.ajax({
+              url: 'allUserScroll.php',
+              type : 'get',
+              data: {
+                listType: '<?php echo $selected ?>'
+              },
+              success: function(data){
+                $('tbody').append(data)
+              }
+            })
+      }
+    })
+
+
+
+
+  }
+</script>
+ 
+      <?php
+      $i = 1;
+      while($row = $oneTablePostList[0]->fetch_assoc()){  
+
+  
+        ?>
+      
+      
+    <tr>
+   
+      <th scope="row"><?php echo $i ?></th>
+      <td><?php echo $row['firstName'].' '.$row['lastName'] ?></td>
+      <td><?php echo $row['phone'] ?></td>
+      <td><?php echo $row['auth'] ?></td>
+      <td><a href="./userInfo.php?poster=<?php echo $row['id'] ?>"  class="btn btn-dark"> View User</a></td>
+     </tr>
+
+
+        <?php
+$i++;
       }
     
     
-}
+
 
 ?>
+  </tbody>
+</table>
+<button class="btn btn-dark" onclick="usrScroll()"  >View More</button>
 </div>
 </main>
 </div>
