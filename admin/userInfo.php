@@ -111,7 +111,7 @@ $urow = $user->fetch_assoc();
     } 
     ?>
     
-    <button  class="btn btn-danger" onclick="delUser('<?php echo $urow['id']  ?>')"  >Delete User</button>
+    <button  class="btn btn-danger" onclick="delUser('<?php echo $userPoster  ?>')"  >Delete User</button>
         
 </div>
 <h2> User Posts</h2>

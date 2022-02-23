@@ -60,7 +60,7 @@ require_once "php/fetchApi.php";
     $pid = $_GET['postId'];
     $label = $_GET['label'];
     $tt = $_GET['type'];
-    $fetch = $get->aSinglePostView($pid, $type);
+    $fetch = aSinglePostView($pid, $type);
 
     $row = $fetch->fetch_assoc();
 
@@ -73,7 +73,7 @@ require_once "php/fetchApi.php";
       /////////////////////////////////////car post description ///////////////
       if($_GET['cat'] == 'car'){
         // to add aview count to this post
-        $viewadd = $get->viewAdder($type, $pid);
+        $viewadd = viewAdder($type, $pid);
 
         ?>
         
@@ -90,26 +90,28 @@ require_once "php/fetchApi.php";
                             </ol>
                             <div  class="carousel-inner">
                                 <div class="carousel-item active">
-                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                                <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                                 </div>
 
                                 <?php
-                                $p = $admin->photoSplit($row['photoPath1']);
+                                $p = photoSplit($row['photoPath1']);
                                 if(!empty($p[1])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                                <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
                                 ?>
 
+
+
                                 <?php
-                                $p = $admin->photoSplit($row['photoPath1']);
+                                $p = photoSplit($row['photoPath1']);
                                 if(!empty($p[2])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                                <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -147,7 +149,7 @@ require_once "php/fetchApi.php";
               <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -184,7 +186,7 @@ require_once "php/fetchApi.php";
 
                 <div class="d-flex justify-content-between align-items-center">
                   <?php
-                  $date = $get->time_elapsed_string($row['postedDate']);
+                  $date = time_elapsed_string($row['postedDate']);
                   ?>
                   <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                     <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -201,7 +203,7 @@ require_once "php/fetchApi.php";
       //////////////////////////////ad post 
       if($_GET['type'] == 'product'){
         // to add aview count to this post
-        $viewadd = $get->viewAdder($type, $pid);
+        $viewadd = viewAdder($type, $pid);
 
         ?>
         
@@ -217,26 +219,26 @@ require_once "php/fetchApi.php";
                             </ol>
                             <div  class="carousel-inner">
                                 <div class="carousel-item active">
-                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                                <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                                 </div>
 
                                 <?php
-                                $p = $admin->photoSplit($row['photoPath1']);
+                                $p = photoSplit($row['photoPath1']);
                                 if(!empty($p[1])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                                <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
                                 ?>
 
                                 <?php
-                                $p = $admin->photoSplit($row['photoPath1']);
+                                $p = photoSplit($row['photoPath1']);
                                 if(!empty($p[2])){
                                     ?>
                                 <div class="carousel-item">
-                                <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                                <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                                 </div>
                                     <?php
                                 }
@@ -285,7 +287,7 @@ require_once "php/fetchApi.php";
               <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -322,7 +324,7 @@ require_once "php/fetchApi.php";
                   </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <?php
-                  $date = $get->time_elapsed_string($row['postedDate']);
+                  $date = time_elapsed_string($row['postedDate']);
                   ?>
                   <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                     <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -346,7 +348,7 @@ require_once "php/fetchApi.php";
   /////////////big discount
   if($_GET['type'] == 'big'){
     // to add aview count to this post
-    $viewadd = $get->viewAdder($type, $pid);
+    $viewadd = viewAdder($type, $pid);
 
     ?>
     
@@ -362,26 +364,26 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
                             ?>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -416,7 +418,7 @@ require_once "php/fetchApi.php";
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -454,7 +456,7 @@ require_once "php/fetchApi.php";
 
             <div class="d-flex justify-content-between align-items-center">
               <?php
-              $date = $get->time_elapsed_string($row['postedDate']);
+              $date = time_elapsed_string($row['postedDate']);
               ?>
               <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                 <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -472,7 +474,7 @@ require_once "php/fetchApi.php";
   //////////////////house post
   if(isset($_GET['type']) && $_GET['type'] == 'house'){
     // to add aview count to this post
-    $viewadd = $get->viewAdder($type, $pid);
+    $viewadd = viewAdder($type, $pid);
 
     ?>
     
@@ -488,26 +490,26 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
                             ?>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -555,7 +557,7 @@ require_once "php/fetchApi.php";
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -592,7 +594,7 @@ require_once "php/fetchApi.php";
 
             <div class="d-flex justify-content-between align-items-center">
               <?php
-              $date = $get->time_elapsed_string($row['postedDate']);
+              $date = time_elapsed_string($row['postedDate']);
               ?>
               <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                 <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -610,7 +612,7 @@ require_once "php/fetchApi.php";
   //////// land post////
   if(isset($_GET['type']) && $_GET['type'] == 'land'){
     // to add aview count to this post
-    $viewadd = $get->viewAdder($type, $pid);
+    $viewadd = viewAdder($type, $pid);
 
     ?>
     
@@ -626,26 +628,26 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
                             ?>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item ">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100" src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -692,7 +694,7 @@ require_once "php/fetchApi.php";
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -730,7 +732,7 @@ require_once "php/fetchApi.php";
 
             <div class="d-flex justify-content-between align-items-center">
               <?php
-              $date = $get->time_elapsed_string($row['postedDate']);
+              $date = time_elapsed_string($row['postedDate']);
               ?>
               <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                 <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -746,7 +748,7 @@ require_once "php/fetchApi.php";
   ///////////////////////////electronics/////////////
   if($_GET['cat'] == 'electronics'){
     // to add aview count to this post
-    $viewadd = $get->viewAdder($type, $pid);
+    $viewadd = viewAdder($type, $pid);
 
     ?>
     
@@ -762,26 +764,26 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
                             ?>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100" src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -836,7 +838,7 @@ require_once "php/fetchApi.php";
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -873,7 +875,7 @@ require_once "php/fetchApi.php";
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
-              $date = $get->time_elapsed_string($row['postedDate']);
+              $date = time_elapsed_string($row['postedDate']);
               ?>
               <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                 <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -891,7 +893,7 @@ require_once "php/fetchApi.php";
   ////////////////////////charity bithch
   if($_GET['cat'] == 'charity'){
     // to add aview count to this post
-    $viewadd = $get->viewAdder($type, $pid);
+    $viewadd = viewAdder($type, $pid);
 
     ?>
     
@@ -907,26 +909,26 @@ require_once "php/fetchApi.php";
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[1])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
                             ?>
 
                             <?php
-                            $p = $admin->photoSplit($row['photoPath1']);
+                            $p = photoSplit($row['photoPath1']);
                             if(!empty($p[2])){
                                 ?>
                             <div class="carousel-item">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
                             </div>
                                 <?php
                             }
@@ -966,7 +968,7 @@ require_once "php/fetchApi.php";
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1004,7 +1006,7 @@ require_once "php/fetchApi.php";
 
             <div class="d-flex justify-content-between align-items-center">
               <?php
-              $date = $get->time_elapsed_string($row['postedDate']);
+              $date = time_elapsed_string($row['postedDate']);
               ?>
               <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                 <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -1021,7 +1023,7 @@ require_once "php/fetchApi.php";
 /////////////////vacancy 
 if($_GET['cat'] == 'vacancy'){
   // to add aview count to this post
-  $viewadd = $get->viewAdder($type, $pid);
+  $viewadd = viewAdder($type, $pid);
 
   ?>
   
@@ -1051,8 +1053,8 @@ if($_GET['cat'] == 'vacancy'){
                 <h5 class="card-title"><?php echo $row['companyName'] ?></h5>
 
                   <?php 
-                    $date = $get->time_elapsed_string($row['postedDate']);
-                    // $sdate = $get->time_elapsed_string($row['startingDate']);
+                    $date = time_elapsed_string($row['postedDate']);
+                    // $sdate = time_elapsed_string($row['startingDate']);
                     $dt = new DateTime($row['postedDate']);
 
                     $dated=date_create($row['postedDate']);
@@ -1108,7 +1110,7 @@ if($_GET['cat'] == 'vacancy'){
               <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1131,7 +1133,7 @@ if($_GET['cat'] == 'vacancy'){
                   </div>
           <div class="d-flex justify-content-between align-items-center">
             <?php
-            $date = $get->time_elapsed_string($row['postedDate']);
+            $date = time_elapsed_string($row['postedDate']);
             ?>
             <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
               <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -1149,7 +1151,7 @@ if($_GET['cat'] == 'vacancy'){
 if($_GET['cat'] == 'tender'){
   // to add aview count to this post
   // $type = $_GET['cat'];
-  $viewadd = $get->viewAdder($type, $pid);
+  $viewadd = viewAdder($type, $pid);
 
   ?>
   
@@ -1192,8 +1194,8 @@ if($_GET['cat'] == 'tender'){
 
                   <?php echo $row['type'] ?>
                   <?php 
-                    $date = $get->time_elapsed_string($row['postedDate']);
-                    // $sdate = $get->time_elapsed_string($row['startingDate']);
+                    $date = time_elapsed_string($row['postedDate']);
+                    // $sdate = time_elapsed_string($row['startingDate']);
                     $dt = new DateTime($row['postedDate']);
 
                     $dated=date_create($row['postedDate']);
@@ -1248,7 +1250,7 @@ if($_GET['cat'] == 'tender'){
               <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1271,7 +1273,7 @@ if($_GET['cat'] == 'tender'){
                   </div>
           <div class="d-flex justify-content-between align-items-center">
             <?php
-            $date = $get->time_elapsed_string($row['postedDate']);
+            $date = time_elapsed_string($row['postedDate']);
             ?>
             <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
               <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -1292,7 +1294,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     $type = $_GET['type'];
     $pid = $_GET['postId'];
     $label = $_GET['label'];
-    $viewadd = $get->viewAdder($cat, $pid);
+    $viewadd = viewAdder($cat, $pid);
 
     ?>
     
@@ -1308,7 +1310,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
                         </div>
 
@@ -1343,7 +1345,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1380,7 +1382,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
-              $date = $get->time_elapsed_string($row['postedDate']);
+              $date = time_elapsed_string($row['postedDate']);
               ?>
               <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                 <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -1402,7 +1404,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     $type = $_GET['type'];
     $pid = $_GET['postId'];
     $label = $_GET['label'];
-    $viewadd = $get->viewAdder($cat, $pid);
+    $viewadd = viewAdder($cat, $pid);
 
     ?>
     
@@ -1418,7 +1420,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
                         </div>
 
@@ -1456,7 +1458,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1493,7 +1495,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
-              $date = $get->time_elapsed_string($row['postedDate']);
+              $date = time_elapsed_string($row['postedDate']);
               ?>
               <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                 <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -1514,7 +1516,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     $type = $_GET['type'];
     $pid = $_GET['postId'];
     $label = $_GET['label'];
-    $viewadd = $get->viewAdder($cat, $pid);
+    $viewadd = viewAdder($cat, $pid);
 
     ?>
     
@@ -1530,14 +1532,14 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                            <img class="d-block w-100" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
                             </div>
                         </div>
 
       </div>
   </div>
   <?php 
-  $getphone = $get->allPostListerOnColumen('user', 'id', $_SESSION['userId'] );
+  $getphone = allPostListerOnColumen('user', 'id', $_SESSION['userId'] );
   $phoneU = $getphone->fetch_assoc();
   
   ?>
@@ -1569,7 +1571,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1606,7 +1608,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
-              $date = $get->time_elapsed_string($row['postedDate']);
+              $date = time_elapsed_string($row['postedDate']);
               ?>
               <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                 <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -1628,7 +1630,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
     $type = $_GET['type'];
     $pid = $_GET['postId'];
     $label = $_GET['label'];
-    $viewadd = $get->viewAdder($cat, $pid);
+    $viewadd = viewAdder($cat, $pid);
 
     ?>
     
@@ -1644,7 +1646,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                         </ol>
                         <div  class="carousel-inner">
                             <div class="carousel-item active">
-                            <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
+                            <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
                             </div>
                         </div>
 
@@ -1682,7 +1684,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
           <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1719,7 +1721,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
                   </div>
             <div class="d-flex justify-content-between align-items-center">
               <?php
-              $date = $get->time_elapsed_string($row['postedDate']);
+              $date = time_elapsed_string($row['postedDate']);
               ?>
               <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
                 <small class="text-muted"><?php echo $row['view'] ?> Views</small>
@@ -1744,13 +1746,13 @@ if($_GET['cat'] == 'blog'){
 
 
 
-  $blog = $get->allPostListerOnColumen('blog','id',$pid);
+  $blog = allPostListerOnColumen('blog','id',$pid);
   $row = $blog->fetch_assoc();
 
   $c = date_create($row['postedDate']);
   $PD = date_format($c, "Y/m/d");
 
-  $recent = $get->allPostListerOnTable('blog');
+  $recent = allPostListerOnTable('blog');
   ?>
   
   <div class="container-fluid">
@@ -1765,12 +1767,12 @@ if($_GET['cat'] == 'blog'){
     <div id="carouselExampleControls" class="carousel slide w-90" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
+      <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" alt="First slide">
     </div>
     <?php if(!empty($p[1])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1778,7 +1780,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[2])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1787,7 +1789,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[3])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[3] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[3] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1795,7 +1797,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[4])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[4] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[4] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1803,7 +1805,7 @@ if($_GET['cat'] == 'blog'){
 <?php if(!empty($p[5])){
       ?>
     <div class="carousel-item">
-      <img class="d-block w-100 " src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[5] ;?>" alt="Second slide">
+      <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[5] ;?>" alt="Second slide">
     </div>  
       <?php
     } ?>
@@ -1878,7 +1880,7 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
        
        if(isset($_GET['cat'])){
           $cat = $_GET['cat'];
-          $fetch23 = $get->allPostListerOnTable($cat);
+          $fetch23 = allPostListerOnTable($cat);
           while($row2 = $fetch23->fetch_assoc()){
 
 
@@ -1891,11 +1893,11 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
             <?php 
             if(!isset($_GET['type'])){
               ?>            
-              <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $row2['id'];?>&label=<?php echo $label;?>"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+              <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $row2['id'];?>&label=<?php echo $label;?>"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row2['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
               <?php
             }elseif(isset($_GET['type'])){
               ?>
-              <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $row2['id'];?>&label=<?php echo $label;?>&type=<?php echo $_GET['type'] ?>"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+              <a class="stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $row2['id'];?>&label=<?php echo $label;?>&type=<?php echo $_GET['type'] ?>"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row2['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
               <?php
             }
             ?>
@@ -1928,13 +1930,13 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
                   
                   <h6 class="card-text">Location: <?php echo $row2['city'] ?></h6><?php
                 }
-                $date = $get->time_elapsed_string($row2['postedDate']);
+                $date = time_elapsed_string($row2['postedDate']);
                 $pid = $row2['id'];
                 ?>
               <div class="btn-group">
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+              $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){

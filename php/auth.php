@@ -145,15 +145,13 @@
 
             $ask = $mysql->query($q);
             
-            // if($rowx = $ask->fetch_assoc()){
-            //     echo 'yesss';
-            // }else{
-            //     echo 'noo00';
-            // }
 
+            if($ask->num_rows != 0){
+
+            
             while($rowx = $ask->fetch_assoc()){ 
                 $piss = $rowx['id'];
-                echo $piss ;
+                echo 'postId : '.$rowx['id'];
                 echo $postsz;
 
                 if($postsz != 'vacancy'){
@@ -172,7 +170,11 @@
                 $q3 = "DELETE FROM `$postsz` WHERE `$postsz`.`id` = '$piss' ";
                 $ask3 = $mysql->query($q3);
                 // return $ask3;  
+                if($ask3){
+                    echo 'del occured';
+                }
             }
+        }
             // echo 'zz';
         }
         $q2 = "DELETE FROM `user` WHERE `user`.`id` = '$userz'";

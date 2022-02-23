@@ -10,7 +10,7 @@
 
   // this helps us to navigate back and forth b/n admin panel and the user side website for messaging and other stuff hasn't been discorverd. 
   if(!isset($_SESSION['userId']) && isset($_SESSION['idz'])){
-    echo 'in header';
+    // echo 'in header';
     $_SESSION['userId'] = $_SESSION['idz'];
   }
   
