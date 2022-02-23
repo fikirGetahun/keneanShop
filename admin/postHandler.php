@@ -8,6 +8,8 @@ require_once "../php/adminCrude.php";
 
 
 
+
+
 if(isset($_POST['titleElc'],
     $_POST['type'],
     $_POST['status'],
@@ -47,14 +49,14 @@ if(isset($_POST['titleElc'],
         $ram = $_POST['ram'];
     }
     
-    // $photo = $admin->electronicsPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
+    // $photo = electronicsPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
 
-    $up = $admin->uploadPhotos('car', $fName1);
+    $up = uploadPhotos('car', $fName1);
 
     if($up[4] == 'error'){
       echo $up[0];
     }else{
-      $out = $admin->elecPostAdder($type, $status, $posterId, $title, $address, $price,
+      $out = elecPostAdder($type, $status, $posterId, $title, $address, $price,
       $info, $up[0], $ram, $processor, $size, $storage, $core, $phone);
             
       if($out){
@@ -91,7 +93,7 @@ if(isset(
     $salaryStatus= $_POST['salaryStatus'];
     $appStart = $_POST['appStart'];
 
-    $ask = $admin->addVacancyPost($appStart,$salaryStatus, $salary, $phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info, $sex  );
+    $ask = addVacancyPost($appStart,$salaryStatus, $salary, $phone, $jobType, $positionType, $companyName, $jobTitle, $location, $Deadline, $id , $reqNo, $info, $sex  );
     if($ask){
       echo 'Post Successfull.!';
     }else{
@@ -124,11 +126,11 @@ if(isset(
       if (isset($_FILES['photo']) && $_FILES['photo']['size'] != 0 ){
         $fileName1 = $_FILES['photo'];
 
-        $up = $admin->uploadSinglePhoto('tender', $fileName1);
+        $up = uploadSinglePhoto('tender', $fileName1);
         if($up[4] == 'error'){
           print_r($up);
         }else{
-          $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, $up[0], $phone   );
+          $db = addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, $up[0], $phone   );
           if($db){
             echo 'Post Succesfullypho!';
           }else{
@@ -136,7 +138,7 @@ if(isset(
           }
         }
       }else{
-        $db = $admin->addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, ' ', $phone  );
+        $db = addTenderPost($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title, ' ', $phone  );
         if($db){
           echo 'Post Succesfully!';
         }else{
@@ -188,12 +190,12 @@ if(isset(
       $posterId = $_POST['posterId2'];
       $fName1 = $_FILES['photo'];
 
-      $up = $admin->uploadPhotos('car', $fName1);
+      $up = uploadPhotos('car', $fName1);
 
       if($up[4] == 'error'){
         echo $up[0];
       }else{
-        $out12 = $admin->carPostAdder($addr,$title,$type, $status,
+        $out12 = carPostAdder($addr,$title,$type, $status,
         $fuleKind, $posterId, $fixidOrN, $up[0],$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob, $forWho, $rentStatus, $whyRent );
         
         if($out12){
@@ -205,7 +207,7 @@ if(isset(
 
 
 
-      // $carPhoto = $admin->carPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3 );
+      // $carPhoto = carPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3 );
 
 
     }
@@ -232,13 +234,13 @@ if(isset(
 
 
 
-      // $adOut = $admin->adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3  );
-      $up = $admin->uploadPhotos('ad', $fName1);
+      // $adOut = adPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3  );
+      $up = uploadPhotos('ad', $fName1);
 
       if($up[4] == 'error'){
         echo $up[0];
       }else{
-        $out7 = $admin->adPostPoster($big, $type, $price, $address, $phone, $for, $title, $posterId, $info, $up[0], $ship);
+        $out7 = adPostPoster($big, $type, $price, $address, $phone, $for, $title, $posterId, $info, $up[0], $ship);
         echo 'Post Succesfully!';
       }
 
@@ -288,19 +290,19 @@ if(isset(
 
       $ob = $_POST['ownerBroker'];
 
-      $up = $admin->uploadPhotos('housesell', $fName1);
+      $up = uploadPhotos('housesell', $fName1);
 
       if($up[4] == 'error'){
         echo $up[0];
       }else{
-        $outH = $admin->addHouseOrLandPost($title, $type, $houseOrLand, $city, $subCity, $wereda,
+        $outH = addHouseOrLandPost($title, $type, $houseOrLand, $city, $subCity, $wereda,
         $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info,
          $posterId, $up[0], $ob, $spArea );
         
          echo 'Post Succesfully!';
       }
       
-      // $houseUpload = $admin->houseOrLandPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
+      // $houseUpload = houseOrLandPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
       
 
       
@@ -320,11 +322,11 @@ if(isset(
               $fileVar = $_FILES['photo'];
               $pid = $_POST['posterId'];
     
-              $up = $admin->uploadPhotos('charity', $fileVar);
+              $up = uploadPhotos('charity', $fileVar);
               // echo $up[4];
     
     
-              $db = $admin->charityUpload($title, $up[0], $info, $loc, $phone, $pid);
+              $db = charityUpload($title, $up[0], $info, $loc, $phone, $pid);
               if($db){
                 echo 'Post Successfull';
               }else{
@@ -357,12 +359,12 @@ $phone = $_POST['phone'];
 
 $fileVar = $_FILES['photo'];
 
-$o = $admin->uploadSinglePhoto('jobhometutor', $fileVar);
+$o = uploadSinglePhoto('jobhometutor', $fileVar);
 
 if($o[4] == 'error'){
   echo 'error uploading photo';
 }else{
-  $out = $admin->homeTutoreAdder($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
+  $out = homeTutoreAdder($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
 $phone, $cinfo, $info, $o[0]);
 if($out){
   echo 'Post Successfull';
@@ -413,11 +415,11 @@ if(isset( $_POST['field'])){
   $field =  $_POST['field'] ;
 }
 
-$up = $admin->uploadSinglePhoto('hotelHouse', $fileVar);
+$up = uploadSinglePhoto('hotelHouse', $fileVar);
 if($up[4] == 'error'){
   echo "error";
 }else{
-  $out = $admin->hotelHouseDataAdder($hotelOrHouse,$name, $sex, $age, $religion, $field, $address, $wType,
+  $out = hotelHouseDataAdder($hotelOrHouse,$name, $sex, $age, $religion, $field, $address, $wType,
   $price, $experience, $bid, $cAddress, $agentInfo, $up[0], $pid);
   if($out){
     echo 'Post Successfull';
@@ -454,14 +456,14 @@ if(isset(
   $agentInfo = $_POST['agentInfo'];
   $salary = $_POST['price'];
   
-  $up = $admin->uploadSinglePhoto('zebegna', $fileVar);
+  $up = uploadSinglePhoto('zebegna', $fileVar);
 
   if($up[4] == 'error'){
     echo 'error file';
     print_r($up);
   }else{
 
-    $out = $admin->zebegnaPostAdder($name, $sex, $age, $address, $phone, $up[0], $workStat, $pid, $agentInfo, $legalWp, $bidp, $workType, $exp, $salary );
+    $out = zebegnaPostAdder($name, $sex, $age, $address, $phone, $up[0], $workStat, $pid, $agentInfo, $legalWp, $bidp, $workType, $exp, $salary );
     if($out){
       echo 'Post Success'; 
     }else{
@@ -484,13 +486,13 @@ if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_FILES['phot
 
   $content = addslashes($content);
 
-  $up = $admin->uploadPhotos('blog', $fileVar);
+  $up = uploadPhotos('blog', $fileVar);
   if($up[4] == 'error'){
     foreach($up as $val){
       echo $val;
     }
   }elseif($up[4] == 'work'){
-    $enter = $admin->blogAdder($title, $frontLabel, $content, $posterId, $up[0]);
+    $enter = blogAdder($title, $frontLabel, $content, $posterId, $up[0]);
     if($enter){
       echo 'Posted Successfully.';
     }else{
@@ -540,13 +542,13 @@ $fileVar = $_FILES['photo'];
 
 
   
-  $up = $admin->uploadPhotos('realestate', $fileVar);
+  $up = uploadPhotos('realestate', $fileVar);
   if($up[4] == 'error'){
     foreach($up as $val){
       echo $val;
     }
   }elseif($up[4] == 'work'){
-    $enter = $admin->realEstate($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area  , $email, $price, $fixidOrN, $info, $up[0]);
+    $enter = realEstate($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area  , $email, $price, $fixidOrN, $info, $up[0]);
     if($enter){
       echo 'Posted Successfully.';
     }else{

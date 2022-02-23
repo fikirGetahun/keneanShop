@@ -1,5 +1,5 @@
 <?php
-    class adminPhp{
+// include "auth.php";
 
         //insert vacancy post
         function addVacancyPost($appStart, $salaryStatus, $salary, $phone, $type, $positionType, $companyName, $positionTitle, $location, $deadLine, $posterId, $positionNum, $info, $sex   ){
@@ -956,7 +956,7 @@ echo $mysql->error;
                     return $error;
                 }else{
                     for($i=0;$i<=$count-1;$i++){
-                        $up = $auth->compress($tmpLoc[$i], $uploadPath[$i], 75 );
+                        $up = compress($tmpLoc[$i], $uploadPath[$i], 75 );
                     }
                     $total[0] = $dbPath;
                     $total[4] = 'work';
@@ -1064,7 +1064,7 @@ echo $mysql->error;
                     $error[4] = 'error';
                     return $error;
                 }else{
-                        $up = $auth->compress($tmpLoc, $uploadPath, 75 );
+                        $up = compress($tmpLoc, $uploadPath, 75 );
                     
                     $total[0] = $dbPath;
                     $total[4] = 'work';
@@ -1079,7 +1079,7 @@ echo $mysql->error;
 
         //photo updater
         function photoUpdater($tableName, $pid, $fileVar){
-            require_once "auth.php";
+            // require "auth.php";
             include "connect.php";
             //  echo 'idddddddddd'.$fileVar['name'];
             $dbPath = '';
@@ -1212,8 +1212,13 @@ echo $mysql->error;
                     $total[1] = 'error';
                     return $total;
                 }else{
+
+                    
+
+
+
                     for($i=0;$i<=$count-1;$i++){
-                        $up = $auth->compress($tmpLoc[$i], $uploadPath[$i], 75 );
+                        $up = compress($tmpLoc[$i], $uploadPath[$i], 75 );
                         $q = "UPDATE `$tableName` SET `photoPath1` = '$dbPath' WHERE  `$tableName`.`id` = '$pid'  ";
                         $ask = $mysql->query($q);
                         if($ask){
@@ -1234,7 +1239,7 @@ echo $mysql->error;
 
 
         function singlePhotoUpdater($tableName, $pid, $fileVar){
-            require_once "auth.php";
+            // require "auth.php";
             include "connect.php";
             //  echo 'idddddddddd'.$fileVar['name'];
             $dbPath = '';
@@ -1342,7 +1347,7 @@ echo $mysql->error;
         }else{
             for($i=0;$i<=$count-1;$i++){
             
-                $up = $auth->compress($tmpLoc, $uploadPath, 75 );
+                $up = compress($tmpLoc, $uploadPath, 75 );
                 $q = "UPDATE `$tableName` SET `photoPath1` = '$dbPath' WHERE  `$tableName`.`id` = '$pid'  ";
                 $ask = $mysql->query($q);
                 if($ask){
@@ -1482,7 +1487,7 @@ return $ask;
 
 
         //all posts single post viewing api dynamicaly
-        function aSinglePostView($pid, $tableName){
+        function aSinglePostViewx($pid, $tableName){
             include "connect.php";
             $q = "SELECT * FROM `$tableName` WHERE `id` = '$pid'";
 
@@ -1577,12 +1582,12 @@ return $ask;
 
 
     
-    }
+    
 
 
 
     
 
-    $admin = new adminPhp;
+  
 
 ?>

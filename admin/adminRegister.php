@@ -4,6 +4,11 @@
 
     require_once "../php/adminCrude.php";
 
+
+    
+
+
+
     if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'], $_POST['username'],
      $_POST['password'], $_POST['auth'], $_POST['about'], $_FILES['photoq'], $_POST['recover'])){
 
@@ -21,15 +26,15 @@
 
 
          //to add user data
-        //  $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, '', $job, $about); 
+        //  $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, '', $job, $about); 
 
         //to add user data and photo upload if user adds photo since its optional
         //  if(isset($_FILES['photoq'])){
           $tempName = $_FILES['photoq']['tmp_name'];
           $fileName = $_FILES['photoq']['name'];
                     //to upload photo
-                    $up = $admin->uploadPhoto($fileName, $tempName);
-                    $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, $up, $about, $recover ); 
+                    $up = uploadPhoto($fileName, $tempName);
+                    $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, $up, $about, $recover ); 
 
         // }
 

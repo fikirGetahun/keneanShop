@@ -84,7 +84,7 @@ function hCityz(x){
         <option><?php echo $lang['city'] ?></option>
         <?php 
             require_once 'php/fetchApi.php';
-              $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+              $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
               $city = array();
               while($rowLoc = $locc->fetch_assoc()){
                   $city[]= $rowLoc['category'];
@@ -115,7 +115,7 @@ function hCityz(x){
       <div id="subHx"   class="input-group mb-3" >
         <?php
       require_once 'php/fetchApi.php';
-  $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+  $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
   $city = array();
   if($locc->num_rows != 0){
     ?>
@@ -344,19 +344,21 @@ function hCityz(x){
             $subcity = $_GET['subCity'];
           }
 
-          $up = $admin->uploadSinglePhoto('mambership', $photoPath1);
+          $up = uploadSinglePhoto('mambership', $photoPath1);
           if($up[4] == 'error'){
             echo 'error file';
             print_r($up);
           }else{
-            $mem = $get->member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $up[0], $broker_before, $business_license, $commission, $question, $userId, $subcity);
+            $mem = member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $up[0], $broker_before, $business_license, $commission, $question, $userId, $subcity);
             if($mem){
               echo 'Registerd ';
             }else{
               echo 'error';
             }
           }
-
+          
+          
+          
 
 
         }

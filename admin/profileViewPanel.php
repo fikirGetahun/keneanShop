@@ -32,6 +32,9 @@
 require_once "../php/adminCrude.php";
 
 
+
+
+
 if(isset($_GET['uid'])){
     $userId = $_GET['uid'];
 }
@@ -72,7 +75,7 @@ if(isset($_GET['uid'])){
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                 <?php
-                    $out2 = $admin->userDataShower($userId);
+                    $out2 = userDataShower($userId);
                     $row4 = $out2->fetch_assoc();
                 ?>
               <img src="<?php echo $row4['photoPath'] ?>" alt="Profile" class="rounded-circle">

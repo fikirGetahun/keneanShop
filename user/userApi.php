@@ -26,7 +26,7 @@ $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
     $phoneNumber= $_POST['phoneNumber'];
     $about =$_POST['address'];
 
-    $u = $auth->loginAuth($username);
+    $u = loginAuth($username);
     $num = $u->num_rows;
     $up = ' ';
     if($num >= 1){
@@ -44,8 +44,8 @@ $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
      $tempName = $_FILES['photoq']['tmp_name'];
      $fileName = $_FILES['photoq']['name'];
                //to upload photo
-               $up = $admin->uploadPhoto($fileName, $tempName);
-               $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, $up, $about, $recover ); 
+               $up = uploadPhoto($fileName, $tempName);
+               $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, $up, $about, $recover ); 
 
                if($out){
                    echo "Registerd Succesfully!";
@@ -54,7 +54,7 @@ $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
                }
    }else{
     //to add user data
-    $out = $admin->userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, ' ', $job, $about); 
+    $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, ' ', $job, $about); 
 
     if($out){
         echo "Registerd Succesfully!";
@@ -77,7 +77,7 @@ $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
     $pid = $_GET['postId'];
     $uid = $_SESSION['userId'];
     $table = $_GET['table'];
-    $fav = $get->favouritesAdder($pid, $uid, $table);
+    $fav = favouritesAdder($pid, $uid, $table);
     if($fav){
       echo "Added to Fav";
     }else{
@@ -93,14 +93,14 @@ $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
 if(isset($_POST['ban'], $_POST['id'])){
     $uid =$_POST['id'];
     if($_POST['ban'] == 'BAN'){
-    $ban = $get->userBan($uid);
+    $ban = userBan($uid);
     if($ban){
         echo 'USER BANNED!';
     }else{
         echo 'ERROR';
     }
     }elseif($_POST['ban'] == 'UNBAN'){
-        $ban = $get->unBanuser($uid);
+        $ban = unBanuser($uid);
         if($ban){
             echo 'USER UNBANNED!';
         }else{
@@ -117,7 +117,7 @@ if(isset($_POST['cityH'])){
   // echo 'what';
   $city = $_POST['cityH'];
    require_once '../php/fetchApi.php';
-    $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $city);
+    $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $city);
     $city = array();
     if($locc->num_rows != 0){
       ?>
@@ -178,7 +178,7 @@ if(isset($_POST['tabel'], $_POST['reciver'], $_POST['postFocus'], $_POST['msg'])
   $reciver = $_POST['reciver'];
   $postFocus = $_POST['postFocus'];
 
-  $send = $get->msgSender($tb, $postFocus, $_SESSION['userId'], $reciver, $msg);
+  $send = msgSender($tb, $postFocus, $_SESSION['userId'], $reciver, $msg);
   if($send){
     echo 'msg sent';
   }else{
@@ -235,6 +235,8 @@ if(isset($_GET['real'])){
   location.reload();
 
   })
+  
+
 
   })
 </script>

@@ -6,16 +6,18 @@ if(!isset($_SESSION)){
 require "../php/fetchApi.php";
 
 
+
+
 if(isset($_GET['listType'])){
     $s = $_GET['listType'];
 }
 
 if($s == 'user'){
-  $oneTablePostList = $get->allPostListerOnColumenD('user', 'auth', 'USER', $_SESSION['allUser'] , 10);
+  $oneTablePostList = allPostListerOnColumenD('user', 'auth', 'USER', $_SESSION['allUser'] , 10);
 }elseif($s == 'editor'){
-  $oneTablePostList = $get->allPostListerOnColumenD('user', 'auth', 'EDITOR', $_SESSION['allUser'] , 10);
+  $oneTablePostList = allPostListerOnColumenD('user', 'auth', 'EDITOR', $_SESSION['allUser'] , 10);
 }elseif($s == 'admin'){
-  $oneTablePostList = $get->allPostListerOnColumenD('user', 'auth', 'ADMIN', $_SESSION['allUser'] , 10);
+  $oneTablePostList = allPostListerOnColumenD('user', 'auth', 'ADMIN', $_SESSION['allUser'] , 10);
 }
     
     ?>

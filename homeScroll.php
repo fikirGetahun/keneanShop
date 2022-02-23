@@ -18,17 +18,19 @@ for($z=0;$z<14;$z++){
   // echo $tab;
   if($pageLocation != 'All'){
     if($tab == 'housesell'){
-      $home = $get->allPostListerOnColumen($tab,'city', $pageLocation); // if city is not all, then a city is selected so it always fetch data based on a city
+      $home = allPostListerOnColumen($tab,'city', $pageLocation); // if city is not all, then a city is selected so it always fetch data based on a city
     }else{
-    $home = $get->allPostListerOnColumen($tab,'address', $pageLocation); // if city is not all, then a city is selected so it always fetch data based on a city
+    $home = allPostListerOnColumen($tab,'address', $pageLocation); // if city is not all, then a city is selected so it always fetch data based on a city
     }
   }else{
-    $home = $get->allPostListerOnTable($tab); // it fetches data from all city
+    $home = allPostListerOnTable($tab); // it fetches data from all city
   }
   if($home->num_rows != 0){  // if only a result occurs
   $i1= 1;
   while($row12 = $home->fetch_assoc()){
     
+
+
     ?>
       <div class="col-3">
         <div class="card shadow-sm">
@@ -59,7 +61,7 @@ for($z=0;$z<14;$z++){
 
           ?>
          <img class="bd-placeholder-img card-img-top" width="100%" height="150"
-          src="<?php $p = $admin->photoSplit($row12['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          src="<?php $p = photoSplit($row12['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
           <div class="card-body">
             <?php 

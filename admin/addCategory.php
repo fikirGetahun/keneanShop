@@ -6,7 +6,7 @@ require_once "../php/adminCrude.php";
 if(isset($_POST['adCatw'])){
     // echo 'innnn';
     $cat = $_POST['adCatw'];
-    $out = $admin->allCategoryAdder($cat, 'ad');
+    $out = allCategoryAdder($cat, 'ad');
         if($out){
         echo 'yes';
     }else{
@@ -14,21 +14,25 @@ if(isset($_POST['adCatw'])){
     }
 }
 
+
+
+
+
 if(isset($_POST['carC'])){
     $cat = $_POST['carC'];
-    $out = $admin->allCategoryAdder($cat, 'car');}
+    $out = allCategoryAdder($cat, 'car');}
 
 if(isset($_POST['vacancyC'])){
     $cat = $_POST['vacancyC'];
-    $out = $admin->allCategoryAdder($cat, 'vacancy');}
+    $out = allCategoryAdder($cat, 'vacancy');}
 
 if(isset($_POST['houseC'])){
     $cat = $_POST['houseC'];
-    $out = $admin->allCategoryAdder($cat, 'housesell');}
+    $out = allCategoryAdder($cat, 'housesell');}
 
 if(isset($_POST['elc'])){
     $cat = $_POST['elc'];
-    $out = $admin->allCategoryAdder($cat, 'electronics');
+    $out = allCategoryAdder($cat, 'electronics');
 }
 
 
@@ -187,7 +191,7 @@ if(isset($_GET['type'])){
 
 
       <?php
-      $out = $admin->allCategoryLister('ad');
+      $out = allCategoryLister('ad');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -248,7 +252,7 @@ if(isset($_GET['type'])){
 
         </script>
       <?php
-      $out = $admin->allCategoryLister('car');
+      $out = allCategoryLister('car');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -323,7 +327,7 @@ if(isset($_GET['type'])){
 
         </script>
       <?php
-      $out = $admin->allCategoryLister('vacancy');
+      $out = allCategoryLister('vacancy');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -400,7 +404,7 @@ if(isset($_GET['type'])){
 
 
       <?php
-      $out = $admin->allCategoryLister('housesell');
+      $out = allCategoryLister('housesell');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -469,7 +473,7 @@ if(isset($_GET['type'])){
 
 
       <?php
-      $out = $admin->allCategoryLister('electronics');
+      $out = allCategoryLister('electronics');
     //   $i = 0;
       while($row = $out->fetch_assoc()){
 

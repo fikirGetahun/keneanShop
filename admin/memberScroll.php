@@ -4,6 +4,10 @@ if(!isset($_SESSION)){
     session_start();
 }
 
+
+
+
+
 require_once "../php/fetchApi.php";
 require_once "../php/adminCrude.php";
 
@@ -22,30 +26,30 @@ if(isset($filter[0])){
     $we = $filter[2];
     $su = $filter[1];
     if(isset($_GET['pending'])){
-      $member = $get->allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null, 'wereda', $we, 'subCity', $su , $_SESSION['mbScroll'], 5);
+      $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null, 'wereda', $we, 'subCity', $su , $_SESSION['mbScroll'], 5);
     }else{
-      $member = $get->allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su , $_SESSION['mbScroll'], 5);
+      $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su , $_SESSION['mbScroll'], 5);
     }
   }elseif(isset($filter[1])){
     $subReq = $filter[1];
     if(isset($_GET['pending'])){
-      $member = $get->allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null, 'subCity', $subReq , $_SESSION['mbScroll'], 5);
+      $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null, 'subCity', $subReq , $_SESSION['mbScroll'], 5);
     }else{
-      $member = $get->allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq , $_SESSION['mbScroll'], 5);
+      $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq , $_SESSION['mbScroll'], 5);
     }
   }elseif(isset($filter[0]) && $filter[0] == 'All'){ // IF THE location is seted to 'ALL'
     if(isset($_GET['pending'])){
-      $member = $get->allPostListerOnColumenD('mambership', 'approved', null , $_SESSION['mbScroll'], 5);
+      $member = allPostListerOnColumenD('mambership', 'approved', null , $_SESSION['mbScroll'], 5);
     }else{
-      $member = $get->allPostListerOnColumenD('mambership', 'approved', 'YES' , $_SESSION['mbScroll'], 5);
+      $member = allPostListerOnColumenD('mambership', 'approved', 'YES' , $_SESSION['mbScroll'], 5);
     }
   }
  
 }else{
   if(isset($_GET['pending'])){
-    $member = $get->allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
+    $member = allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
   }else{
-    $member = $get->allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
+    $member = allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
   }
 }
 
@@ -68,7 +72,7 @@ if(isset($filter[0])){
             ?>
             <div id="adVieww" class="col-md-4">
             <div class="card mb-4 box-shadow">
-       <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">      
+       <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">      
               <div class="card-body">
                 <p class="card-text"><?php echo $row['name'] ?></p>
                 <!-- <p class="card-text"><?php echo $row['price'] ?> Birr</p> -->

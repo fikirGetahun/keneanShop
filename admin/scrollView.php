@@ -17,7 +17,7 @@ $endPage =  $content_per_page;
     require_once "../php/adminCrude.php";
     require_once "../php/fetchApi.php";
     if($ty == 'vacancy'){
-      $data = $get->allPostListerOnTableD('vacancy', $startPage, $endPage );
+      $data = allPostListerOnTableD('vacancy', $startPage, $endPage );
       while($row = $data[0]->fetch_assoc()){
           if(!in_array($row['id'],$idArr)){
             $idArr[]= $row['id'];  
@@ -58,7 +58,7 @@ $endPage =  $content_per_page;
   ///////////////////////////////////////////////////////////////
   if($ty == 'tender'){
 
-    $data = $get->allPostListerOnTableD('tender', $startPage, $endPage);
+    $data = allPostListerOnTableD('tender', $startPage, $endPage);
     while($row = $data[0]->fetch_assoc()){
         if(!in_array($row['id'],$idArr)){
             $idArr[]= $row['id']; 
@@ -80,7 +80,7 @@ $endPage =  $content_per_page;
                     <div class="row g-0">
                         <div class="col-md-4">
                         <?php 
-                        $p = $admin->photoSplit($row['photoPath1']);
+                        $p = photoSplit($row['photoPath1']);
                         if(!empty($p)){
                           ?>
                           <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
@@ -118,7 +118,7 @@ $endPage =  $content_per_page;
                         <div class="col-md-4">
                         
                         <?php 
-                        $p = $admin->photoSplit($row['photoPath1']);
+                        $p = photoSplit($row['photoPath1']);
                         if(!empty($p)){
                           ?>
                           <img src="<?php echo '../'.$p[0]; ?>" class="img-fluid rounded-start" alt="...">
@@ -165,7 +165,7 @@ $endPage =  $content_per_page;
   if($ty == 'ad' ){
 
 
-    $ad = $get->allPostListerOnTableD('ad', $startPage, $endPage);    ?>
+    $ad = allPostListerOnTableD('ad', $startPage, $endPage);    ?>
     <div class="row">
       <script>
 
@@ -180,7 +180,7 @@ $endPage =  $content_per_page;
                 
 <div id="adVieww" class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $row['title'] ?></p>
                   <p class="card-text"><?php echo $row['price'] ?> Birr</p>
@@ -211,7 +211,7 @@ $endPage =  $content_per_page;
 
 if($ty == 'car' ){
 
-  $carOut =$get->allPostListerOnTableD('car', $startPage, $endPage)
+  $carOut =allPostListerOnTableD('car', $startPage, $endPage)
   ?>
   <div class="row">
   <?php
@@ -224,7 +224,7 @@ if($ty == 'car' ){
       
       <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['price'] ?> Birr</p>
@@ -247,14 +247,16 @@ if($ty == 'car' ){
   <?php
 
   
-  
+
+
+
 
 }
 
 /////////////////// house post////////////
 if($ty == 'house' ){
 
-  $hOut = $get->allPostListerOnColumenD('housesell','houseOrLand', 'HOUSE' , $startPage, $endPage);
+  $hOut = allPostListerOnColumenD('housesell','houseOrLand', 'HOUSE' , $startPage, $endPage);
   ?>
   <div class="row">
   <?php
@@ -268,7 +270,7 @@ if($ty == 'house' ){
                 
       <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
@@ -296,7 +298,7 @@ if($ty == 'house' ){
 ////LAND POST
 if($ty == 'land' ){
 
-  $hOut = $get->allPostListerOnColumenD('housesell','houseOrLand', 'LAND' , $startPage, $endPage);
+  $hOut = allPostListerOnColumenD('housesell','houseOrLand', 'LAND' , $startPage, $endPage);
   ?>
   <div class="row">
   <?php
@@ -310,7 +312,7 @@ if($ty == 'land' ){
                 
       <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+                <img class="img-thumbnail" src="<?php $p = photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
                 <div class="card-body">
                   <p class="card-text"><?php echo $cars['title'] ?></p>
                   <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
@@ -339,7 +341,7 @@ if($ty == 'land' ){
 
 if($ty == 'electronics'){
 
-  $hOut = $get->allPostListerOnTableD('electronics', $startPage, $endPage);
+  $hOut = allPostListerOnTableD('electronics', $startPage, $endPage);
   ?>
 
   <div class="row">
@@ -354,7 +356,7 @@ if($ty == 'electronics'){
           
       <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($cars['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = photoSplit($cars['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $cars['title'] ?></p>
                 <p class="card-text"><?php echo $cars['info'] ?> Birr</p>
@@ -382,7 +384,7 @@ if($ty == 'electronics'){
 ////////////////////charity view//
 if($ty == 'charity'){
 
-  $out = $get->allPostListerOnTableD('charity', $startPage, $endPage);
+  $out = allPostListerOnTableD('charity', $startPage, $endPage);
   ?>
  
       <div class="row">
@@ -396,7 +398,7 @@ if($ty == 'charity'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
@@ -427,7 +429,7 @@ if($ty == 'bigDiscount'){
   ?>
       <div class="row">
       <?php
-        $out = $get->allPostListerOnColumenD('housesell','bigDiscount', 'ACTIVE' , $startPage, $endPage);
+        $out = allPostListerOnColumenD('housesell','bigDiscount', 'ACTIVE' , $startPage, $endPage);
       while($row = $out[0]->fetch_assoc()){
         if(!in_array($row['id'],$idArr)){
           $idArr[]= $row['id'];
@@ -436,7 +438,7 @@ if($ty == 'bigDiscount'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text"><?php echo $row['title'] ?></p>
                 <p class="card-text"><?php echo $row['info'] ?> Birr</p>
@@ -465,7 +467,7 @@ if($ty == 'bigDiscount'){
 if($ty == 'homeTutor'){
 
 
-  $out = $get->allPostListerOnTableD('jobhometutor', $startPage, $endPage);
+  $out = allPostListerOnTableD('jobhometutor', $startPage, $endPage);
   
   ?>
   
@@ -481,7 +483,7 @@ if($ty == 'homeTutor'){
               
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['Name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -512,7 +514,7 @@ if($ty == 'homeTutor'){
 /////////////hotel
 if($ty == 'hotel'){
 
-  $out = $get->allPostListerOnColumenD('hotelOrHouse', 'hotelhouse', 'HOTEL', $startPage, $endPage);
+  $out = allPostListerOnColumenD('hotelOrHouse', 'hotelhouse', 'HOTEL', $startPage, $endPage);
 
   ?>
   
@@ -538,7 +540,7 @@ if($ty == 'hotel'){
             
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -569,7 +571,7 @@ if($ty == 'hotel'){
 ////////////////house keeper
 if($ty == 'houseKeeper'){
 
-  $out =  $get->allPostListerOnColumenD('hotelOrHouse', 'hotelhouse', 'HOUSE', $startPage, $endPage);
+  $out =  allPostListerOnColumenD('hotelOrHouse', 'hotelhouse', 'HOUSE', $startPage, $endPage);
 
   ?>
   
@@ -585,7 +587,7 @@ if($ty == 'houseKeeper'){
               
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>
@@ -615,7 +617,7 @@ if($ty == 'houseKeeper'){
 //////////////////zebegna
 if($ty == 'zebegna'){
 
-  $out = $get->allPostListerOnTableD('zebegna',1,6);
+  $out = allPostListerOnTableD('zebegna',1,6);
 
   ?>
   
@@ -628,7 +630,7 @@ if($ty == 'zebegna'){
         ?>
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo ''.$p[0] ;?>" alt="Card">
+              <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <p class="card-text">Name: <?php echo $row['name'] ?></p>
                 <p class="card-text">Sex: <?php echo $row['sex'] ?></p>

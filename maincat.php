@@ -226,7 +226,7 @@ function reload(x){
       <?php
       $tab = $_GET['cat'];
       $categorySort = array();
-      $category = $admin->allCategoryLister($tab);
+      $category = allCategoryLister($tab);
       while($rowc = $category->fetch_assoc()){
         $categorySort[] = $rowc['category'];
       }
@@ -273,7 +273,7 @@ function reload(x){
       ?>
               <?php 
               require_once 'php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -443,7 +443,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
  
     <?php
-        $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $_SESSION['location']);
+        $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $_SESSION['location']);
         $city = array();
         /// to check if the city chossen has a subcity if it has it goes through but if it hasent, then it doesnt appear
         if($locc->num_rows != 0){
@@ -492,6 +492,8 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               </select>
     </div>
     
+
+
         <!-- kebele when subcity is involved in the search query. it will use both dyCol1 and dyCol2 -->
       <!-- kebele list -->
       <div class="input-group mb-3 col-3">
@@ -599,104 +601,104 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
             // echo 'elc';
             if(isset($_GET['search'])){/// if search data is there
               $search = $_GET['search'];
-              $fetchPost = $get->searchC($cat, $search, $startPage, $endPage );
+              $fetchPost = searchC($cat, $search, $startPage, $endPage );
             }else{
-              $fetchPost = $get->allPostListerOnTableD($cat, $startPage, $endPage);
+              $fetchPost = allPostListerOnTableD($cat, $startPage, $endPage);
             }
           }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' && $status == ' ' ){ //dynamic colomen and arg with location all
             $dyCol = $_GET['dyCol'];
             $dyArg = $_GET['dyArg'];
             if(isset($_GET['search'])){/// if search data is there
               $search = $_GET['search'];
-              $fetchPost = $get->search1C($cat, $dyCol, $dyCArg, $search, $startPage, $endPage );
+              $fetchPost = search1C($cat, $dyCol, $dyCArg, $search, $startPage, $endPage );
             }else{
-              $fetchPost = $get->allPostListerOnColumenD($cat, $dyCol, $dyArg, $startPage, $endPage);
+              $fetchPost = allPostListerOnColumenD($cat, $dyCol, $dyArg, $startPage, $endPage);
             }
           }elseif($status == ' ' && $_SESSION['location'] != 'All' && !isset($_GET['dbType']) && !isset($_GET['dyCol'], $_GET['dyArg'])){// for location based output
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search1C($cat, 'address', $_SESSION['location'], $search, $startPage, $endPage);
+              $fetchPost = search1C($cat, 'address', $_SESSION['location'], $search, $startPage, $endPage);
             }else{
-              $fetchPost = $get->allPostListerOnColumenD($cat, 'address', $_SESSION['location'], $startPage, $endPage);
+              $fetchPost = allPostListerOnColumenD($cat, 'address', $_SESSION['location'], $startPage, $endPage);
             }
           }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' && $status == ' ' && !isset($_GET['dbType'] )){ //dynamic colomen and arg with location selected
             $dyCol = $_GET['dyCol'];
             $dyArg = $_GET['dyArg'];
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search2C($cat, $dyCol, $dyArg, 'address', $_SESSION['location'], $search, $startPage, $endPage);
+              $fetchPost = search2C($cat, $dyCol, $dyArg, 'address', $_SESSION['location'], $search, $startPage, $endPage);
             }else{
-              $fetchPost = $get->allPostListerOn2ColumenD($cat, $dyCol, $dyArg, 'address', $_SESSION['location'], $startPage, $endPage);
+              $fetchPost = allPostListerOn2ColumenD($cat, $dyCol, $dyArg, 'address', $_SESSION['location'], $startPage, $endPage);
             }
           }elseif($status != ' ' && $_SESSION['location'] == 'All' && !isset($_GET['dbType']) && !isset($_GET['dyCol'], $_GET['dyArg'])){
             // echo 'sdf--- '.$off;
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search1C($cat, $status, $off, $search, $startPage, $endPage);
+              $fetchPost = search1C($cat, $status, $off, $search, $startPage, $endPage);
             }else{
-              $fetchPost = $get->allPostListerOnColumenD($cat, $status, $off, $startPage, $endPage);
+              $fetchPost = allPostListerOnColumenD($cat, $status, $off, $startPage, $endPage);
             }
           }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $status != ' ' && $_SESSION['location'] == 'All' && !isset($_GET['dbType'])){ //dynamic colomen and arg with location selected
             $dyCol = $_GET['dyCol'];
             $dyArg = $_GET['dyArg'];
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search1C($cat, $dyCol, $dyArg, $search, $startPage, $endPage );
+              $fetchPost = search1C($cat, $dyCol, $dyArg, $search, $startPage, $endPage );
             }else{
-              $fetchPost = $get->allPostListerOn2ColumenD($cat, $status, $off , $dyCol, $dyArg, $startPage, $endPage);
+              $fetchPost = allPostListerOn2ColumenD($cat, $status, $off , $dyCol, $dyArg, $startPage, $endPage);
             }
           }
           
           elseif($status != ' ' && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) && !isset($_GET['dbType']) ){ // for location based output
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search2C($cat, $status, $off, 'address', $_SESSION['location'], $search, $startPage, $endPage);
+              $fetchPost = search2C($cat, $status, $off, 'address', $_SESSION['location'], $search, $startPage, $endPage);
             }else{
-              $fetchPost = $get->allPostListerOn2ColumenD($cat, $status, $off, 'address', $_SESSION['location'], $startPage, $endPage);
+              $fetchPost = allPostListerOn2ColumenD($cat, $status, $off, 'address', $_SESSION['location'], $startPage, $endPage);
             }
           }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $status != ' ' && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
             $dyCol = $_GET['dyCol'];
             $dyArg = $_GET['dyArg'];
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search3C($cat, $status, $off, 'address', $_SESSION['location'],$dyCol, $dyArg, $search, $startPage, $endPage);
+              $fetchPost = search3C($cat, $status, $off, 'address', $_SESSION['location'],$dyCol, $dyArg, $search, $startPage, $endPage);
             }else{
-              $fetchPost = $get->allPostListerOn3ColumenD($cat, $status, $off, 'address', $_SESSION['location'],$dyCol, $dyArg, $startPage, $endPage);
+              $fetchPost = allPostListerOn3ColumenD($cat, $status, $off, 'address', $_SESSION['location'],$dyCol, $dyArg, $startPage, $endPage);
             }
           }
           elseif($status == ' ' && isset($_GET['dbType']) && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
             $dbType = $_GET['dbType'];
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search1C($cat, 'type', $dbType,$search, $startPage, $endPage);
+              $fetchPost = search1C($cat, 'type', $dbType,$search, $startPage, $endPage);
             }else{
-              $fetchPost = $get->allPostListerOnColumenD($cat, 'type', $dbType , $startPage, $endPage);
+              $fetchPost = allPostListerOnColumenD($cat, 'type', $dbType , $startPage, $endPage);
             }
           }elseif($status == ' ' && isset($_GET['dbType']) && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){ // for location based output
             $dbType = $_GET['dbType'];
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search2C($cat, 'type', $dbType, 'address', $_SESSION['location'],$search, $startPage, $endPage);
+              $fetchPost = search2C($cat, 'type', $dbType, 'address', $_SESSION['location'],$search, $startPage, $endPage);
             }else{
-              $fetchPost = $get->allPostListerOn2ColumenD($cat, 'type', $dbType, 'address', $_SESSION['location'] , $startPage, $endPage);
+              $fetchPost = allPostListerOn2ColumenD($cat, 'type', $dbType, 'address', $_SESSION['location'] , $startPage, $endPage);
             }
           }
           elseif($status != ' ' && isset($_GET['dbType'])  && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){          
             $dbType = $_GET['dbType'];
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search2C($cat, $status, $off, 'type', $dbType,$search, $startPage, $endPage);
+              $fetchPost = search2C($cat, $status, $off, 'type', $dbType,$search, $startPage, $endPage);
             }else{
-              $fetchPost = $get->allPostListerOn2ColumenD($cat, $status, $off, 'type', $dbType, $startPage, $endPage);           
+              $fetchPost = allPostListerOn2ColumenD($cat, $status, $off, 'type', $dbType, $startPage, $endPage);           
             }
 
           }elseif($status != ' ' && isset($_GET['dbType'])  && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){          
             $dbType = $_GET['dbType'];
             if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
-              $fetchPost = $get->search3C($cat, $status, $off, 'address', $_SESSION['location'], 'type', $dbType,$search, $startPage, $endPage);
+              $fetchPost = search3C($cat, $status, $off, 'address', $_SESSION['location'], 'type', $dbType,$search, $startPage, $endPage);
             }else{
-              $fetchPost = $get->allPostListerOn3ColumenD($cat, $status, $off, 'type', $dbType, 'address', $_SESSION['location'],  $startPage, $endPage);           
+              $fetchPost = allPostListerOn3ColumenD($cat, $status, $off, 'type', $dbType, 'address', $_SESSION['location'],  $startPage, $endPage);           
             }
 
           }
@@ -726,7 +728,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 <div  class="col-3">
               <div class="card mb-4 box-shadow">
               
-              <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $_GET['type'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+              <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $_GET['type'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
                 <div class="post-details">
 
@@ -749,7 +751,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
     <?php
                   }
-                  $date = $get->time_elapsed_string($row['postedDate']);
+                  $date = time_elapsed_string($row['postedDate']);
                   
                   ?>
 
@@ -765,7 +767,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               </div>
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+              $faz = favouritesSelector($cat, $userId, $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -819,50 +821,50 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 $dbType = $_GET['dbType'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search1C($cat, 'type', $dbType ,$search, $startPage, $endPage);
+                  $fetchPost = search1C($cat, 'type', $dbType ,$search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOnColumenD($cat, 'type', $dbType , $startPage, $endPage);
+                  $fetchPost = allPostListerOnColumenD($cat, 'type', $dbType , $startPage, $endPage);
                 }
               }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
                 $dbType = $_GET['dbType'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search2C($cat, 'type', $dbType, 'address', $_SESSION['location'],$search, $startPage, $endPage);
+                  $fetchPost = search2C($cat, 'type', $dbType, 'address', $_SESSION['location'],$search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn2ColumenD($cat, 'type', $dbType, 'address', $_SESSION['location'], $startPage, $endPage );
+                  $fetchPost = allPostListerOn2ColumenD($cat, 'type', $dbType, 'address', $_SESSION['location'], $startPage, $endPage );
                 }
               }elseif($_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->searchC($cat, $search, $startPage, $endPage);
+                  $fetchPost = searchC($cat, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOnTableD($cat, $startPage, $endPage);
+                  $fetchPost = allPostListerOnTableD($cat, $startPage, $endPage);
                 }
               }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search1C($cat,$dyCol, $dyArg, $search, $startPage, $endPage);
+                  $fetchPost = search1C($cat,$dyCol, $dyArg, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOnColumenD($cat,$dyCol, $dyArg, $startPage, $endPage);
+                  $fetchPost = allPostListerOnColumenD($cat,$dyCol, $dyArg, $startPage, $endPage);
                 }
               }
               elseif($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search1C($cat, 'address', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search1C($cat, 'address', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOnColumenD($cat, 'address', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = allPostListerOnColumenD($cat, 'address', $_SESSION['location'], $startPage, $endPage);
                 }
               }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search2C($cat,$dyCol, $dyArg,'address', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search2C($cat,$dyCol, $dyArg,'address', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn2ColumenD($cat,$dyCol, $dyArg, 'address', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = allPostListerOn2ColumenD($cat,$dyCol, $dyArg, 'address', $_SESSION['location'], $startPage, $endPage);
                 }
               }
               if($fetchPost[1]->num_rows != 0){
@@ -882,7 +884,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                          
                       </div>
                       <?php 
-                        $date = $get->time_elapsed_string($row['postedDate']);
+                        $date = time_elapsed_string($row['postedDate']);
                         $dt = new DateTime($row['postedDate']);
 
                         $now = new DateTime();
@@ -904,7 +906,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                                     <a href="./Description.php?cat=vacancy&label=Vacancy Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">View</a>
                                     <?php
             if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+              $faz = favouritesSelector($cat, $userId, $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -940,52 +942,52 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 $dbType = $_GET['dbType'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search1C($cat, 'type', $dbType, $search, $startPage, $endPage);
+                  $fetchPost = search1C($cat, 'type', $dbType, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOnColumenD($cat, 'type', $dbType, $startPage, $endPage );
+                  $fetchPost = allPostListerOnColumenD($cat, 'type', $dbType, $startPage, $endPage );
                 }
               }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
                 $dbType = $_GET['dbType'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search2C($cat, 'type', $dbType, 'address', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search2C($cat, 'type', $dbType, 'address', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn2ColumenD($cat, 'type', $dbType, 'address', $_SESSION['location'], $startPage, $endPage );
+                  $fetchPost = allPostListerOn2ColumenD($cat, 'type', $dbType, 'address', $_SESSION['location'], $startPage, $endPage );
                 }
               }
               elseif($_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->searchC($cat, $search, $startPage, $endPage);
+                  $fetchPost = searchC($cat, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOnTableD($cat, $startPage, $endPage);
+                  $fetchPost = allPostListerOnTableD($cat, $startPage, $endPage);
                 }
               }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search1C($cat,$dyCol, $dyArg, $search, $startPage, $endPage);
+                  $fetchPost = search1C($cat,$dyCol, $dyArg, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOnColumenD($cat,$dyCol, $dyArg, $startPage, $endPage);
+                  $fetchPost = allPostListerOnColumenD($cat,$dyCol, $dyArg, $startPage, $endPage);
                 }
               }
               
               elseif($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search1C($cat, 'address', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search1C($cat, 'address', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOnColumenD($cat, 'address', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = allPostListerOnColumenD($cat, 'address', $_SESSION['location'], $startPage, $endPage);
                 }
               }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search2C($cat,$dyCol, $dyArg,'address', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search2C($cat,$dyCol, $dyArg,'address', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn2ColumenD($cat,$dyCol, $dyArg, 'address', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = allPostListerOn2ColumenD($cat,$dyCol, $dyArg, 'address', $_SESSION['location'], $startPage, $endPage);
                 }
               }
               if($fetchPost[1]->num_rows != 0){
@@ -1003,8 +1005,8 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                           <h5 class="card-title"><?php echo $row['type'] ?></h5>
                       </div>
                       <?php 
-                        $date = $get->time_elapsed_string($row['postedDate']);
-                        $sdate = $get->time_elapsed_string($row['startingDate']);
+                        $date = time_elapsed_string($row['postedDate']);
+                        $sdate = time_elapsed_string($row['startingDate']);
                         $dt = new DateTime($row['postedDate']);
 
                         $now = new DateTime();
@@ -1030,7 +1032,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                                     <a href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>&type= " type="button" class="btn btn-sm btn-outline-primary">View</a>
                                     <?php
             if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+              $faz = favouritesSelector($cat, $userId, $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1066,17 +1068,17 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $dbType = $_GET['dbType'];
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search1C($cat, 'title', $dbType , $search, $startPage, $endPage);
+                $fetchPost = search1C($cat, 'title', $dbType , $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOnColumenD($cat, 'title', $dbType , $startPage, $endPage);
+                $fetchPost = allPostListerOnColumenD($cat, 'title', $dbType , $startPage, $endPage);
               }
             }
             elseif(isset($_GET['search'])){
               // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->searchC($cat, $search, $startPage, $endPage);
+                $fetchPost = searchC($cat, $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOnTableD($cat, $startPage, $endPage);
+                $fetchPost = allPostListerOnTableD($cat, $startPage, $endPage);
               }
             
 
@@ -1097,7 +1099,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                     <?php 
 
                       $dt = new DateTime($row['postedDate']);
-                      $date = $get->time_elapsed_string($row['postedDate']);
+                      $date = time_elapsed_string($row['postedDate']);
                       $c = date_create($row['postedDate']);
                       $PD = date_format($c, "Y/m/d");
 
@@ -1161,36 +1163,36 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
                 if($arg == ' '){
-                  $fetchPost = $get->search2C($cat, 'houseOrLand', 'HOUSE',  'type', $dbType, $search, $startPage, $endPage);
+                  $fetchPost = search2C($cat, 'houseOrLand', 'HOUSE',  'type', $dbType, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $search, $startPage, $endPage);
+                  $fetchPost = search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $search, $startPage, $endPage);
                 }
               }else{
-                $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $startPage, $endPage); 
+                $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $startPage, $endPage); 
               }
               }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
                 $dbType = $_GET['dbType'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search4C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search4C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
+                  $fetchPost = allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
                 }
               }elseif($_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search2C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $search, $startPage, $endPage);
+                  $fetchPost = search2C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn2ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $startPage, $endPage);
+                  $fetchPost = allPostListerOn2ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $startPage, $endPage);
                 }
               }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' && !isset($_GET['dyCol2'], $_GET['dyArg2']) ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search3C($cat,$dyCol, $dyArg, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $search, $startPage, $endPage);
+                  $fetchPost = search3C($cat,$dyCol, $dyArg, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg, $startPage, $endPage);
+                  $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg, $startPage, $endPage);
                 }
               }
               elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' && !isset($_GET['dyCol2'], $_GET['dyArg2']) ){ //dynamic colomen and arg with location selected
@@ -1198,9 +1200,9 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search4C($cat,$dyCol, $dyArg, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search4C($cat,$dyCol, $dyArg, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg,'city', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg,'city', $_SESSION['location'], $startPage, $endPage);
                 }
               }
               elseif(isset($_GET['dyCol2'], $_GET['dyArg2'],$_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' ){ //dynamic colomen and arg with location selected
@@ -1210,18 +1212,18 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 $dyArg2 = $_GET['dyArg2'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search4C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $search, $startPage, $endPage);
+                  $fetchPost = search4C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg, $dyCol2, $dyArg2, $startPage, $endPage);
+                  $fetchPost = allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg,$dyCol, $dyArg, $dyCol2, $dyArg2, $startPage, $endPage);
                 }
               }
               
               elseif($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) && !isset($_GET['dyCol2'], $_GET['dyArg2']) ){
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
                 }
               }elseif(isset($_GET['dyCol2'], $_GET['dyArg2'], $_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
@@ -1230,9 +1232,9 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 $dyArg2 = $_GET['dyArg2'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search5C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search5C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn5ColumenD($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = allPostListerOn5ColumenD($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
                 }
               }
               
@@ -1260,7 +1262,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                       <div  class="row-col-3 row-col-sm-12 row-col-md-3">
                   <div class="card mb-4 box-shadow">
               
-              <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+              <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
                 <div class="card-body">
                   <h5 class="card-title">  <?php echo $row['type'] ?></h5>
@@ -1268,7 +1270,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                   <h6 class="card-text"><span class="text-danger small"><?php echo $row['cost'] ?> Birr</span> </h6>
                   <?php 
 
-                  $date = $get->time_elapsed_string($row['postedDate']);
+                  $date = time_elapsed_string($row['postedDate']);
                   ?>
                   <h6 class="card-text">   <?php echo $row['city'] ?> </h6>
                   <div class="d-flex justify-content-between align-items-center">
@@ -1281,7 +1283,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               </div>
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+              $faz = favouritesSelector($cat, $userId, $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1328,51 +1330,51 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 $dbType = $_GET['dbType'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search3C($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType, $search, $startPage, $endPage);
+                  $fetchPost = search3C($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType, $startPage, $endPage); 
+                  $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType, $startPage, $endPage); 
                 }
               }if(isset($_GET['dbType'])&& $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
                 $dbType = $_GET['dbType'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search4C($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search4C($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn4ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
+                  $fetchPost = allPostListerOn4ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
                 }
               }elseif($_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search2C($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, $search, $startPage, $endPage);
+                  $fetchPost = search2C($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn2ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, $startPage, $endPage);
+                  $fetchPost = allPostListerOn2ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, $startPage, $endPage);
                 }
               }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All'  ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search3C($cat,$dyCol, $dyArg,'houseOrLand', 'LAND', 'forRentOrSell', $arg, $search, $startPage, $endPage);
+                  $fetchPost = search3C($cat,$dyCol, $dyArg,'houseOrLand', 'LAND', 'forRentOrSell', $arg, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell' , $arg,$dyCol, $dyArg, $startPage, $endPage);
+                  $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell' , $arg,$dyCol, $dyArg, $startPage, $endPage);
                 }
               }
 
               elseif($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search3C($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search3C($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn3ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
                 }
               }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = $get->search4C($cat,$dyCol, $dyArg,'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  $fetchPost = search4C($cat,$dyCol, $dyArg,'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = $get->allPostListerOn4ColumenD($cat,$dyCol, $dyArg,'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+                  $fetchPost = allPostListerOn4ColumenD($cat,$dyCol, $dyArg,'houseOrLand', 'LAND', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
                 }
               }
               
@@ -1400,7 +1402,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                       <div  class="row-col-3 row-col-sm-12 row-col-md-3">
                   <div class="card mb-4 box-shadow">
               
-              <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+              <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
                 <div class="card-body">
                   <h5 class="card-title">  <?php echo $row['title'] ?></h5>
@@ -1411,7 +1413,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
     <?php
                   }
-                  $date = $get->time_elapsed_string($row['postedDate']);
+                  $date = time_elapsed_string($row['postedDate']);
                   ?>
                   
                   <h6 class="card-text"> Location:  <?php echo $row['city'] ?></h6>
@@ -1424,7 +1426,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               </div>
               <?php
               if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+              $faz = favouritesSelector($cat, $userId, $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){
@@ -1468,18 +1470,18 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
             if($type == "homeTutor" && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) || $type == 'zebegna' && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->searchC($cat, $search, $startPage, $endPage);
+                $fetchPost = searchC($cat, $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOnTableD($cat, $startPage, $endPage);
+                $fetchPost = allPostListerOnTableD($cat, $startPage, $endPage);
               }
             }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $type == "homeTutor" && $_SESSION['location'] == 'All' || isset($_GET['dyCol'], $_GET['dyArg']) && $type == 'zebegna' && $_SESSION['location'] == 'All'){ //dynamic colomen and arg with location selected
               $dyCol = $_GET['dyCol'];
               $dyArg = $_GET['dyArg'];
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search1C($cat,$dyCol, $dyArg, $search, $startPage, $endPage);
+                $fetchPost = search1C($cat,$dyCol, $dyArg, $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOnColumenD($cat,$dyCol, $dyArg, $startPage, $endPage);
+                $fetchPost = allPostListerOnColumenD($cat,$dyCol, $dyArg, $startPage, $endPage);
               }
             }
             
@@ -1487,9 +1489,9 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
             elseif($type == "homeTutor" && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])  || $type == 'zebegna' && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search1C($cat, 'address', $_SESSION['location'], $search, $startPage, $endPage);
+                $fetchPost = search1C($cat, 'address', $_SESSION['location'], $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOnColumenD($cat, 'address', $_SESSION['location'], $startPage, $endPage);
+                $fetchPost = allPostListerOnColumenD($cat, 'address', $_SESSION['location'], $startPage, $endPage);
               }
             }
             elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $type == "homeTutor" && $_SESSION['location'] != 'All' || isset($_GET['dyCol'], $_GET['dyArg']) && $type == 'zebegna' && $_SESSION['location'] != 'All'){ //dynamic colomen and arg with location selected
@@ -1497,18 +1499,18 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $dyArg = $_GET['dyArg'];
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search2C($cat,$dyCol, $dyArg , 'address', $_SESSION['location'] , $search, $startPage, $endPage);
+                $fetchPost = search2C($cat,$dyCol, $dyArg , 'address', $_SESSION['location'] , $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOn2ColumenD($cat,$dyCol, $dyArg,  'address', $_SESSION['location'], $startPage, $endPage);
+                $fetchPost = allPostListerOn2ColumenD($cat,$dyCol, $dyArg,  'address', $_SESSION['location'], $startPage, $endPage);
               }
             }
             
             elseif($type == "houseWorker" && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search1C($cat, 'hotelOrHouse', 'HOUSE', $search, $startPage, $endPage);
+                $fetchPost = search1C($cat, 'hotelOrHouse', 'HOUSE', $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOnColumenD($cat, 'hotelOrHouse', 'HOUSE', $startPage, $endPage);
+                $fetchPost = allPostListerOnColumenD($cat, 'hotelOrHouse', 'HOUSE', $startPage, $endPage);
               }
             }
             elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $type == "houseWorker" && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){ //dynamic colomen and arg with location selected
@@ -1516,44 +1518,44 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $dyArg = $_GET['dyArg'];
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search2C($cat,$dyCol, $dyArg ,'hotelOrHouse', 'HOUSE', $search, $startPage, $endPage);
+                $fetchPost = search2C($cat,$dyCol, $dyArg ,'hotelOrHouse', 'HOUSE', $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOn2ColumenD($cat,$dyCol, $dyArg, 'hotelOrHouse', 'HOUSE', $startPage, $endPage);
+                $fetchPost = allPostListerOn2ColumenD($cat,$dyCol, $dyArg, 'hotelOrHouse', 'HOUSE', $startPage, $endPage);
               }
             }
             elseif($type == "houseWorker" && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search2C($cat, 'hotelOrHouse', 'HOUSE',  'address', $_SESSION['location'], $search, $startPage, $endPage);
+                $fetchPost = search2C($cat, 'hotelOrHouse', 'HOUSE',  'address', $_SESSION['location'], $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOn2ColumenD($cat, 'hotelOrHouse', 'HOUSE',  'address', $_SESSION['location'], $startPage, $endPage);
+                $fetchPost = allPostListerOn2ColumenD($cat, 'hotelOrHouse', 'HOUSE',  'address', $_SESSION['location'], $startPage, $endPage);
               }
             }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $type == "houseWorker" && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
               $dyCol = $_GET['dyCol'];
               $dyArg = $_GET['dyArg'];
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search3C($cat,$dyCol, $dyArg ,'hotelOrHouse', 'HOUSE' ,  'address', $_SESSION['location'], $search, $startPage, $endPage);
+                $fetchPost = search3C($cat,$dyCol, $dyArg ,'hotelOrHouse', 'HOUSE' ,  'address', $_SESSION['location'], $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOn3Columen($cat,$dyCol, $dyArg, 'hotelOrHouse', 'HOUSE',   'address', $_SESSION['location']);
+                $fetchPost = allPostListerOn3Columen($cat,$dyCol, $dyArg, 'hotelOrHouse', 'HOUSE',   'address', $_SESSION['location']);
               }
             }
             
             elseif($type == "hotelWorker" && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search1C($cat, 'hotelOrHouse', 'HOTEL', $search, $startPage, $endPage);
+                $fetchPost = search1C($cat, 'hotelOrHouse', 'HOTEL', $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOnColumenD($cat, 'hotelOrHouse', 'HOTEL', $startPage, $endPage);
+                $fetchPost = allPostListerOnColumenD($cat, 'hotelOrHouse', 'HOTEL', $startPage, $endPage);
               }
             }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $type == "hotelWorker" && $_SESSION['location'] == 'All' ){ //dynamic colomen and arg with location selected
               $dyCol = $_GET['dyCol'];
               $dyArg = $_GET['dyArg'];
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search2C($cat,$dyCol, $dyArg ,'hotelOrHouse', 'HOTEL', $search, $startPage, $endPage);
+                $fetchPost = search2C($cat,$dyCol, $dyArg ,'hotelOrHouse', 'HOTEL', $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOn2ColumenD($cat,$dyCol, $dyArg,'hotelOrHouse', 'HOTEL', $startPage, $endPage);
+                $fetchPost = allPostListerOn2ColumenD($cat,$dyCol, $dyArg,'hotelOrHouse', 'HOTEL', $startPage, $endPage);
               }
             }
             
@@ -1561,18 +1563,18 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
             elseif($type == "hotelWorker" && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search2C($cat, 'hotelOrHouse', 'HOTEL','address', $_SESSION['location'], $search, $startPage, $endPage);
+                $fetchPost = search2C($cat, 'hotelOrHouse', 'HOTEL','address', $_SESSION['location'], $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOn2ColumenD($cat, 'hotelOrHouse', 'HOTEL','address', $_SESSION['location'], $startPage, $endPage);
+                $fetchPost = allPostListerOn2ColumenD($cat, 'hotelOrHouse', 'HOTEL','address', $_SESSION['location'], $startPage, $endPage);
               }
             }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $type == "hotelWorker" && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
               $dyCol = $_GET['dyCol'];
               $dyArg = $_GET['dyArg'];
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                $fetchPost = $get->search2C($cat,$dyCol, $dyArg ,'hotelOrHouse', 'HOTEL', $search, $startPage, $endPage);
+                $fetchPost = search2C($cat,$dyCol, $dyArg ,'hotelOrHouse', 'HOTEL', $search, $startPage, $endPage);
               }else{
-                $fetchPost = $get->allPostListerOn2ColumenD($cat,$dyCol, $dyArg,'hotelOrHouse', 'HOTEL', $startPage, $endPage);
+                $fetchPost = allPostListerOn2ColumenD($cat,$dyCol, $dyArg,'hotelOrHouse', 'HOTEL', $startPage, $endPage);
               }
             }
 
@@ -1604,7 +1606,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                     <div  class="col-md-3">
                   <div class="card mb-4 box-shadow">
             
-            <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $type ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+            <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $type ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
               <div class="card-body">
 
@@ -1623,7 +1625,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 ?>
                 <?php 
 
-                $date = $get->time_elapsed_string($row['postedDate']);
+                $date = time_elapsed_string($row['postedDate']);
                 
                 ?>
                 <h6 class="card-text">Location: <?php echo $row['address'] ?></h6>
@@ -1636,7 +1638,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
             </div>
             <?php
             if(isset($_SESSION['userId'])){
-              $faz = $get->favouritesSelector($cat, $userId, $row['id'] );
+              $faz = favouritesSelector($cat, $userId, $row['id'] );
               // $row = $faz->fetch_assoc();
               // echo $row['fav'];
                 if($faz->num_rows > 0){

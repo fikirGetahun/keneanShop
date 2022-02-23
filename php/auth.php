@@ -1,5 +1,5 @@
 <?php
-class auth{
+
 
     //registering a normal user
     function registerUser($username, $password, $firstName, $lastName, $phone  ){
@@ -119,6 +119,70 @@ class auth{
 
     }
 
+
+    
+    ///// to fetch data from a 'table and condition(columen) with the argument
+    function allPostListerOnColumenx($table, $columen, $args){
+        include "connect.php";
+        $q = "SELECT * FROM `$table` WHERE `$columen` LIKE '$args' ORDER BY RAND() LIMIT 10";
+
+        $ask = $mysql->query($q);
+        echo $mysql->error;
+
+        return $ask;
+    }
+
+
+    //delete user with all of his post
+    function completeUserDelete($userz){
+        include "connect.php";
+      
+        $dbTablesz = array('ad', 'car', 'charity', 'electronics',
+        'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse' );
+      
+        foreach($dbTablesz as $postsz){  
+            $q = "SELECT * FROM `$postsz` WHERE `posterId` = '$userz'  ";
+
+            $ask = $mysql->query($q);
+            
+            // if($rowx = $ask->fetch_assoc()){
+            //     echo 'yesss';
+            // }else{
+            //     echo 'noo00';
+            // }
+
+            while($rowx = $ask->fetch_assoc()){ 
+                $piss = $rowx['id'];
+                echo $piss ;
+                echo $postsz;
+
+                if($postsz != 'vacancy'){
+                    $file = $row['photoPath1'];
+                    $singl = explode(',',$file);
+                    foreach($singl as $s){
+                        if($s){
+                            unlink('.'.$s);
+                        }
+                        
+                    }
+                    
+                }
+
+                
+                $q3 = "DELETE FROM `$postsz` WHERE `$postsz`.`id` = '$piss' ";
+                $ask3 = $mysql->query($q3);
+                // return $ask3;  
+            }
+            // echo 'zz';
+        }
+        $q2 = "DELETE FROM `user` WHERE `user`.`id` = '$userz'";
+        $ask2 = $mysql->query($q2);
+        return $ask2;
+        // echo $mysql->error;
+    }
+
+
+
     function postDeleterCat($table, $postId){
         include "connect.php";
 
@@ -132,8 +196,5 @@ class auth{
     }
 
 
-}
-
-$auth = new auth;
 
 ?>

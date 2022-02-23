@@ -1,6 +1,9 @@
 <?php
 require_once "../php/adminCrude.php";
 
+
+
+
 ?>
 
 <form id="registerBox"  method="POST" enctype="multipart/form-data" >

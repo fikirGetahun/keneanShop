@@ -262,6 +262,8 @@ if(isset($_GET['type'],$_SESSION['userId'])){
 
 
 
+
+
 <script>
 
     $(document).ready(function(){
@@ -348,7 +350,7 @@ $('#fsell').on('change', function(){
           <option><?php echo $lang['carModel'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc=   $admin->allCategoryLister('car');
+                $locc=   allCategoryLister('car');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -392,7 +394,7 @@ $('#fsell').on('change', function(){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -633,7 +635,7 @@ $('#selchange').on('change', function(){
           <option selected ><?php echo $lang['adsCategory'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $admin->allCategoryLister('ad');
+                $locc= allCategoryLister('ad');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -671,7 +673,7 @@ $('#selchange').on('change', function(){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -812,7 +814,7 @@ $('#targetLoader').empty()
     <option selected ><?php echo $lang['adsCategory'] ?></option>
     <?php 
         require_once '../php/fetchApi.php';
-          $locc= $admin->allCategoryLister('ad');
+          $locc= allCategoryLister('ad');
           $city = array();
           while($rowLoc = $locc->fetch_assoc()){
               $city[]= $rowLoc['category'];
@@ -850,7 +852,7 @@ $('#targetLoader').empty()
     <option><?php echo $lang['city'] ?></option>
     <?php 
         require_once '../php/fetchApi.php';
-          $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+          $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
           $city = array();
           while($rowLoc = $locc->fetch_assoc()){
               $city[]= $rowLoc['category'];
@@ -1031,7 +1033,7 @@ elseif($_GET['type'] == 'house'){
 require_once "../php/adminCrude.php";
 $tab = $_GET['cat'];
 $categorySort = array();
-$category = $admin->allCategoryLister('housesell');
+$category = allCategoryLister('housesell');
 while($rowc = $category->fetch_assoc()){
   $categorySort[] = $rowc['category'];
 }
@@ -1078,7 +1080,7 @@ foreach($categorySort as $sorted){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -1109,7 +1111,7 @@ foreach($categorySort as $sorted){
         <div id="subH"   class="input-group mb-3" >
           <?php
         require_once '../php/fetchApi.php';
-    $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+    $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
     $city = array();
     if($locc->num_rows != 0){
       ?>
@@ -1409,7 +1411,7 @@ function hCity(x){
         <option><?php echo $lang['city'] ?></option>
         <?php 
             require_once '../php/fetchApi.php';
-              $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+              $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
               $city = array();
               while($rowLoc = $locc->fetch_assoc()){
                   $city[]= $rowLoc['category'];
@@ -1440,7 +1442,7 @@ function hCity(x){
       <div id="subH"   class="input-group mb-3" >
         <?php
       require_once '../php/fetchApi.php';
-  $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+  $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
   $city = array();
   if($locc->num_rows != 0){
     ?>
@@ -1614,7 +1616,7 @@ $('#sElc').on('change', function(){
           <option><?php echo $lang['elecCat'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumen('adCategory', 'tableName', 'electronics');
+                $locc= allPostListerOnColumen('adCategory', 'tableName', 'electronics');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -1671,7 +1673,7 @@ $('#sElc').on('change', function(){
           <option><?php echo $lang['city'] ?> </option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -1778,7 +1780,7 @@ if($_GET['type'] == 'charity'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -1897,7 +1899,7 @@ if($_GET['type'] == 'vacancy'){
           <option><?php echo $lang['jobType'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $admin->allCategoryLister('vacancy');
+                $locc= allCategoryLister('vacancy');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2002,7 +2004,7 @@ if($_GET['type'] == 'vacancy'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2140,7 +2142,7 @@ if($_GET['type'] == 'tender'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2289,7 +2291,7 @@ if($_GET['type'] == 'homeTutor'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2416,7 +2418,7 @@ if($_GET['type'] == 'houseWorker'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2473,7 +2475,7 @@ if($_GET['type'] == 'houseWorker'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2615,7 +2617,7 @@ if($_GET['type'] == 'hotelWorker'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2674,7 +2676,7 @@ if($_GET['type'] == 'hotelWorker'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2806,7 +2808,7 @@ if($_GET['type'] == 'zebegna'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -3066,7 +3068,7 @@ if($_GET['type'] == 'real'){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -3103,7 +3105,7 @@ if($_GET['type'] == 'real'){
         <div id="subH"   class="input-group mb-3" >
           <?php
         require_once '../php/fetchApi.php';
-    $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+    $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
     $city = array();
     if($locc->num_rows != 0){
       ?>

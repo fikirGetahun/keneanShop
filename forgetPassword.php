@@ -57,6 +57,10 @@ body {
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
 
     
+    
+
+
+
 
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -128,7 +132,7 @@ require_once "php/adminCrude.php";
     if(isset($_POST['username'], $_POST['recover'])){
       $us2 = $_POST['username']; 
       $recover = $_POST['recover'];
-      $check = $auth->loginAuth($us2);
+      $check = loginAuth($us2);
       $urow3 = $check->fetch_assoc();
       if($check->num_rows == 0){
           echo 'USERNAME DOESNOT EXIST';
@@ -157,7 +161,7 @@ require_once "php/adminCrude.php";
     if(isset($_POST['r'], $_POST['upid'])){
     $hx= $_POST['upid'];
       $pzx = $_POST['r']; 
-      $puz = $admin->password($pzx,$hx);
+      $puz = password($pzx,$hx);
 
       
       if($puz){

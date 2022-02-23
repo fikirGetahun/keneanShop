@@ -3,6 +3,11 @@
   include "../includes/adminSide.php";
   require_once '../php/fetchApi.php';
   include "../includes/lang.php";
+
+  
+  
+  
+
 ?>
 <?php
 include "../includes/header.php";
@@ -61,7 +66,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
 <div class="col-3">
 <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -121,7 +126,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
 
       $subC = http_build_query($sub);
 
-  $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $_SESSION['location']);
+  $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $_SESSION['location']);
   $city = array();
   if($locc->num_rows != 0){
     ?>
@@ -207,25 +212,25 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
             $filterArr[2] = $_GET['wereda'];
             $we = $_GET['wereda'];
             $su = $_GET['sub'];
-            $member = $get->allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su ,0 , 2);
+            $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su ,0 , 2);
           }elseif(isset($_GET['sub'])){
             $filterArr[1] = $_GET['sub'];
             $subReq = $_GET['sub'];
-            $member = $get->allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq ,1 , 2);
+            $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq ,1 , 2);
           }elseif($_GET['loc'] == 'All'){ // IF THE location is seted to 'ALL'
             $filterArr[0] = 'All';
-            $member = $get->allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
+            $member = allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
           }
           else{
             // $filterArr[0] = 'All';
-            $member = $get->allPostListerOn2ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES' ,0 , 2);
+            $member = allPostListerOn2ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES' ,0 , 2);
           }
         }else{
           $filterArr[0] = 'All';
-          $member = $get->allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
+          $member = allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
         }
         $filter = implode($filterArr); // implode the arry values to string so that we pass it through a single parameter in the ajax script bellow
-        // $member = $get->allPostListerOnTableD('mambership', 1 , 2);
+        // $member = allPostListerOnTableD('mambership', 1 , 2);
 
         ?>
                 <script>
@@ -264,7 +269,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
             ?>
             <div id="adVieww" class="col-md-4">
             <div class="card mb-4 box-shadow">
-            <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">      
+            <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">      
               <div class="card-body">
                 <p class="card-text"><?php echo $row['name'] ?></p>
                 <!-- <p class="card-text"><?php echo $row['price'] ?> Birr</p> -->
@@ -310,7 +315,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
 /// this block is to view the members info
         if(isset($_GET['view'], $_GET['mid'])){
           $mid = $_GET['mid'];
-          $member = $get->allPostListerOnColumen('mambership', 'id', $mid);
+          $member = allPostListerOnColumen('mambership', 'id', $mid);
           $row = $member->fetch_assoc();
           ?>
           <div class="container">
@@ -426,25 +431,25 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
                 $filterArr[2] = $_GET['wereda'];
                 $we = $_GET['wereda'];
                 $su = $_GET['sub'];
-                $member = $get->allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null, 'wereda', $we, 'subCity', $su ,0 , 2);
+                $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null, 'wereda', $we, 'subCity', $su ,0 , 2);
               }elseif(isset($_GET['sub'])){
                 $filterArr[1] = $_GET['sub'];
                 $subReq = $_GET['sub'];
-                $member = $get->allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq ,1 , 2);
+                $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq ,1 , 2);
               }elseif($_GET['loc'] == 'All'){ // IF THE location is seted to 'ALL'
                 $filterArr[0] = 'All';
-                $member = $get->allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
+                $member = allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
               }
               else{
                 // $filterArr[0] = 'All';
-                $member = $get->allPostListerOn2ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null ,0 , 2);
+                $member = allPostListerOn2ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null ,0 , 2);
               }
             }else{
               $filterArr[0] = 'All';
-              $member = $get->allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
+              $member = allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
             }
             $filter = implode($filterArr); // implode the arry values to string so that we pass it through a single parameter in the ajax script bellow
-            // $member = $get->allPostListerOnTableD('mambership', 1 , 2);
+            // $member = allPostListerOnTableD('mambership', 1 , 2);
     
             ?>
                     <script>
@@ -486,7 +491,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
                 ?>
                 <div id="adVieww" class="col-md-4">
                 <div class="card mb-4 box-shadow">
-                <img class="img-thumbnail" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">      
+                <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">      
                   <div class="card-body">
                     <p class="card-text"><?php echo $row['name'] ?></p>
                     <!-- <p class="card-text"><?php echo $row['price'] ?> Birr</p> -->

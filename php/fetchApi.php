@@ -1,6 +1,5 @@
 <?php 
 
-class fetch{
 
 
     ///// to fetch data from a 'table and condition(columen) with the argument
@@ -569,8 +568,5 @@ class fetch{
     // function 
 
 
-}
-
-$get = new fetch;
 
 ?>

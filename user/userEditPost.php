@@ -178,7 +178,7 @@ require_once "../php/adminCrude.php";
       <input type="text" class="form-control" id=" " 
       aria-describedby="emailHelp" name="companyName" placeholder=" " 
       value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['companyName']; 
       ?>">
@@ -205,7 +205,7 @@ require_once "../php/adminCrude.php";
           <option selected  ><?php echo $row['type'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $admin->allCategoryLister('vacancy');
+                $locc= allCategoryLister('vacancy');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -237,7 +237,7 @@ require_once "../php/adminCrude.php";
       <input type="text" class="form-control" id="jobTitle" 
       aria-describedby="emailHelp" name="jobTitle" placeholder="Company Name" 
       value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['title']; 
       ?>">
@@ -249,7 +249,7 @@ require_once "../php/adminCrude.php";
 
     <select class="form-select" name="positionType" id="inputGroupSelect01">
       <option selected><?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['positionType']; 
       ?></option>
@@ -284,7 +284,7 @@ require_once "../php/adminCrude.php";
       <input type="date" class="form-control" id="Deadlined" 
       aria-describedby="emailHelp" name="Deadline" placeholder="Company Name"
       value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['deadLine']; 
       ?>"
@@ -296,7 +296,7 @@ require_once "../php/adminCrude.php";
       <input type="number" class="form-control" id="jobTitle" 
       aria-describedby="emailHelp" name="reqNo" placeholder="Company Name"
       value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['positionNum']; 
       ?>"
@@ -309,7 +309,7 @@ require_once "../php/adminCrude.php";
           <input type="number" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="phone" placeholder="phone number"
           value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['phone']; 
       ?>"
@@ -323,7 +323,7 @@ require_once "../php/adminCrude.php";
           <option><?php echo $row['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -354,7 +354,7 @@ require_once "../php/adminCrude.php";
           <label for="exampleInputEmail1"><?php echo $lang['Salary'] ?>: </label>
           <input type="text" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="salary" placeholder="phone number" value="<?php
-                        $p = $admin->editVacancyPost($uidx);
+                        $p = editVacancyPost($uidx);
                         $row = $p->fetch_assoc();
           echo $row['salary'] ?>" >
          </div>
@@ -370,7 +370,7 @@ require_once "../php/adminCrude.php";
       value= ""
       
       ><?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['info']; 
       ?></textarea>
@@ -407,7 +407,7 @@ require_once "../php/adminCrude.php";
           <input type="text" class="form-control" id="tenderType" 
           aria-describedby="emailHelp" name="title" placeholder="Company Name"
           value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['title']
       
@@ -419,7 +419,7 @@ require_once "../php/adminCrude.php";
       <input type="text" class="form-control" id="tenderType" 
       aria-describedby="emailHelp" name="tenderType" placeholder="Company Name"
       value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['type']
       
@@ -433,7 +433,7 @@ require_once "../php/adminCrude.php";
       <input type="date" class="form-control" id="startingDate" 
       aria-describedby="emailHelp" name="startDate" placeholder="Company Name" 
       value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['startingDate'];
       
@@ -446,7 +446,7 @@ require_once "../php/adminCrude.php";
       <input type="date" class="form-control" id="Deadline2" 
       aria-describedby="emailHelp" name="Deadline2" placeholder="Company Name" 
       value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['deadLine'];
       
@@ -458,7 +458,7 @@ require_once "../php/adminCrude.php";
       <input type="number" class="form-control" id="phoneNo" 
       aria-describedby="emailHelp" name="initialCost" placeholder="Company Name" 
       value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['initialCost'];
       
@@ -471,7 +471,7 @@ require_once "../php/adminCrude.php";
           <option><?php echo $row['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -512,7 +512,7 @@ require_once "../php/adminCrude.php";
       aria-describedby="emailHelp" name="description2" placeholder="Describition" 
       value=""
       ><?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['info']
       
@@ -536,7 +536,7 @@ function pUpdate(divz, photo){
 </script>
 <?php
 $i = 0;
-$pp = $admin->photoSplit($row['photoPath1']);
+$pp = photoSplit($row['photoPath1']);
 if(!empty($row['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -578,7 +578,7 @@ foreach($pp as $photo){
     
     //////////////////////////////////////////////////////
     elseif($_GET['type'] == 'ad'){
-      $adEdit = $admin->adEditDataLister($uidx);
+      $adEdit = adEditDataLister($uidx);
       while($adRow = $adEdit->fetch_assoc()){
         ?>
 <script>
@@ -623,7 +623,7 @@ $('#selchange').on('change', function(){
           <option selected ><?php echo $adRow['type'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $admin->allCategoryLister('ad');
+                $locc= allCategoryLister('ad');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -700,7 +700,7 @@ $('#selchange').on('change', function(){
           <option><?php echo $adRow['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -771,7 +771,7 @@ function pUpdate(divz, photo){
 </script>
 <?php
 $i = 0;
-$pp = $admin->photoSplit($adRow['photoPath1']);
+$pp = photoSplit($adRow['photoPath1']);
 if(!empty($adRow['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -801,7 +801,9 @@ foreach($pp as $photo){
 }
 ?>
 
-        
+
+
+      
         <?php
 
         ?>
@@ -816,7 +818,7 @@ foreach($pp as $photo){
     }
     ////////////////////////////////////////////////////////////
     elseif($_GET['type'] == 'car'){
-      $carE = $admin->carPostDataLister($uidx);
+      $carE = carPostDataLister($uidx);
       $carRow = $carE->fetch_assoc();
       ?>
 
@@ -864,7 +866,7 @@ $('#forRentOrSell').on('change', function(){
           <option><?php echo $carRow['type'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc=   $admin->allCategoryLister('car');
+                $locc=   allCategoryLister('car');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -919,7 +921,7 @@ $('#forRentOrSell').on('change', function(){
           <option><?php echo $carRow['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -1139,7 +1141,7 @@ function pUpdate(divz, photo){
 </script>
 <?php
 $i = 0;
-$pp = $admin->photoSplit($carRow['photoPath1']);
+$pp = photoSplit($carRow['photoPath1']);
 if(!empty($carRow['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -1177,7 +1179,7 @@ foreach($pp as $photo){
     }
     //////////////////////////////////////////////////////////////////////
     elseif($_GET['type'] == 'housex'){
-      $houseOut = $admin->singleHousePostLister($uidx);
+      $houseOut = singleHousePostLister($uidx);
       $houseRow = $houseOut->fetch_assoc();
       ?>
       
@@ -1238,7 +1240,7 @@ foreach($pp as $photo){
 require_once "../php/adminCrude.php";
 $tab = $_GET['cat'];
 $categorySort = array();
-$category = $admin->allCategoryLister('housesell');
+$category = allCategoryLister('housesell');
 while($rowc = $category->fetch_assoc()){
   $categorySort[] = $rowc['category'];
 }
@@ -1291,7 +1293,7 @@ foreach($categorySort as $sorted){
           <option><?php echo $houseRow['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -1327,7 +1329,7 @@ if($houseRow['subCity'] != ' '){
         <label>Sub City: </label>
           <?php
         require_once '../php/fetchApi.php';
-    $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+    $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
     $city = array();
     if($locc->num_rows != 0){
       ?>
@@ -1500,7 +1502,7 @@ if($houseRow['subCity'] != ' '){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($houseRow['photoPath1']);
+           $pp = photoSplit($houseRow['photoPath1']);
            if(!empty($houseRow['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -1540,7 +1542,7 @@ if($houseRow['subCity'] != ' '){
 
     //////////////////////////////// 
     elseif($_GET['type'] == 'land'){
-      $houseOut = $admin->singleHousePostLister($uidx);
+      $houseOut = singleHousePostLister($uidx);
       $houseRow = $houseOut->fetch_assoc();
       ?>
       
@@ -1623,7 +1625,7 @@ function hCity(x){
         <option><?php echo $houseRow['city'] ?></option>
         <?php 
             require_once '../php/fetchApi.php';
-              $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+              $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
               $city = array();
               while($rowLoc = $locc->fetch_assoc()){
                   $city[]= $rowLoc['category'];
@@ -1659,7 +1661,7 @@ if($houseRow['subCity'] != ' '){
       <label>Sub City: </label>
         <?php
       require_once '../php/fetchApi.php';
-  $locc= $get->allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+  $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
   $city = array();
   if($locc->num_rows != 0){
     ?>
@@ -1804,7 +1806,7 @@ if($houseRow['subCity'] != ' '){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($houseRow['photoPath1']);
+           $pp = photoSplit($houseRow['photoPath1']);
            if(!empty($houseRow['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -1845,7 +1847,7 @@ if($houseRow['subCity'] != ' '){
 
     //////////////////////////////////////////////////////////
     elseif($_GET['type'] == 'electronics'){
-      $elcEdit = $admin->elecSinglePostViewer($uidx);
+      $elcEdit = elecSinglePostViewer($uidx);
       $elecRow = $elcEdit->fetch_assoc();
 
       ?>
@@ -1878,7 +1880,7 @@ $('#sElc').on('change', function(){
           <option><?php echo $elecRow['type'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumen('adCategory', 'tableName', 'electronics');
+                $locc= allPostListerOnColumen('adCategory', 'tableName', 'electronics');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -1993,7 +1995,7 @@ $('#sElc').on('change', function(){
           <option><?php echo $elecRow['address'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2042,7 +2044,7 @@ function pUpdate(divz, photo){
 </script>
 <?php
 $i = 0;
-$pp = $admin->photoSplit($elecRow['photoPath1']);
+$pp = photoSplit($elecRow['photoPath1']);
 if(!empty($elecRow['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -2083,7 +2085,7 @@ foreach($pp as $photo){
   /////////////////////////////////////////////////////////
   if(isset($_GET['type'])){
     if($_GET['type'] == 'charity'){
-      $out = $admin->aSinglePostView($uidx, 'charity');
+      $out = aSinglePostViewx($uidx, 'charity');
       $cRow = $out->fetch_assoc();
 
       ?>
@@ -2106,7 +2108,7 @@ foreach($pp as $photo){
           <option><?php echo $cRow['address']; ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2162,7 +2164,7 @@ function pUpdate(divz, photo){
 </script>
 <?php
 $i = 0;
-$pp = $admin->photoSplit($cRow['photoPath1']);
+$pp = photoSplit($cRow['photoPath1']);
 if(!empty($cRow['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -2206,7 +2208,7 @@ foreach($pp as $photo){
   if(isset($_GET['type'])){
     if($_GET['type'] == 'jobhometutor'){
 
-      $out = $admin->aSinglePostView($uidx, 'jobhometutor');
+      $out = aSinglePostViewx($uidx, 'jobhometutor');
       $row = $out->fetch_assoc();
 
       ?>
@@ -2282,7 +2284,7 @@ foreach($pp as $photo){
           <option><?php echo $row['address']; ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2342,7 +2344,7 @@ foreach($pp as $photo){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($row['photoPath1']);
+           $pp = photoSplit($row['photoPath1']);
            if(!empty($row['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -2381,7 +2383,7 @@ foreach($pp as $photo){
   //////////////////////////////////////////
   if(isset($_GET['type'])){
     if($_GET['type'] == 'hotel'){
-      $outp = $admin->aSinglePostView($uidx, 'hotelhouse');
+      $outp = aSinglePostViewx($uidx, 'hotelhouse');
       $row = $outp->fetch_assoc();
       ?>
                <h5>Hotel Worker Job Application</h5>
@@ -2419,7 +2421,7 @@ foreach($pp as $photo){
           <option><?php echo $row['address']; ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2518,7 +2520,7 @@ foreach($pp as $photo){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($row['photoPath1']);
+           $pp = photoSplit($row['photoPath1']);
            if(!empty($row['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -2563,7 +2565,7 @@ foreach($pp as $photo){
 ///////////////////////////////////////////
 if(isset($_GET['type'])){
   if($_GET['type'] == 'houseKeeper'){
-    $out = $admin->aSinglePostView($uidx, 'hotelhouse');
+    $out = aSinglePostViewx($uidx, 'hotelhouse');
     $row = $out->fetch_assoc();
 
     ?>
@@ -2605,7 +2607,7 @@ if(isset($_GET['type'])){
           <option><?php echo $row['address']; ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2709,7 +2711,7 @@ if(isset($_GET['type'])){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($row['photoPath1']);
+           $pp = photoSplit($row['photoPath1']);
            if(!empty($row['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -2749,7 +2751,7 @@ if(isset($_GET['type'])){
 if(isset($_GET['type'])){
   if($_GET['type'] == 'zebegna'){
 
-    $out = $admin->aSinglePostView($uidx, 'zebegna');
+    $out = aSinglePostViewx($uidx, 'zebegna');
     $row = $out->fetch_assoc();
     ?>
     
@@ -2784,7 +2786,7 @@ if(isset($_GET['type'])){
           <option><?php echo $lang['city'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -2906,7 +2908,7 @@ if(isset($_GET['type'])){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($row['photoPath1']);
+           $pp = photoSplit($row['photoPath1']);
            if(!empty($row['photoPath1'])){
            foreach($pp as $photo){
              ?>

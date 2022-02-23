@@ -5,13 +5,15 @@
     if(isset($_POST['id'])){
         $id = $_POST['id'];
     }
+
+     
     // ad category editor
     if(isset($_POST['edCat'], $_POST['id'])){
         echo 'ind';
         $id2 = $_POST['id'];
         $cat = $_POST['edCat'];
         echo $cat;
-        $out3 = $admin->allCategoryUpdater($cat, 'ad', $id2);
+        $out3 = allCategoryUpdater($cat, 'ad', $id2);
     }
 
     //car category editoer
@@ -20,7 +22,7 @@
         $id2 = $_POST['id'];
         $cat = $_POST['carCat'];
         echo $cat;
-        $out3 = $admin->allCategoryUpdater($cat, 'car', $id2);
+        $out3 = allCategoryUpdater($cat, 'car', $id2);
     }
 
     //vacancy category editor
@@ -29,7 +31,7 @@
         $id2 = $_POST['id'];
         $cat = $_POST['vacancyCat'];
         echo $cat;
-        $out3 = $admin->allCategoryUpdater($cat, 'vacancy', $id2);    }
+        $out3 = allCategoryUpdater($cat, 'vacancy', $id2);    }
 
     //house category editor
     if(isset($_POST['houseCat'], $_POST['id'])){
@@ -37,7 +39,7 @@
         $id2 = $_POST['id'];
         $cat = $_POST['houseCat'];
         echo $cat;
-        $out3 = $admin->allCategoryUpdater($cat, 'housesell', $id2);    }
+        $out3 = allCategoryUpdater($cat, 'housesell', $id2);    }
 
         //house category editor
         if(isset($_POST['elecCat'], $_POST['id'])){
@@ -45,10 +47,12 @@
             $id2 = $_POST['id'];
             $cat = $_POST['elecCat'];
             echo $cat;
-            $out3 = $admin->allCategoryUpdater($cat, 'electronics', $id2);       
+            $out3 = allCategoryUpdater($cat, 'electronics', $id2);       
          }
 
-    ?>
+         
+
+    ?>     
 <head>
 <script src="assets/jquery.js"></script>
 
@@ -139,15 +143,15 @@ if(isset($_POST['type'])){
         </form></td>        
         <?php
     }elseif($_POST['type'] == 'vacancyDelete'){
-        $delVac = $auth->postDeleterCat('adCategory', $id);
+        $delVac = postDeleterCat('adCategory', $id);
     }elseif($_POST['type'] == 'adDelete'){
-        $delVac = $auth->postDeleterCat('adCategory', $id);
+        $delVac = postDeleterCat('adCategory', $id);
     }elseif($_POST['type'] == 'carDelete'){
-        $delVac = $auth->postDeleterCat('adCategory', $id);
+        $delVac = postDeleterCat('adCategory', $id);
     }elseif($_POST['type'] == 'houseDelete'){
-        $delVac = $auth->postDeleterCat('adCategory', $id);
+        $delVac = postDeleterCat('adCategory', $id);
     }elseif($_POST['type'] == 'elecDel'){
-        $delVac = $auth->postDeleterCat('adCategory', $id);
+        $delVac = postDeleterCat('adCategory', $id);
     }
 
 }

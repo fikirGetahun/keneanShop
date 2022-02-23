@@ -4,6 +4,10 @@ require_once "../php/adminCrude.php";
 require_once "../php/fetchApi.php";
 require_once "../php/auth.php";
 
+
+
+
+
 ob_start();
 if(!isset($_SESSION)){
   session_start();
@@ -28,9 +32,9 @@ if(isset($_POST['count'], $_POST['table'])){
   if(isset($_POST['selecter'], $_POST['arg'])){
     $select = $_POST['selecter'];
     $arg = $_POST['arg'];
-    $counter = $admin->allPostColumenView($select, $table, $arg);
+    $counter = allPostColumenView($select, $table, $arg);
   }else{
-    $counter = $admin->allPostsLister($table);
+    $counter = allPostsLister($table);
   }
 
   $num = $counter->num_rows;
@@ -53,13 +57,30 @@ if(isset($_GET['adminPage'])){
 
 
 
+/// delete completely a user
+if(isset($_GET['completeDel'], $_GET['uid'])){
+  $user = $_GET['uid'];
+
+  $dude = completeUserDelete($user);
+  echo $dude;
+  if($dude){
+    echo 'User Deleted!';
+  }else{
+    
+    echo 'ERROR';
+  }
+}
+
+
+
+
 ////////////////post deleter api//////////
 
 if(isset($_POST['delete'],$_POST['table'], $_POST['postId'])){
   require_once "../php/auth.php";
   $tab = $_POST['table'];
   $pid = $_POST['postId'];
-  $del = $auth->postDeleter($tab, $pid);
+  $del = postDeleter($tab, $pid);
 
   if($del){
     echo 'post deleted';
@@ -113,7 +134,7 @@ if(isset($_POST['titleElc'],
     
 
 
-    $out = $admin->updateElectronicsPost($type, $status, $title, $address, $price,
+    $out = updateElectronicsPost($type, $status, $title, $address, $price,
     $info, $ram, $processor, $size, $storage, $core, $posterId, $phone);
 
     if($out){
@@ -145,7 +166,7 @@ if(isset(
     $salary = $_POST['salary'];
     $appStart = $_POST['appStart'];
 
-    $ask = $admin->updateVacancyPost($phone, $jobType, $positionType, $companyName,
+    $ask = updateVacancyPost($phone, $jobType, $positionType, $companyName,
      $jobTitle, $location, $Deadline, $id , $reqNo, $info, $salary, $salaryStatus, $appStart  );
 
     if($ask){
@@ -176,7 +197,7 @@ if(isset(
       $id2 = $_POST['uid'];
       $title = $_POST['title'];
 
-      $db = $admin->updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title   );
+      $db = updateTenderLister($tenderType, $startingDate, $deadLine, $location, $initialCost, $info, $id2, $title   );
 
       if($db){
         echo 'Saved Changes!';
@@ -211,27 +232,27 @@ if(isset(
       if(isset($_FILES['photo1'])){
         $fName1 = $_FILES['photo1']['name'];
         $tmpName1 = $_FILES['photo1']['tmp_name'];
-        $adPhotoE = $admin->adPhotoChange('photoPath1', $fName1, $tmpName1, $postId);
+        $adPhotoE = adPhotoChange('photoPath1', $fName1, $tmpName1, $postId);
       }
 
       if(isset($_FILES['photo2'])){
         $fName2 = $_FILES['photo2']['name'];
         $tmpName2 = $_FILES['photo2']['tmp_name'];
-        $adPhotoE = $admin->adPhotoChange('photoPath2', $fName2, $tmpName2, $postId);
+        $adPhotoE = adPhotoChange('photoPath2', $fName2, $tmpName2, $postId);
 
       }
 
       if(isset($_FILES['photo3'])){
         $fName3 = $_FILES['photo3']['name'];
         $tmpName3 = $_FILES['photo3']['tmp_name'];
-        $adPhotoE = $admin->adPhotoChange('photoPath3', $fName3, $tmpName3, $postId);
+        $adPhotoE = adPhotoChange('photoPath3', $fName3, $tmpName3, $postId);
 
       }
 
       
       
 
-      $adEdit = $admin->updateAdPost( $type, $price, $address, $phone, $for, $title, $info, $postId);
+      $adEdit = updateAdPost( $type, $price, $address, $phone, $for, $title, $info, $postId);
       if($adEdit){
         echo 'Saved Changes!';
       }
@@ -277,7 +298,7 @@ if(isset(
 
 
 
-      $out12 = $admin->updateCarPost($title,$type, $status, $fuleKind, $postId,
+      $out12 = updateCarPost($title,$type, $status, $fuleKind, $postId,
        $fixidOrN,$price,$info,$forRentOrSell, $transmission, $bodyStatus, $km, $ob, $rentStatus, $forWho, $whyRent, $addrr);
 
        if($out12){
@@ -329,7 +350,7 @@ if(isset(
 
     
           
-          $outH = $admin->updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
+          $outH = updateHousePost($title, $type, $houseOrLand, $city, $subCity, $wereda,
           $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info, $postId, $ob, $spArea );
           
           if($outH){
@@ -350,52 +371,52 @@ if(isset(
           $tn = $_POST['tableName'];
 
           if($tn == 'housesell'){
-            $out = $admin->singleHousePostLister($pid);
+            $out = singleHousePostLister($pid);
             $roww = $out->fetch_assoc();
           }
           
           if($tn == 'ad'){
-            $out = $admin->adEditDataLister($pid);
+            $out = adEditDataLister($pid);
             $roww = $out->fetch_assoc();
           }
 
           if($tn == 'electronics'){
-            $out = $admin->elecSinglePostViewer($pid);
+            $out = elecSinglePostViewer($pid);
             $roww = $out->fetch_assoc();
           }
 
           if($tn == 'car'){
-            $out = $admin->carPostDataLister($pid);
+            $out = carPostDataLister($pid);
             $roww = $out->fetch_assoc();
           }
 
           if($tn == 'tender'){
-            $out = $admin->tenderEditLister($pid);
+            $out = tenderEditLister($pid);
             $roww = $out->fetch_assoc();
           }
 
           if($tn == 'charity'){
-            $out = $admin->aSinglePostView($pid, 'charity');
+            $out = aSinglePostView($pid, 'charity');
             $roww = $out->fetch_assoc();
           }
 
           if($tn == 'jobhometutor'){
-            $out = $admin->aSinglePostView($pid, 'jobhometutor');
+            $out = aSinglePostView($pid, 'jobhometutor');
             $roww = $out->fetch_assoc();
           }
 
           if($tn == 'hotelhouse'){
-            $out = $admin->aSinglePostView($pid, 'hotelhouse');
+            $out = aSinglePostView($pid, 'hotelhouse');
             $roww = $out->fetch_assoc();
           }
 
           if($tn == 'zebegna'){
-            $out = $admin->aSinglePostView($pid, 'zebegna');
+            $out = aSinglePostView($pid, 'zebegna');
             $roww = $out->fetch_assoc();
           }
 
           if($tn == 'blog'){
-            $out = $admin->aSinglePostView($pid, 'blog');
+            $out = aSinglePostView($pid, 'blog');
             $roww = $out->fetch_assoc();
           }
 
@@ -487,7 +508,7 @@ if(isset(
           $p = $_FILES['photo'];
           $pid = $_POST['pid'];
           $tName = $_POST['tName'];
-          $upd = $admin->photoUpdater($tName, $pid, $p);
+          $upd = photoUpdater($tName, $pid, $p);
           return $upd;
         }
 
@@ -505,7 +526,7 @@ if(isset($_POST['title'], $_POST['address'], $_POST['phone'], $_POST['info'], $_
 
 
 
-  $db = $admin->charityUpdate($title, $info, $loc, $phone, $pid);
+  $db = charityUpdate($title, $info, $loc, $phone, $pid);
   if($db){
     echo 'Edit Successfull';
   }else{
@@ -538,7 +559,7 @@ $cinfo = $_POST['companyInfo'];
 $info = $_POST['info'];
 $phone = $_POST['phone'];
 
-$out = $admin->homeTutoreUpdate($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
+$out = homeTutoreUpdate($pid, $name, $sex, $edu, $range, $payStatus, $price, $address,
 $phone, $cinfo, $info);
 
 if($out){
@@ -580,7 +601,7 @@ if(isset( $_POST['field'])){
   $field =  $_POST['field'] ;
 }
 
-$out = $admin->hotelHouseDataUpdater($name, $sex, $age, $religion, $field, $address, $wType,
+$out = hotelHouseDataUpdater($name, $sex, $age, $religion, $field, $address, $wType,
 $price, $experience, $bid, $cAddress, $agentInfo, $pid);
 
 if($out){
@@ -614,7 +635,7 @@ if(isset(
   $agentInfo = $_POST['agentInfo'];
   
 
-    $out = $admin->zebegnaPostUpdate($name, $sex, $age, $address, $phone, $workStat, $pid, $exp, $workType, $bidp, $legalWp, $agentInfo   );
+    $out = zebegnaPostUpdate($name, $sex, $age, $address, $phone, $workStat, $pid, $exp, $workType, $bidp, $legalWp, $agentInfo   );
     if($out){
       echo 'Saved Changes!';
     }else{
@@ -633,9 +654,9 @@ if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_POST['postI
   $content = $_POST['content'];
   $postId = $_POST['postId']; 
 
-  // $up = $admin->uploadPhotos('blog', $fileVar);
+  // $up = uploadPhotos('blog', $fileVar);
 
-  $enter = $admin->blogUpdater($title, $frontLabel, $content, $postId);
+  $enter = blogUpdater($title, $frontLabel, $content, $postId);
   
   if($enter){
     echo 'Saved Changes';
@@ -653,10 +674,10 @@ if(isset($_GET['accOrdec'], $_GET['pid'])){
   $accOrDec = $_GET['accOrdec'];
   $p = $_GET['pid'];
   if($accOrDec == 'accept'){
-    $ass = $get->updateOnColomen('mambership', 'approved', 'YES', $p);
+    $ass = updateOnColomen('mambership', 'approved', 'YES', $p);
     // echo $ass;
   }elseif($accOrDec == 'del' ){
-    $dell = $auth->postDeleter('mambership', $p );
+    $dell = postDeleter('mambership', $p );
   }
 }
 

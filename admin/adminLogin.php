@@ -86,12 +86,17 @@
     require_once('../includes/header.php');
     require_once('../php/auth.php');
 
+    
+
+
+
+
 
     $login = '';
     if(isset($_POST['username'], $_POST['password'])){
         $us = $_POST['username'];
         $pa = $_POST['password'];
-        $check = $auth->loginAuth($us);
+        $check = loginAuth($us);
         if($check->num_rows == 0){
             echo 'Wrong User Name';
             $login = 'NOT_USER';

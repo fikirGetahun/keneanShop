@@ -9,7 +9,7 @@ if(isset($_GET['poster'])){
 }
 
 
-$user = $get->allPostListerOnColumen('user', 'id', $userPoster);
+$user = allPostListerOnColumen('user', 'id', $userPoster);
 $urow = $user->fetch_assoc();
 ?>
 <div id="postBox">
@@ -48,8 +48,8 @@ $urow = $user->fetch_assoc();
           if(confirm("Are You Sure You Want to Delete This User?") == true){
             $.ajax({
               url: 'editHandler.php',
-              type: 'POST',
-              data: {delete: true, table: 'user' , postId: pid},
+              type: 'get',
+              data: {completeDel: true, uid: pid},
               success: function(data){
                 alert(data)
                 location.reload()
@@ -73,6 +73,11 @@ $urow = $user->fetch_assoc();
     }
 }
 </script>
+ 
+
+
+
+
 
 <div>
       <div class="card w-25 float-left ">
@@ -121,7 +126,7 @@ $dbTables = array('ad', 'car', 'charity', 'electronics',
 
 
 foreach($dbTables as $posts){  
-    $oneTablePostList = $auth->userPostsLister($userPoster, $posts);
+    $oneTablePostList = userPostsLister($userPoster, $posts);
     // echo 'in for';
     ?>
 
@@ -138,29 +143,29 @@ foreach($dbTables as $posts){
                   if($posts == 'ad'){
                     if($row['bigDiscount'] == 'ACTIVE'){
 ?>
-          <a class="img-thumbnail" href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Big Discount Ads&type=big" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a class="img-thumbnail" href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Big Discount Ads&type=big" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 <?php
                     }else{
 ?>
-          <a class="img-thumbnail " href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a class="img-thumbnail " href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
 <?php                     
                     }                    
                   }elseif($posts == 'car' || $posts =='electronics' || $posts == 'charity'){
                     ?>
             <a class="img-thumbnail " 
-            href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label= &type= " > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+            href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label= &type= " > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
   
                     <?php
                   }
                 }if($posts == 'housesell'){
                   if($row['houseOrLand'] == 'HOUSE'){
                     ?>
-                    <a class="img-thumbnail" href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Posts&type=house" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <a class="img-thumbnail" href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Posts&type=house" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                         <?php
                   }else{
                     ?>
-                    <a class="img-thumbnail" href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Land Posts&type=land" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <a class="img-thumbnail" href="../Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Land Posts&type=land" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                           <?php                  
                   }
 

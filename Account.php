@@ -11,12 +11,16 @@ require_once "php/fetchApi.php";
 require_once "php/auth.php";
 require_once "php/adminCrude.php";
 
+
+
+
+
 $dbTables = array('ad', 'car', 'charity', 'electronics',
 'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse' );
 
 $excluded = array('zebegna', 'jobhometutor', 'hotelhouse', 'housesell' );
 
-$user = $get->aSinglePostView($_SESSION['userId'], 'user');
+$user = aSinglePostView($_SESSION['userId'], 'user');
 $urow = $user->fetch_assoc();
 ?>
 <script src="assets/jquery.js" ></script>
@@ -145,7 +149,7 @@ $('.btn-close').click(function(){
     ?>
   <?php
     // to output the number of unseen msgs, we use the outer msgs function
-    $seen = $get->outerMsgFetcherSeen($_SESSION['userId']);
+    $seen = outerMsgFetcherSeen($_SESSION['userId']);
     $numUnseen = $seen->num_rows;
   if(isset($_GET['message'])){
     ?>
@@ -210,7 +214,7 @@ $('.btn-close').click(function(){
 
 
 foreach($dbTables as $posts){  
-    $oneTablePostList = $auth->userPostsLister($_SESSION['userId'], $posts);
+    $oneTablePostList = userPostsLister($_SESSION['userId'], $posts);
     
     ?>
 
@@ -227,30 +231,30 @@ foreach($dbTables as $posts){
                   if($posts == 'ad'){
                     if($row['bigDiscount'] == 'ACTIVE'){
 ?>
-          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Big Discount Ads&type=big" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Big Discount Ads&type=big" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 <?php
                     }else{
 ?>
-          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
 <?php                     
                     }                    
                   }elseif($posts == 'car' || $posts =='electronics' || $posts == 'charity'){
                     ?>
             <a class="img-thumbnail " 
-            href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label= &type= " > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+            href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label= &type= " > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
   
                     <?php
                   }
                 }elseif($posts == 'housesell'){
                   if($row['houseOrLand'] == 'HOUSE'){
                     ?>
-                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Posts&type=house" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Posts&type=house" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                         <?php
                   }else{
                     // echo 'inelse';
                     ?>
-                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Land Posts&type=land" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Land Posts&type=land" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                           <?php                  
                   }
 
@@ -258,20 +262,20 @@ foreach($dbTables as $posts){
                   // echo 'in jobhome';
                   if($posts == 'jobhometutor'){
                   ?>
-                  <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Home Tutor&type=homeTutor" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Home Tutor&type=homeTutor" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                         <?php   
                   }if($posts == 'zebegna' ){
                     ?>
-                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Security Gaurd Job Seekers&type=zebegna" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Security Gaurd Job Seekers&type=zebegna" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                     <?php
                   }if($posts == 'hotelhouse' ){
                     if($row['hotelOrHouse'] == 'HOTEL' ){
                     ?>
-                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Hotel Job Seekers&type=hotelWorker" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Hotel Job Seekers&type=hotelWorker" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                     <?php
                     }else{
                       ?>
-                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Worker Job Seekers&type=houseWorker" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Worker Job Seekers&type=houseWorker" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                       <?php
                     }
                   }
@@ -513,7 +517,7 @@ foreach($dbTables as $posts){
     if(isset($_GET['fav'])){
       ///delete fav handler
       if(isset($_GET['delFav'], $_GET['pid'], $_GET['tb'])){
-        $ds = $get->deleteFav($_GET['tb'], $_GET['pid'], $_SESSION['userId']);
+        $ds = deleteFav($_GET['tb'], $_GET['pid'], $_SESSION['userId']);
         if($ds){
           header('Location: Account.php?fav=true');
         }
@@ -527,7 +531,7 @@ foreach($dbTables as $posts){
 
 
 foreach($dbTables as $posts){  
-    $oneTablePostList2 = $get->selectFavLister($posts, $_SESSION['userId']);
+    $oneTablePostList2 = selectFavLister($posts, $_SESSION['userId']);
     
     ?>
 
@@ -548,13 +552,13 @@ foreach($dbTables as $posts){
                     if($row['bigDiscount'] == 'ACTIVE'){
                     
 ?>
-          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Big Discount Ads&type=big" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Big Discount Ads&type=big" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
           <!-- favourite deleter button -->
           <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
 <?php
                     }else{
 ?>
-          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                     <!-- favourite deleter button -->
           <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
 
@@ -564,7 +568,7 @@ foreach($dbTables as $posts){
                   if($posts == 'car' || $posts == 'electronics' || $posts == 'charity'){
                     ?>
             <a class="img-thumbnail " 
-            href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label= &type= " > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+            href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label= &type= " > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                       <!-- favourite deleter button -->
           <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
   
@@ -573,13 +577,13 @@ foreach($dbTables as $posts){
                 if($posts == 'housesell'){
                   if($row['houseOrLand'] == 'HOUSE'){
                     ?>
-                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Posts&type=house" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Posts&type=house" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                               <!-- favourite deleter button -->
           <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
                         <?php
                   }else{
                     ?>
-                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Land Posts&type=land" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = $admin->photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Land Posts&type=land" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                               <!-- favourite deleter button -->
           <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
                           <?php                  
@@ -636,11 +640,11 @@ foreach($dbTables as $posts){
 
 
       if(isset($_GET['outter'])){
-        $outerM = $get->outerMsgFetcher($_SESSION['userId']);
+        $outerM = outerMsgFetcher($_SESSION['userId']);
         // echo $_SESSION['userId'];
         if($outerM->num_rows != 0){
         while($o = $outerM->fetch_assoc()){
-          $date = $get->time_elapsed_string($o['postedDate']);
+          $date = time_elapsed_string($o['postedDate']);
 
 
           if($o['user1'] == $_SESSION['userId']){
@@ -669,17 +673,17 @@ foreach($dbTables as $posts){
             
             <?php 
             // to fetch the post photo and title to be displayed 
-            $postCrap = $get->allPostListerOnColumen($o['tableName'], 'id', $o['postId'] );
+            $postCrap = allPostListerOnColumen($o['tableName'], 'id', $o['postId'] );
             $rowPostCrap = $postCrap->fetch_assoc();
 
 
           // to fetch the reciver end user data crap
-          $userCrap = $get->allPostListerOnColumen('user', 'id', $otherUser);
+          $userCrap = allPostListerOnColumen('user', 'id', $otherUser);
           $ur = $userCrap->fetch_assoc(); 
 
 
           // to check if any of the users are admin/ editor / user
-          $authCH = $get->allPostListerOnColumen('user','id',$otherUser);
+          $authCH = allPostListerOnColumen('user','id',$otherUser);
           $rowAuth = $authCH->fetch_assoc();
 
             ?>
@@ -691,7 +695,7 @@ foreach($dbTables as $posts){
               <?php
             }else{
               ?>
-              <img src="<?php  $p = $admin->photoSplit($rowPostCrap['photoPath1']); echo $p[0] ; ?>" class="img-thumbnail  col-2" alt="...">
+              <img src="<?php  $p = photoSplit($rowPostCrap['photoPath1']); echo $p[0] ; ?>" class="img-thumbnail  col-2" alt="...">
               <h5 class="col-2"><?php echo $rowPostCrap['title'] ?></h5>
               <?php
             }
@@ -704,7 +708,7 @@ foreach($dbTables as $posts){
               if($rowAuth['auth'] == 'USER' ){
                 ?>
                   <h5 class="col-2"><?php echo $ur['firstName'] ?> </h5>
-                  <img src="<?php  $p = $admin->photoSplit($ur['photoPath1']); echo $p[0] ;  ?>" class="img-thumbnail col-2" alt="..."> 
+                  <img src="<?php  $p = photoSplit($ur['photoPath1']); echo $p[0] ;  ?>" class="img-thumbnail col-2" alt="..."> 
 
                 <?php
               }elseif($rowAuth['auth'] == 'ADMIN'){
@@ -745,21 +749,21 @@ foreach($dbTables as $posts){
         $postFocus = $_GET['post'];
         // echo 'post ID '.$postFocus;
         //fetch the posts photo and title of the post
-        $postData = $get->allPostListerOnColumen($tb, 'id', $postFocus);
+        $postData = allPostListerOnColumen($tb, 'id', $postFocus);
         $rowm = $postData->fetch_assoc();
 
         //fetch the data of the second user of the msg
-        $secUser = $get->allPostListerOnColumen('user', 'id', $reciver);
+        $secUser = allPostListerOnColumen('user', 'id', $reciver);
         $row2 = $secUser->fetch_assoc();
 
 
         // fetch the loged user data 
-        $logedUser = $get->allPostListerOnColumen('user', 'id', $_SESSION['userId']);
+        $logedUser = allPostListerOnColumen('user', 'id', $_SESSION['userId']);
         $row1 = $logedUser->fetch_assoc();
 
  
         // to check if any of the users are admin/ editor / user
-        $authCH = $get->allPostListerOnColumen('user','id',$reciver);
+        $authCH = allPostListerOnColumen('user','id',$reciver);
         $rowAuth = $authCH->fetch_assoc();
 
         ?>
@@ -781,7 +785,7 @@ foreach($dbTables as $posts){
               <?php
             }else{ // if the loged user or the msg reciver user is not admin or editor, then the post item will be displayed here
               ?>
-              <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">
+              <img src="<?php $p = photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">
                                 <!-- <div class="col-8 h4 text-danger"> -->
 									<h5><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                 if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </h5>
@@ -802,7 +806,7 @@ foreach($dbTables as $posts){
               <script>
 
               </script>
-              <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class="col-2 w-10  ">  <br>
+              <img src="<?php $p = photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class="col-2 w-10  ">  <br>
                                 <!-- <div class="col-8 h4 text-danger"> -->
 									<h6><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                 if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </h6>
@@ -829,7 +833,7 @@ foreach($dbTables as $posts){
                   if($row2['photoPath1'] != 'FILE_NOT_UPLOADED'){ // if there is no profile pic, then it will be changed to display the website logo pic
                     ?>
                  <h5><?php echo $row2['firstName'].' '.$row2['lastName'] ?></h5>
-                  <img src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?> " class="col-3 img-thumbnail">
+                  <img src="<?php $p = photoSplit($row2['photoPath1']); echo $p[0] ;?> " class="col-3 img-thumbnail">
                     <?php
                   }else{ // if there is a profile pic 
                     ?>
@@ -849,7 +853,7 @@ foreach($dbTables as $posts){
                   <div class="d-flex justify-content-end mb-4">
                   <h6><?php $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
                 if(in_array($tb, $excluded)){echo $rowm['name']; } else{ echo $rowm['title']; } ?> </h6>
-                  <img src="<?php $p = $admin->photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">
+                  <img src="<?php $p = photoSplit($rowm['photoPath1']); echo $p[0] ;?> " class=" col-3 img-thumbnail">
                    </div>
                       <?php
                     }
@@ -876,12 +880,12 @@ foreach($dbTables as $posts){
               <?php
               echo $_SESSION['userId'];
                 // to fetch all the messages of this particular user and post
-                $innerMsg = $get->innerMsgFetcher($tb, $_SESSION['userId'], $postFocus, $reciver);
+                $innerMsg = innerMsgFetcher($tb, $_SESSION['userId'], $postFocus, $reciver);
                 if($innerMsg->num_rows != 0){
                 while($rowInnerMsg = $innerMsg->fetch_assoc()){
                   // to change the unseen to seen if there is a seen value of 'new' which is unseen. it has to do this every msg render b/c every new msg will have a 'new' in the seen coloumn
                   if($rowInnerMsg['seen'] == 'new' && $rowInnerMsg['user1'] != $_SESSION['userId'] && isset($_GET['unseen'])){
-                    $seeen = $get->seenMsg($rowInnerMsg['id']);
+                    $seeen = seenMsg($rowInnerMsg['id']);
                   }
 
 
@@ -893,7 +897,7 @@ foreach($dbTables as $posts){
 
                     
                       <div class="img_cont_msg ">
-                        <img src="<?php $p = $admin->photoSplit($row1['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
+                        <img src="<?php $p = photoSplit($row1['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
                       </div>
                       <div class="msg_cotainer bg-success">
                       <?php
@@ -910,7 +914,7 @@ foreach($dbTables as $posts){
                       }
                       ?>
                         <?php                        
-                            $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
+                            $date = time_elapsed_string($rowInnerMsg['postedDate']);
                          ?>
                         <span class="text-danger"><?php echo $date ?></span>
                       </div>
@@ -938,12 +942,12 @@ foreach($dbTables as $posts){
                           }
                           ?>
                         <?php 
-                            $date = $get->time_elapsed_string($rowInnerMsg['postedDate']);
+                            $date = time_elapsed_string($rowInnerMsg['postedDate']);
                          ?>
                         <span class="text-danger"><?php echo $date ?></span>
                       </div>
                 <div class="img_cont_msg">
-                  <img src="<?php $p = $admin->photoSplit($row2['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
+                  <img src="<?php $p = photoSplit($row2['photoPath1']); echo $p[0] ;?>" class="rounded-circle user_img_msg">
                 </div>
 							</div>
                     <?php
@@ -1020,7 +1024,7 @@ foreach($dbTables as $posts){
     }
 
     if(isset($_GET['setting'])){
-      $us = $get->allPostListerOnColumen('user', 'id', $_SESSION['userId']);
+      $us = allPostListerOnColumen('user', 'id', $_SESSION['userId']);
       $u = $us->fetch_assoc();
       ?>
       
@@ -1030,7 +1034,7 @@ foreach($dbTables as $posts){
             <div class="col-md-8 col-lg-9">
               <?php 
               if(isset($_GET['del'])){
-                $del = $admin->delUserPhoto($_SESSION['userId']);
+                $del = delUserPhoto($_SESSION['userId']);
                 if($del){
                   header('Location: Account.php?setting=true');
                 }else{
@@ -1058,7 +1062,7 @@ foreach($dbTables as $posts){
                 if(isset($_FILES['photou'])){
                   $fn = $_FILES['photou']['name'];
                   $tm = $_FILES['photou']['tmp_name'];
-                  $cp = $admin->updateUserPhoto($fn, $tm, $_SESSION['userId']);
+                  $cp = updateUserPhoto($fn, $tm, $_SESSION['userId']);
                   if($cp){
                     header('Location: Account.php?setting=true');
                   }else{
@@ -1145,13 +1149,13 @@ if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
     // $about =$_POST['address'];
     $uid = $_SESSION['userId'];
 
-    // $u = $auth->loginAuth($username);
+    // $u = loginAuth($username);
     // $num = $u->num_rows;
     // $up = ' ';
     if(isset($_POST['password'])){
     $password =$_POST['password'] ;
     // $password = password_hash($password, PASSWORD_DEFAULT);
-    $cp = $admin->password($password, $_SESSION['userId']);
+    $cp = password($password, $_SESSION['userId']);
     if($cp){
       echo 'password changed';
     }else{
@@ -1159,7 +1163,7 @@ if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
     }
     }
 
-    $uu = $admin->updateUserDataUSER($uid, $firstName, $lastName, $phoneNumber, $job, $recover);
+    $uu = updateUserDataUSER($uid, $firstName, $lastName, $phoneNumber, $job, $recover);
 
   if($uu){
     echo 'Saved Changes';

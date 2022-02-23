@@ -23,6 +23,11 @@
     $uidx = $_GET['pid'];
   }
 
+  
+
+
+
+
    ?>
     <script>
 
@@ -135,7 +140,7 @@ require_once "../php/adminCrude.php";
       <input type="text" class="form-control" id="companyName" 
       aria-describedby="emailHelp" name="companyName" placeholder="" 
       value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['companyName']; 
       ?>"
@@ -161,13 +166,13 @@ require_once "../php/adminCrude.php";
 
       <select class="custom-select" name="jobType" id="jobTT">
         <option selected>"<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['positionType']; 
       ?>"</option>
         <option value="Management & Business Administration ">	Management & Business Administration </option>
         <?php
-                $vacancyCat = $admin->vacancyCategoryLister();
+                $vacancyCat = vacancyCategoryLister();
                 while($vacancyCatRow = $vacancyCat->fetch_assoc()){
                   ?>
                   <option value="<?php echo $vacancyCatRow['category'] ?>"><?php echo $vacancyCatRow['category'] ?></option>
@@ -182,7 +187,7 @@ require_once "../php/adminCrude.php";
       <input type="text" class="form-control" id="jobTitle" 
       aria-describedby="emailHelp" name="jobTitle" placeholder="Company Name" 
       value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['positionTitle']; 
       ?>"
@@ -195,7 +200,7 @@ require_once "../php/adminCrude.php";
     </div>
     <select class="custom-select" name="positionType" id="inputGroupSelect01">
       <option selected>"<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['type']; 
       ?>"</option>
@@ -210,7 +215,7 @@ require_once "../php/adminCrude.php";
       <input type="date" class="form-control" id="Deadline" 
       aria-describedby="emailHelp" name="Deadline" placeholder="Company Name"
       value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['deadLine']; 
       ?>"
@@ -222,7 +227,7 @@ require_once "../php/adminCrude.php";
       <input type="number" class="form-control" id="jobTitle" 
       aria-describedby="emailHelp" name="reqNo" placeholder="Company Name"
       value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['positionNum']; 
       ?>"
@@ -235,7 +240,7 @@ require_once "../php/adminCrude.php";
           <input type="number" class="form-control" id="jobTitle" 
           aria-describedby="emailHelp" name="phone" placeholder="phone number"
           value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['phone']; 
       ?>"
@@ -249,7 +254,7 @@ require_once "../php/adminCrude.php";
       <textarea type="text" class="form-control" id="location" 
       aria-describedby="emailHelp" name="location" placeholder="location" 
       value="<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['location']; 
       ?>"
@@ -261,7 +266,7 @@ require_once "../php/adminCrude.php";
       <textarea type="text" class="form-control" id="des" 
       aria-describedby="emailHelp" name="description" placeholder="location" 
       value= "<?php 
-                $p = $admin->editVacancyPost($uidx);
+                $p = editVacancyPost($uidx);
                 $row = $p->fetch_assoc();
                 echo $row['info']; 
       ?>"
@@ -310,7 +315,7 @@ require_once "../php/adminCrude.php";
           <input type="text" class="form-control" id="tenderType" 
           aria-describedby="emailHelp" name="title" placeholder="Company Name"
           value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['title']
       
@@ -323,7 +328,7 @@ require_once "../php/adminCrude.php";
       <input type="text" class="form-control" id="tenderType" 
       aria-describedby="emailHelp" name="tenderType" placeholder="Company Name"
       value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['tenderType']
       
@@ -338,7 +343,7 @@ require_once "../php/adminCrude.php";
       <input type="date" class="form-control" id="startingDate" 
       aria-describedby="emailHelp" name="startDate" placeholder="Company Name" 
       value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['startingDate'];
       
@@ -352,7 +357,7 @@ require_once "../php/adminCrude.php";
       <input type="date" class="form-control" id="Deadline2" 
       aria-describedby="emailHelp" name="Deadline2" placeholder="Company Name" 
       value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['deadLine'];
       
@@ -365,7 +370,7 @@ require_once "../php/adminCrude.php";
       <input type="number" class="form-control" id="phoneNo" 
       aria-describedby="emailHelp" name="initialCost" placeholder="Company Name" 
       value="<?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['initialCost'];
       
@@ -380,7 +385,7 @@ require_once "../php/adminCrude.php";
 
       >
       <?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['location']
       
@@ -393,7 +398,7 @@ require_once "../php/adminCrude.php";
       aria-describedby="emailHelp" name="description2" placeholder="Describition" 
       value=""
       ><?php
-        $out = $admin->tenderEditLister($uidx);
+        $out = tenderEditLister($uidx);
         $row = $out->fetch_assoc();
         echo $row['info']
       
@@ -419,7 +424,7 @@ function pUpdate(divz, photo){
 <div class="row">
 <?php
 $i = 0;
-$pp = $admin->photoSplit($row['photoPath1']);
+$pp = photoSplit($row['photoPath1']);
 if(!empty($row['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -461,7 +466,7 @@ foreach($pp as $photo){
     }
     //////////////////////////////////////////////////////
     elseif($_GET['type'] == 'ad'){
-      $adEdit = $admin->adEditDataLister($uidx);
+      $adEdit = adEditDataLister($uidx);
       while($adRow = $adEdit->fetch_assoc()){
         ?>
         <form id="adPost" action="editPost.php"   method="POST" enctype="multipart/form-data">
@@ -483,7 +488,7 @@ foreach($pp as $photo){
           <select class="custom-select" name="type" id="inputGroupSelect01">
           <option selected><?php echo $adRow['type'] ?></option>
             ?><?php
-              $out11 = $admin->adsCategoryLister();
+              $out11 = adsCategoryLister();
               while($r = $out11->fetch_assoc()){
               ?>
             
@@ -571,7 +576,7 @@ function pUpdate(divz, photo){
 </script>
 <?php
 $i = 0;
-$pp = $admin->photoSplit($adRow['photoPath1']);
+$pp = photoSplit($adRow['photoPath1']);
 if(!empty($adRow['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -612,7 +617,7 @@ foreach($pp as $photo){
     }
     ////////////////////////////////////////////////////////////
     elseif($_GET['type'] == 'car'){
-      $carE = $admin->carPostDataLister($uidx);
+      $carE = carPostDataLister($uidx);
       $carRow = $carE->fetch_assoc();
       ?>
         <form id="car" action="editPost.php" method="POST" enctype="multipart/form-data" >
@@ -645,7 +650,7 @@ foreach($pp as $photo){
             <select id="sCar" class="custom-select" name="type2" id="inputGroupSelect01">
               <option selected><?php echo $carRow['type'] ?></option>
               <?php
-                $carCat = $admin->carCategoryLister();
+                $carCat = carCategoryLister();
                 while($carCatRow = $carCat->fetch_assoc()){
                   ?>
                   <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
@@ -777,7 +782,7 @@ function pUpdate(divz, photo){
 </script>
 <?php
 $i = 0;
-$pp = $admin->photoSplit($carRow['photoPath1']);
+$pp = photoSplit($carRow['photoPath1']);
 if(!empty($carRow['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -816,7 +821,7 @@ foreach($pp as $photo){
     }
     //////////////////////////////////////////////////////////////////////
     elseif($_GET['type'] == 'housesell'){
-      $houseOut = $admin->singleHousePostLister($uidx);
+      $houseOut = singleHousePostLister($uidx);
       $houseRow = $houseOut->fetch_assoc();
       ?>
       
@@ -1036,7 +1041,7 @@ foreach($pp as $photo){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($houseRow['photoPath1']);
+           $pp = photoSplit($houseRow['photoPath1']);
            if(!empty($houseRow['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -1075,7 +1080,7 @@ foreach($pp as $photo){
     }
     //////////////////////////////////////////////////////////
     elseif($_GET['type'] == 'electronics'){
-      $elcEdit = $admin->elecSinglePostViewer($uidx);
+      $elcEdit = elecSinglePostViewer($uidx);
       $elecRow = $elcEdit->fetch_assoc();
 
       ?>
@@ -1102,7 +1107,7 @@ foreach($pp as $photo){
           <option selected><?php echo $elecRow['type'] ?></option>
           <option value="Computer Laptop">Computer Laptop</option>
           <?php
-            $carCat = $admin->carCategoryLister();
+            $carCat = carCategoryLister();
             while($carCatRow = $carCat->fetch_assoc()){
               ?>
               <option value="<?php echo $carCatRow['category'] ?>"><?php echo $carCatRow['category'] ?></option>
@@ -1216,7 +1221,7 @@ function pUpdate(divz, photo){
 </script>
 <?php
 $i = 0;
-$pp = $admin->photoSplit($elecRow['photoPath1']);
+$pp = photoSplit($elecRow['photoPath1']);
 if(!empty($elecRow['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -1258,7 +1263,7 @@ foreach($pp as $photo){
   /////////////////////////////////////////////////////////
   if(isset($_GET['type'])){
     if($_GET['type'] == 'charity'){
-      $out = $admin->aSinglePostView($uidx, 'charity');
+      $out = aSinglePostView($uidx, 'charity');
       $cRow = $out->fetch_assoc();
 
       ?>
@@ -1313,7 +1318,7 @@ function pUpdate(divz, photo){
 </script>
 <?php
 $i = 0;
-$pp = $admin->photoSplit($cRow['photoPath1']);
+$pp = photoSplit($cRow['photoPath1']);
 if(!empty($cRow['photoPath1'])){
 foreach($pp as $photo){
   ?>
@@ -1358,7 +1363,7 @@ foreach($pp as $photo){
   if(isset($_GET['type'])){
     if($_GET['type'] == 'jobhometutor'){
 
-      $out = $admin->aSinglePostView($uidx, 'jobhometutor');
+      $out = aSinglePostView($uidx, 'jobhometutor');
       $row = $out->fetch_assoc();
 
       ?>
@@ -1479,7 +1484,7 @@ foreach($pp as $photo){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($row['photoPath1']);
+           $pp = photoSplit($row['photoPath1']);
            if(!empty($row['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -1518,7 +1523,7 @@ foreach($pp as $photo){
   //////////////////////////////////////////
   if(isset($_GET['type'])){
     if($_GET['type'] == 'hotel'){
-      $outp = $admin->aSinglePostView($uidx, 'hotelhouse');
+      $outp = aSinglePostView($uidx, 'hotelhouse');
       $row = $outp->fetch_assoc();
       ?>
                <h5>Hotel Worker Job Application</h5>
@@ -1642,7 +1647,7 @@ foreach($pp as $photo){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($row['photoPath1']);
+           $pp = photoSplit($row['photoPath1']);
            if(!empty($row['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -1688,7 +1693,7 @@ foreach($pp as $photo){
 ///////////////////////////////////////////
 if(isset($_GET['type'])){
   if($_GET['type'] == 'houseKeeper'){
-    $out = $admin->aSinglePostView($uidx, 'hotelhouse');
+    $out = aSinglePostView($uidx, 'hotelhouse');
     $row = $out->fetch_assoc();
 
     ?>
@@ -1815,7 +1820,7 @@ if(isset($_GET['type'])){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($row['photoPath1']);
+           $pp = photoSplit($row['photoPath1']);
            if(!empty($row['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -1856,7 +1861,7 @@ if(isset($_GET['type'])){
 if(isset($_GET['type'])){
   if($_GET['type'] == 'zebegna'){
 
-    $out = $admin->aSinglePostView($uidx, 'zebegna');
+    $out = aSinglePostView($uidx, 'zebegna');
     $row = $out->fetch_assoc();
     ?>
     
@@ -1932,7 +1937,7 @@ if(isset($_GET['type'])){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($row['photoPath1']);
+           $pp = photoSplit($row['photoPath1']);
            if(!empty($row['photoPath1'])){
            foreach($pp as $photo){
              ?>
@@ -1981,7 +1986,7 @@ if(isset($_GET['type'])){
 if(isset($_GET['type'])){
   if($_GET['type'] == 'blog'){
 
-    $out = $admin->aSinglePostView($uidx, 'blog');
+    $out = aSinglePostView($uidx, 'blog');
     $row = $out->fetch_assoc();
     ?>
     
@@ -2035,7 +2040,7 @@ if(isset($_GET['type'])){
          </script>
            <?php
            $i = 0;
-           $pp = $admin->photoSplit($row['photoPath1']);
+           $pp = photoSplit($row['photoPath1']);
            if(!empty($row['photoPath1'])){
            foreach($pp as $photo){
              ?>

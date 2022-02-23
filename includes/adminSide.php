@@ -13,6 +13,10 @@ if(!isset($_SESSION)){
     $_SESSION['location'] = $_GET['loc'];
     // echo 'in';
   }
+
+  
+
+
   
 
 
@@ -251,7 +255,7 @@ if(!isset($_SESSION)){
         <i class="bi bi-search"></i>
       </a>
     </li><!-- End Search Icon-->
-    <li class="nav-item d-block" > Last Loged: <?php $out = $admin->userDataShower($uid);
+    <li class="nav-item d-block" > Last Loged: <?php $out = userDataShower($uid);
                                                       $row22 = $out->fetch_assoc();
                                                       echo $row22['lastLogedIn']     ?> </li>
     <li class="nav-item dropdown">
@@ -397,7 +401,7 @@ if(!isset($_SESSION)){
 
     <li class="nav-item dropdown pe-3">
     <?php 
-      $out6 = $admin->userDataShower($uid);
+      $out6 = userDataShower($uid);
       $row6 = $out6->fetch_assoc();
     
     ?>
@@ -492,7 +496,7 @@ if(!isset($_SESSION)){
         </ul>
       </li><!-- End Components Nav -->  
       <?php
-        $out = $admin->userDataShower($uid);
+        $out = userDataShower($uid);
         $row2 = $out->fetch_assoc();
         if($row2['auth'] == 'ADMIN'){
           ?>

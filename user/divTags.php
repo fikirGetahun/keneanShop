@@ -28,7 +28,7 @@ targetFor
 
               <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -81,7 +81,7 @@ targetFor
 
               <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -135,7 +135,7 @@ targetFor
 
               <?php 
               require_once '../php/fetchApi.php';
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'SUBCITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -168,6 +168,8 @@ targetFor
 
 
 
+
+
 <!-- ///car type category lister divtags-->
 <div  style="width:100%;" class="modal-dialog">
 <style>
@@ -189,7 +191,7 @@ targetFor
 
               <?php
               require_once "../php/adminCrude.php";
-                $carCat = $admin->allCategoryLister('car');
+                $carCat = allCategoryLister('car');
                 while($carCatRow = $carCat->fetch_assoc()){
                   ?>
                   <tr>
@@ -233,7 +235,7 @@ targetFor
 
 <?php
 require_once "../php/adminCrude.php";
-              $out11 = $admin->allCategoryLister('ad');
+              $out11 = allCategoryLister('ad');
               while($r = $out11->fetch_assoc()){
               ?>
             <tr>
@@ -281,7 +283,7 @@ require_once "../php/adminCrude.php";
 require_once "../php/fetchApi.php";
 
 
-$carCat = $get->allPostListerOnColumen('adCategory', 'tableName', 'electronics');
+$carCat = allPostListerOnColumen('adCategory', 'tableName', 'electronics');
 while($carCatRow = $carCat->fetch_assoc()){
   ?>
 
@@ -332,7 +334,7 @@ while($carCatRow = $carCat->fetch_assoc()){
 require_once "../php/adminCrude.php";
 require_once "../php/fetchApi.php";
 
-$vacancyCat = $admin->allCategoryLister('vacancy');
+$vacancyCat = allCategoryLister('vacancy');
 while($vacancyCatRow = $vacancyCat->fetch_assoc()){
   ?>
   <tr>

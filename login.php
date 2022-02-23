@@ -5,6 +5,9 @@ ob_start();
 if(!isset($_SESSION)) { 
   session_start(); 
 } 
+
+
+
 ?>
     <style>
       .bd-placeholder-img {
@@ -83,8 +86,8 @@ if(isset($_POST['username'], $_POST['password'])){
   // echo 'in login';
   $us = $_POST['username'];
   $pa = $_POST['password'];
-  $check = $auth->loginAuth($us);
-  // $check = $auth->loginAuth()
+  $check = loginAuth($us);
+  // $check = loginAuth()
   if($check->num_rows == 0){
       $login = 'Not valid password or Username';
       echo $login;

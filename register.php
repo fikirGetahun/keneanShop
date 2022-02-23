@@ -90,7 +90,7 @@ $(document).ready(function(){
               <label for="country" class="form-label">Location</label>
               <select class="form-select" id="country" name="address" required>
               <?php 
-                $locc= $get->allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -107,6 +107,8 @@ $(document).ready(function(){
               <div class="invalid-feedback">
                 Please select a valid country. 
               </div>
+              
+
 
             </div>
             <div id="registerBox">

@@ -341,7 +341,7 @@ function reload(x){
 
       <?php
       if(isset($_SESSION['userId'])){
-        $memberCheker = $get->allPostListerOnColumen('mambership', 'userId', $_SESSION['userId']);
+        $memberCheker = allPostListerOnColumen('mambership', 'userId', $_SESSION['userId']);
         $cm = $memberCheker->fetch_assoc();
       }
 
@@ -365,7 +365,7 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 }
 if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
   // to output the number of unseen msgs, we use the outer msgs function
-  $seen = $get->outerMsgFetcherSeen($_SESSION['userId']);
+  $seen = outerMsgFetcherSeen($_SESSION['userId']);
   $numUnseen = $seen->num_rows;
 
 
@@ -462,6 +462,8 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
 <div id="tss">
 
 </div>
+
+
 
 
 

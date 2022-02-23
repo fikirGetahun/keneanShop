@@ -141,15 +141,17 @@ $_SESSION['allUser'] = 0; // this automaticaly sets the page session to 0 so tha
 
 
 
+
+
 if(isset($_GET['user'])){
   $selected= 'user';
-  $oneTablePostList = $get->allPostListerOnColumenD('user', 'auth', 'USER', 0 , 10);
+  $oneTablePostList = allPostListerOnColumenD('user', 'auth', 'USER', 0 , 10);
 }elseif(isset($_GET['editor'])){
   $selected= 'editor';
-  $oneTablePostList = $get->allPostListerOnColumenD('user', 'auth', 'EDITOR', 0 , 10);
+  $oneTablePostList = allPostListerOnColumenD('user', 'auth', 'EDITOR', 0 , 10);
 }elseif(isset($_GET['admin'])){
   $selected= 'admin';
-  $oneTablePostList = $get->allPostListerOnColumenD('user', 'auth', 'ADMIN', 0 , 10);
+  $oneTablePostList = allPostListerOnColumenD('user', 'auth', 'ADMIN', 0 , 10);
 }
     
     ?>
