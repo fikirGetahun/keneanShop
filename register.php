@@ -122,7 +122,9 @@ $(document).ready(function(){
              <a class="btn btn-primary mx-auto" href="login.php" > LogIn </a> 
           </div>
 
-          
+          <div id="alertVacancy">
+
+          </div>
           </div>
 
           

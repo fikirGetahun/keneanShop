@@ -474,7 +474,7 @@
                 $q = "INSERT INTO `msg`(  `tableName`, `postId`, `user1`, `user2`, `msg`, `postedDate`, `seen`) VALUES ('$tableOfPost' , '$postId', '$senderId', '$receiverId', '$msg', '$date', 'new' )";
 
                 $ask = $mysql->query($q);
-
+                echo $mysql->error;
                 return $ask;
 
             }

@@ -6,10 +6,11 @@ include "includes/lang.php";
 
 include "includes/header.php";
 include "includes/navbar.php";
-require_once "php/adminCrude.php";
 require_once "php/fetchApi.php";
-require_once "php/auth.php";
 require_once "php/adminCrude.php";
+
+require_once "php/auth.php";
+// require_once "php/adminCrude.php";
 
 
 
@@ -972,7 +973,7 @@ foreach($dbTables as $posts){
                     type: 'POST',
                     data: $('form').serialize(),
                     success: function(data){
-                      // alert(data)
+                      alert(data)
                       location.reload()
                     }
                   })

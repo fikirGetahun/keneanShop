@@ -66,7 +66,7 @@ if(isset($_GET['loc'])){
 }
 
 </style>
-<!-- <script src="assets/jquery.js"  ></script> -->
+<script src="assets/jquery.js"  ></script>
 
 
 <script>
@@ -417,15 +417,15 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])){
           <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('house')"><?php echo $lang['house'] ?></button></p></div>
           <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="nav('land')"><?php echo $lang['land'] ?></button></p></div>
 
-       <!-- <div class="col"> <p><button type="button" onclick="real()" class="btn btn-light btn-sm col"><?php echo $lang['sponsered'] ?> </button></p></div> -->
+       <div class="col"> <p><button type="button" onclick="real()" class="btn btn-light btn-sm col"><?php echo $lang['sponsered'] ?> </button></p></div>
  
        <script>
-      function nav2(nav, real){
-  $('#uploadDiv').load("user/postPage.php?type="+nav+"&real="+real)
-  }
+  //     function nav2(nav, real){
+  // $('#uploadDiv').load("user/postPage.php?type="+nav+"&real="+real)
+  // }
     </script>
 
-       <div class="col"> <p><button type="button" onclick="nav2('real', 'realEstate')"  class="btn btn-light btn-sm col"><?php echo $lang['realEstate'] ?> </button></p></div>
+       <!-- <div class="col"> <p><button type="button" onclick="nav2('real', 'realEstate')"  class="btn btn-light btn-sm col"><?php echo $lang['realEstate'] ?> </button></p></div> -->
 
  
 

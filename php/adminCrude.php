@@ -374,6 +374,7 @@ echo $mysql->error;
         '$info', '$posterId', '$fName1', '$postDate', '$postStatus', '$ob', '$spArea')";
 
         $ask = $mysql->query($q);
+        echo $mysql->error;
         return $ask;
         }
 

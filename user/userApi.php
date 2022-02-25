@@ -40,7 +40,7 @@ $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
 
 
    //to add user data and photo upload if user adds photo since its optional
-    elseif(isset($_FILES['photoq'])){
+    elseif(isset($_FILES['photoq']) && $_FILES['photoq']['size'] != 0){
      $tempName = $_FILES['photoq']['tmp_name'];
      $fileName = $_FILES['photoq']['name'];
                //to upload photo
@@ -54,7 +54,7 @@ $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
                }
    }else{
     //to add user data
-    $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, ' ', $job, $about); 
+    $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $authr, ' ', $job, $about, $recover); 
 
     if($out){
         echo "Registerd Succesfully!";
@@ -229,6 +229,8 @@ $('#uploadDiv').load("user/postPage.php?type="+nav)
 // real estatae
 if(isset($_GET['real'])){
   ?>
+  <script src="assets/jquery.js"  ></script>
+
   <script>
   $(document).ready(function(){
   $('#cl').click(function(){
@@ -254,8 +256,8 @@ if(isset($_GET['real'])){
     </script>
               <button class="btn btn-light btn-sm" onclick="nav2('real', 'realEstate')"  > <?php echo $lang['realEstate'] ?> </button> 
               <br><br>
-              <!-- <button class="btn btn-light btn-sm"onclick="nav2('real', 'bank')" ><?php echo $lang['bankStock'] ?></button>  <br><br> -->
-              <!-- <button class="btn btn-light btn-sm" onclick="nav2('real', 'insurance')" ><?php echo $lang['Insurance'] ?></button> <br><br> -->
+              <button class="btn btn-light btn-sm"onclick="nav2('real', 'bank')" ><?php echo $lang['bankStock'] ?></button>  <br><br>
+              <button class="btn btn-light btn-sm" onclick="nav2('real', 'insurance')" ><?php echo $lang['Insurance'] ?></button> <br><br>
               <br>
             
   </div>

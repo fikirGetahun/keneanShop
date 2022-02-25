@@ -2622,8 +2622,29 @@ if($_GET['type'] == 'real'){
           <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
 
           <?php
+            // to set the selectKey to deside the post is realestate, bank or insurance post
+            if(isset($_GET['real']) && $_GET['real'] == 'realEstate'){
+              ?>
+            <input hidden type="text" name="selectKey" value="rs">
+              <?php
+            }elseif(isset($_GET['real']) && $_GET['real'] == 'insurance'){ 
+              ?>
+            <input hidden type="text" name="selectKey" value="ins">
+              <?php
+            }elseif(isset($_GET['real']) && $_GET['real'] == 'bank'){
+              ?>
+            <input hidden type="text" name="selectKey" value="ban">
+              <?php
+            }
+          
+          
+          ?>
+
+          <?php 
           if(isset($_GET['real']) && $_GET['real'] == 'realEstate'){
             ?>
+            
+
             <!-- for rent or sell  -->
 <div class="form-group">
           <label for="exampleInputEmail1" class="fs-6  " ><?php echo $lang['sellOrRent'] ?></label><br>
@@ -2699,7 +2720,7 @@ if($_GET['type'] == 'real'){
 <!-- category  -->
 <div  class="input-group mb-3">
  
- <select id="catRs" class="form-select" aria-label="Default select example" name="rsType" id="inputGroupSelect01">
+ <select id="catRs" class="form-select" aria-label="Default select example" name="" id="inputGroupSelect01">
    <option selected><?php echo $lang['CategoryReal'] ?></option>
    <option value="Commercial RS">Commercial RS</option>
    <option value="Hotel and Lodging">Hotel and Lodging</option>

@@ -1460,6 +1460,117 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
             }
           }
 
+////////////////// REAL ESTATE POST///////////////////////
+    if(isset($_GET['cat']) && $_GET['cat'] == 'realestate' ){
+      $cat = $_GET['cat'];
+
+
+      if(isset($_GET['dbType']) && $_SESSION['location'] == 'All'  ){
+        $dbType = $_GET['dbType'];
+        if(isset($_GET['search'])){ // if search is occured
+          $search = $_GET['search'];
+          $fetchPost = search1C($cat, 'type', $dbType ,$search, $startPage, $endPage);
+        }else{
+          $fetchPost = allPostListerOnColumenD($cat, 'type', $dbType , $startPage, $endPage);
+        }
+      }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All' ){
+        $dbType = $_GET['dbType'];
+        if(isset($_GET['search'])){ // if search is occured
+          $search = $_GET['search'];
+          $fetchPost = search2C($cat, 'type', $dbType, 'address', $_SESSION['location'],$search, $startPage, $endPage);
+        }else{
+          $fetchPost = allPostListerOn2ColumenD($cat, 'type', $dbType, 'address', $_SESSION['location'], $startPage, $endPage );
+        }
+      }elseif($_SESSION['location'] == 'All'){
+        if(isset($_GET['search'])){ // if search is occured
+          $search = $_GET['search'];
+          $fetchPost = searchC($cat,$search, $startPage, $endPage);
+        }else{
+          $fetchPost = allPostListerOnTableD($cat, $startPage, $endPage  );
+        }        
+      }elseif($_SESSION['location'] != 'All'  ){
+        if(isset($_GET['search'])){ // if search is occured
+          $search = $_GET['search'];
+          $fetchPost = search1C($cat,'address', $_SESSION['location'],$search, $startPage, $endPage);
+        }else{
+          $fetchPost = allPostListerOnColumenD($cat,  'address', $_SESSION['location'], $startPage, $endPage );
+        }
+      }
+
+             ?>
+              <div  class="container">
+              <h5><?php echo $label ?></h5>
+          
+            </div>
+            <br>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+
+
+            <?php
+            if($fetchPost[1]->num_rows != 0){
+
+                  while($row = $fetchPost[0]->fetch_assoc()){
+                    ?>
+                  <div  class="row-col-3 row-col-sm-12 row-col-md-3">
+                      <div class="card mb-4 box-shadow">
+                  
+                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+
+                    <div class="card-body">
+                      <h5 class="card-title">  <?php echo $row['title'] ?></h5>
+                      <?php 
+                      if($cat != 'charity'){
+              ?>
+                      <h6 class="card-text"><span class="text-danger small"><?php echo $row['cost'] ?></span> </h6>
+
+              <?php
+                      }
+                      $date = time_elapsed_string($row['postedDate']);
+                      ?>
+                      
+                      <h6 class="card-text"> Location:  <?php echo $row['city'] ?></h6>
+                      <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-danger small"><?php echo $date ?></span>
+                          
+
+                      </div>
+                    </div>
+                  </div>
+                  <?php
+                  if(isset($_SESSION['userId'])){
+                  $faz = favouritesSelector($cat, $userId, $row['id'] );
+                  // $row = $faz->fetch_assoc();
+                  // echo $row['fav'];
+                    if($faz->num_rows > 0){
+                      ?>
+                      <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+                      <?php
+                    }else{
+                      ?>
+                    <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+                      <?php
+                    }
+                  }
+                  ?>
+                </div>
+            
+            
+          
+
+                    <?php
+                            
+
+
+                  }
+                }else{
+                  echo 'No Result Found';
+                }
+                
+        ?> </div> <?php
+
+
+    }
+
           
           ///////////////cv seekers
           if(isset($_GET['cat'], $_GET['type'], $_GET['label'])){

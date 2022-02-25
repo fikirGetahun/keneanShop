@@ -259,8 +259,8 @@ if(isset(
       echo 'inn house';
 
       // these variables will not be set if user choose house so initial value will be empty
-      $bedRoomNo = ' ';
-      $bathRoomNo = ' ';
+      $bedRoomNo = 0;
+      $bathRoomNo = 0;
       $type = " ";
       $spArea = " ";
       
@@ -299,7 +299,11 @@ if(isset(
         $forRentOrSell, $area, $bedRoomNo, $bathRoomNo, $price, $fixidOrN, $info,
          $posterId, $up[0], $ob, $spArea );
         
-         echo 'Post Succesfully!';
+         if($outH){
+          echo 'Post Succesfully!';
+         }else{
+          echo 'error';
+         }
       }
       
       // $houseUpload = houseOrLandPhotoUploader($fName1, $fName2, $fName3, $tmpName1, $tmpName2, $tmpName3);
