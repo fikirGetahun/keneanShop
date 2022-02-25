@@ -1217,21 +1217,33 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $dbType = $_GET['dbType'];
               if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
-                if($arg == ' '){
+                if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
                   $fetchPost = search2C($cat, 'houseOrLand', 'HOUSE',  'type', $dbType, $search, $startPage, $endPage);
                 }else{
                   $fetchPost = search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $search, $startPage, $endPage);
                 }
               }else{
-                $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $startPage, $endPage); 
+                if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                  $fetchPost = allPostListerOn2ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $dbType, $startPage, $endPage);
+                }else{
+                  $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $startPage, $endPage);
+                }   
               }
               }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
                 $dbType = $_GET['dbType'];
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
-                  $fetchPost = search4C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                    $fetchPost = search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell',$dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  }else{
+                    $fetchPost = search4C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                  }
                 }else{
-                  $fetchPost = allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
+                  if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                    $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell',  $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
+                  }else{
+                    $fetchPost = allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
+                  }
                 }
               }elseif($_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
                 if(isset($_GET['search'])){ // if search is occured
