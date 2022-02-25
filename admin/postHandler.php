@@ -510,18 +510,12 @@ if(isset($_POST['frontLabel'], $_POST['title'], $_POST['content'], $_FILES['phot
 }
 
 
-
+// echo 'apid in the api';
 /////////////real estate posting api
-if(isset($_POST['posterId'], $_POST['title'], $_POST['company'], $_POST['phone'], $_POST['email'], $_POST['price'], $_POST['rsType'], $_POST['fixidOrN'], $_POST['info'], $_FILES['photo'])){
-  // null data entery if real estate is not selected
-  $forRentOrSell = " ";
-  $rsType = " ";
-  $city = " ";
-  $subCity = " ";
-  $wereda = " ";
-  $floor = " ";
-  $area = "";
+if(isset($_POST['posterId'], $_POST['title'], $_POST['company'], $_POST['phone'], $_POST['email'], $_POST['price'], $_POST['fixidOrN'], $_POST['info'], $_FILES['photo'], $_POST['selectKey'],$_POST['city'])){
 
+
+  $selectKey = $_POST['selectKey'];
   $posterId = $_POST['posterId'];
   $title = $_POST['title'];
  $company = $_POST['company'];
@@ -531,17 +525,33 @@ $price = $_POST['price'];
 $fixidOrN = $_POST['fixidOrN'];
 $info = $_POST['info'];
 $fileVar = $_FILES['photo'];
+$city = $_POST['city'];
 
 
-
-  if(isset($_POST['forRentOrSell'], $_POST['workType'],$_POST['city'], $_POST['subCity'], $_POST['wereda'], $_POST['floor'] , $_POST['area'])){
+  if(isset($_POST['forRentOrSell'], $_POST['wereda'], $_POST['floor'] , $_POST['area'])){
+    echo 'realz';
     $forRentOrSell = $_POST['forRentOrSell'];
     $rsType= $_POST['rsType'];
-    $city = $_POST['city'];
-    $subCity = $_POST['subCity'];
+   
+
+    //so that there are cities which doesnot have subcity
+    if(isset($_POST['subCity'])){
+      $subCity = $_POST['subCity'];
+    }
+   
     $wereda = $_POST['wereda'];
     $floor = $_POST['floor'];
     $area = $_POST['area'];
+  }else{
+    echo 'else rel';
+      // null data entery if real estate is not selected
+  $forRentOrSell = " ";
+  $rsType = " ";
+
+  $subCity = " ";
+  $wereda = 0;
+  $floor = 0;
+  $area = 0;
   }
 
 
@@ -552,7 +562,7 @@ $fileVar = $_FILES['photo'];
       echo $val;
     }
   }elseif($up[4] == 'work'){
-    $enter = realEstate($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area  , $email, $price, $fixidOrN, $info, $up[0]);
+    $enter = realEstate($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area  , $email, $price, $fixidOrN, $info, $up[0], $selectKey);
     if($enter){
       echo 'Posted Successfully.';
     }else{

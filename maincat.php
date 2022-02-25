@@ -211,6 +211,54 @@ function reload(x){
 
 
 <?php 
+
+/// for rent and for sell filter for car, house and land
+
+if(isset($_GET['cat'])){
+  $rent_filter = array('car', 'housesell');
+  $table = $_GET['cat'];
+  /// if the table does need for rent or for sell filter
+  if(in_array($table, $rent_filter)){
+    /// if the table is housesell and type house post
+    if(isset($_GET['type']) && $_GET['type'] == 'house' && $table == 'housesell'){
+      ?>
+        <div  class="col-3" >
+        <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
+          <option value=" " >For Rent or Sell</option>
+          <option value="./maincat.php?cat=housesell&type=house&arg=For Sell&label=House For Sell" >For Sell</option>
+          <option value="./maincat.php?cat=housesell&type=house&arg=For Rent&label=House For Rent" >For Rent</option>
+        </select>
+        </div>
+      <?php
+      // maincat.php?cat=housesell&type=land&arg=For Sell&label=Land For Sell
+    }elseif(isset($_GET['type']) && $_GET['type'] == 'land' && $table == 'housesell'){
+      ?>
+        <div  class="col-3" >
+        <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
+          <option value=" " >For Rent or Sell</option>
+          <option value="./maincat.php?cat=housesell&type=land&arg=For Sell&label=Land For Sell" >For Sell</option>
+          <option value="./maincat.php?cat=housesell&type=land&arg=For Rent&label=Land For Rent" >For Rent</option>
+        </select>
+        </div>
+      <?php   
+      // maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars To Buy&type=   
+    }elseif($table == 'car'){
+      ?>
+        <div  class="col-3" >
+        <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
+          <option value=" " >For Rent or Sell</option>
+          <option value="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars To Buy&type=   " >For Sell</option>
+          <option value="./maincat.php?cat=car&status=forRentOrSell&off=For Rent&label=Cars For Rent&type=" >For Rent</option>
+        </select>
+        </div>
+      <?php      
+    }
+  }
+}
+
+
+
+/// to list category filter
   if(isset($_GET['cat'])){
     // this category lister exclude the hometutor and zebegna because thy dont have the type colomen
     if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog' && ( isset($_GET['type']) && $_GET['type'] != 'land') || $_GET['cat'] == 'vacancy' ){
@@ -269,7 +317,14 @@ function reload(x){
   </div>
 
 <?php
-    }if(isset($_GET['cat'])){
+    }
+
+
+
+
+    
+    //// as mikiy requested city list filter must be at the middel so every post has a table. when the table is set, which is 'cat', the city filter will come
+    if(isset($_GET['cat'])){
       ?>
               <?php 
               require_once 'php/fetchApi.php';

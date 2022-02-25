@@ -1570,12 +1570,14 @@ return $ask;
     }
     
     /// realestate insereting data
-    function realEstate($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area   , $email, $price, $fixidOrN, $info, $up){
+    function realEstate($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area   , $email, $price, $fixidOrN, $info, $up, $selectKey){
         include "connect.php";
         $postedDate = date('Y-m-d H:i:s');
-        $q = "INSERT INTO `realestate`(  `type`, `title`, `company`, `address`, `subCity`, `wereda`, `phone`, `email`, `area`, `floor`, `price`, `priceType`, `photoPath1`, `info`, `postedDate`, `posterId`) VALUES  ('$rsType', '$title', '$company', '$city', '$subCity', '$wereda', '$phonem', '$email',  '$area', '$floor', '$price', '$fixidOrN', '$up', '$info', '$postedDate', '$posterId' )";
+        $q = "INSERT INTO `realestate`(  `type`, `title`, `company`, `address`, `subCity`, `wereda`, `phone`, `email`, `area`, `floor`, `price`, `priceType`, `photoPath1`, `info`, `postedDate`, `posterId`, `selectKey`) VALUES  ('$rsType', '$title', '$company', '$city', '$subCity', '$wereda', '$phonem', '$email',  '$area', '$floor', '$price', '$fixidOrN', '$up', '$info', '$postedDate', '$posterId', '$selectKey' )";
 
         $ask = $mysql->query($q);
+
+        echo $mysql->error;
 
         return $ask;
         

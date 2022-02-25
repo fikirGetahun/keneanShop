@@ -2720,7 +2720,7 @@ if($_GET['type'] == 'real'){
 <!-- category  -->
 <div  class="input-group mb-3">
  
- <select id="catRs" class="form-select" aria-label="Default select example" name="" id="inputGroupSelect01">
+ <select id="catRs" class="form-select" aria-label="Default select example" name="rsType" id="inputGroupSelect01">
    <option selected><?php echo $lang['CategoryReal'] ?></option>
    <option value="Commercial RS">Commercial RS</option>
    <option value="Hotel and Lodging">Hotel and Lodging</option>
@@ -2824,8 +2824,9 @@ if($_GET['type'] == 'real'){
           <?php 
              for($y=1;$y<=30;$y++){
                if($y <= 9 ){
+                 $pre = 0;
                  ?>
-                 <option value="<?php echo '0'.$y ?>"><?php echo '0'.$y ?></option>
+                 <option value="<?php echo $pre.$y ?>"><?php echo '0'.$y ?></option>
                  <?php
                }else{
                 ?>
