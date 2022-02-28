@@ -220,10 +220,10 @@ if(isset($_GET['cat']) && $_GET['cat'] == 'realestate'){
   ?>
   <div  class="col-3" >
   <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
-    <option selected >Real Estate Sponsered</option>
-    <option value="./maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate" >Real Estate </option>
-    <option value="./maincat.php?cat=realestate&spType=ban&arg= &label=Bank Stokes" >Bank Stokes</option>
-    <option value="./maincat.php?cat=realestate&spType=ins&arg= &label=Insurance Stokes" >Insurance Stokes </option>
+    <option selected ><?php echo $allLabel ?>Sponsered</option>
+    <option value="./maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate" >Real Estate Sponsered</option>
+    <option value="./maincat.php?cat=realestate&spType=ban&arg= &label=Bank Stokes" >Bank Stokes Sponsered</option>
+    <option value="./maincat.php?cat=realestate&spType=ins&arg= &label=Insurance Stokes" >Insurance Stokes Sponsered </option>
   </select>
   </div>
 <?php  
@@ -521,7 +521,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 }
 
 // 
-    if(($_GET['cat'] == 'housesell' &&  $_SESSION['location'] != 'All') || ($_GET['cat'] == 'realestate' &&  $_SESSION['location'] != 'All') ){ // if 'all' is chosen as a country the subcity and kebele wont appear.
+    if(($_GET['cat'] == 'housesell' &&  $_SESSION['location'] != 'All') || ($_GET['cat'] == 'realestate' &&  $_SESSION['location'] != 'All' && isset($_GET['spType']) && $_GET['spType'] == 'rs') ){ // if 'all' is chosen as a country the subcity and kebele wont appear.
       ?>
  
 
@@ -2361,7 +2361,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
                       <?php 
                       if($cat != 'charity'){
               ?>
-                      <h6 class="card-text"><span class="text-danger small"><?php echo $row['cost'] ?></span> </h6>
+                      <h6 class="card-text"><span class="text-danger small"><?php echo $row['price'] ?></span> </h6>
 
               <?php
                       }
@@ -2410,12 +2410,180 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
       }
       /// if the sponsered type is bank stock
-      elseif(isset($_GET['spType']) && $_GET['spType'] == 'bank'){ // if
+      elseif(isset($_GET['spType']) && $_GET['spType'] == 'ban'){ // if
+
+        if($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
+          if(isset($_GET['search'])){ // if search is occured
+            $search = $_GET['search'];
+            $fetchPost = search2C($cat, 'city',  $_SESSION['location'], 'selectKey', 'ban', $search, $startPage, $endPage);
+          }else{
+            $fetchPost = allPostListerOn2ColumenD($cat, 'city', $_SESSION['location'], 'selectKey', 'ban', $startPage, $endPage);
+          }
+        }elseif($_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
+          if(isset($_GET['search'])){ // if search is occured
+            $search = $_GET['search'];
+            $fetchPost = search1C($cat,'selectKey', 'ban', $search, $startPage, $endPage);
+          }else{
+            $fetchPost = allPostListerOnColumenD($cat, 'selectKey', 'ban',$startPage, $endPage);
+          }
+        }
+
+        ?>
+             <div  class="container">
+              <h5><?php echo $label ?></h5>
+          
+            </div>
+            <br>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+
+
+            <?php
+            if($fetchPost[1]->num_rows != 0){
+
+                  while($row = $fetchPost[0]->fetch_assoc()){
+                    ?>
+                  <div  class="row-col-3 row-col-sm-12 row-col-md-3">
+                      <div class="card mb-4 box-shadow">
+                  
+                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+
+                    <div class="card-body">
+                      <h5 class="card-title">  <?php echo $row['title'] ?></h5>
+                      <?php 
+                      if($cat != 'charity'){
+              ?>
+                      <h6 class="card-text"><span class="text-danger small"><?php echo $row['price'] ?></span> </h6>
+
+              <?php
+                      }
+                      $date = time_elapsed_string($row['postedDate']);
+                      ?>
+                      
+                      <h6 class="card-text"> Location:  <?php echo $row['city'] ?></h6>
+                      <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-danger small"><?php echo $date ?></span>
+                          
+
+                      </div>
+                    </div>
+                  </div>
+                  <?php
+                  if(isset($_SESSION['userId'])){
+                  $faz = favouritesSelector($cat, $userId, $row['id'] );
+                  // $row = $faz->fetch_assoc();
+                  // echo $row['fav'];
+                    if($faz->num_rows > 0){
+                      ?>
+                      <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+                      <?php
+                    }else{
+                      ?>
+                    <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+                      <?php
+                    }
+                  }
+                  ?>
+                </div>
+            
+            
+          
+
+                    <?php
+                            
+
+
+                  }
+                }else{
+                  echo 'No Result Found';
+                }
 
       }      
       //// if the sponsered type is insurance
-      elseif(isset($_GET['spType']) && $_GET['spType'] == 'insurance'){ // if
+      elseif(isset($_GET['spType']) && $_GET['spType'] == 'ins'){ // if
+        if($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
+          if(isset($_GET['search'])){ // if search is occured
+            $search = $_GET['search'];
+            $fetchPost = search2C($cat, 'city',  $_SESSION['location'], 'selectKey', 'ins', $search, $startPage, $endPage);
+          }else{
+            $fetchPost = allPostListerOn2ColumenD($cat, 'city', $_SESSION['location'], 'selectKey', 'ins', $startPage, $endPage);
+          }
+        }elseif($_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg'])){
+          if(isset($_GET['search'])){ // if search is occured
+            $search = $_GET['search'];
+            $fetchPost = search1C($cat,'selectKey', 'ins', $search, $startPage, $endPage);
+          }else{
+            $fetchPost = allPostListerOnColumenD($cat, 'selectKey', 'ins',$startPage, $endPage);
+          }
+        }
 
+        ?>
+             <div  class="container">
+              <h5><?php echo $label ?></h5>
+          
+            </div>
+            <br>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+
+
+            <?php
+            if($fetchPost[1]->num_rows != 0){
+
+                  while($row = $fetchPost[0]->fetch_assoc()){
+                    ?>
+                  <div  class="row-col-3 row-col-sm-12 row-col-md-3">
+                      <div class="card mb-4 box-shadow">
+                  
+                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+
+                    <div class="card-body">
+                      <h5 class="card-title">  <?php echo $row['title'] ?></h5>
+                      <?php 
+                      if($cat != 'charity'){
+              ?>
+                      <h6 class="card-text"><span class="text-danger small"><?php echo $row['price'] ?></span> </h6>
+
+              <?php
+                      }
+                      $date = time_elapsed_string($row['postedDate']);
+                      ?>
+                      
+                      <h6 class="card-text"> Location:  <?php echo $row['city'] ?></h6>
+                      <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-danger small"><?php echo $date ?></span>
+                          
+
+                      </div>
+                    </div>
+                  </div>
+                  <?php
+                  if(isset($_SESSION['userId'])){
+                  $faz = favouritesSelector($cat, $userId, $row['id'] );
+                  // $row = $faz->fetch_assoc();
+                  // echo $row['fav'];
+                    if($faz->num_rows > 0){
+                      ?>
+                      <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+                      <?php
+                    }else{
+                      ?>
+                    <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+                      <?php
+                    }
+                  }
+                  ?>
+                </div>
+            
+            
+          
+
+                    <?php
+                            
+
+
+                  }
+                }else{
+                  echo 'No Result Found';
+                }
       }
     }
 
