@@ -161,6 +161,21 @@
         }
 
 
+        /// 5 columemn
+        function allPostListerOn6ColumenD($table, $columen, $args, $columen2, $args2, $columen3, $args3, $columen4, $args4, $columen5, $args5, $columen6, $args6, $limitStart, $limitEnd){
+            include "connect.php";
+            $q2 = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' AND `$columen4` = '$args4' AND `$columen5` = '$args5' AND `$columen6` = '$args6' ORDER BY `postedDate` DESC";
+            $q = "SELECT * FROM `$table` WHERE `$columen` = '$args' AND `$columen2` = '$args2' AND `$columen3` = '$args3' AND `$columen4` = '$args4' AND `$columen5` = '$args5' AND `$columen6` = '$args6'   ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";
+    
+            $ask2 = $mysql->query($q2);
+            $ask = $mysql->query($q);
+            echo $mysql->error;
+    
+            return array($ask, $ask2);
+        }
+
+
+
         //// to fetch data from a tabel and 5 colomen condition
         function allPostListerOn5Columen($table, $columen, $args, $columen2, $args2,
          $columen3, $args3, $columen4, $args4, $columen5, $args5  ){
@@ -464,6 +479,27 @@
                 return array($ask, $ask2);
             }
                 
+
+                        ///// search output based on 5colomun that match one search condition with tobe searched columen 
+                        function search6C($table, $columen1, $arg1, $columen2, $arg2, $columen3, $arg3, $columen4, $arg4, $columen5, $arg5, $sarg, $columen6, $arg6, $limitStart, $limitEnd){
+                            include "connect.php";
+                            $excluded = array('zebegna', 'jobhometutor', 'hotelhouse' );
+                            if(in_array($table, $excluded)){
+                                $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4' AND `$columen5` = '$arg5' AND `$columen6` = '$arg6'  AND `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC ";
+                            $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND `$columen2` = '$arg2' AND `$columen3` = '$arg3' AND `$columen4` = '$arg4' AND `$columen5` = '$arg5' AND `$columen6` = '$arg6'  AND `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd  ";    
+                            }else{
+                                $q2 = "SELECT `postedDate` FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4' AND `$columen5` = '$arg5' AND `$columen6` = '$arg6'     AND `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+                            $q = "SELECT * FROM `$table` WHERE `$columen1` = '$arg1' AND  `$columen2` = '$arg2' AND `$columen3` = '$arg3'  AND `$columen4` = '$arg4' AND `$columen5` = '$arg5' AND `$columen6` = '$arg6'      AND `title` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd  ";
+                            }
+                    
+                    
+                    
+                            $ask2 = $mysql->query($q2);
+                            $ask = $mysql->query($q);
+                            echo $mysql->error;
+                    
+                            return array($ask, $ask2);
+                        }
 
 
 

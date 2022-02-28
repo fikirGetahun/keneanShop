@@ -572,13 +572,13 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 ?>
               <option selected value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option> 
                 <?php
-              }else{
+              }elseif(isset($_GET['dyCol']) && $_GET['dyCol'] != 'subCity'){
                 ?>
               <option selected value="maincat.php?<?php echo $string ?>&dyCol2=subCity&dyArg2=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>  
                 <?php
               }
 
-              if(isset($_GET['dyCol2']) && $_GET['dyCol2'] == 'subCity'){
+              elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] == 'subCity'){
                 
               $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
               $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
@@ -597,9 +597,13 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 ?>
               <option selected value="maincat.php?<?php echo $string ?>&dyCol2=subCity&dyArg2=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option> 
                 <?php
-              }else{
+              }elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] != 'subCity'){
                 ?>
                  <option selected value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>            
+                <?php
+              }else{
+                ?>
+                <option selected value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option> 
                 <?php
               }
               ?>
@@ -627,7 +631,25 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
         <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location=this.value;"  >
           <option ><?php if(isset($_GET['dyArg2'])){ echo $_GET['dyArg2'];}else{  echo $lang['Wereda']; }?> <option>
           <?php 
-             for($y=1;$y<=30;$y++){
+          $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
+          $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
+          //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
+          if($params['dyCol'] && $params['dyArg']  ){
+            // unset($params['dyCol']);
+            // unset($params['dyArg']);
+          }
+          if($params['dyCol2'] && $params['dyArg2']){ 
+            // unset($params['dyCol2']);
+            // unset($params['dyArg2']);
+          }
+          // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
+          if($params['loc']){
+            unset($params['loc']);
+          }
+
+          $string = http_build_query($params); // to build the corrected requst to normal get query format
+            $zero = 0;   
+          for($y=1;$y<=30;$y++){
               if($y <= 9 ){
               //  if(isset($_GET['type'], $_GET['arg'])){
                  if(isset($_GET['dyCol']) && $_GET['dyCol'] == 'wereda'){
@@ -645,17 +667,15 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
     
                   $string = http_build_query($params); // to build t
                   ?>
-                    <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
+                    <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
                   <?php
-                 }else{
+                 }elseif(isset($_GET['dyCol']) && $_GET['dyCol'] != 'wereda'){
                    ?>
-                   <option selected value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
+                   <option selected value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
                    <?php
                  }
-                ?>
-                
-                <?php
-                 if(isset($_GET['dyCol2']) && $_GET['dyCol2'] == 'wereda'){
+
+                 elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] == 'wereda'){
 
                   $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
                   $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
@@ -672,12 +692,16 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
     
                   $string = http_build_query($params); // to build the corrected requst to normal get query format
                   ?>
-                <option selected value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
+                <option selected value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
+                  <?php
+                 }elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] != 'wereda'){
+                  ?>
+                <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
                   <?php
                  }else{
-                  ?>
-                <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
-                  <?php
+                   ?>
+                       <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>      
+                   <?php
                  }
 
                  
@@ -699,17 +723,15 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
     
                   $string = http_build_query($params); // to build t
                   ?>
-                    <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
+                    <option selected value="./maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
                   <?php
-                 }else{
+                 }else if(isset($_GET['dyCol']) && $_GET['dyCol'] != 'wereda'){
                    ?>
-                   <option selected value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
+                   <option selected value="./maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
                    <?php
                  }
-                ?>
-                
-                <?php
-                 if(isset($_GET['dyCol2']) && $_GET['dyCol2'] == 'wereda'){
+        
+                 elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] == 'wereda'){
 
                   $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
                   $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
@@ -726,12 +748,16 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
     
                   $string = http_build_query($params); // to build the corrected requst to normal get query format
                   ?>
-                <option selected value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
+                <option selected value="./maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
                   <?php
-                 }else{
+                 }elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] != 'wereda'){
                   ?>
                 <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
                   <?php
+                 }else{
+                   ?>
+                         <option selected value="./maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>    
+                   <?php
                  }
 
                }
@@ -1499,7 +1525,9 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                     $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
                   }
                 }
-              }elseif(isset($_GET['dyCol2'], $_GET['dyArg2'], $_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' ){ //dynamic colomen and arg with location selected
+              }elseif(isset($_GET['dyCol2'], $_GET['dyArg2'], $_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' && !isset($_GET['dyType']) // this is so that if dyType is set, then go to the next elseif which has dytype with dycol and dycol2 
+
+              ){ //dynamic colomen and arg with location selected
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
                 $dyCol2 = $_GET['dyCol2'];
@@ -1521,8 +1549,8 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
                 }
               }
-              /// to filter with the dyType.. this block will filter dyType with subcity and city is all
-              elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] == 'All' && $_GET['dyCol'] == 'subCity' //this is so that it filters what supose to do
+              /// to filter with the dyType.. this block will filter dyType with subcity or wereda and city is all
+              elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] == 'All'  
                ){
                 $dyCol = $_GET['dyCol'];
                 $dyArg = $_GET['dyArg'];
@@ -1530,38 +1558,38 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                 if(isset($_GET['search'])){ // if search is occured
                 $search = $_GET['search'];
                 if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
-                  $fetchPost = search2C($cat, 'type', $ty, 'subCity', $dyArg, $search, $startPage, $endPage);
+                  $fetchPost = search2C($cat, 'type', $ty, $dyCol, $dyArg, $search, $startPage, $endPage);
                 }else{
-                  $fetchPost = search4C($cat, 'houseOrLand', 'HOUSE', 'subCity', $dyArg, 'forRentOrSell', $arg, 'type', $ty, $search, $startPage, $endPage);
+                  $fetchPost = search4C($cat, 'houseOrLand', 'HOUSE', $dyCol, $dyArg, 'forRentOrSell', $arg, 'type', $ty, $search, $startPage, $endPage);
                 }
               }else{
                 if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
-                  $fetchPost = allPostListerOn2ColumenD($cat,'type', $ty, 'houseOrLand', 'HOUSE',   $startPage, $endPage);
+                  $fetchPost = allPostListerOn3ColumenD($cat,'type', $ty, $dyCol, $dyArg, 'houseOrLand', 'HOUSE',   $startPage, $endPage);
                 }else{
-                  $fetchPost = allPostListerOn3ColumenD($cat,'type', $ty, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $startPage, $endPage);
+                  $fetchPost = allPostListerOn4ColumenD($cat,'type', $ty, $dyCol, $dyArg,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $startPage, $endPage);
                 }
               } 
 
 
               }
 
-            /// to filter with the dyType.. this block will filter dyType with subcity and city is not all
-            elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] != 'All' && $_GET['dyCol'] == 'subCity'){
+            /// to filter with the dyType.. this block will filter dyType with subcity or wereda and city is not all
+            elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] != 'All' ){
               $dyCol = $_GET['dyCol'];
               $dyArg = $_GET['dyArg'];
               $ty = $_GET['dyType'];
               if(isset($_GET['search'])){ // if search is occured
               $search = $_GET['search'];
               if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
-                $fetchPost = search3C($cat, 'type', $ty, 'subCity', $dyArg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                $fetchPost = search3C($cat, 'type', $ty, $dyCol, $dyArg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
               }else{
-                $fetchPost = search5C($cat, 'houseOrLand', 'HOUSE', 'subCity', $dyArg, 'forRentOrSell', $arg, 'type', $ty, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                $fetchPost = search5C($cat, 'houseOrLand', 'HOUSE', $dyCol, $dyArg, 'forRentOrSell', $arg, 'type', $ty, 'city', $_SESSION['location'], $search, $startPage, $endPage);
               }
             }else{
               if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
-                $fetchPost = allPostListerOn3ColumenD($cat,'type', $ty, 'houseOrLand', 'HOUSE',  'city', $_SESSION['location'], $startPage, $endPage);
+                $fetchPost = allPostListerOn4ColumenD($cat,'type', $ty, $dyCol, $dyArg, 'houseOrLand', 'HOUSE',  'city', $_SESSION['location'], $startPage, $endPage);
               }else{
-                $fetchPost = allPostListerOn4ColumenD($cat,'type', $ty, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+                $fetchPost = allPostListerOn5ColumenD($cat,'type', $ty, $dyCol, $dyArg,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
               }
             
             } 
@@ -1569,27 +1597,62 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
            }
 
-           // for dyType , wereda and city all
-           elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] == 'All' && $_GET['dyCol'] == 'wereda'){
+
+           // this is if all the filters are set and location is not all
+           elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] != 'All' ){
             $dyCol = $_GET['dyCol'];
             $dyArg = $_GET['dyArg'];
+            $dyCol2 = $_GET['dyCol2'];
+            $dyArg2 = $_GET['dyArg2'];
             $ty = $_GET['dyType'];
             if(isset($_GET['search'])){ // if search is occured
             $search = $_GET['search'];
             if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
-              $fetchPost = search2C($cat, 'type', $ty, 'subCity', $dyArg, $search, $startPage, $endPage);
+              $fetchPost = search4C($cat, 'type', $ty, $dyCol, $dyArg, $dyCol2, $dyArg2, 'city', $_SESSION['location'], $search, $startPage, $endPage);
             }else{
-              $fetchPost = search4C($cat, 'houseOrLand', 'HOUSE', 'subCity', $dyArg, 'forRentOrSell', $arg, 'type', $ty, $search, $startPage, $endPage);
+              $fetchPost = search6C($cat, 'houseOrLand', 'HOUSE', $dyCol, $dyArg,  $dyCol2, $dyArg2, 'forRentOrSell', $arg, 'type', $ty, 'city', $_SESSION['location'], $search, $startPage, $endPage);
             }
           }else{
             if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
-              $fetchPost = allPostListerOn2ColumenD($cat,'type', $ty, 'houseOrLand', 'HOUSE',   $startPage, $endPage);
+              $fetchPost = allPostListerOn5ColumenD($cat,'type', $ty, $dyCol, $dyArg,  $dyCol2, $dyArg2, 'houseOrLand', 'HOUSE',  'city', $_SESSION['location'], $startPage, $endPage);
             }else{
-              $fetchPost = allPostListerOn3ColumenD($cat,'type', $ty, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $startPage, $endPage);
+              $fetchPost = allPostListerOn6ColumenD($cat,'type', $ty, $dyCol, $dyArg,  $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
             }
+          
           } 
-              
+
+
+         }
+
+
+         /// all filters are set and location is all
+         elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] == 'All'  
+         ){
+          $dyCol = $_GET['dyCol'];
+          $dyArg = $_GET['dyArg'];
+          $dyCol2 = $_GET['dyCol2'];
+          $dyArg2 = $_GET['dyArg2'];
+          $ty = $_GET['dyType'];
+          if(isset($_GET['search'])){ // if search is occured
+          $search = $_GET['search'];
+          if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+            $fetchPost = search3C($cat, 'type', $ty, $dyCol, $dyArg, $dyCol2, $dyArg2, $search, $startPage, $endPage);
+          }else{
+            $fetchPost = search5C($cat, 'houseOrLand', 'HOUSE', $dyCol, $dyArg, $dyCol2, $dyArg2, 'forRentOrSell', $arg, 'type', $ty, $search, $startPage, $endPage);
+          }
+        }else{
+          if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+            $fetchPost = allPostListerOn4ColumenD($cat,'type', $ty, $dyCol, $dyArg, $dyCol2, $dyArg2, 'houseOrLand', 'HOUSE',   $startPage, $endPage);
+          }else{
+            $fetchPost = allPostListerOn5ColumenD($cat,'type', $ty, $dyCol, $dyArg, $dyCol2, $dyArg2,'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, $startPage, $endPage);
+          }
+        } 
+
+
         }
+
+
+
     ?>
     <br>
       <div  class="container">
