@@ -175,7 +175,7 @@ function reload(x){
         </li>
         
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link active" href="./maincat.php?cat=housesell&type=house&arg= &label=House Posts"  id="navbarDropdown" role="button"  aria-expanded="false">
             <span class="small"><?php echo $lang['house'] ?></span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -184,7 +184,7 @@ function reload(x){
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link active" href="./maincat.php?cat=car&status= &off= &label=Cars Posts &type= "   id="navbarDropdown" role="button" aria-expanded="false">
             <span class="small"><?php echo $lang['cars'] ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -193,16 +193,16 @@ function reload(x){
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="maincat.php"><span class="small"><?php echo $lang['realLabel'] ?></span></a>
+          <a class="nav-link active" href="./maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate Posts" ><span class="small"><?php echo $lang['realLabel'] ?></span></a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item ">
+          <a class="nav-link active" href="./maincat.php?cat=housesell&type=land&arg= &label=Land Posts"   id="navbarDropdown" role="button"  aria-expanded="false">
             <span class="small"><?php echo $lang['land'] ?></span>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Sell&label=Land For Sell"><?php echo $lang['toBuy'] ?></a></li>
             <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Rent&label=Land For Rent"><?php echo $lang['toRent'] ?></a></li>
-          </ul>
+          </ul> -->
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="./maincat.php?cat=vacancy"><span class="small"><?php echo $lang['vacancy'] ?></span></a>

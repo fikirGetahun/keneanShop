@@ -51,7 +51,7 @@ if(isset($_GET['type'], $_GET['arg'], $_GET['label'], $_GET['cat'])){
   $_SESSION['type'] = $_GET['type'];
   $_SESSION['userScroll'] = array();
   $_SESSION['arg'] = $_GET['arg'];
-  $_SESSION['cat'] = $_GET['cat'];
+  $_SESSION['cat'] = $_GET['cat']; 
   $_SESSION['label'] = $_GET['label'];
 }
 
@@ -212,10 +212,29 @@ function reload(x){
 
 <?php 
 
+
+
+//// for selecting b/n realestate, bank stoke, insurance stoke
+
+if(isset($_GET['cat']) && $_GET['cat'] == 'realestate'){
+  ?>
+  <div  class="col-3" >
+  <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
+    <option selected >Real Estate Sponsered</option>
+    <option value="./maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate" >Real Estate </option>
+    <option value="./maincat.php?cat=realestate&spType=ban&arg= &label=Bank Stokes" >Bank Stokes</option>
+    <option value="./maincat.php?cat=realestate&spType=ins&arg= &label=Insurance Stokes" >Insurance Stokes </option>
+  </select>
+  </div>
+<?php  
+}
+
+
+
 /// for rent and for sell filter for car, house and land
 
 if(isset($_GET['cat'])){
-  $rent_filter = array('car', 'housesell');
+  $rent_filter = array('car', 'housesell', 'realestate');
   $table = $_GET['cat'];
   /// if the table does need for rent or for sell filter
   if(in_array($table, $rent_filter)){
@@ -252,6 +271,19 @@ if(isset($_GET['cat'])){
         </select>
         </div>
       <?php      
+    }
+
+    /// for realEstate rent or sell
+    if(isset($_GET['spType']) && $_GET['spType'] == 'rs'){
+      ?>
+      <div  class="col-3" >
+      <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
+        <option value=" " >For Rent or Sell</option>
+        <option value="./maincat.php?cat=realestate&spType=rs&arg=For Sell&label=Real Estate For Sell" >For Sell</option>
+        <option value="./maincat.php?cat=realestate&spType=rs&arg=For Rent&label=Real Estate For Rent" >For Sell</option>
+      </select>
+      </div>
+    <?php  
     }
   }
 }
@@ -489,7 +521,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 }
 
 // 
-    if($_GET['cat'] == 'housesell' &&  $_SESSION['location'] != 'All' ){ // if 'all' is chosen as a country the subcity and kebele wont appear.
+    if(($_GET['cat'] == 'housesell' &&  $_SESSION['location'] != 'All') || ($_GET['cat'] == 'realestate' &&  $_SESSION['location'] != 'All') ){ // if 'all' is chosen as a country the subcity and kebele wont appear.
       ?>
  
 
@@ -519,7 +551,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
         foreach($city as $loc){
           ?>
           <?php
-          if(isset($_GET['type'], $_GET['arg']) ){
+          if(isset($_GET['type'], $_GET['arg']) || isset($_GET['spType'])){
             if($i == 0 && !isset($_GET['dyArg'])){ // this is the first subsity selecter and the !isset condition is the first element is selected if the dyArg is not set if it is the user has selected a subcity
               if(!isset($_GET['dyArg'])){
                 $_GET['dyArg'] = $loc;  // since the wereda is selected when the subsity is selected, this sets the arg for subsity and when wereda is selected, it will always work
@@ -530,16 +562,16 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
               $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
               //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
-              if($params['dyCol'] && $params['dyArg']  ){
+              // if(isset($params['dyCol']) && $params['dyArg']  ){
                 // unset($params['dyCol']);
                 // unset($params['dyArg']);
-              }
-              if($params['dyCol2'] && $params['dyArg2']){ 
+              // }
+              // if($params['dyCol2'] && $params['dyArg2']){ 
                 // unset($params['dyCol2']);
                 // unset($params['dyArg2']);
-              }
+              // }
               // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-              if($params['loc']){
+              if(isset($params['loc'])){
                 unset($params['loc']);
               }
 
@@ -558,12 +590,12 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
               $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
               //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
-              if($params['dyCol'] && $params['dyArg']  ){
+              if(isset($params['dyCol']) && $params['dyArg']  ){
                 unset($params['dyCol']);
                 unset($params['dyArg']);
               }
               // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-              if($params['loc']){
+              if(isset($params['loc'])){
                 unset($params['loc']);
               }
 
@@ -583,12 +615,12 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
               //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
 
-              if($params['dyCol2'] && $params['dyArg2']){ 
+              if(isset($params['dyCol2']) && $params['dyArg2']){ 
                 unset($params['dyCol2']);
                 unset($params['dyArg2']);
               }
               // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-              if($params['loc']){
+              if(isset($params['loc'])){
                 unset($params['loc']);
               }
 
@@ -655,12 +687,12 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                   $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
                   $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
                   //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
-                  if($params['dyCol'] && $params['dyArg']  ){
+                  if(isset($params['dyCol']) && $params['dyArg']  ){
                     unset($params['dyCol']);
                     unset($params['dyArg']);
                   }
                   // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-                  if($params['loc']){
+                  if(isset($params['loc'])){
                     unset($params['loc']);
                   }
     
@@ -680,12 +712,12 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                   $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
                   //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
     
-                  if($params['dyCol2'] && $params['dyArg2']){ 
+                  if(isset($params['dyCol2']) && $params['dyArg2']){ 
                     unset($params['dyCol2']);
                     unset($params['dyArg2']);
                   }
                   // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-                  if($params['loc']){
+                  if(isset($params['loc'])){
                     unset($params['loc']);
                   }
     
@@ -706,17 +738,17 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                  
                
               }else{
-               if(isset($_GET['type'], $_GET['arg']) ){
+               if(isset($_GET['type'], $_GET['arg'])  || isset($_GET['spType'])){
                 if(isset($_GET['dyCol']) && $_GET['dyCol'] == 'wereda'){
                   $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
                   $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
                   //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
-                  if($params['dyCol'] && $params['dyArg']  ){
+                  if(isset($params['dyCol']) && $params['dyArg']  ){
                     unset($params['dyCol']);
                     unset($params['dyArg']);
                   }
                   // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-                  if($params['loc']){
+                  if(isset($params['loc'])){
                     unset($params['loc']);
                   }
     
@@ -736,12 +768,12 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
                   $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
                   //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
     
-                  if($params['dyCol2'] && $params['dyArg2']){ 
+                  if(isset($params['dyCol2']) && $params['dyArg2']){ 
                     unset($params['dyCol2']);
                     unset($params['dyArg2']);
                   }
                   // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-                  if($params['loc']){
+                  if(isset($params['loc'])){
                     unset($params['loc']);
                   }
     
@@ -782,16 +814,16 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
 $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
 //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
-if($params['dyCol'] && $params['dyArg']  ){
+if(isset($params['dyCol']) && $params['dyArg']  ){
   // unset($params['dyCol']);
   // unset($params['dyArg']);
 }
-if($params['dyCol2'] && $params['dyArg2']){ 
+if(isset($params['dyCol2']) && $params['dyArg2']){ 
   // unset($params['dyCol2']);
   // unset($params['dyArg2']);
 }
 // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-if($params['loc']){
+if(isset($params['loc'])){
   unset($params['loc']);
 }
 
@@ -1490,7 +1522,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
                 }
               }else{
                 if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
-                  $fetchPost = allPostListerOn2ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $dbType, $startPage, $endPage);
+                  $fetchPost = allPostListerOn2ColumenD($cat, 'houseOrLand', 'HOUSE', 'type', $dbType, $startPage, $endPage);
                 }else{
                   $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, $startPage, $endPage);
                 }   
@@ -1500,13 +1532,13 @@ $string = http_build_query($params); // to build the corrected requst to normal 
                 if(isset($_GET['search'])){ // if search is occured
                   $search = $_GET['search'];
                   if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
-                    $fetchPost = search3C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell',$dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+                    $fetchPost = search3C($cat, 'houseOrLand', 'HOUSE', 'type',$dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                   }else{
                     $fetchPost = search4C($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
                   }
                 }else{
                   if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
-                    $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell',  $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
+                    $fetchPost = allPostListerOn3ColumenD($cat, 'houseOrLand', 'HOUSE', 'type',  $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
                   }else{
                     $fetchPost = allPostListerOn4ColumenD($cat, 'houseOrLand', 'HOUSE', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
                   }
@@ -2048,49 +2080,262 @@ $string = http_build_query($params); // to build the corrected requst to normal 
           }
 
 ////////////////// REAL ESTATE POST///////////////////////
-    if(isset($_GET['cat']) && $_GET['cat'] == 'realestate' ){
+    if(isset($_GET['cat'], $_GET['arg'], $_GET['label'], $_GET['spType']) && $_GET['cat'] == 'realestate' ){
       $cat = $_GET['cat'];
-
-      if(isset($_GET['spType']) && $_GET['spType'] == 'realEstate'){
+          $cat = $_GET['cat'];
+          // $status = $_GET['status'];
+          $arg = $_GET['arg'];
+          $label = $_GET['label'];
+          $spType = $_GET['spType'];
+      if(isset($_GET['spType']) &&  $_GET['spType'] == 'rs'){
+        
 
       
-      if(isset($_GET['dbType']) && $_SESSION['location'] == 'All'  ){
-        $dbType = $_GET['dbType'];
-        if(isset($_GET['search'])){ // if search is occured
-          $search = $_GET['search'];
-          $fetchPost = search1C($cat, 'type', $dbType ,$search, $startPage, $endPage);
-        }else{
-          $fetchPost = allPostListerOnColumenD($cat, 'type', $dbType , $startPage, $endPage);
-        }
-      }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All' ){
-        $dbType = $_GET['dbType'];
-        if(isset($_GET['search'])){ // if search is occured
-          $search = $_GET['search'];
-          $fetchPost = search2C($cat, 'type', $dbType, 'address', $_SESSION['location'],$search, $startPage, $endPage);
-        }else{
-          $fetchPost = allPostListerOn2ColumenD($cat, 'type', $dbType, 'address', $_SESSION['location'], $startPage, $endPage );
-        }
-      }
-      // if the subcity and city is filterd
-      elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All'  ){
+     
+        if(isset($_GET['dbType']) && $_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
+          $dbType = $_GET['dbType'];
+          if(isset($_GET['search'])){ // if search is occured
+            $search = $_GET['search'];
+            if($arg == ' '){ // if no for sell and no for rent filte rs are there, arg is empty
+              $fetchPost = search2C($cat, 'selectKey', 'rs',  'type', $dbType, $search, $startPage, $endPage);
+            }else{
+              $fetchPost = search3C($cat, 'selectKey', 'rs', 'forRentOrSell', $arg, 'type', $dbType, $search, $startPage, $endPage);
+            }
+          }else{
+            if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+              $fetchPost = allPostListerOn2ColumenD($cat,  'selectKey', 'rs', 'type', $dbType, $startPage, $endPage);
+            }else{
+              $fetchPost = allPostListerOn3ColumenD($cat, 'selectKey', 'rs', 'forRentOrSell', $arg, 'type', $dbType, $startPage, $endPage);
+            }   
+          }
+          }elseif(isset($_GET['dbType']) && $_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
+            $dbType = $_GET['dbType'];
+            if(isset($_GET['search'])){ // if search is occured
+              $search = $_GET['search'];
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = search3C($cat, 'selectKey', 'rs', 'type',$dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+              }else{
+                $fetchPost = search4C($cat, 'selectKey', 'rs', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+              }
+            }else{
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = allPostListerOn3ColumenD($cat, 'selectKey', 'rs', 'type',  $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
+              }else{
+                $fetchPost = allPostListerOn4ColumenD($cat, 'selectKey', 'rs', 'forRentOrSell', $arg, 'type', $dbType, 'city', $_SESSION['location'], $startPage, $endPage); 
+              }
+            }
+          }elseif($_SESSION['location'] == 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) ){
+            if(isset($_GET['search'])){ // if search is occured
+              $search = $_GET['search'];
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = searchC($cat, 'selectKey', 'rs', $search, $startPage, $endPage);
+              }else{
+                $fetchPost = search2C($cat, 'selectKey', 'rs', 'forRentOrSell', $arg, $search, $startPage, $endPage);
+              }
+            }else{
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = allPostListerOnColumenD($cat, 'selectKey', 'rs', $startPage, $endPage);
+              }else{
+                $fetchPost = allPostListerOn2ColumenD($cat, 'selectKey', 'rs', 'forRentOrSell', $arg, $startPage, $endPage);
+              }
+            }
+          }elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' && !isset($_GET['dyCol2'], $_GET['dyArg2']) ){ //dynamic colomen and arg with location selected
+            $dyCol = $_GET['dyCol'];
+            $dyArg = $_GET['dyArg'];
+            if(isset($_GET['search'])){ // if search is occured
+              $search = $_GET['search'];
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = search2C($cat,$dyCol, $dyArg, 'selectKey', 'rs', $search, $startPage, $endPage);
+              }else{
+                $fetchPost = search3C($cat,$dyCol, $dyArg, 'selectKey', 'rs', 'forRentOrSell', $arg, $search, $startPage, $endPage);
+              }
+            }else{
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = allPostListerOn2ColumenD($cat, 'selectKey', 'rs', $dyCol, $dyArg, $startPage, $endPage);                  
+              }else{
+                $fetchPost = allPostListerOn3ColumenD($cat, 'selectKey', 'rs', 'forRentOrSell', $arg,$dyCol, $dyArg, $startPage, $endPage);
+              }
+            }
+          }
+          elseif(isset($_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' && !isset($_GET['dyCol2'], $_GET['dyArg2']) ){ //dynamic colomen and arg with location selected
+            $dyCol = $_GET['dyCol'];
+            $dyArg = $_GET['dyArg'];
+            if(isset($_GET['search'])){ // if search is occured
+              $search = $_GET['search'];
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = search3C($cat,$dyCol, $dyArg, 'selectKey', 'rs',  'city', $_SESSION['location'], $search, $startPage, $endPage);                 
+              }else{
+                $fetchPost = search4C($cat,$dyCol, $dyArg, 'selectKey', 'rs', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+              }
+            }else{
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = allPostListerOn3ColumenD($cat, 'selectKey', 'rs', $dyCol, $dyArg,'city', $_SESSION['location'], $startPage, $endPage);
+              }else{
+                $fetchPost = allPostListerOn4ColumenD($cat, 'selectKey', 'rs', 'forRentOrSell', $arg,$dyCol, $dyArg,'city', $_SESSION['location'], $startPage, $endPage);
+              }
+            }
+          }
+          elseif(isset($_GET['dyCol2'], $_GET['dyArg2'],$_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] == 'All' ){ //dynamic colomen and arg with location selected
+            $dyCol = $_GET['dyCol'];
+            $dyArg = $_GET['dyArg'];
+            $dyCol2 = $_GET['dyCol2'];
+            $dyArg2 = $_GET['dyArg2'];
+            if(isset($_GET['search'])){ // if search is occured
+              $search = $_GET['search'];
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = search3C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'selectKey', 'rs',  $search, $startPage, $endPage);                 
+              }else{
+                $fetchPost = search4C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'selectKey', 'rs', 'forRentOrSell', $arg, $search, $startPage, $endPage);
+              }
+            }else{
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = allPostListerOn4ColumenD($cat, 'selectKey', 'rs', 'forRentOrSell', $arg,$dyCol, $dyArg, $dyCol2, $dyArg2, $startPage, $endPage);                  
+              }else{
+                $fetchPost = allPostListerOn4ColumenD($cat, 'selectKey', 'rs', 'forRentOrSell', $arg,$dyCol, $dyArg, $dyCol2, $dyArg2, $startPage, $endPage);
+              }
+            }
+          }
+          
+          elseif($_SESSION['location'] != 'All' && !isset($_GET['dyCol'], $_GET['dyArg']) && !isset($_GET['dyCol2'], $_GET['dyArg2']) ){
+            if(isset($_GET['search'])){ // if search is occured
+              $search = $_GET['search'];
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = search2C($cat, 'selectKey', 'rs', 'city', $_SESSION['location'], $search, $startPage, $endPage);
+              }else{
+                $fetchPost = search3C($cat, 'selectKey', 'rs', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+              }
+            }else{
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = allPostListerOn2ColumenD($cat, 'selectKey', 'rs', 'city', $_SESSION['location'], $startPage, $endPage);
+              }else{
+                $fetchPost = allPostListerOn3ColumenD($cat, 'selectKey', 'rs', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+              }
+            }
+          }elseif(isset($_GET['dyCol2'], $_GET['dyArg2'], $_GET['dyCol'], $_GET['dyArg']) && $_SESSION['location'] != 'All' && !isset($_GET['dyType']) // this is so that if dyType is set, then go to the next elseif which has dytype with dycol and dycol2 
 
-      }
-      
-      elseif($_SESSION['location'] == 'All'){
-        if(isset($_GET['search'])){ // if search is occured
+          ){ //dynamic colomen and arg with location selected
+            $dyCol = $_GET['dyCol'];
+            $dyArg = $_GET['dyArg'];
+            $dyCol2 = $_GET['dyCol2'];
+            $dyArg2 = $_GET['dyArg2'];
+            if(isset($_GET['search'])){ // if search is occured
+              $search = $_GET['search'];
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = search4C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'selectKey', 'rs',  'city', $_SESSION['location'], $search, $startPage, $endPage);
+              }else{
+                $fetchPost = search5C($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'selectKey', 'rs','forRentOrSell', $arg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+              }
+
+            }else{
+              if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+                $fetchPost = allPostListerOn4ColumenD($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'selectKey', 'rs', 'city', $_SESSION['location'], $startPage, $endPage);                 
+              }else{
+                $fetchPost = allPostListerOn5ColumenD($cat,$dyCol, $dyArg, $dyCol2, $dyArg2,'selectKey', 'rs', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+              }
+
+            }
+          }
+          /// to filter with the dyType.. this block will filter dyType with subcity or wereda and city is all
+          elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] == 'All'  
+           ){
+            $dyCol = $_GET['dyCol'];
+            $dyArg = $_GET['dyArg'];
+            $ty = $_GET['dyType'];
+            if(isset($_GET['search'])){ // if search is occured
+            $search = $_GET['search'];
+            if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+              $fetchPost = search2C($cat, 'type', $ty, $dyCol, $dyArg, $search, $startPage, $endPage);
+            }else{
+              $fetchPost = search4C($cat, 'selectKey', 'rs', $dyCol, $dyArg, 'forRentOrSell', $arg, 'type', $ty, $search, $startPage, $endPage);
+            }
+          }else{
+            if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+              $fetchPost = allPostListerOn3ColumenD($cat,'type', $ty, $dyCol, $dyArg, 'selectKey', 'rs',   $startPage, $endPage);
+            }else{
+              $fetchPost = allPostListerOn4ColumenD($cat,'type', $ty, $dyCol, $dyArg,'selectKey', 'rs', 'forRentOrSell', $arg, $startPage, $endPage);
+            }
+          } 
+
+
+          }
+
+        /// to filter with the dyType.. this block will filter dyType with subcity or wereda and city is not all
+        elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] != 'All' ){
+          $dyCol = $_GET['dyCol'];
+          $dyArg = $_GET['dyArg'];
+          $ty = $_GET['dyType'];
+          if(isset($_GET['search'])){ // if search is occured
           $search = $_GET['search'];
-          $fetchPost = searchC($cat,$search, $startPage, $endPage);
+          if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+            $fetchPost = search3C($cat, 'type', $ty, $dyCol, $dyArg, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+          }else{
+            $fetchPost = search5C($cat, 'selectKey', 'rs', $dyCol, $dyArg, 'forRentOrSell', $arg, 'type', $ty, 'city', $_SESSION['location'], $search, $startPage, $endPage);
+          }
         }else{
-          $fetchPost = allPostListerOnTableD($cat, $startPage, $endPage  );
-        }        
-      }elseif($_SESSION['location'] != 'All'  ){
+          if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+            $fetchPost = allPostListerOn4ColumenD($cat,'type', $ty, $dyCol, $dyArg, 'selectKey', 'rs', 'city', $_SESSION['location'], $startPage, $endPage);
+          }else{
+            $fetchPost = allPostListerOn5ColumenD($cat,'type', $ty, $dyCol, $dyArg,'selectKey', 'rs','forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+          }
+        
+        } 
+
+
+       }
+
+
+       // this is if all the filters are set and location is not all
+       elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyCol2'], $_GET['dyArg2'], $_GET['dyType']) && $_SESSION['location'] != 'All' ){
+        $dyCol = $_GET['dyCol'];
+        $dyArg = $_GET['dyArg'];
+        $dyCol2 = $_GET['dyCol2'];
+        $dyArg2 = $_GET['dyArg2'];
+        $ty = $_GET['dyType'];
         if(isset($_GET['search'])){ // if search is occured
-          $search = $_GET['search'];
-          $fetchPost = search1C($cat,'address', $_SESSION['location'],$search, $startPage, $endPage);
+        $search = $_GET['search'];
+        if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+          $fetchPost = search4C($cat, 'type', $ty, $dyCol, $dyArg, $dyCol2, $dyArg2, 'city', $_SESSION['location'], $search, $startPage, $endPage);
         }else{
-          $fetchPost = allPostListerOnColumenD($cat,  'address', $_SESSION['location'], $startPage, $endPage );
+          $fetchPost = search6C($cat, 'selectKey', 'rs', $dyCol, $dyArg,  $dyCol2, $dyArg2, 'forRentOrSell', $arg, 'type', $ty, 'city', $_SESSION['location'], $search, $startPage, $endPage);
         }
+      }else{
+        if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+          $fetchPost = allPostListerOn5ColumenD($cat,'type', $ty, $dyCol, $dyArg,  $dyCol2, $dyArg2, 'selectKey', 'rs',  'city', $_SESSION['location'], $startPage, $endPage);
+        }else{
+          $fetchPost = allPostListerOn6ColumenD($cat,'type', $ty, $dyCol, $dyArg,  $dyCol2, $dyArg2,'selectKey', 'rs', 'forRentOrSell', $arg, 'city', $_SESSION['location'], $startPage, $endPage);
+        }
+      
+      } 
+
+
+     }
+
+
+     /// all filters are set and location is all
+     elseif(isset($_GET['dyCol'], $_GET['dyArg'], $_GET['dyType']) && $_SESSION['location'] == 'All'  
+     ){
+      $dyCol = $_GET['dyCol'];
+      $dyArg = $_GET['dyArg'];
+      $dyCol2 = $_GET['dyCol2'];
+      $dyArg2 = $_GET['dyArg2'];
+      $ty = $_GET['dyType'];
+      if(isset($_GET['search'])){ // if search is occured
+      $search = $_GET['search'];
+      if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+        $fetchPost = search3C($cat, 'type', $ty, $dyCol, $dyArg, $dyCol2, $dyArg2, $search, $startPage, $endPage);
+      }else{
+        $fetchPost = search5C($cat, 'selectKey', 'rs', $dyCol, $dyArg, $dyCol2, $dyArg2, 'forRentOrSell', $arg, 'type', $ty, $search, $startPage, $endPage);
       }
+    }else{
+      if($arg == ' '){ // if no for sell and no for rent filters are there, arg is empty
+        $fetchPost = allPostListerOn4ColumenD($cat,'type', $ty, $dyCol, $dyArg, $dyCol2, $dyArg2, 'selectKey', 'rs',   $startPage, $endPage);
+      }else{
+        $fetchPost = allPostListerOn5ColumenD($cat,'type', $ty, $dyCol, $dyArg, $dyCol2, $dyArg2,'selectKey', 'rs', 'forRentOrSell', $arg, $startPage, $endPage);
+      }
+    } 
+
+
+    }
 
              ?>
               <div  class="container">
