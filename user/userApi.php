@@ -67,6 +67,28 @@ $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
 }
 
 
+// echo 'in the home';
+//// sponsered payment handler api
+if(isset($_POST['pkg'], $_POST['bankName'], $_POST['tid'], $_POST['pid'])){
+
+  $pid = $_POST['pid'];
+  $pkg = $_POST['pkg'];
+  $bname = $_POST['bankName'];
+  $tid = $_POST['tid'];
+
+  $send = sponseredPay($pkg, $bname, $tid, $pid);
+  if($send){
+    echo 'Payment done';
+  }else{
+    echo 'error';
+  }
+
+}
+
+
+//// SPONSERED BANK AND pkg fetching ajax api
+if(isset())
+
 
 
 

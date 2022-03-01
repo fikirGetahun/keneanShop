@@ -2607,18 +2607,48 @@ if($_GET['type'] == 'real'){
 
   })
 
+  $('sponser').on('submit', function(e){
+          
+
+          
+
+    })
+
   })
+
+  function spon(){
+    alert('in the sponser ajax')
+    e.preventDefault()
+    $.ajax({
+            url: 'admin/postHandler.php',
+            type: 'post',
+            data:  new FormData( this ),
+            success : function(data){
+              $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text(data)
+              $('#alertVacancy').delay(5200).fadeOut(1000);
+              // location.reload()
+            },
+            processData: false,
+        contentType: false
+          })
+  }
+
+
+
 </script>
 
-<div id="cont" class="modal-dialog">
-  <div class="modal-content">
+<div  class="modal-dialog">
+  <div  id="contSp"  class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
       <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
     </div>
           <div class="modal-body">
 
-          <form  method="POST" enctype="multipart/form-data">
+          <form id="sponser" onsubmit="spon()" method="POST" enctype="multipart/form-data">
           <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
 
           <?php
