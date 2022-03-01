@@ -28,13 +28,7 @@ include "../includes/adminSide.php";
 
 </script>
 
-<!-- /// pkg add handler block  -->
-<?php
-    if(isset($_POST['pkgName'], $_POST['pkgInfo'], $_POST['pkgPrice'])){
-        
-    }
 
-?>
 
 <?php
     // to update the pkg and money info of the payment fetching block
@@ -45,9 +39,10 @@ include "../includes/adminSide.php";
  <div class="row">
 <div class="col-8">
     <?php
+    // to add pakages 
         if(isset($_GET['add']) && $_GET['add'] == 'pkg'){
             ?>
-                <form action="addPkg.php" method="POST">
+            <form action="addPkg.php" method="POST">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Package Name</label>
                 <input type="text" class="form-control" id="nameTitle" aria-describedby="emailHelp" name="pkgName" placeholder="pkg name">
@@ -67,8 +62,67 @@ include "../includes/adminSide.php";
                 </div>
 
                 <button class="btn btn-dark" type="submit" >Add Package</button>
-                </form>
+            </form>
+                    <!-- /// pkg add handler block  -->
+                    <?php
+                        if(isset($_POST['pkgName'], $_POST['pkgInfo'], $_POST['pkgPrice'])){
+                            $pn = $_POST['pkgName'];
+                            $pi = $_POST['pkgInfo'];
+                            $pp = $_POST['pkgPrice'];
 
+                            $enter = sponserManageADD($pn, 'pkg', $pi.','.$pp);  // the middle is to selecter key to select the pkg for the viewing and update.
+                            if($enter){
+                                echo '<span class="text-success">Pakage Added</span>';
+                            }else{
+                                echo '<span class="text-danger">error</span>';
+                            }
+                        }
+
+                    ?>
+            <?php
+        }
+
+        // to add banks and account with new bank
+        if(isset($_GET['add']) && $_GET['add'] == 'bank'){
+            ?>
+            <form action="addPkg.php" method="POST">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bank Name</label>
+                <input type="text" class="form-control" id="nameTitle" aria-describedby="emailHelp" name="bankName" placeholder="bank name">
+                    
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Reciver's Name</label>
+                <input type="text" class="form-control" id="nameTitle" aria-describedby="emailHelp" name="rName" placeholder="bank name">
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bank Account No:</label>
+                <input type="text" class="form-control" id="nameTitle" aria-describedby="emailHelp" name="bankAcc" placeholder="be caryfull dont make a mistake">
+                    
+                </div>
+
+                <button class="btn btn-dark" type="submit" >Add Bank</button>
+            </form>
+                    <!-- /// pkg add handler block  -->
+                    <?php
+                        if(isset($_POST['bankName'], $_POST['bankAcc'], $_POST['rName'])){
+                            $bn = $_POST['pkgName'];
+                            $bacc = $_POST['bankAcc'];
+                            $rn = $_POST['rName'];
+
+                            $enter = sponserManageADD($bn, 'bank', $rn.','.$bacc);  // the middle is to selecter key to select the pkg for the viewing and update.
+                            if($enter){
+                                echo '<span class="text-success">Bank Added</span>';
+                            }else{
+                                echo '<span class="text-danger">error</span>';
+                            }
+                        }
+
+                    ?>
             <?php
         }
     ?>
