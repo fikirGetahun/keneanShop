@@ -198,5 +198,27 @@
     }
 
 
+    /// pkg and bank inserter
+    function sponserManageADD($col1, $col2, $col3){
+        include "connect.php";
+        $q = "INSERT INTO `adcategory`( `category`, `tableName`, `subcityKey`) VALUES ('$col1', '$col2', '$col3')";
+
+        $ask = $mysql->query($q);
+
+        return $ask;
+
+    }
+
+/// pkg and bank info updater
+function sponserManageUPDATE($col1, $col2, $col3, $pid){
+    include "connect.php";
+    $q = "UPDATE `adcategory` SET  `category`='$col1',`tableName`='$col2',`subcityKey`='$col3' WHERE `adcategory`,`id` = '$pid'";
+
+
+    $ask = $mysql->query($q);
+
+    return $ask;
+
+}
 
 ?>

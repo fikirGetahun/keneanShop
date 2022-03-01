@@ -214,6 +214,202 @@ $('.btn-close').click(function(){
       <?php
 
 
+/// to show sponcered posts with pending tag, fill bank info to pay tag, and payd post viewing
+
+$sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId']);
+
+      if($sponsered->num_rows != 0){
+        ?>
+        <h5>Sponsered Posts</h5>
+        <!-- <div  class="row"> -->
+        <?php
+        while($row = $sponsered->fetch_assoc()){
+          ?>
+                        <div  class="col-md-4 mb-3">
+                      <div class="card mb-4 box-shadow">
+                  
+                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+
+                    <div class="card-body">
+                      <h5 class="card-title">  <?php echo $row['title'] ?></h5>
+                      <?php 
+              ?>
+                      <h6 class="card-text"><span class="text-danger small"><?php echo $row['price'] ?></span> </h6>
+
+              <?php
+                      
+                      $date = time_elapsed_string($row['postedDate']);
+                      ?>
+                      
+                      <h6 class="card-text"> <?php echo $row['city'] ?></h6>
+                      <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-danger small"><?php echo $date ?></span>
+                        
+                      <br><br><br><br>
+                      <?php
+                      // to show if the post is approved or pending
+                      if($row['status'] == 'NOT'){
+                        if($row['filled'] == 'YES'){
+                          ?>
+                          <span class="text-warning" >Waiting Approval!</span>
+                          <?php
+                        }else{
+                          ?>
+                          <span class="text-danger" >Pennding</span>
+                          <?php
+                        }
+                  
+                      }elseif($row['status'] == 'ACTIVE'){
+                        ?>
+                        <span class="text-success" >Approved</span>
+                        <?php
+                      }
+                      ?>
+                      
+    
+                      </div>
+                    </div>
+                      </div>
+                      <div>
+                      <script>
+                                $(document).ready(function(){
+
+                                  $('form').on('submit', function(e){
+                                    e.preventDefault()
+                                    $.ajax({
+                                      url: 'user/userApi.php',
+                                      type: 'POST',
+                                      data:  $('form').serialize(),
+                                      success: function(data){
+                                        // alert(data)
+                                        $('#btnsp').text(data)
+                                        location.reload()
+                                      }
+                                    })
+                                  })
+
+                                })
+
+                                function pkgHandler(pkg){
+                                  if(pkg == 'Silver'){
+                                    $('#desc').html(`This is the description of the silver pakage 
+                                    <h5 id="amount" class="text-success">Amount: 300 birr </h5>`)
+                                  }else if(pkg == 'Gold'){
+                                    $('#desc').html(`This is the description of the Gold pakage
+                                    <h5 id="amount" class="text-success">Amount: 500 birr </h5>`)
+                                  }else if(pkg == 'Platinum'){
+                                    $('#desc').html(`This is the description of the Platinum pakage
+                                    <h5 id="amount" class="text-success">Amount: 500 birr </h5>`)
+                                  }
+                                }
+
+
+                                function bankHandler(bank){
+                                  if(bank == 'CBE'){
+                                    $('#bname').text('CBE')
+                                    $('#bacc').text('1000234884588823')
+                                  }else if(bank == 'AWASH'){
+                                    $('#bname').text('AWASH')
+                                    $('#bacc').text('1345633254646464')
+                                  }else if(bank == 'BIRHAN'){
+                                    $('#bname').text('BIRHAN')
+                                    $('#bacc').text('7743345443542234')
+                                  }
+                                }
+                              </script>
+                        <?php
+                      //// if they filled the bank info show edit button, or if they didnt filled any thing show fill bank info button
+                      if($row['filled'] == 'NOT'){
+                        ?>
+                                              <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#exampleModal<?php echo $row['id'] ?>">
+                        <span class="text-black" id="btnsp" >Pay to Sponser</span>
+                        </button>
+
+                 
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Fill Bank Info!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                       
+                              <div class="modal-body">
+                                <form   method="POST">
+                                  <!-- this is the post id  -->
+                                  <input hidden type="text" name="pid" value="<?php echo $row['id'] ?>"> 
+                                <div class="row">
+                                  <div  class="form-group col-4" >
+                                    <label for="exampleFormControlFile1">Packages</label>
+                                    <select  class="form-select" onchange ='pkgHandler(this.value)'  aria-label="Default select example" name="pkg" id="forWho">
+                                      <option value="Silver" >Silver</option>
+                                      <option value="Gold" >Gold</option>
+                                      <option value="Platinum" >Platinum</option>
+                                    </select>
+                                  </div>
+                                  <div id="desc" class="mt-3 col-7 border">
+                                  This is the description of the silver pakage
+                                  <h5 id="amount" class="text-success">Amount: 300 birr </h5>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div  class="form-group" >
+                                    <label for="exampleFormControlFile1">Select Bank</label>
+                                    <select  class="form-select" onchange ='bankHandler(this.value)'  aria-label="Default select example" name="bankName" id="forWho">
+                                      <option value="CBE" >CBE</option>
+                                      <option value="AWASH" >AWASH</option>
+                                      <option value="BIRHAN" >BIRHAN</option>
+                                    </select>
+                                    <h5 id="bname" class="mt-2">CBE </h5>
+                                    <h6>Account No: </h6> <h6 id="bacc" ></h6>
+                                  </div>
+
+                                  <div class="form-group col-9">
+                                    <label for="exampleInputEmail1">Transaction Id </label>
+                                    <input type="number" class="form-control" name="tid" id="exampleInputEmail1" placeholder="Enter Transaction Id " >
+                                    <small id="emailHelp" class="form-text text-muted">Here you insert the transaction id from the bank money transfer.</small>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit Payment</button>
+                              </div>
+                                </form>
+                              </div>
+                
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <?php
+                      }else{
+                        ?>
+                        <div class="btn btn-sm btn-outline-success" >
+                        <span class="text-success" id="btnsp" >Payment done</span>
+                        </div>
+                        <?php
+                      }
+                      
+                      ?>
+                        </div>
+                        </div>
+
+          
+          <?php
+        }
+        echo '<hr>';
+      }
+
+
+
+
 foreach($dbTables as $posts){  
     $oneTablePostList = userPostsLister($_SESSION['userId'], $posts);
     
