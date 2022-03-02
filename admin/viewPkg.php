@@ -48,13 +48,26 @@ if(isset($_GET['view'])){
     <p><?php echo $jjf[0] ?></p>
     <h5>Price : </h5><h6><?php echo $jjf[1] ?></h6>
     <a href="viewPkg.php?id=<?php echo $row['id'] ?>&edit=true&type=pkg" class="btn btn-dark border-success">Edit</a>
-    <a href="viewPkg.php?view=true&delete=true&id=<?php echo $row['id'] ?>" class="btn btn-dark border-success">Delete</a>
+    <a href="viewPkg.php?view=true&delete=true&id=<?php echo $row['id'] ?>&sh=true" class="btn btn-dark border-success">Delete</a>
 </div>  
       <?php
     }
   }else{
     echo '<span class="text-danger">No Pakages here!</span>';
   }
+
+  /// to delete a bank or pkg
+if(isset($_GET['delete'], $_GET['id'], $_GET['sh'])){
+  $idx = $_GET['id'];
+  $del = postDeleterCat('adcategory', $idx);
+  if($del){
+    echo '<span class="text-success">Deleted</span>';
+  }else{
+    echo '<span class="text-danger">error!</span>';
+  }
+
+}
+
 ?>
 
 </div>
@@ -80,7 +93,7 @@ if(isset($_GET['view'])){
     <h6><?php echo $jjf[0] ?></h6>
     <a href="viewPkg.php?id=<?php echo $row['id'] ?>&edit=true&type=bank" class="btn btn-dark border-success">Edit</a>
 
-    <a href="viewPkg.php?view=true&delete=true&id=<?php echo $row['id'] ?>" class="btn btn-dark border-success">Delete</a>
+    <a href="viewPkg.php?view=true&delete=true&id=<?php echo $row['id'] ?>&sb=true" class="btn btn-dark border-success">Delete</a>
     
 </div>  
       <?php
@@ -95,7 +108,7 @@ if(isset($_GET['view'])){
 }
 
 /// to delete a bank or pkg
-if(isset($_GET['delete'], $_GET['id'])){
+if(isset($_GET['delete'], $_GET['id'], $_GET['sb'])){
   $idx = $_GET['id'];
   $del = postDeleterCat('adcategory', $idx);
   if($del){
