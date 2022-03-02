@@ -42,7 +42,7 @@ include "../includes/adminSide.php";
     // to add pakages 
         if(isset($_GET['add']) && $_GET['add'] == 'pkg'){
             ?>
-            <form action="addPkg.php" method="POST">
+            <form action="addPkg.php?add=pkg" method="POST">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Package Name</label>
                 <input type="text" class="form-control" id="nameTitle" aria-describedby="emailHelp" name="pkgName" placeholder="pkg name">
@@ -85,7 +85,7 @@ include "../includes/adminSide.php";
         // to add banks and account with new bank
         if(isset($_GET['add']) && $_GET['add'] == 'bank'){
             ?>
-            <form action="addPkg.php" method="POST">
+            <form action="addPkg.php?add=bank" method="POST">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Bank Name</label>
                 <input type="text" class="form-control" id="nameTitle" aria-describedby="emailHelp" name="bankName" placeholder="bank name">
@@ -110,7 +110,7 @@ include "../includes/adminSide.php";
                     <!-- /// pkg add handler block  -->
                     <?php
                         if(isset($_POST['bankName'], $_POST['bankAcc'], $_POST['rName'])){
-                            $bn = $_POST['pkgName'];
+                            $bn = $_POST['bankName'];
                             $bacc = $_POST['bankAcc'];
                             $rn = $_POST['rName'];
 
@@ -128,9 +128,7 @@ include "../includes/adminSide.php";
     ?>
 
 
-    <h5>Silver Package Info</h5>
-    <textarea></textarea>
-    <h5>Price : </h5><h6></h6>
+
 </div>
 </div>
 

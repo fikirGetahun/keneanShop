@@ -495,6 +495,36 @@ if(!isset($_SESSION)){
 
         </ul>
       </li><!-- End Components Nav -->  
+
+
+      <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person"></i><span>Manage Sponsered System</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav3" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="addPkg.php?add=pkg" id="viewPtag" >       
+
+              <i class="bi bi-circle"></i><span>Add Pakage</span>
+            </a>
+          </li>
+          <li>
+            <a href="addPkg.php?add=bank" id="viewPtag" >       
+
+              <i class="bi bi-circle"></i><span>Add Bank</span>
+            </a>
+          </li>
+          <li>
+            <a href="viewPkg.php?view=true" id="viewPtag" >       
+
+              <i class="bi bi-circle"></i><span>View Sponsered System</span>
+            </a>
+          </li>
+          <li>
+
+
+        </ul>
+      </li><!-- End Components Nav -->  
+
       <?php
         $out = userDataShower($uid);
         $row2 = $out->fetch_assoc();
