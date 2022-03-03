@@ -125,6 +125,25 @@ if(isset($_GET['edit'], $_GET['id'], $_GET['type'])){
   $id = $_GET['id']; // id of the row of the data
   // to edit pkgs
   if($_GET['type'] == 'pkg'){
+
+
+    /// if edit is occured
+    if(isset($_POST['pkgName'], $_POST['pkgInfo'], $_POST['pkgPrice'])){
+        $pn = $_POST['pkgName'];
+        $pi = $_POST['pkgInfo'];
+        $pp = $_POST['pkgPrice'];
+
+        $enter = sponserManageUPDATE($pn, 'pkg', $pi.','.$pp, $id);  // the middle is to selecter key to select the pkg for the viewing and update.
+        if($enter){
+            echo '<span class="text-success">Pakage Edited</span>';
+        }else{
+            echo '<span class="text-danger">error</span>';
+        }
+    }
+
+          
+
+
     $fetch = allPostListerOn2Columen('adcategory', 'tableName', 'pkg', 'id', $id);
     $row = $fetch->fetch_assoc();
     $jjf = explode(',', $row['subcityKey']);
@@ -152,23 +171,25 @@ if(isset($_GET['edit'], $_GET['id'], $_GET['type'])){
 
                 <button class="btn btn-dark" type="submit" >Edit Package</button>
             </form>
-            <?php
-              if(isset($_POST['pkgName'], $_POST['pkgInfo'], $_POST['pkgPrice'])){
-                  $pn = $_POST['pkgName'];
-                  $pi = $_POST['pkgInfo'];
-                  $pp = $_POST['pkgPrice'];
 
-                  $enter = sponserManageUPDATE($pn, 'pkg', $pi.','.$pp, $id);  // the middle is to selecter key to select the pkg for the viewing and update.
-                  if($enter){
-                      echo '<span class="text-success">Pakage Edited</span>';
-                  }else{
-                      echo '<span class="text-danger">error</span>';
-                  }
-              }
-
-                    ?>
     <?php
   }elseif($_GET['type'] == 'bank'){
+
+    /// if edit is occured
+    if(isset($_POST['bankName'], $_POST['bankAcc'], $_POST['rName'])){
+      $bn = $_POST['bankName'];
+      $bacc = $_POST['bankAcc'];
+      $rn = $_POST['rName'];
+
+      $enter = sponserManageUPDATE($bn, 'bank', $rn.','.$bacc, $id);  // the middle is to selecter key to select the pkg for the viewing and update.
+      if($enter){
+          echo '<span class="text-success">Bank Edited</span>';
+      }else{
+          echo '<span class="text-danger">error</span>';
+      }
+  }
+
+
     $fetch = allPostListerOn2Columen('adcategory', 'tableName', 'bank', 'id', $id);
     $row = $fetch->fetch_assoc();
     $jjf = explode(',', $row['subcityKey']);
@@ -196,18 +217,7 @@ if(isset($_GET['edit'], $_GET['id'], $_GET['type'])){
                 <button class="btn btn-dark" type="submit" >Edit Bank</button>
             </form>
             <?php
-                        if(isset($_POST['bankName'], $_POST['bankAcc'], $_POST['rName'])){
-                            $bn = $_POST['bankName'];
-                            $bacc = $_POST['bankAcc'];
-                            $rn = $_POST['rName'];
-
-                            $enter = sponserManageUPDATE($bn, 'bank', $rn.','.$bacc, $id);  // the middle is to selecter key to select the pkg for the viewing and update.
-                            if($enter){
-                                echo '<span class="text-success">Bank Edited</span>';
-                            }else{
-                                echo '<span class="text-danger">error</span>';
-                            }
-                        }
+                  
 
                     ?>
     <?php

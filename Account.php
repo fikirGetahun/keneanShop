@@ -322,70 +322,14 @@ $sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId'
                       if($row['filled'] == 'NOT'){
                         ?>
                                               <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#exampleModal<?php echo $row['id'] ?>">
+                        <a href="./user/paymentPage.php?pendding=true&id=<?php echo $row['id'] ?>" class="btn btn-sm btn-outline-warning" >
                         <span class="text-black" id="btnsp" >Pay to Sponser</span>
-                        </button>
+                      </a>
 
                  
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Fill Bank Info!</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                       
-                              <div class="modal-body">
-                                <form   method="POST">
-                                  <!-- this is the post id  -->
-                                  <input hidden type="text" name="pid" value="<?php echo $row['id'] ?>"> 
-                                <div class="row">
-                                  <div  class="form-group col-4" >
-                                    <label for="exampleFormControlFile1">Packages</label>
-                                    <select  class="form-select" onchange ='pkgHandler(this.value)'  aria-label="Default select example" name="pkg" id="forWho">
-                                      <option value="Silver" >Silver</option>
-                                      <option value="Gold" >Gold</option>
-                                      <option value="Platinum" >Platinum</option>
-                                    </select>
-                                  </div>
-                                  <div id="desc" class="mt-3 col-7 border">
-                                  This is the description of the silver pakage
-                                  <h5 id="amount" class="text-success">Amount: 300 birr </h5>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div  class="form-group" >
-                                    <label for="exampleFormControlFile1">Select Bank</label>
-                                    <select  class="form-select" onchange ='bankHandler(this.value)'  aria-label="Default select example" name="bankName" id="forWho">
-                                      <option value="CBE" >CBE</option>
-                                      <option value="AWASH" >AWASH</option>
-                                      <option value="BIRHAN" >BIRHAN</option>
-                                    </select>
-                                    <h5 id="bname" class="mt-2">CBE </h5>
-                                    <h6>Account No: </h6> <h6 id="bacc" ></h6>
-                                  </div>
-
-                                  <div class="form-group col-9">
-                                    <label for="exampleInputEmail1">Transaction Id </label>
-                                    <input type="number" class="form-control" name="tid" id="exampleInputEmail1" placeholder="Enter Transaction Id " >
-                                    <small id="emailHelp" class="form-text text-muted">Here you insert the transaction id from the bank money transfer.</small>
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Submit Payment</button>
-                              </div>
-                                </form>
-                              </div>
-                
-                            </div>
-                          </div>
-                        </div>
+    
 
 
                         <?php

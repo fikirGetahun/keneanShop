@@ -11,6 +11,16 @@ if(!isset($_SESSION)){
 }
 
 
+
+
+
+
+
+
+
+
+
+
 ////////////Register A uSER ///////////////////////
 if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
 $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
@@ -68,7 +78,7 @@ $_POST['password'],$_POST['email'], $_POST['address'], $_POST['recover'])){
 
 
 // echo 'in the home';
-//// sponsered payment handler api
+//// sponsered payment handler api from pending side
 if(isset($_POST['pkg'], $_POST['bankName'], $_POST['tid'], $_POST['pid'])){
 
   $pid = $_POST['pid'];
@@ -87,7 +97,17 @@ if(isset($_POST['pkg'], $_POST['bankName'], $_POST['tid'], $_POST['pid'])){
 
 
 //// SPONSERED BANK AND pkg fetching ajax api
-if(isset())
+if(isset($_POST['bank'])){
+  $ba = allPostListerOnColumen('adcategory', 'category', $_POST['bank']);
+  $ro = $ba->fetch_assoc();
+  $jjf = explode(',', $ro['subcityKey']);
+  echo `
+  <h5>Recivers Name:<p id="rname">`.$jjf[1].`</p></h5><br>
+  <input hidden type="text" name="rname" value="`.$jjf[1].`">
+  <input hidden type="text" name="accNo" value="`.$jjf[0].`">
+  <h5>Account Name:<p id="accNo">`.$jjf[0].`</p></h5>
+  `;
+}
 
 
 
@@ -273,7 +293,8 @@ if(isset($_GET['real'])){
                <div class="modal-body  justify-content-center">
     <script>
       function nav2(nav, real){
-  $('#uploadDiv').load("user/postPage.php?type="+nav+"&real="+real)
+        // alert('j')
+  $('#uploadDiv').load("user/sponserPost.php?type="+nav+"&real="+real)
   }
     </script>
               <button class="btn btn-light btn-sm" onclick="nav2('real', 'realEstate')"  > <?php echo $lang['realEstate'] ?> </button> 
@@ -287,5 +308,125 @@ if(isset($_GET['real'])){
   </div>
     <?php
 }
+
+
+
+///// from payment page uploading sponsered post but no payment is done... to post it as a pending post then pay letter
+if(isset($_POST['posterId'], $_POST['title'], $_POST['company'], $_POST['phonem'], $_POST['email'], $_POST['price'], $_POST['fixidOrN'], $_POST['info'], $_POST['fileVarx'], $_POST['selectKey'],$_POST['city'])){
+  $selectKey = $_POST['selectKey'];
+  $posterId = $_POST['posterId'];
+  $title = $_POST['title'];
+ $company = $_POST['company'];
+ $phonem = $_POST['phonem'];
+$email = $_POST['email'];
+$price = $_POST['price'];
+$fixidOrN = $_POST['fixidOrN'];
+$info = $_POST['info'];
+$fileVarx = $_POST['fileVarx'];
+$city = $_POST['city'];
+
+
+  if(isset($_POST['forRentOrSell'], $_POST['wereda'], $_POST['floor'] , $_POST['area'])){
+    echo 'realz';
+    $forRentOrSell = $_POST['forRentOrSell'];
+    $rsType= $_POST['rsType'];
+   
+
+    //so that there are cities which doesnot have subcity
+    if(isset($_POST['subCity'])){
+      $subCity = $_POST['subCity'];
+    }
+   
+    $wereda = $_POST['wereda'];
+    $floor = $_POST['floor'];
+    $area = $_POST['area'];
+  }else{
+    echo 'else rel';
+      // null data entery if real estate is not selected
+  $forRentOrSell = " ";
+  $rsType = " ";
+
+  $subCity = " ";
+  $wereda = 0;
+  $floor = " ";
+  $area = 0;
+  }
+
+
+  
+  $enter = realEstate($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area  , $email, $price, $fixidOrN, $info, $fileVarx, $selectKey);
+  if($enter){
+    echo 'Posted Successfully.';
+  }else{
+    echo 'Error';
+  }
+  
+
+}
+
+// echo 'in the real estate user api';
+
+///// from payment page uploading sponsered post payment is done 
+if(isset($_POST['posterId'], $_POST['title'], $_POST['company'], $_POST['phone'], $_POST['email'], $_POST['price'], $_POST['fixidOrN'], $_POST['info'], $_POST['fileVar'], $_POST['selectKey'],$_POST['city'], $_POST['bankName'], $_POST['tid'], $_POST['pkg'])){
+  $selectKey = $_POST['selectKey'];
+  $posterId = $_POST['posterId'];
+  $title = $_POST['title'];
+ $company = $_POST['company'];
+ $phonem = $_POST['phone'];
+$email = $_POST['email'];
+$price = $_POST['price'];
+$fixidOrN = $_POST['fixidOrN'];
+$info = $_POST['info'];
+$fileVar = $_POST['fileVar'];
+$city = $_POST['city'];
+
+
+  if(isset($_POST['forRentOrSell'], $_POST['wereda'], $_POST['floor'] , $_POST['area'])){
+    echo 'realz';
+    $forRentOrSell = $_POST['forRentOrSell'];
+    $rsType= $_POST['rsType'];
+   
+
+    //so that there are cities which doesnot have subcity
+    if(isset($_POST['subCity'])){
+      $subCity = $_POST['subCity'];
+    }
+   
+    $wereda = $_POST['wereda'];
+    $floor = $_POST['floor'];
+    $area = $_POST['area'];
+  }else{
+    echo 'else relpppp';
+      // null data entery if real estate is not selected
+  $forRentOrSell = " ";
+  $rsType = " ";
+
+  $subCity = " ";
+  $wereda = 0;
+  $floor = 0;
+  $area = 0;
+  }
+
+/// PAYMENT VARS
+// $rn = $_POST['rname'];
+// $acc = $_POST['accNO'];
+$tid = $_POST['tid'];
+$bn = $_POST['bankName'];
+$pkg = $_POST['pkg'];
+  
+
+    $enter = realEstatePay($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area  , $email, $price, $fixidOrN, $info, $fileVar, $selectKey, $bn, $pkg, $tid);
+    if($enter){
+      echo 'Posted Successfully.';
+    }else{
+      echo 'Error';
+    }
+  
+
+}
+
+
+
+
 
 ?>
