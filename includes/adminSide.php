@@ -530,24 +530,12 @@ if(!isset($_SESSION)){
         </a>
         <ul id="components-nav55" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="addPkg.php?add=pkg" id="viewPtag" >       
+            <a href="viewPost.php?type=sponser&filter=mix" id="viewPtag" >       
 
-              <i class="bi bi-circle"></i><span>Add Pakage</span>
+              <i class="bi bi-circle"></i><span>View Sponsered Posts</span>
             </a>
           </li>
-          <li>
-            <a href="addPkg.php?add=bank" id="viewPtag" >       
-
-              <i class="bi bi-circle"></i><span>Add Bank</span>
-            </a>
-          </li>
-          <li>
-            <a href="viewPkg.php?view=true" id="viewPtag" >       
-
-              <i class="bi bi-circle"></i><span>View Sponsered System</span>
-            </a>
-          </li>
-          <li>
+  
 
 
         </ul>

@@ -778,7 +778,21 @@ if(isset($_GET['type'])){
           <span class="input-group-text" id="basic-addon1">Filter By: </span>
         </div>
   <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
-    <option selected >No Filter Selected</option>
+    <option selected >
+ 
+    <?php
+    if(isset($_GET['filter']) && $_GET['filter'] == 'mix'){
+      echo 'No Filter Selected(Mixed)';
+    }elseif(isset($_GET['filter']) && $_GET['filter'] == 'pending_unpaid'){
+      echo 'Pending Unpaid';
+    }elseif(isset($_GET['filter']) && $_GET['filter'] == 'unapproved_paid'){
+      echo 'Unapproved Paid';
+    }elseif(isset($_GET['filter']) && $_GET['filter'] == 'approved'){
+      echo 'Approved';
+    }
+    ?>
+    
+    </option>
     <option value="./viewPost.php?type=sponser&filter=pending_unpaid" >Pending Unpaid</option>
     <option value="./viewPost.php?type=sponser&filter=unapproved_paid" >Unapproved Paid</option>
     <option value="./viewPost.php?type=sponser&filter=approved" >Approved</option>
@@ -790,13 +804,13 @@ if(isset($_GET['type'])){
         <?php
         
         if(isset($_GET['filter']) && $_GET['filter'] == 'pending_unpaid'){
-          $out = allPostListerOnColumenD('realestate', 'filled', 'NOT',1,6);
+          $out = allPostListerOnColumenD('realestate', 'filled', 'NOT',0,6);
         }elseif(isset($_GET['filter']) && $_GET['filter'] == 'unapproved_paid'){
-          $out = allPostListerOnColumenD('realestate', 'filled', 'YES',1,6);
+          $out = allPostListerOnColumenD('realestate', 'filled', 'YES',0,6);
         }elseif(isset($_GET['filter']) && $_GET['filter'] == 'approved'){
-          $out = allPostListerOnColumenD('realestate', 'status', 'ACTIVE',1,6);
+          $out = allPostListerOnColumenD('realestate', 'status', 'ACTIVE',0,6);
         }else{
-          $out = allPostListerOnTableD('realestate',1,6);
+          $out = allPostListerOnTableD('realestate',0,6);
         }
         
         ?>
@@ -810,17 +824,19 @@ if(isset($_GET['type'])){
               <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
               <div class="card-body">
                 <?php
-                if(isset($_GET['filter']) && $_GET['filter'] == 'unapproved_paid'){
+
+                ///// paid but not approved posts filter block
+                if(isset($_GET['filter']) && $_GET['filter'] == 'unapproved_paid' ||  $_GET['filter'] == 'mix'){
                   if($row['selectKey'] == "rs"){ // this means its realestate post
                     ?>
                     <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
-                    <span>RealEstate</h6>
-                      <span class="text-warning" >Type: </span><h6> <?php echo $row['type'] ?></h6>
-                      <span class="text-warning">Bank: </span><h6> <?php echo $row['payBank'] ?></h6>
-                      <span class="text-warning">Trans' Id: </span><h6> <?php echo $row['transId '] ?></h6>
+                    <span>RealEstate</h6><br>
+                      <span class="text-warning" >Type: </span><br><h6> <?php echo $row['type'] ?></h6>
+                      <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6><br>
                     <h5 class="text-success border border-success " >Paid!</h5>
                     <span class="text-danger small"><?php echo $date ?></span>
-                    <h6> : <?php echo $row['address']  ?> Birr</h6>
+                    <h6>  <?php echo $row['city']  ?> </h6>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -832,12 +848,12 @@ if(isset($_GET['type'])){
                   }elseif($row['selectKey'] == "ban"){ // this means its bank stock post
                     ?>
                     <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
-                    <span>Bank Stock</h6>
-                      <span class="text-warning">Bank: </span><h6> <?php echo $row['payBank'] ?></h6>
-                      <span class="text-warning">Trans' Id: </span><h6> <?php echo $row['transId '] ?></h6>
+                    <span>Bank Stock</h6><br>
+                      <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6>
                     <h5 class="text-success border border-success " >Paid!</h5>
                     <span class="text-danger small"><?php echo $date ?></span>
-                    <h6> : <?php echo $row['address']  ?> Birr</h6>
+                    <h6>  <?php echo $row['city']  ?> </h6>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -849,12 +865,12 @@ if(isset($_GET['type'])){
                   }elseif($row['selectKey'] == "ins"){ // this means its bank stock post
                     ?>
                     <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
-                    <span>Insurance Stock</h6>
-                      <span class="text-warning">Bank: </span><h6> <?php echo $row['payBank'] ?></h6>
-                      <span class="text-warning">Trans' Id: </span><h6> <?php echo $row['transId '] ?></h6>
+                    <span>Insurance Stock</h6><br>
+                      <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6>
                     <h5 class="text-success border border-success " >Paid!</h5>
                     <span class="text-danger small"><?php echo $date ?></span>
-                    <h6> : <?php echo $row['address']  ?> Birr</h6>
+                    <h6>  <?php echo $row['city']  ?> </h6>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -865,6 +881,116 @@ if(isset($_GET['type'])){
                     <?php
                   }
                 }
+                
+                ////// unpaied but posted posts filter
+                elseif(isset($_GET['filter']) && $_GET['filter'] == 'pending_unpaid' ||  $_GET['filter'] == 'mix'){
+                  if($row['selectKey'] == "rs"){ // this means its realestate post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>RealEstate</h6><br>
+                      <span class="text-warning" >Type: </span><br><h6> <?php echo $row['type'] ?></h6>
+                      <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                    <h5 class="text-success border border-danger " >Not Paid!</h5>
+                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6> <?php echo $row['city']  ?> </h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }elseif($row['selectKey'] == "ban"){ // this means its bank stock post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>Bank Stock</h6><br>
+                      <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                      <h5 class="text-success border border-danger " >Not Paid!</h5>                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6> <?php echo $row['city']  ?> </h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }elseif($row['selectKey'] == "ins"){ // this means its bank stock post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>Insurance Stock</h6><br>
+                      <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                      <h5 class="text-success border border-danger " >Not Paid!</h5>                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6> <?php echo $row['city']  ?> </h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                }
+              }
+
+              //// approved posts filter block
+              elseif(isset($_GET['filter']) && $_GET['filter'] == 'approved' ||  $_GET['filter'] == 'mix'){
+                if($row['selectKey'] == "rs"){ // this means its realestate post
+                  ?>
+                  <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                  <span>RealEstate</h6><br>
+                    <span class="text-warning" >Type: </span><br><h6> <?php echo $row['type'] ?></h6>
+                    <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                    <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                  <h5 class="text-success border border-success" >Approved!</h5>
+                  <span class="text-danger small"><?php echo $date ?></span>
+                  <h6> <?php echo $row['city']  ?> </h6>
+              <div class="d-flex justify-content-between align-items-center">
+              <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+              <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                              <i class="bi-cart-fill me-1"></i>
+                              View User 
+                          </a>  
+              </div>
+                  <?php
+                }elseif($row['selectKey'] == "ban"){ // this means its bank stock post
+                  ?>
+                  <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                  <span>Bank Stock</h6><br>
+                    <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                    <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                    <h5 class="text-success border border-success" >Approved!</h5>                   <span class="text-danger small"><?php echo $date ?></span>
+                  <h6> <?php echo $row['city']  ?> </h6>
+              <div class="d-flex justify-content-between align-items-center">
+              <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+              <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                              <i class="bi-cart-fill me-1"></i>
+                              View User 
+                          </a>  
+              </div>
+                  <?php
+                }elseif($row['selectKey'] == "ins"){ // this means its bank stock post
+                  ?>
+                  <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                  <span>Insurance Stock</h6><br>
+                    <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                    <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                    <h5 class="text-success border border-success" >Approved!</h5>                    <span class="text-danger small"><?php echo $date ?></span>
+                  <h6> <?php echo $row['city']  ?> </h6>
+              <div class="d-flex justify-content-between align-items-center">
+              <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+              <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                              <i class="bi-cart-fill me-1"></i>
+                              View User 
+                          </a>  
+              </div>
+                  <?php
+              }
+            }
                 ?>
               </div>
             </div>
