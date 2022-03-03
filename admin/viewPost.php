@@ -45,7 +45,7 @@ $website = "Description.php";
   <meta content="" name="keywords">
   
 
-  <!-- Favicons -->
+Favicons -->
 
   <script>
             $(document).ready(function(){
@@ -765,6 +765,113 @@ if(isset($_GET['type'])){
   
   <?php
 }
+  }
+}
+
+/////// the payment view
+if(isset($_GET['type'])){
+  if($_GET['type'] == 'sponser'){
+    ?>
+    <div class="row">
+      <div  class="col-5" >
+      <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Filter By: </span>
+        </div>
+  <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
+    <option selected >No Filter Selected</option>
+    <option value="./viewPost.php?type=sponser&filter=pending_unpaid" >Pending Unpaid</option>
+    <option value="./viewPost.php?type=sponser&filter=unapproved_paid" >Unapproved Paid</option>
+    <option value="./viewPost.php?type=sponser&filter=approved" >Approved</option>
+  </select>
+  </div>
+    </div>
+
+      <div class="row">
+        <?php
+        
+        if(isset($_GET['filter']) && $_GET['filter'] == 'pending_unpaid'){
+          $out = allPostListerOnColumenD('realestate', 'filled', 'NOT',1,6);
+        }elseif(isset($_GET['filter']) && $_GET['filter'] == 'unapproved_paid'){
+          $out = allPostListerOnColumenD('realestate', 'filled', 'YES',1,6);
+        }elseif(isset($_GET['filter']) && $_GET['filter'] == 'approved'){
+          $out = allPostListerOnColumenD('realestate', 'status', 'ACTIVE',1,6);
+        }else{
+          $out = allPostListerOnTableD('realestate',1,6);
+        }
+        
+        ?>
+      <?php
+      while($row = $out[0]->fetch_assoc()){
+        $date = time_elapsed_string($row['postedDate']);
+          ?>
+            
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <?php
+                if(isset($_GET['filter']) && $_GET['filter'] == 'unapproved_paid'){
+                  if($row['selectKey'] == "rs"){ // this means its realestate post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>RealEstate</h6>
+                      <span class="text-warning" >Type: </span><h6> <?php echo $row['type'] ?></h6>
+                      <span class="text-warning">Bank: </span><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><h6> <?php echo $row['transId '] ?></h6>
+                    <h5 class="text-success border border-success " >Paid!</h5>
+                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6> : <?php echo $row['address']  ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }elseif($row['selectKey'] == "ban"){ // this means its bank stock post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>Bank Stock</h6>
+                      <span class="text-warning">Bank: </span><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><h6> <?php echo $row['transId '] ?></h6>
+                    <h5 class="text-success border border-success " >Paid!</h5>
+                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6> : <?php echo $row['address']  ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }elseif($row['selectKey'] == "ins"){ // this means its bank stock post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>Insurance Stock</h6>
+                      <span class="text-warning">Bank: </span><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><h6> <?php echo $row['transId '] ?></h6>
+                    <h5 class="text-success border border-success " >Paid!</h5>
+                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6> : <?php echo $row['address']  ?> Birr</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }
+                }
+                ?>
+              </div>
+            </div>
+          </div>
+  
+  <?php
+}
 
 
     
@@ -775,11 +882,10 @@ if(isset($_GET['type'])){
     
     ?>
     </div>
-    ?>
               <button onclick="adminPage()" >View More </button>
       </div>
 </main>
-            <?php
+<?php
  
 include "../includes/adminFooter.php";
 ?>
