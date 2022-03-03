@@ -603,7 +603,7 @@
             /// sponsered payment integration
             function sponseredPay($pkg, $bname, $tid, $pid){
                 include "connect.php";
-                $q = "UPDATE `realestate` SET `pkg` = '$pkg', `payBank` = '$bname', `transId` = '$tid', `filled` = 'YES' WHERE `id` = '$pid' ";
+                $q = "UPDATE `realestate` SET `pkg` = '$pkg', `filled` = 'YES', `payBank` = '$bname', `transId` = '$tid', `filled` = 'YES' WHERE `realestate`.`id` = '$pid' ";
 
 
                 $ask = $mysql->query($q);
