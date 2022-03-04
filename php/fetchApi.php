@@ -214,7 +214,7 @@
                 $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
             } else {
                 unset($string[$k]);
-            }
+            }  
         }
     
         if (!$full) $string = array_slice($string, 0, 1);
@@ -602,7 +602,7 @@
             /// udate 3 colomens
             function updateOn3Colomen($table, $colomn1, $arg1, $colomn2, $arg2,$colomn3, $arg3,$pid ){
                 include 'connect.php';
-                
+
                 $q = "UPDATE `$table` SET `$colomn1` = '$arg1', `$colomn2` = '$arg2', `$colomn3` = '$arg3' WHERE `id` = '$pid'";
 
                 $ask = $mysql->query($q);
@@ -626,6 +626,45 @@
             }
 
 
+
+
+
+            function serverUpdater(){
+                include "connect.php";
+                ///// automatic delete posts besed on 
+                $check_updated_time = allPostListerOnColumen('adcategory', 'id', 300);  // id 300 is reserved id in the adcategroy table to hold the updated date of the server
+                $row = $check_updated_time->fetch_assoc();
+                $date = time_elapsed_string($row['serverUpdatee']);
+
+
+
+                /// to check if the server is updated 1 day ago, if its not it will go in this block, since the will update the server date after updateing the server, it only runs once in a day
+                if($date == '1 day ago'){
+
+
+                    $dbTables = array('ad', 'car', 'charity', 'electronics',
+'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse', 'zebegna', 'jobhometutor', 'hotelhouse', 'housesell', 'realestate' );
+
+                    foreach($dbTables as $selected_tb){
+
+                        //if the table is not realestate
+                        if($selected_tb != 'realestate'){
+                            /// delete old posts query
+                            $q = "DELETE
+                            FROM `$selected_tb`
+                            WHERE 'postedDate' < DATEADD(MONTH, -6, GETDATE())";
+
+                            $ask = $mysql->query($q);
+                 
+                        }else{
+                            $q = "DELETE
+                            FROM `$selected_tb`
+                            WHERE 'postedDate' < DATEADD(MONTH, -6, GETDATE())";
+                        }
+                    }
+                }
+
+            }
 
     ////// search from
     // function 
