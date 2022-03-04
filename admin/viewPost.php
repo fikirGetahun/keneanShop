@@ -79,6 +79,7 @@ Favicons -->
                       type: 'GET',
                       data:{
                         type : '<?php echo $_SESSION['type']; ?>', //echo the type of the post to be viewd
+                        filter : '<?php if(isset($_GET['filter'])){echo $_GET['filter'];}else{echo 'null';} ?>'
                       }, 
                       success: function(data){
                         $('#vac1').append(data)
@@ -125,81 +126,11 @@ Favicons -->
   <script type="text/javascript" language="javascript">
     $(document).ready(function(){
       window.scrollTo(0, 0);
-      
-
-      $(window).scroll(function(){
-    if($(window).scrollTop() >= $('#postBox').offset().top + $('#postBox').outerHeight() - window.innerHeight +100 ){
-      // alert('scroll')
-
-
-
-
-      // $.ajax({
-      //   url:'scrollView.php',
-      //   type: 'GET',
-      //   data:{
-      //     type : '<?php echo $_SESSION['type']; ?>', //echo the type of the post to be viewd
-      //   }, 
-      //   success: function(data){
-      //     $('#vac1').append(data)
-      //   }
-      // })
-    }
-  })
-
-    
-
-
-      $(window).scroll(function() {
-   if($(window).scrollTop() >= $('#postBox').offset().top + $('#postBox').outerHeight() - window.innerHeight +100) {
-      //  alert($(window).scrollTop());
-   }
-});
-
     })
 
 
-      function edit(uid){
-        $('#allin').empty()
-        $('#allin').load('editPost.php?'+$.param({type: 'vacancy', pid: uid}))
-      }
-
-      function editTender(uid){
-        $('#allin').empty()
-        $('#allin').load('editPost.php?'+$.param({type: 'tender', pid: uid}))
-      }
-
-      function adEdit(uid){
-        $('#allin').empty()
-        $('#allin').load('editPost.php?'+$.param({type: 'ad', pid: uid}))
-      }
-
-      function editCar(pid){
-        $('#allin').empty()
-        $('#allin').load('editPost.php?'+$.param({type: 'car', pid: pid}))
-      }
-
-      function editHouse(pid){
-        $('#allin').empty()
-        $('#postBox').load('editPost.php?'+$.param({type: 'house', pid: pid}))
-      }
-      function adView(id){
-        $('#allin').empty()
-                  $('#allin').load('discriptionPage.php', {type: 'ad',pid: id})
-                }
-
-      function viewCar(id){
-        $('#allin').load('discriptionPage.php', {type: 'car',pid: id})
-                
-      }
-      function houseView(id){
-        $('#allin').load('discriptionPage.php', {type: 'house',pid: id})
-
-      }
-
-
   </script>
-</head> -->
+</head> 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -853,9 +784,10 @@ if(isset($_GET['type'])){
                       <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
                       <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6><br>
                     <h5 class="text-success border border-success " >Paid!</h5><br>
-                    <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
+                    
                     <span class="text-danger small"><?php echo $date ?></span>
                     <h6>  <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
                 <div class="d-flex justify-content-between align-items-center">
                 <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -873,6 +805,7 @@ if(isset($_GET['type'])){
                     <h5 class="text-success border border-success " >Paid!</h5>
                     <span class="text-danger small"><?php echo $date ?></span>
                     <h6>  <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
                 <div class="d-flex justify-content-between align-items-center">
                 <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -890,8 +823,9 @@ if(isset($_GET['type'])){
                     <h5 class="text-success border border-success " >Paid!</h5>
                     <span class="text-danger small"><?php echo $date ?></span>
                     <h6>  <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
                 <div class="d-flex justify-content-between align-items-center">
-                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
                                 <i class="bi-cart-fill me-1"></i>
                                 View User 
@@ -913,6 +847,7 @@ if(isset($_GET['type'])){
                     <h5 class="text-success border border-danger " >Not Paid!</h5>
                     <span class="text-danger small"><?php echo $date ?></span>
                     <h6> <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -929,6 +864,7 @@ if(isset($_GET['type'])){
                       <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
                       <h5 class="text-success border border-danger " >Not Paid!</h5>                    <span class="text-danger small"><?php echo $date ?></span>
                     <h6> <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -945,6 +881,7 @@ if(isset($_GET['type'])){
                       <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
                       <h5 class="text-success border border-danger " >Not Paid!</h5>                    <span class="text-danger small"><?php echo $date ?></span>
                     <h6> <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
                 <div class="d-flex justify-content-between align-items-center">
                 <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -968,6 +905,7 @@ if(isset($_GET['type'])){
                   <h5 class="text-success border border-success" >Approved!</h5>
                   <span class="text-danger small"><?php echo $date ?></span>
                   <h6> <?php echo $row['city']  ?> </h6>
+                  <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
               <div class="d-flex justify-content-between align-items-center">
               <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
               <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -984,6 +922,7 @@ if(isset($_GET['type'])){
                     <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
                     <h5 class="text-success border border-success" >Approved!</h5>                   <span class="text-danger small"><?php echo $date ?></span>
                   <h6> <?php echo $row['city']  ?> </h6>
+                  <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
               <div class="d-flex justify-content-between align-items-center">
               <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
               <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -1000,6 +939,7 @@ if(isset($_GET['type'])){
                     <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
                     <h5 class="text-success border border-success" >Approved!</h5>                    <span class="text-danger small"><?php echo $date ?></span>
                   <h6> <?php echo $row['city']  ?> </h6>
+                  <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
               <div class="d-flex justify-content-between align-items-center">
               <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
               <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
@@ -1027,8 +967,9 @@ if(isset($_GET['type'])){
     
     ?>
     </div>
-              <button onclick="adminPage()" >View More </button>
+              
       </div>
+      <button onclick="adminPage()" >View More </button>
 </main>
 <?php
  

@@ -656,6 +656,246 @@ array_push($_SESSION['scroll'], $row['id'] );
   <?php
 }
 
+//////real estate sponsered post scroll view
+if(isset($_GET['type'])){
+  if($_GET['type'] == 'sponser'){
+    ?>
+    <script src="../assets/jquery.js" ></script>
+    <script>
+      function appHandler(butn, pid){
+        // alert(butn)
+        $.ajax({
+          url: '../user/userApi.php',
+          type: 'post',
+          data:{
+            sponserPid: pid
+            },
+          success:function(data){
+            // alert(data)
+            $('#'+butn).text(data)
+          }
+          
+        })
+      }
+    </script>
+  
+    </div>
+
+      <div class="row">
+        <?php
+        
+        if(isset($_GET['filter']) && $_GET['filter'] == 'pending_unpaid'){
+          $out = allPostListerOnColumenD('realestate', 'filled', 'NOT',$startPage, $endPage);
+        }elseif(isset($_GET['filter']) && $_GET['filter'] == 'unapproved_paid'){
+          $out = allPostListerOn2ColumenD('realestate', 'filled', 'YES', 'status', 'NOT', $startPage, $endPage);
+        }elseif(isset($_GET['filter']) && $_GET['filter'] == 'approved'){
+          $out = allPostListerOnColumenD('realestate', 'status', 'ACTIVE',$startPage, $endPage);
+        }else{
+          $out = allPostListerOnTableD('realestate',$startPage, $endPage);
+        }
+        
+        ?>
+      <?php
+      while($row = $out[0]->fetch_assoc()){
+        $date = time_elapsed_string($row['postedDate']);
+          ?>
+            
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <img class="img-thumbnail" src="<?php $p = photoSplit($row['photoPath1']); echo '../'.$p[0] ;?>" alt="Card">
+              <div class="card-body">
+                <?php
+
+                ///// paid but not approved posts filter block
+                if(isset($_GET['filter']) && $_GET['filter'] == 'unapproved_paid' ||  $_GET['filter'] == 'mix'){
+                  if($row['selectKey'] == "rs"){ // this means its realestate post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>RealEstate</h6><br>
+                      <span class="text-warning" >Type: </span><br><h6> <?php echo $row['type'] ?></h6>
+                      <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6><br>
+                    <h5 class="text-success border border-success " >Paid!</h5><br>
+                    
+                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6>  <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
+                <div class="d-flex justify-content-between align-items-center">
+                <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }elseif($row['selectKey'] == "ban"){ // this means its bank stock post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>Bank Stock</h6><br>
+                      <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6>
+                    <h5 class="text-success border border-success " >Paid!</h5>
+                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6>  <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
+                <div class="d-flex justify-content-between align-items-center">
+                <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }elseif($row['selectKey'] == "ins"){ // this means its bank stock post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>Insurance Stock</h6><br>
+                      <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6>
+                    <h5 class="text-success border border-success " >Paid!</h5>
+                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6>  <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
+                <div class="d-flex justify-content-between align-items-center">
+                <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }
+                }
+                
+                ////// unpaied but posted posts filter
+                elseif(isset($_GET['filter']) && $_GET['filter'] == 'pending_unpaid' ||  $_GET['filter'] == 'mix'){
+                  if($row['selectKey'] == "rs"){ // this means its realestate post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>RealEstate</h6><br>
+                      <span class="text-warning" >Type: </span><br><h6> <?php echo $row['type'] ?></h6>
+                      <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                    <h5 class="text-success border border-danger " >Not Paid!</h5>
+                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6> <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }elseif($row['selectKey'] == "ban"){ // this means its bank stock post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>Bank Stock</h6><br>
+                      <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                      <h5 class="text-success border border-danger " >Not Paid!</h5>                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6> <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                  }elseif($row['selectKey'] == "ins"){ // this means its bank stock post
+                    ?>
+                    <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                    <span>Insurance Stock</h6><br>
+                      <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                      <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                      <h5 class="text-success border border-danger " >Not Paid!</h5>                    <span class="text-danger small"><?php echo $date ?></span>
+                    <h6> <?php echo $row['city']  ?> </h6>
+                    <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
+                <div class="d-flex justify-content-between align-items-center">
+                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                                <i class="bi-cart-fill me-1"></i>
+                                View User 
+                            </a>  
+                </div>
+                    <?php
+                }
+              }
+
+              //// approved posts filter block
+              elseif(isset($_GET['filter']) && $_GET['filter'] == 'approved' ||  $_GET['filter'] == 'mix'){
+                if($row['selectKey'] == "rs"){ // this means its realestate post
+                  ?>
+                  <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                  <span>RealEstate</h6><br>
+                    <span class="text-warning" >Type: </span><br><h6> <?php echo $row['type'] ?></h6>
+                    <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                    <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6>
+                  <h5 class="text-success border border-success" >Approved!</h5>
+                  <span class="text-danger small"><?php echo $date ?></span>
+                  <h6> <?php echo $row['city']  ?> </h6>
+                  <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
+              <div class="d-flex justify-content-between align-items-center">
+              <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+              <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                              <i class="bi-cart-fill me-1"></i>
+                              View User 
+                          </a>  
+              </div>
+                  <?php
+                }elseif($row['selectKey'] == "ban"){ // this means its bank stock post
+                  ?>
+                  <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                  <span>Bank Stock</h6><br>
+                    <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                    <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                    <h5 class="text-success border border-success" >Approved!</h5>                   <span class="text-danger small"><?php echo $date ?></span>
+                  <h6> <?php echo $row['city']  ?> </h6>
+                  <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
+              <div class="d-flex justify-content-between align-items-center">
+              <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+              <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                              <i class="bi-cart-fill me-1"></i>
+                              View User 
+                          </a>  
+              </div>
+                  <?php
+                }elseif($row['selectKey'] == "ins"){ // this means its bank stock post
+                  ?>
+                  <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
+                  <span>Insurance Stock</h6><br>
+                    <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                    <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                    <h5 class="text-success border border-success" >Approved!</h5>                    <span class="text-danger small"><?php echo $date ?></span>
+                  <h6> <?php echo $row['city']  ?> </h6>
+                  <a href="../Account.php?message=true&inner=true&tb=realestate&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="text-warning btn btn-outline-dark mb-1">Message User</a>
+              <div class="d-flex justify-content-between align-items-center">
+              <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+              <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
+                              <i class="bi-cart-fill me-1"></i>
+                              View User 
+                          </a>  
+              </div>
+                  <?php
+              }
+            }
+                ?>
+              </div>
+            </div>
+          </div>
+  
+  <?php
+}
+
+
+    
+ 
+  }
+}
+
 }
 
 
