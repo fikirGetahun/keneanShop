@@ -61,16 +61,23 @@ include "../includes/adminSide.php";
                     
                 </div>
 
+                <div class="form-group">
+                    <label for="exampleInputEmail1">How many days should stay in the website</label>
+                <input type="number" class="form-control" id="nameTitle" aria-describedby="emailHelp" name="pkgDate" placeholder=" ">
+                    
+                </div>
+
                 <button class="btn btn-dark" type="submit" >Add Package</button>
             </form>
                     <!-- /// pkg add handler block  -->
                     <?php
-                        if(isset($_POST['pkgName'], $_POST['pkgInfo'], $_POST['pkgPrice'])){
+                        if(isset($_POST['pkgName'], $_POST['pkgInfo'], $_POST['pkgPrice'], $_POST['pkgDate'])){
                             $pn = $_POST['pkgName'];
                             $pi = $_POST['pkgInfo'];
                             $pp = $_POST['pkgPrice'];
+                            $pkgdate = $_POST['pkgDate'];
 
-                            $enter = sponserManageADD($pn, 'pkg', $pi.','.$pp);  // the middle is to selecter key to select the pkg for the viewing and update.
+                            $enter = sponserManageADD($pn, 'pkg', $pi.','.$pp.','.$pkgdate );  // the middle is to selecter key to select the pkg for the viewing and update.
                             if($enter){
                                 echo '<span class="text-success">Pakage Added</span>';
                             }else{

@@ -6,4 +6,8 @@ $host = 'localhost';
 
 $mysql = new mysqli($host, $user, $pass, $db);
 
+
+
+
+
 ?>

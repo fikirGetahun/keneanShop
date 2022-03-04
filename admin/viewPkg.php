@@ -46,6 +46,8 @@ if(isset($_GET['view'])){
     <h6><?php echo $row['category'] ?>  </h6>
     <h5>Pakage Info</h4>
     <p><?php echo $jjf[0] ?></p>
+    <h5>Days in Website</h4>
+    <p><?php echo $jjf[2] ?></p>
     <h5>Price : </h5><h6><?php echo $jjf[1] ?></h6>
     <a href="viewPkg.php?id=<?php echo $row['id'] ?>&edit=true&type=pkg" class="btn btn-dark border-success">Edit</a>
     <a href="viewPkg.php?view=true&delete=true&id=<?php echo $row['id'] ?>&sh=true" class="btn btn-dark border-success">Delete</a>
@@ -128,12 +130,13 @@ if(isset($_GET['edit'], $_GET['id'], $_GET['type'])){
 
 
     /// if edit is occured
-    if(isset($_POST['pkgName'], $_POST['pkgInfo'], $_POST['pkgPrice'])){
+    if(isset($_POST['pkgName'], $_POST['pkgInfo'], $_POST['pkgPrice'],$_POST['pkgDate'])){
         $pn = $_POST['pkgName'];
         $pi = $_POST['pkgInfo'];
         $pp = $_POST['pkgPrice'];
+        $pkgdate = $_POST['pkgDate'];
 
-        $enter = sponserManageUPDATE($pn, 'pkg', $pi.','.$pp, $id);  // the middle is to selecter key to select the pkg for the viewing and update.
+        $enter = sponserManageUPDATE($pn, 'pkg', $pi.','.$pp.','.$pkgdate, $id);  // the middle is to selecter key to select the pkg for the viewing and update.
         if($enter){
             echo '<span class="text-success">Pakage Edited</span>';
         }else{
@@ -162,6 +165,10 @@ if(isset($_GET['edit'], $_GET['id'], $_GET['type'])){
                     <textarea type="text" class="form-control" name="pkgInfo" id="des2" 
                     aria-describedby="emailHelp" name="info2" placeholder=" "> <?php echo $jjf[0] ?> </textarea>
                 </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">How many days should stay in the website</label>
+                <input type="number" class="form-control" id="nameTitle" aria-describedby="emailHelp" name="pkgDate" placeholder=" " value="<?php echo $jjf[2] ?>"  >
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Package Price</label>
