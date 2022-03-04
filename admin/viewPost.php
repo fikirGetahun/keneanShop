@@ -772,6 +772,24 @@ if(isset($_GET['type'])){
 if(isset($_GET['type'])){
   if($_GET['type'] == 'sponser'){
     ?>
+    <script src="../assets/jquery.js" ></script>
+    <script>
+      function appHandler(butn, pid){
+        // alert(butn)
+        $.ajax({
+          url: '../user/userApi.php',
+          type: 'post',
+          data:{
+            sponserPid: pid
+            },
+          success:function(data){
+            // alert(data)
+            $('#'+butn).text(data)
+          }
+          
+        })
+      }
+    </script>
     <div class="row">
       <div  class="col-5" >
       <div class="input-group-prepend">
@@ -806,7 +824,7 @@ if(isset($_GET['type'])){
         if(isset($_GET['filter']) && $_GET['filter'] == 'pending_unpaid'){
           $out = allPostListerOnColumenD('realestate', 'filled', 'NOT',0,6);
         }elseif(isset($_GET['filter']) && $_GET['filter'] == 'unapproved_paid'){
-          $out = allPostListerOnColumenD('realestate', 'filled', 'YES',0,6);
+          $out = allPostListerOn2ColumenD('realestate', 'filled', 'YES', 'status', 'NOT', 0,6);
         }elseif(isset($_GET['filter']) && $_GET['filter'] == 'approved'){
           $out = allPostListerOnColumenD('realestate', 'status', 'ACTIVE',0,6);
         }else{
@@ -834,11 +852,12 @@ if(isset($_GET['type'])){
                       <span class="text-warning" >Type: </span><br><h6> <?php echo $row['type'] ?></h6>
                       <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
                       <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6><br>
-                    <h5 class="text-success border border-success " >Paid!</h5>
+                    <h5 class="text-success border border-success " >Paid!</h5><br>
+                    <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
                     <span class="text-danger small"><?php echo $date ?></span>
                     <h6>  <?php echo $row['city']  ?> </h6>
                 <div class="d-flex justify-content-between align-items-center">
-                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
                                 <i class="bi-cart-fill me-1"></i>
                                 View User 
@@ -855,7 +874,7 @@ if(isset($_GET['type'])){
                     <span class="text-danger small"><?php echo $date ?></span>
                     <h6>  <?php echo $row['city']  ?> </h6>
                 <div class="d-flex justify-content-between align-items-center">
-                <a href="../<?php echo $website ?>?cat=zebegna&postId=<?php echo $row['id'] ?>&label=Security%20Gaurd%20Job%20Seeker&type=zebegna" >View</a>
+                <span id="ap<?php echo $row['id'] ?>"  class="btn btn-success border border-success" onclick="appHandler('ap<?php echo $row['id'] ?>', '<?php echo $row['id'] ?>')" >Approve</span>
                 <a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>" class="btn btn-outline-dark flex-shrink-0"    >
                                 <i class="bi-cart-fill me-1"></i>
                                 View User 
@@ -944,8 +963,8 @@ if(isset($_GET['type'])){
                   <h5 class="card-text"> <?php echo $row['pkg'].' Pakage'  ?></h5>
                   <span>RealEstate</h6><br>
                     <span class="text-warning" >Type: </span><br><h6> <?php echo $row['type'] ?></h6>
-                    <!-- <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
-                    <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6> -->
+                    <span class="text-warning">Bank: </span><br><h6> <?php echo $row['payBank'] ?></h6>
+                    <span class="text-warning">Trans' Id: </span><br><h6> <?php echo $row['transId'] ?></h6>
                   <h5 class="text-success border border-success" >Approved!</h5>
                   <span class="text-danger small"><?php echo $date ?></span>
                   <h6> <?php echo $row['city']  ?> </h6>

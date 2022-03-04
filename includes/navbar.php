@@ -6,6 +6,21 @@
     session_start(); 
   } 
   
+  
+  // this is to login if admin or editor has loged on the other admin panal.. in short, if an admin or editor has loged in to the admin panel, then he is automaticaly loged in to the user side of the website.
+
+  // this helps us to navigate back and forth b/n admin panel and the user side website for messaging and other stuff hasn't been discorverd. 
+  if(!isset($_SESSION['userId']) && isset($_SESSION['idz'])){
+    require "php/fetchApi.php";
+    // echo 'in header';
+    $_SESSION['userId'] = $_SESSION['idz'];
+    $admin_data = allPostListerOnColumen('user', 'id', $_SESSION['idz']);
+    $row = $admin_data->fetch_assoc();
+
+    $_SESSION['auth'] = $row['auth'];
+    $_SESSION['phone'] = $row['phone'];
+    $_SESSION['name'] = $row['firstName'].' '.$row['lastName'];
+  }
 
   if(!isset($_SESSION['location'] )){
     $_SESSION['location'] = 'All';

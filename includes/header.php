@@ -1,18 +1,11 @@
 <?php
-  
+ 
   ob_start();
   if(!isset($_SESSION)) { 
     session_start(); 
   }  
   
 
-  // this is to login if admin or editor has loged on the other admin panal.. in short, if an admin or editor has loged in to the admin panel, then he is automaticaly loged in to the user side of the website.
-
-  // this helps us to navigate back and forth b/n admin panel and the user side website for messaging and other stuff hasn't been discorverd. 
-  if(!isset($_SESSION['userId']) && isset($_SESSION['idz'])){
-    // echo 'in header';
-    $_SESSION['userId'] = $_SESSION['idz'];
-  }
   
   ?>
 <!doctype html>

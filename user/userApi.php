@@ -13,7 +13,18 @@ if(!isset($_SESSION)){
 
 
 
+/////admin approving and deleteing the post after sponsership payment is done////
+if(isset($_POST['sponserPid'])){
+  $spid = $_POST['sponserPid'];
+    $app = updateOnColomen('realestate', 'status', 'ACTIVE', $spid);
+    if($app){
+      echo 'Approved!';
+    }else{
+      echo 'Error';
+    }
+  
 
+}
 
 
 

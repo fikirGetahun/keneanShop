@@ -1,5 +1,5 @@
 <!-- <!-- <script src="assets/jquery.js" ></script> -->
- -->
+ 
  <?php
  include "../includes/lang.php";
  ?>
@@ -1219,12 +1219,8 @@ function hCity(x){
 ///////// electronics/////////////
 
 if($_GET['type'] == 'electronics'){
+  
     ?>
-  
-  
-  
-
-
 
 <!-- <script src="assets/jquery.js"  ></script> -->
 <script>
@@ -1298,12 +1294,6 @@ $('#sElc').on('change', function(){
               ?> 
         </select>
         </div>
-
-
-
-
-
-
 
 
 
@@ -1642,7 +1632,7 @@ if($_GET['type'] == 'vacancy'){
         </div>
 
 
-        <div hidden class="input-group mb-3">
+        <div hidden class="input-group mb-3"> 
         <div class="input-group-prepend">
         </div>
         <select class="form-select" hidden aria-label="Default select example" name="salaryStatus" id="inputGroupSelect01">
