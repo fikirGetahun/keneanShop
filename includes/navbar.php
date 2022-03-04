@@ -6,7 +6,8 @@
     session_start(); 
   } 
   
-  
+  require "includes/init.php";
+
   // this is to login if admin or editor has loged on the other admin panal.. in short, if an admin or editor has loged in to the admin panel, then he is automaticaly loged in to the user side of the website.
 
   // this helps us to navigate back and forth b/n admin panel and the user side website for messaging and other stuff hasn't been discorverd. 

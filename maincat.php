@@ -2724,13 +2724,12 @@ $string = http_build_query($params); // to build the corrected requst to normal 
             while($row = $fetchPost[0]->fetch_assoc()){
               
 
-              if(!in_array($row['id'], $_SESSION['userScroll'])){
-                $pid = $row['id'];
+
               ?>
               
 
         
-                    <div  class="col-md-3">
+              <div  class="col-md-3">
                   <div class="card mb-4 box-shadow">
             
             <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $type ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -2785,8 +2784,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
 
               <?php
-              array_push($_SESSION['userScroll'], $row['id']);
-              }
+              
             }
           }else{
             echo 'No Result Found';

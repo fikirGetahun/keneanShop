@@ -634,7 +634,7 @@
                 ///// automatic delete posts besed on 
                 $check_updated_time = allPostListerOnColumen('adcategory', 'id', 300);  // id 300 is reserved id in the adcategroy table to hold the updated date of the server
                 $row = $check_updated_time->fetch_assoc();
-                $date = time_elapsed_string($row['serverUpdatee']);
+                $date = time_elapsed_string($row['serverUpdate']);
 
 
 
@@ -643,29 +643,63 @@
 
 
                     $dbTables = array('ad', 'car', 'charity', 'electronics',
-'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse', 'zebegna', 'jobhometutor', 'hotelhouse', 'housesell', 'realestate' );
+                    'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse', 
+                    'zebegna', 'jobhometutor', 'hotelhouse', 'housesell', 'realestate' );
 
                     foreach($dbTables as $selected_tb){
 
                         //if the table is not realestate
                         if($selected_tb != 'realestate'){
                             /// delete old posts query
-                            $q = "DELETE
-                            FROM `$selected_tb`
-                            WHERE 'postedDate' < DATEADD(MONTH, -6, GETDATE())";
-
+                            $q = "DELETE * FROM `$selected_tb` WHERE `postedDate` < DATEADD(MONTH, -6, GETDATE())";
+                            // echo 'in 6 month delete';
                             $ask = $mysql->query($q);
+                            echo $mysql->error;
+                            // if($ask){
+                            //     echo 'GOOD';
+                            // }else{
+                            //     echo 'not';
+                            // }
                  
                         }else{
-                            $q = "DELETE
-                            FROM `$selected_tb`
-                            WHERE 'postedDate' < DATEADD(MONTH, -6, GETDATE())";
+                            // fetch all pakages that are in the sponcered posts and delete the posts accordingly
+                            $spon = allPostListerOnColumen('adcategory', 'tableName', 'pkg');
+                            while($rspon = $spon->fetch_assoc()){
+                                $jjf = explode(',', $rspon['subcityKey']); // to split the time allowed and theprice
+                                echo 'in realestate delete';
+                                $time_allowed = $jjf[2];
+                                $pkg = $row['category'];
+                                $qx = "DELETE
+                                FROM `realestate`
+                                WHERE `pkg` = '$pkg' AND 'postedDate' < DATEADD(day, -$time_allowed, GETDATE())";
+                                 $askx = $mysql->query($qx);
+                                 if($askx){
+                                    echo 'GOOD';
+                                }else{
+                                    echo 'not';
+                                }
+                            }
+                      
                         }
                     }
+
+                    /// after deleteing old posts,, it should go submit the time where it has deleted the posts so that it doesn't run this code more than once a day
+                    $now = new DateTime();
+                    $report = updateOnColomen('adcategory', 'serverUpdate', $now, 300);
+                    $ask = $mysql->query($report);
+                }else{
+                    echo 'not 1 day pasd';
                 }
 
             }
 
+
+
+            ///// to get random sponserd posts on every category
+            function randomSponserPost(){
+                include "connect.php";
+                
+            }
     ////// search from
     // function 
 
