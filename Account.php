@@ -226,11 +226,11 @@ $sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId'
         while($row = $sponsered->fetch_assoc()){
           ?>
                         <div  class="col-md-4 mb-3">
-                      <div class="card mb-4 box-shadow">
+                      <div class="card mb-1 box-shadow">
                   
                   <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
-                    <div class="card-body">
+                    <div class="card-body ">
                       <h5 class="card-title">  <?php echo $row['title'] ?></h5>
                       <?php 
               ?>
@@ -290,32 +290,7 @@ $sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId'
 
                                 })
 
-                                function pkgHandler(pkg){
-                                  if(pkg == 'Silver'){
-                                    $('#desc').html(`This is the description of the silver pakage 
-                                    <h5 id="amount" class="text-success">Amount: 300 birr </h5>`)
-                                  }else if(pkg == 'Gold'){
-                                    $('#desc').html(`This is the description of the Gold pakage
-                                    <h5 id="amount" class="text-success">Amount: 500 birr </h5>`)
-                                  }else if(pkg == 'Platinum'){
-                                    $('#desc').html(`This is the description of the Platinum pakage
-                                    <h5 id="amount" class="text-success">Amount: 500 birr </h5>`)
-                                  }
-                                }
 
-
-                                function bankHandler(bank){
-                                  if(bank == 'CBE'){
-                                    $('#bname').text('CBE')
-                                    $('#bacc').text('1000234884588823')
-                                  }else if(bank == 'AWASH'){
-                                    $('#bname').text('AWASH')
-                                    $('#bacc').text('1345633254646464')
-                                  }else if(bank == 'BIRHAN'){
-                                    $('#bname').text('BIRHAN')
-                                    $('#bacc').text('7743345443542234')
-                                  }
-                                }
                               </script>
                         <?php
                       //// if they filled the bank info show edit button, or if they didnt filled any thing show fill bank info button
@@ -336,8 +311,9 @@ $sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId'
                       }else{
                         ?>
                         <div class="btn btn-sm btn-outline-success" >
-                        <span class="text-success" id="btnsp" >Payment done</span>
+                        <span class="text-success" id="btnsp" >Payment done</span> 
                         </div>
+                        <a href="./user/paymentPage.php?edit=true&id=<?php echo $row['id'] ?>" class="text-warning btn btn-sm btn-outline-success" id="btnspx" >Edit</a>
                         <?php
                       }
                       

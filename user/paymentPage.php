@@ -4,7 +4,6 @@ require_once "../php/adminCrude.php";
 require_once "../php/auth.php";
 require_once "../php/fetchApi.php";
 include "../includes/header.php";
-echo 'in here';
 /////////////real estate posting api
 if(isset($_POST['posterId'], $_POST['title'], $_POST['company'], $_POST['phone'], $_POST['email'], $_POST['price'], $_POST['fixidOrN'], $_POST['info'], $_FILES['photo'], $_POST['selectKey'],$_POST['city'])){
 
@@ -117,7 +116,8 @@ global $selectKey, $posterId, $title, $company, $phonem, $email, $price, $fixidO
             $jjf = explode(',', $row['subcityKey']);
 
             ?>
-        <p><?php echo $jjf[0] ?></p>
+    <h4><?php echo $row['category'].' Pakage' ?></h4>
+<p><?php echo $jjf[0] ?></p>
         <h5 id="amount" class="text-success">Amount: <?php echo $jjf[1] ?> birr </h5> 
             <?php
         }
@@ -290,7 +290,8 @@ if(isset($_GET['pendding'])){
             $jjf = explode(',', $row['subcityKey']);
 
             ?>
-        <p><?php echo $jjf[0] ?></p>
+    <h4><?php echo $row['category'].' Pakage' ?></h4>
+<p><?php echo $jjf[0] ?></p>
         <h5 id="amount" class="text-success">Amount: <?php echo $jjf[1] ?> birr </h5> 
             <?php
         }
@@ -395,6 +396,153 @@ if(isset($_POST['pkg'], $_POST['bankName'], $_POST['tid'], $_POST['pid'])){
     }
   
   }
+
+
+
+//// to edit the transaction id and bank after a user payd just in case there is a mistake in thier part
+if(isset($_GET['edit'])){
+    if(isset($_GET['id'])){
+        $pidd = $_GET['id'];
+    }
+
+
+  
+    ?>
+    <body>
+<div class="container">
+    <script>
+        function pkgHandler(pkg){
+            
+        }
+    </script>
+    <div class="card m-4">
+        <?php
+        //// for editing api
+if(isset($_POST['pkgx'], $_POST['bankName'], $_POST['tid'], $_POST['pid'])){
+
+    $pid = $_POST['pid'];
+    $pkg = $_POST['pkgx'];
+    $bname = $_POST['bankName'];
+    $tid = $_POST['tid'];
+  
+    $send = updateOn3Colomen('realestate', 'pkg', $pkg, 'payBank', $bname, 'transId', $tid, $pid);
+    if($send){
+      ?>
+      <h4 class="text-warning btn btn-sm btn-outline-success" > Transaction Edited! </h4>  <a href="../Account.php?yourPost=true" >Go Back</a>
+      <?php
+    }else{
+      echo 'error';
+    }
+}
+  
+        ?>
+    <div class="row">
+        <div  class="col-4" >
+        <h5>Available Pakages!</h5>
+        <?php
+        $fpkg = allPostListerOnColumen('adcategory', 'tableName', 'pkg' );
+        while($row = $fpkg->fetch_assoc()){
+            $jjf = explode(',', $row['subcityKey']);
+
+            ?>
+            <h4><?php echo $row['category'] ?></h4>
+            <h4><?php echo $row['category'].' Pakage' ?></h4>
+            <p><?php echo $jjf[0] ?></p>
+        <h5 id="amount" class="text-success">Amount: <?php echo $jjf[1] ?> birr </h5> 
+            <?php
+        }
+        ?>
+        
+       
+        </div>
+        
+    </div>
+    <hr>
+    <?php
+     //to fetch users submited data
+     $usd = allPostListerOnColumen('realestate', 'id', $pidd);
+     $rusd = $usd->fetch_assoc();
+    ?>
+    <form action="paymentPage.php?edit=true&id=<?php echo $pidd ?>" method="POST">
+        <input hidden type="text" name="pid" value="<?php echo $pidd ?>">
+    <label for="exampleFormControlFile1">Select Packages</label>
+        <select  class="form-select" onchange ='pkgHandler(this.value)'  aria-label="Default select example" name="pkgx" id="forWho">
+            <?php
+                $fpkg = allPostListerOnColumen('adcategory', 'tableName', 'pkg' );
+                ?>
+                <option selected><?php echo $rusd['pkg'] ?></option>
+                <?php
+                while($row = $fpkg->fetch_assoc()){
+                    ?>
+                    <option value="<?php echo $row['category'] ?>" ><?php echo $row['category'] ?></option>
+                    <?php
+                }
+            ?>
+        </select>
+        <br>
+
+        <script>
+            function bnk(sbnk){
+                $.ajax({
+                    url: 'userApi.php',
+                    type: 'post',
+                    data: {
+                        bank: sbnk
+                    },
+                    success: function(data){
+                        $('#showw').load(data)
+                    }
+                })
+            }
+
+
+
+        </script>
+
+        <h5>Pay For Sponcership!</h5>
+        <div class="row">
+
+        <div class="col-5">
+        <label for="exampleFormControlFile1">Choose Banks</label>
+        <select  class="form-select" onchange ='bnk(this.value)'  aria-label="Default select example" name="bankName" id="forWho">
+                <option selected><?php echo $rusd['payBank'] ?></option>
+            <?php
+                $fpkg = allPostListerOnColumen('adcategory', 'tableName', 'bank' );
+
+                while($row = $fpkg->fetch_assoc()){
+                    ?>
+                    <option value="<?php echo $row['category'] ?>" ><?php echo $row['category'] ?></option>
+                    <?php
+                }
+            ?>
+        </select>
+
+               <div id="showw">
+
+               </div>
+                
+            </div>
+
+            <div class="form-group">
+                    <label for="exampleInputEmail1">Enter Transaction Id:</label>
+                <input type="text" class="form-control" id="nameTitle" aria-describedby="emailHelp" name="tid" placeholder="be caryfull dont make a mistake" value="<?php echo $rusd['transId'] ?>" >
+                    
+            </div>
+            <button class="btn btn-success" type="submit" >Submit Payment!</button>
+        </div>
+    </form>
+
+    <?php
+
+    
+    ?>
+
+    </div>
+</div>
+</body>
+    
+    <?php
+}
 
   ?>
 

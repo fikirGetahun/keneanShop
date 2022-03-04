@@ -599,6 +599,19 @@
             }
 
 
+            /// udate 3 colomens
+            function updateOn3Colomen($table, $colomn1, $arg1, $colomn2, $arg2,$colomn3, $arg3,$pid ){
+                include 'connect.php';
+                
+                $q = "UPDATE `$table` SET `$colomn1` = '$arg1', `$colomn2` = '$arg2', `$colomn3` = '$arg3' WHERE `id` = '$pid'";
+
+                $ask = $mysql->query($q);
+
+                echo $mysql->error;
+                return $ask;
+            }
+
+
 
             /// sponsered payment integration
             function sponseredPay($pkg, $bname, $tid, $pid){
