@@ -698,7 +698,119 @@
             ///// to get random sponserd posts on every category
             function randomSponserPost(){
                 include "connect.php";
+                // $random_chance = array(2,2,2,2,2,1,1,1,1,3,3);
+                $fe = allPostListerOnColumen('adcategory', 'tableName', 'pkg');
+            
+                $allowed_time = array();
+                while($ss=$fe->fetch_assoc()){  
+                    $jjf = explode(',', $ss['subcityKey']);
+                    $g = $ss['category'];
+                    // $allowed_time[] = $jjf[2].','.$ss['category'];
+                    $allowed_time += array( $g => $jjf[2]) ;
+                } 
+                arsort($allowed_time);
+                $sorted_pkg_based_on_big_day = $allowed_time;  // this is to sort the pkgs in timeallowed in website
+              
+                $pkg_count = count($sorted_pkg_based_on_big_day); /// this is to count howmany pkgs are available
+                $sorted_pkgs_only = array(); /// empty array to store sorted pkgs only
+                foreach($sorted_pkg_based_on_big_day as $key => $sle){ // the loop to append sorte pkgs only 
+                    $sorted_pkg[] = $key;
+                }
+            
+                // the algorthm is to rondomly select pkgs with probality and the selected pkg will be swaped in the pkg alrg
+                // print_r($allowed_time);
+                // print_r($sorted_pkg);
+               
+
+                $selected = rand(0, $pkg_count-1);
+                $what = $sorted_pkg[$selected];
+
+                // echo 'lllssll'.$sorted_pkg[$selected];
+                        $fetchPostz = allPostListerOnColumen('realestate', 'pkg', $what );
+                        $escape = 0;
+                        if($selected == 0){ // the platnem pkg or a new holday package in other word high number of website staying day
+                            $escape = 3;  // this is how many posts are should be shown in the categories for platinum is 3 since its higer.. then the loop will escape after the index hit the escape
+                        }elseif($selected == 1){ /// the gold or next to the highst pkg
+                            $escape = 2;
+                        }else{ /// the silver and lower
+                            $escape = 1;
+                        }
+
+                        $i = 0;
+                        // echo 'in sponser random';
+                        // if($fetchPostz){
+                        //     echo 'it works';
+                        // }
+                        while($row = $fetchPostz->fetch_assoc()){
+                            if($i == $escape){
+                                echo 'break has happen';
+                                break;
+                            }
+                           
+                        ?>
+                        <!-- <div class="row"> -->
+                        <div  class="col-3 ">
+                          <div class="card mb-4 box-shadow bg-success">
+                      
+                        <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+    
+                        <div class="card-body">
+                            <?php  
+                                if($row['selectKey'] == 'rs'){
+                                    echo '<h5 class="card-title">Real Estate</h5>';
+                                }elseif($row['selectKey'] == 'ban'){
+                                    echo '<h5 class="card-title">Bank Stocks</h5>';
+                                }elseif($row['selectKey'] == 'ins'){
+                                    echo '<h5 class="card-title">Insurance Stocks</h5>';
+                                }
+                            
+                            ?>
+                          <h6 class="card-title">  <?php echo $row['title'] ?></h6>
+                          <?php 
+       
+                          $date = time_elapsed_string($row['postedDate']);
+                          ?>
+                          
+                          <h6 class="card-text"> <?php echo $row['city'] ?></h6>
+                          <div class="d-flex justify-content-between align-items-center">
+                          <span class="text-danger small"><?php echo $date ?></span>
+                              
+    
+                          </div>
+                        </div>
+                      </div>
+                      <?php
+                      if(isset($_SESSION['userId'])){
+                      $faz = favouritesSelector('realestate', $_SESSION['userId'], $row['id'] );
+                      // $row = $faz->fetch_assoc();
+                      // echo $row['fav'];
+                        if($faz->num_rows > 0){
+                          ?>
+                          <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>             
+                          <?php
+                        }else{
+                          ?>
+                        <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Fav</a>
+                          <?php
+                        }
+                      }
+                      ?>
+                        </div>
                 
+                        <!-- </div> -->
+              
+    
+                         <?php
+                                
+                      $i++;
+    
+                      }
+
+                
+               
+                
+
+
             }
     ////// search from
     // function 
