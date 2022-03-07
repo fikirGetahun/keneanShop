@@ -246,6 +246,7 @@ $sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId'
                       <span class="text-danger small"><?php echo $date ?></span>
                         
                       <br><br><br><br>
+         
                       <?php
                       // to show if the post is approved or pending
                       if($row['status'] == 'NOT'){
@@ -270,6 +271,24 @@ $sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId'
                       </div>
                     </div>
                       </div>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#editDiv2<?php echo $row['id'] ?>">Manage Post</button>
+                          <div class="modal fade" id="editDiv2<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+      </div>
+      <div id="editInput2<?php echo $row['id'] ?>" class="modal-body">
+      <div class="row">
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="edit('true', 'housex', '<?php echo $row['id'] ?>', 'editInput2<?php echo $row['id'] ?>')">Edit</button></p></div>
+          <div class="col"><p><button type="button" class="btn btn-light btn-sm" onclick="del('<?php echo $row['id']  ?>', 'realestate')">Delete</button></p></div>
+      </div>
+                      
+      </div>
+    </div>
+  </div>
+</div>
                       <div>
                       <script>
                                 $(document).ready(function(){
@@ -314,6 +333,7 @@ $sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId'
                         <span class="text-success" id="btnsp" >Payment done</span> 
                         </div>
                         <a href="./user/paymentPage.php?edit=true&id=<?php echo $row['id'] ?>" class="text-warning btn btn-sm btn-outline-success" id="btnspx" >Edit</a>
+
                         <?php
                       }
                       

@@ -187,11 +187,11 @@ function reload(x){
           <a class="nav-link active" href="index.php?loc=All"  aria-current="page"  ><?php echo $lang['home'] ?></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  ><?php echo $lang['big_discount'] ?></a>
+          <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  > <span class="small"><?php echo $lang['big_discount'] ?></span> </a>
         </li>
         
         <li class="nav-item dropdown">
-          <a class="nav-link active" href="./maincat.php?cat=housesell&type=house&arg= &label=House Posts"  id="navbarDropdown" role="button"  aria-expanded="false">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"  id="navbarDropdown" role="button"  aria-expanded="false">
             <span class="small"><?php echo $lang['house'] ?></span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -200,25 +200,37 @@ function reload(x){
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link active" href="./maincat.php?cat=car&status= &off= &label=Cars Posts &type= "   id="navbarDropdown" role="button" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"  id="navbarDropdown" role="button" aria-expanded="false">
             <span class="small"><?php echo $lang['cars'] ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars To Buy&type= "    ><?php echo $lang['toBuy'] ?></a></li>
-            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Rent&label=Cars For Rent&type= "  onclick="postViewNav('car', 'forRentOrSell', 'For Rent', 'Cars For Rent')"  ><?php echo $lang['toRent'] ?></a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=car&status=forRentOrSell&off=For Rent&label=Cars For Rent&type= "    ><?php echo $lang['toRent'] ?></a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="./maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate Posts" ><span class="small"><?php echo $lang['realLabel'] ?></span></a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"  id="navbarDropdown" role="button" aria-expanded="false">
+            <span class="small"><?php echo $lang['realLabel'] ?>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="./maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate"    >Real Estate Sponsered</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=realestate&spType=ban&arg= &label=Bank Stokes"    >Bank Stokes Sponsered</a></li>
+            <li><a class="dropdown-item" href="./maincat.php?cat=realestate&spType=ins&arg= &label=Insurance Stokes" > Insurance Stokes Sponsered </a></li>
+          </ul>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link active" href="./maincat.php?cat=housesell&type=land&arg= &label=Land Posts"   id="navbarDropdown" role="button"  aria-expanded="false">
+
+        <!-- <li class="nav-item">
+          <a class="nav-link active" href="./maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate Posts" ><span class="small"><?php echo $lang['realLabel'] ?></span></a>
+        </li> -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button"         data-bs-toggle="dropdown" aria-expanded="false"  >
             <span class="small"><?php echo $lang['land'] ?></span>
           </a>
-          <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Sell&label=Land For Sell"><?php echo $lang['toBuy'] ?></a></li>
-            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Rent&label=Land For Rent"><?php echo $lang['toRent'] ?></a></li>
-          </ul> -->
+            <li><a class="dropdown-item" href="./maincat.php?cat=housesell&type=land&arg=For Rent&label=Land For Rent"><?php echo $lang['toRent'] ?></a></li> 
+          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="./maincat.php?cat=vacancy"><span class="small"><?php echo $lang['vacancy'] ?></span></a>

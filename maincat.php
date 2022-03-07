@@ -369,7 +369,7 @@ if(isset($_GET['cat'])){
                 $i = 0;
 
               ?> 
-        <div class="input-group  col-md-3">
+        <div class="input-group  col-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><?php echo $lang['location'] ?></span>
         </div>
@@ -422,16 +422,16 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
   $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
   $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
   //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
-  if($params['dyCol'] && $params['dyArg']  ){
+  if(isset($params['dyCol']) && isset($params['dyArg'])  ){
     unset($params['dyCol']);
     unset($params['dyArg']);
   }
-  if($params['dyCol2'] && $params['dyArg2']){ 
+  if(isset($params['dyCol2']) && isset($params['dyArg2'])){ 
     // unset($params['dyCol2']);
     // unset($params['dyArg2']);
   }
   // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-  if($params['loc']){
+  if(isset($params['loc'])){
     unset($params['loc']);
   }
 
@@ -888,12 +888,12 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
 /// here is the random sponsered posts appearing mechanism
 /// if the random number generator generets the number 3, the sponsered posts will be posted
-$random_number = rand(1,4);
+$random_number = rand(1,3);
 
 // this is the amount of sponcered posts are allowed to be posted per page, 
 $allowed_posts_per_page = 3;
 $counter_of_sponsered_posts = 0;
-$chance = 3;
+$chance = 2;
 
 //// to show cars, electronics, ad, charity block.. i know its a nightmare
 
