@@ -177,11 +177,11 @@ function reload(x){
 
 <div id="all" class="container">
 
-<div class="row">
+<div class="overflow-auto">
 
   <!-- <div class=".d-sm-none .d-md-block"> -->
      
-  <div id="tagSearch" class="row">
+  <div id="tagSearch" class="row justify-content-center" >
  
 
 
@@ -218,7 +218,7 @@ function reload(x){
 
 if(isset($_GET['cat']) && $_GET['cat'] == 'realestate'){
   ?>
-  <div  class="col-3" >
+  <div  class="col-sm-3" >
   <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
     <option selected ><?php echo $allLabel ?>Sponsered</option>
     <option value="./maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate" >Real Estate Sponsered</option>
@@ -241,7 +241,7 @@ if(isset($_GET['cat'])){
     /// if the table is housesell and type house post
     if(isset($_GET['type']) && $_GET['type'] == 'house' && $table == 'housesell'){
       ?>
-        <div  class="col-3" >
+        <div  class="col-md-3" >
         <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
           <option value=" " >For Rent or Sell</option>
           <option value="./maincat.php?cat=housesell&type=house&arg=For Sell&label=House For Sell" >For Sell</option>
@@ -252,7 +252,7 @@ if(isset($_GET['cat'])){
       // maincat.php?cat=housesell&type=land&arg=For Sell&label=Land For Sell
     }elseif(isset($_GET['type']) && $_GET['type'] == 'land' && $table == 'housesell'){
       ?>
-        <div  class="col-3" >
+        <div  class="col-md-3" >
         <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
           <option value=" " >For Rent or Sell</option>
           <option value="./maincat.php?cat=housesell&type=land&arg=For Sell&label=Land For Sell" >For Sell</option>
@@ -263,7 +263,7 @@ if(isset($_GET['cat'])){
       // maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars To Buy&type=   
     }elseif($table == 'car'){
       ?>
-        <div  class="col-3" >
+        <div  class="col-md-3" >
         <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
           <option value=" " >For Rent or Sell</option>
           <option value="./maincat.php?cat=car&status=forRentOrSell&off=For Sell&label=Cars To Buy&type=   " >For Sell</option>
@@ -276,7 +276,7 @@ if(isset($_GET['cat'])){
     /// for realEstate rent or sell
     if(isset($_GET['spType']) && $_GET['spType'] == 'rs'){
       ?>
-      <div  class="col-3" >
+      <div  class="col-md-3" >
       <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
         <option value=" " >For Rent or Sell</option>
         <option value="./maincat.php?cat=realestate&spType=rs&arg=For Sell&label=Real Estate For Sell" >For Sell</option>
@@ -296,7 +296,7 @@ if(isset($_GET['cat'])){
     if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog' && ( isset($_GET['type']) && $_GET['type'] != 'land') || $_GET['cat'] == 'vacancy' ){
       ?>
  
-  <div class="col-3">
+  <div class="col-md-3">
 
         <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01" onchange="location = this.value;" >
               <option><?php if(isset($_GET['dbType'])){ echo $_GET['dbType']; }else{ echo $lang['Category']; } ?></option>
@@ -369,7 +369,7 @@ if(isset($_GET['cat'])){
                 $i = 0;
 
               ?> 
-        <div class="input-group mb-3 col-3">
+        <div class="input-group  col-md-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><?php echo $lang['location'] ?></span>
         </div>
@@ -440,7 +440,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
   ?>
  
 
-<div class="input-group mb-3 col-3">
+<div class="input-group mb-3 col-md-3">
         <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01" onchange="location = this.value;" >
           <option selected><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg']; }else{ echo $lang['Purpose'];}?></option>
 
@@ -476,10 +476,10 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
         </select>
         </div>
 
-</div>
-  </div>
+<!-- </div> -->
+  <!-- </div> -->
 
-</div>      </div>
+
 
   <?php
 }
@@ -501,7 +501,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
   $string = http_build_query($params); // to build the corrected requst to normal get query format
 ?>
-            <div class="input-group mb-3 col-3">
+            <div class="input-group mb-3 col-md-3">
         <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location = this.value;"  >
           <option ><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];}else{  echo $lang['yearMade']; }  ?></option>
           <?php 
@@ -535,7 +535,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
         if($locc->num_rows != 0){
           ?>
           
-          <div class="input-group mb-3 col-3">
+          <div class="input-group   col-md-3">
           <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Sub City: </span>
         </div>
@@ -658,7 +658,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
         <!-- kebele when subcity is involved in the search query. it will use both dyCol1 and dyCol2 -->
       <!-- kebele list -->
-      <div class="input-group mb-3 col-3">
+      <div class="input-group mb-3 col-md-3">
         <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location=this.value;"  >
           <option ><?php if(isset($_GET['dyArg2'])){ echo $_GET['dyArg2'];}else{  echo $lang['Wereda']; }?> <option>
           <?php 
@@ -806,7 +806,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
         
         <!-- here if there is no subcity involved in the search tags, then this only uses dyCol  -->
               <!-- kebele list -->
-      <div class="input-group mb-3 col-3">
+      <div class="input-group mb-3 col-md-3">
         <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location=this.value;"  >
           <option ><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];}else{  echo $lang['Wereda']; }?> <option>
           <?php 
@@ -858,10 +858,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
 
 
-    </div>
-      </div>
- 
-</div>      </div>
+
     
       <?php
     }
@@ -876,9 +873,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 <!-- </ul> -->
     </div>
 </div>
-</div>
-</div>  
-  </div>
+
   
 
 <!-- <div id="accordion" class="col-2"> -->
@@ -888,6 +883,17 @@ $string = http_build_query($params); // to build the corrected requst to normal 
  
   <div id="loop" class="col-md-12">
     <?Php
+
+
+
+/// here is the random sponsered posts appearing mechanism
+/// if the random number generator generets the number 3, the sponsered posts will be posted
+$random_number = rand(1,4);
+
+// this is the amount of sponcered posts are allowed to be posted per page, 
+$allowed_posts_per_page = 3;
+$counter_of_sponsered_posts = 0;
+$chance = 3;
 
 //// to show cars, electronics, ad, charity block.. i know its a nightmare
 
@@ -1079,7 +1085,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
                 
 
           
-                <div  class="row-col-3 col-sm-3 col-md-3">
+                <div  class="row-col-md-3 col-sm-3 col-md-3">
               <div class="card mb-4 box-shadow">
               
               <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $_GET['type'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -1148,7 +1154,14 @@ $string = http_build_query($params); // to build the corrected requst to normal 
                 array_push($_SESSION['userScroll'], $row['id']);
                 }
 
-                $sponsered = randomSponserPost();
+
+                /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                  $sponsered = randomSponserPost();
+                  
+                  $counter_of_sponsered_posts++;
+                }
+              
               }
               // $sponsered = randomSponserPost();
             }else{
@@ -1285,6 +1298,14 @@ $string = http_build_query($params); // to build the corrected requst to normal 
               <?php
                           array_push($_SESSION['userScroll'], $row['id']);
                         }
+
+                                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                  $sponsered = randomSponserPost();
+                  
+                  $counter_of_sponsered_posts++;
+                }
+
               }
             }else{
               echo 'No Results Found.';
@@ -1410,6 +1431,13 @@ $string = http_build_query($params); // to build the corrected requst to normal 
               <?php
                           array_push($_SESSION['userScroll'], $row['id']);
                         }
+
+                                      /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                  $sponsered = randomSponserPost();
+                  
+                  $counter_of_sponsered_posts++;
+                }
               }
             }else{
               echo 'No Result Found';
@@ -1485,6 +1513,14 @@ $string = http_build_query($params); // to build the corrected requst to normal 
             <?php
                         array_push($_SESSION['userScroll'], $row['id']);
                       }
+
+
+                 /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                  $sponsered = randomSponserPost();
+                  
+                  $counter_of_sponsered_posts++;
+                }
             }
           }else{
             echo 'No Result Found';
@@ -1782,7 +1818,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
                 
 
           
-                      <div  class="row-col-3 row-col-sm-12 row-col-md-3">
+                      <div  class="row-col-md-3 row-col-sm-12 row-col-md-3">
                   <div class="card mb-4 box-shadow">
               
               <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=house&postId=<?php echo $row['id'] ?>&label=House Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -1828,6 +1864,13 @@ $string = http_build_query($params); // to build the corrected requst to normal 
                 <?php
                           array_push($_SESSION['userScroll'], $row['id']);
                         }
+
+                                    /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                  $sponsered = randomSponserPost();
+                  
+                  $counter_of_sponsered_posts++;
+                }
 
               }
             }else{
@@ -2022,7 +2065,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
                 
 
           
-              <div  class="row-col-3 row-col-sm-12 row-col-md-3">
+              <div  class="row-col-md-3 row-col-sm-12 row-col-md-3">
                   <div class="card mb-4 box-shadow">
               
               <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -2071,7 +2114,12 @@ $string = http_build_query($params); // to build the corrected requst to normal 
                 <?php
                           array_push($_SESSION['userScroll'], $row['id']);
                         }
-
+                /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                  $sponsered = randomSponserPost();
+                  
+                  $counter_of_sponsered_posts++;
+                }
 
               }
             }else{
@@ -2355,7 +2403,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
                   while($row = $fetchPost[0]->fetch_assoc()){
                     ?>
-                  <div  class="row-col-3 row-col-sm-12 row-col-md-3">
+                  <div  class="row-col-md-3 row-col-sm-12 row-col-md-3">
                       <div class="card mb-4 box-shadow">
                   
                   <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -2446,7 +2494,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
                   while($row = $fetchPost[0]->fetch_assoc()){
                     ?>
-                  <div  class="row-col-3 row-col-sm-12 row-col-md-3">
+                  <div  class="row-col-md-3 row-col-sm-12 row-col-md-3">
                       <div class="card mb-4 box-shadow">
                   
                   <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -2534,7 +2582,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
                   while($row = $fetchPost[0]->fetch_assoc()){
                     ?>
-                  <div  class="row-col-3 row-col-sm-12 row-col-md-3">
+                  <div  class="row-col-md-3 row-col-sm-12 row-col-md-3">
                       <div class="card mb-4 box-shadow">
                   
                   <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -2788,7 +2836,12 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
 
               <?php
-              
+                              /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                              if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                                $sponsered = randomSponserPost();
+                                
+                                $counter_of_sponsered_posts++;
+                              }
             }
           }else{
             echo 'No Result Found';
@@ -2901,6 +2954,7 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
         
         ?>
+        </div>
 <div style="clear:both;"></div>
 
 <!-- </div> -->

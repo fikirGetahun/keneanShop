@@ -723,15 +723,27 @@
                
 
                 $selected = rand(0, $pkg_count-1);
-                $what = $sorted_pkg[$selected];
+                // $selected = 1;
+
+                
+                if(isset($sorted_pkg[$selected])){
+                    $what = $sorted_pkg[$selected];
+                }else{
+                    $what = $sorted_pkg[0];
+                }
 
                 // echo 'lllssll'.$sorted_pkg[$selected];
                         $fetchPostz = allPostListerOnColumen('realestate', 'pkg', $what );
+                        // echo $what;
+                        global $escape;
                         $escape = 0;
                         if($selected == 0){ // the platnem pkg or a new holday package in other word high number of website staying day
-                            $escape = 3;  // this is how many posts are should be shown in the categories for platinum is 3 since its higer.. then the loop will escape after the index hit the escape
+                            $escape = 3; 
+                            $_SESSION['escape'] = 3; // this is how many posts are should be shown in the categories for platinum is 3 since its higer.. then the loop will escape after the index hit the escape
+                            // echo 'break has happen';
                         }elseif($selected == 1){ /// the gold or next to the highst pkg
                             $escape = 2;
+                            // echo 'break has happen2';
                         }else{ /// the silver and lower
                             $escape = 1;
                         }
@@ -742,8 +754,9 @@
                         //     echo 'it works';
                         // }
                         while($row = $fetchPostz->fetch_assoc()){
-                            if($i == $escape){
-                                echo 'break has happen';
+                            // echo $i;
+                            if($i == 1){
+                                // echo $escape;
                                 break;
                             }
                            
