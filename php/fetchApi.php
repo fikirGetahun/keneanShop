@@ -696,7 +696,7 @@
 
 
             ///// to get random sponserd posts on every category
-            function randomSponserPost(){
+            function randomSponserPost($what){
                 include "connect.php";
                 // $random_chance = array(2,2,2,2,2,1,1,1,1,3,3);
                 $fe = allPostListerOnColumen('adcategory', 'tableName', 'pkg');
@@ -722,15 +722,15 @@
                 // print_r($sorted_pkg);
                
 
-                $selected = rand(0, $pkg_count-1);
+                $selected = rand(0, $pkg_count+2);
                 // $selected = 1;
 
                 
-                if(isset($sorted_pkg[$selected])){
-                    $what = $sorted_pkg[$selected];
-                }else{
-                    $what = $sorted_pkg[0];
-                }
+                // if(!isset($sorted_pkg[$selected])){
+                //     $what = $sorted_pkg[$selected];
+                // }else{
+                //     $what = $sorted_pkg[0];
+                // }
 
                 // echo 'lllssll'.$sorted_pkg[$selected];
                         $fetchPostz = allPostListerOnColumen('realestate', 'pkg', $what );
@@ -755,26 +755,43 @@
                         // }
                         while($row = $fetchPostz->fetch_assoc()){
                             // echo $i;
-                            if($i == 1){
+                            if($i == 1){ // to post only one post when randomly called from maincat.php
                                 // echo $escape;
                                 break;
                             }
                            
                         ?>
                         <!-- <div class="row"> -->
-                        <div  class="col-3 ">
-                          <div class="card mb-4 box-shadow bg-success">
-                      
-                        <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                        <div  class="col-3 "  >
+                          <div class="card mb-4 box-shadow"  >
+                              <?php
+                                if($what == 'Silver'){
+                                    ?>
+                                    <div class="border border-danger bg-warning">
+                                    <?php
+                                }elseif($what == 'Gold'){
+                                    ?>
+                                    <div class="border border-danger bg-success" >
+                                    <?php
+                                }else{
+                                    ?>
+                                    <div class="border border-danger bg-primary" >
+                                    <?php
+                                }
+
+
+                              ?>
+                            
+                        <a class="stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> </a> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img"  preserveAspectRatio="xMidYMid slice" focusable="false"></img>
     
                         <div class="card-body">
                             <?php  
                                 if($row['selectKey'] == 'rs'){
-                                    echo '<h5 class="card-title">Real Estate</h5>';
+                                    echo '<h6 class="card-title">Real Estate</h6>';
                                 }elseif($row['selectKey'] == 'ban'){
-                                    echo '<h5 class="card-title">Bank Stocks</h5>';
+                                    echo '<h6 class="card-title">Bank Stocks</h6>';
                                 }elseif($row['selectKey'] == 'ins'){
-                                    echo '<h5 class="card-title">Insurance Stocks</h5>';
+                                    echo '<h6 class="card-title">Insurance Stocks</h6>';
                                 }
                             
                             ?>
@@ -792,6 +809,7 @@
                           </div>
                         </div>
                       </div>
+                      </div>
                       <?php
                       if(isset($_SESSION['userId'])){
                       $faz = favouritesSelector('realestate', $_SESSION['userId'], $row['id'] );
@@ -808,6 +826,7 @@
                         }
                       }
                       ?>
+                      
                         </div>
                 
                         <!-- </div> -->

@@ -888,18 +888,22 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 
 /// here is the random sponsered posts appearing mechanism
 /// if the random number generator generets the number 3, the sponsered posts will be posted
-$random_number = rand(1,3);
+$random_number = rand(1,2);
 
 // this is the amount of sponcered posts are allowed to be posted per page, 
 $allowed_posts_per_page = 3;
 $counter_of_sponsered_posts = 0;
 $chance = 2;
 
+global $status;
 //// to show cars, electronics, ad, charity block.. i know its a nightmare
+if(isset($_GET['status'])){
+  $status = $_GET['status'];
+}
 
       if(isset($_GET['cat'], $_GET['status'],$_GET['off'], $_GET['label'],$_GET['type'])){
           $cat = $_GET['cat'];
-          $status = $_GET['status'];
+         
           $off = $_GET['off'];
           $label = $_GET['label'];
           if($status == ' ' && $_SESSION['location'] == 'All' && !isset($_GET['dbType']) && !isset($_GET['dyCol'], $_GET['dyArg'])){
@@ -1154,13 +1158,31 @@ $chance = 2;
                 array_push($_SESSION['userScroll'], $row['id']);
                 }
 
-
-                /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
-                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
-                  $sponsered = randomSponserPost();
-                  
-                  $counter_of_sponsered_posts++;
+                if($cat == 'car' || $cat == 'housesell' ){
+                    /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                    if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                      $sponsered = randomSponserPost('Silver');
+                      
+                      $counter_of_sponsered_posts++;
+                    }
                 }
+                if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land'){
+                  /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                  if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                    $sponsered = randomSponserPost('Gold');
+                    
+                    $counter_of_sponsered_posts++;
+                  }
+                }
+                if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land' || $cat == 'ad' || $status == 'bigDiscount' ){ 
+                  /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                  if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                    $sponsered = randomSponserPost('Platinum');
+                    
+                    $counter_of_sponsered_posts++;
+                  }
+                }
+
               
               }
               // $sponsered = randomSponserPost();
@@ -1299,12 +1321,30 @@ $chance = 2;
                           array_push($_SESSION['userScroll'], $row['id']);
                         }
 
-                                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
-                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
-                  $sponsered = randomSponserPost();
-                  
-                  $counter_of_sponsered_posts++;
-                }
+                        if($cat == 'car' || $cat == 'housesell' ){
+                          /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                          if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                            $sponsered = randomSponserPost('Silver');
+                            
+                            $counter_of_sponsered_posts++;
+                          }
+                      }
+                      if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land'){
+                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                        if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                          $sponsered = randomSponserPost('Gold');
+                          
+                          $counter_of_sponsered_posts++;
+                        }
+                      }
+                      if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land' || $cat == 'ad' || $status == 'bigDiscount' ){ 
+                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                        if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                          $sponsered = randomSponserPost('Platinum');
+                          
+                          $counter_of_sponsered_posts++;
+                        }
+                      }
 
               }
             }else{
@@ -1432,12 +1472,30 @@ $chance = 2;
                           array_push($_SESSION['userScroll'], $row['id']);
                         }
 
-                                      /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
-                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
-                  $sponsered = randomSponserPost();
-                  
-                  $counter_of_sponsered_posts++;
-                }
+                        if($cat == 'car' || $cat == 'housesell' ){
+                          /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                          if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                            $sponsered = randomSponserPost('Silver');
+                            
+                            $counter_of_sponsered_posts++;
+                          }
+                      }
+                      if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land'){
+                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                        if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                          $sponsered = randomSponserPost('Gold');
+                          
+                          $counter_of_sponsered_posts++;
+                        }
+                      }
+                      if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land' || $cat == 'ad' || $status == 'bigDiscount' ){ 
+                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                        if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                          $sponsered = randomSponserPost('Platinum');
+                          
+                          $counter_of_sponsered_posts++;
+                        }
+                      }
               }
             }else{
               echo 'No Result Found';
@@ -1515,12 +1573,30 @@ $chance = 2;
                       }
 
 
-                 /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
-                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
-                  $sponsered = randomSponserPost();
-                  
-                  $counter_of_sponsered_posts++;
-                }
+                      if($cat == 'car' || $cat == 'housesell' ){
+                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                        if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                          $sponsered = randomSponserPost('Silver');
+                          
+                          $counter_of_sponsered_posts++;
+                        }
+                    }
+                    if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land'){
+                      /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                      if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                        $sponsered = randomSponserPost('Gold');
+                        
+                        $counter_of_sponsered_posts++;
+                      }
+                    }
+                    if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land' || $cat == 'ad' || $status == 'bigDiscount' ){ 
+                      /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                      if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                        $sponsered = randomSponserPost('Platinum');
+                        
+                        $counter_of_sponsered_posts++;
+                      }
+                    }
             }
           }else{
             echo 'No Result Found';
@@ -1865,12 +1941,30 @@ $chance = 2;
                           array_push($_SESSION['userScroll'], $row['id']);
                         }
 
-                                    /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
-                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
-                  $sponsered = randomSponserPost();
-                  
-                  $counter_of_sponsered_posts++;
-                }
+                        if($cat == 'car' || $cat == 'housesell' ){
+                          /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                          if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                            $sponsered = randomSponserPost('Silver');
+                            
+                            $counter_of_sponsered_posts++;
+                          }
+                      }
+                      if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land'){
+                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                        if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                          $sponsered = randomSponserPost('Gold');
+                          
+                          $counter_of_sponsered_posts++;
+                        }
+                      }
+                      if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land' || $cat == 'ad' || $status == 'bigDiscount' ){ 
+                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                        if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                          $sponsered = randomSponserPost('Platinum');
+                          
+                          $counter_of_sponsered_posts++;
+                        }
+                      }
 
               }
             }else{
@@ -2114,12 +2208,30 @@ $chance = 2;
                 <?php
                           array_push($_SESSION['userScroll'], $row['id']);
                         }
-                /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
-                if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
-                  $sponsered = randomSponserPost();
-                  
-                  $counter_of_sponsered_posts++;
-                }
+                        if($cat == 'car' || $cat == 'housesell' ){
+                          /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                          if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                            $sponsered = randomSponserPost('Silver');
+                            
+                            $counter_of_sponsered_posts++;
+                          }
+                      }
+                      if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land'){
+                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                        if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                          $sponsered = randomSponserPost('Gold');
+                          
+                          $counter_of_sponsered_posts++;
+                        }
+                      }
+                      if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land' || $cat == 'ad' || $status == 'bigDiscount' ){ 
+                        /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                        if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                          $sponsered = randomSponserPost('Platinum');
+                          
+                          $counter_of_sponsered_posts++;
+                        }
+                      }
 
               }
             }else{
@@ -2836,12 +2948,30 @@ $chance = 2;
 
 
               <?php
+                            if($cat == 'car' || $cat == 'housesell' ){
                               /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
                               if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
-                                $sponsered = randomSponserPost();
+                                $sponsered = randomSponserPost('Silver');
                                 
                                 $counter_of_sponsered_posts++;
                               }
+                          }
+                          if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land'){
+                            /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                            if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                              $sponsered = randomSponserPost('Gold');
+                              
+                              $counter_of_sponsered_posts++;
+                            }
+                          }
+                          if($cat == 'car' || $cat == 'housesell' || $cat == 'electronics' || $cat == 'land' || $cat == 'ad' || $status == 'bigDiscount' ){ 
+                            /// if the random nuber generetor genererts the number 3, then the sponcer posts are allowed
+                            if($random_number == $chance && $allowed_posts_per_page > $counter_of_sponsered_posts){
+                              $sponsered = randomSponserPost('Platinum');
+                              
+                              $counter_of_sponsered_posts++;
+                            }
+                          }
             }
           }else{
             echo 'No Result Found';
