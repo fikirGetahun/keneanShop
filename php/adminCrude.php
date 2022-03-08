@@ -1188,6 +1188,13 @@ echo $mysql->error;
                         $dbPath .= './uploads/blogPhoto/'.$uploadName;
                     }
 
+                    if($tableName == 'realestate'){
+                        $uploadPath[] = '../uploads/realEstate/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= './uploads/realEstate/'.$uploadName;
+                    }
                     
 
                     if(!in_array($fileExt, $allowedType)){
@@ -1581,6 +1588,32 @@ return $ask;
 
         return $ask;
         
+    }
+
+
+
+    //// update realestate post only not payment
+    function realestateUpdateReal($id,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area   , $email, $price, $fixidOrN, $info ){
+        include "connect.php";
+        $q = "UPDATE `realestate` SET  `type`='$rsType',`title`='$title',`company`='$company',`city`='$city',`subCity`='$subCity',`wereda`='$wereda',`phone`='$phonem',`email`='$email',`area`='$area ',`floor`='$floor',`forRentOrSell`='$forRentOrSell',`price`='$price',`priceType`='$fixidOrN', `info`='$info'  WHERE `realestate`.`id` ='$id'";
+
+        $ask = $mysql->query($q);
+
+        echo $mysql->error;
+
+        return $ask;
+    }
+
+    //// update bank stock and insurance
+    function realestateUpdateBankIns($id,$rsType, $title, $company, $phonem, $city , $email, $price, $fixidOrN, $info ){
+        include "connect.php";
+        $q = "UPDATE `realestate` SET  `type`='$rsType',`title`='$title',`company`='$company',`city`='$city',`phone`='$phonem',`email`='$email',`price`='$price',`priceType`='$fixidOrN', `info`='$info'  WHERE `realestate`.`id` ='$id'";
+
+        $ask = $mysql->query($q);
+
+        echo $mysql->error;
+
+        return $ask;
     }
 
 
