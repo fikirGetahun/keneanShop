@@ -60,8 +60,8 @@ require_once "php/fetchApi.php";
     $pid = $_GET['postId'];
     $label = $_GET['label'];
     $tt = $_GET['type'];
-    $fetch = aSinglePostView($pid, $type);
-
+    $fetch = aSinglePostView($pid, $type);    
+        
     $row = $fetch->fetch_assoc();
 
       ?>
@@ -134,7 +134,16 @@ require_once "php/fetchApi.php";
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Purpose: </label> <?php echo $row['forRentOrSell'] ?></p>
 
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
-              <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Item Provider :</label> <?php echo $row['ownerBroker'] ?></p>
+              <?php
+                
+                if($_SESSION['auth'] == 'ADMIN' || $_SESSION['auth'] == 'EDITOR'){
+                  ?>
+                <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Item Provider :</label> <?php echo $row['ownerBroker'] ?></p>
+
+                  <?php
+                }
+                  
+              ?>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Status: </label><?php echo $row['status'] ?></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Fule Kind:</label>< <?php echo $row['fuleKind'] ?></p>
               <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Transmission: </label><?php echo $row['transmission'] ?></p>
@@ -1852,6 +1861,310 @@ if($_GET['cat'] == 'blog'){
   
   <?php
 }
+
+//// sponcer post discription view
+
+///////// realestate/////////////////
+if($_GET['type'] == 'rs'){
+  // to add aview count to this post
+  $viewadd = viewAdder($type, $pid);
+
+  ?>
+  
+<div class="container-fluid"> 
+  <div class="mb-3">
+  <div class="row g-0 w-150 p-3">
+    <div class="col-6 col-sm-12 col-md-6">
+    <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
+                      <ol  class="carousel-indicators">
+                          <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                      </ol>
+                      <div  class="carousel-inner">
+                          <div class="carousel-item active">
+                          <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                          </div>
+
+                          <?php
+                          $p = photoSplit($row['photoPath1']);
+                          if(!empty($p[1])){
+                              ?>
+                          <div class="carousel-item">
+                          <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                          </div>
+                              <?php
+                          }
+                          ?>
+
+                          <?php
+                          $p = photoSplit($row['photoPath1']);
+                          if(!empty($p[2])){
+                              ?>
+                          <div class="carousel-item">
+                          <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                          </div>
+                              <?php
+                          }
+                          ?>
+
+                      </div>
+                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                      </a>
+                      </div>  
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
+
+        <h5 class="card-title text-center"><?php echo $row['company'] ?></h5>
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1"></label>  <?php echo $row['forRentOrSell'] ?></p>
+
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['city'] ?></span> </p>
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Sub City: </label><span><?php echo $row['subCity'] ?></span> </p>
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Wereda: </label><span><?php echo $row['city'] ?></span> </p>
+
+
+         <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Area:</label> <?php echo $row['phone'].' metersquare' ?></p>
+
+         <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Floor:</label> <?php echo $row['floor'] ?></p>
+         <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Email:</label> <?php echo $row['email'] ?></p>
+ 
+        <p class="card-text">Price:  <?php echo number_format($row['price']) ?><small class="text-muted"> Brr</small></p>
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Price Type:</label> <?php echo $row['phone'] ?></p>
+        <?php
+    $s = 251;
+    $phone = $row['phone'];
+    if($phone[0] = 0){
+      $phone = $s.$phone;
+    }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+      $phone= $row['phone'];
+    }else{
+      $phone= $row['phone'];
+    }
+    ?>
+    <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
+    <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
+        <div class="btn-group">
+        </div>
+        <div class="btn-group">
+        <?php
+        if(isset($_SESSION['userId'])){
+        $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+        // $row = $faz->fetch_assoc();
+        // echo $row['fav'];
+          if($faz->num_rows > 0){
+            ?>
+            <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+            <?php
+          }else{
+            ?>
+          <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+            <?php
+          }
+
+          ?> 
+
+          <?php
+        }
+        ?>
+        </div>
+        <div id="msgDiv">
+
+        <?php
+              if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                ?>
+            <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                <?php
+              }elseif(!isset($_SESSION['userId'])){
+                ?>
+                <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
+                <?php
+              }
+            
+            ?>
+            </div>
+            </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <?php
+            $date = time_elapsed_string($row['postedDate']);
+            ?>
+            <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
+              <small class="text-muted"><?php echo $row['view'] ?> Views</small>
+              </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  <?php
+}
+
+///// bank stocks and insurance post view
+if($_GET['type'] == 'ban' || $_GET['type'] == 'ins'){
+  // to add aview count to this post
+  $viewadd = viewAdder($type, $pid);
+
+  ?>
+  
+<div class="container-fluid"> 
+  <div class="mb-3">
+  <div class="row g-0 w-150 p-3">
+    <div class="col-6 col-sm-12 col-md-6">
+    <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
+                      <ol  class="carousel-indicators">
+                          <li data-target="#carouselExampleIndicators"  data-slide-to="0" class="active"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                      </ol>
+                      <div  class="carousel-inner">
+                          <div class="carousel-item active">
+                          <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>"" alt="First slide">
+                          </div>
+
+                          <?php
+                          $p = photoSplit($row['photoPath1']);
+                          if(!empty($p[1])){
+                              ?>
+                          <div class="carousel-item">
+                          <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[1] ;?>" alt="Third slide">
+                          </div>
+                              <?php
+                          }
+                          ?>
+
+                          <?php
+                          $p = photoSplit($row['photoPath1']);
+                          if(!empty($p[2])){
+                              ?>
+                          <div class="carousel-item">
+                          <img class="d-block w-100 " src="<?php $p = photoSplit($row['photoPath1']); echo $p[2] ;?>" alt="Third slide">
+                          </div>
+                              <?php
+                          }
+                          ?>
+
+                      </div>
+                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                      </a>
+                      </div>  
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h5 class="card-title text-center"><?php echo $row['title'] ?></h5>
+
+        <h5 class="card-title text-center"><?php echo $row['company'] ?></h5>
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1"></label>  <?php echo $row['forRentOrSell'] ?></p>
+
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Type :</label> <?php echo $row['type'] ?></p>
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Location: </label><span><?php echo $row['city'] ?></span> </p>
+<!-- 
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Sub City: </label><span><?php echo $row['subCity'] ?></span> </p>
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Wereda: </label><span><?php echo $row['city'] ?></span> </p>
+
+
+         <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Area:</label> <?php echo $row['phone'].' metersquare' ?></p>
+
+         <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Floor:</label> <?php echo $row['floor'] ?></p> -->
+         <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Email:</label> <?php echo $row['email'] ?></p>
+ 
+        <p class="card-text">Price:  <?php echo number_format($row['price']) ?><small class="text-muted"> Brr</small></p>
+
+        <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Price Type:</label> <?php echo $row['phone'] ?></p>
+        <?php
+    $s = 251;
+    $phone = $row['phone'];
+    if($phone[0] = 0){
+      $phone = $s.$phone;
+    }elseif($phone[0] == 2 && $phone[1] == 5 && $phone[2] == 1 ){
+      $phone= $row['phone'];
+    }else{
+      $phone= $row['phone'];
+    }
+    ?>
+    <p class="card-text">Phone :<span class="fw-bolder"> <?php echo $phone ?></span> </p>
+    <p class="card-text"><label class="font-weight-bold" for="exampleInputEmail1">Description : </label><?php echo $row['info'] ?></p>
+        <div class="btn-group">
+        </div>
+        <div class="btn-group">
+        <?php
+        if(isset($_SESSION['userId'])){
+        $faz = favouritesSelector($cat, $_SESSION['userId'], $row['id'] );
+        // $row = $faz->fetch_assoc();
+        // echo $row['fav'];
+          if($faz->num_rows > 0){
+            ?>
+            <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Added to Fav</a>  
+            <?php
+          }else{
+            ?>
+          <a type="button" id="fav<?php echo $row['id'] ?>" onclick="fav( '<?php echo $row['id'] ?>', '<?php  echo $_SESSION['userId'] ?>', '<?php echo $cat ?>' )"   class="btn btn-sm btn-outline-warning">Add to Fav</a>
+            <?php
+          }
+
+          ?> 
+
+          <?php
+        }
+        ?>
+        </div>
+        <div id="msgDiv">
+
+        <?php
+              if( isset($_SESSION['userId']) && $_SESSION['userId'] != $row['posterId']){ // since you cant send message to yourself, if the poster id of the post is the same as the loged user, the send message button should not be here 
+                ?>
+            <a id="msgB" href="Account.php?message=true&inner=true&tb=<?php echo $_GET['cat'] ?>&reciver=<?php echo $row['posterId'] ?>&post=<?php echo $row['id'] ?>" class="btn btn-dark text-danger" >Send Message</a>
+                <?php
+              }elseif(!isset($_SESSION['userId'])){
+                ?>
+                <a id="msgB" href="login.php" class="btn btn-dark text-danger" >Send Message</a>
+                <?php
+              }
+            
+            ?>
+            </div>
+            </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <?php
+            $date = time_elapsed_string($row['postedDate']);
+            ?>
+            <p class="card-text"><small class="text-muted"><?php echo $date; ?></small></p>
+              <small class="text-muted"><?php echo $row['view'] ?> Views</small>
+              </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  <?php
+}
+
+
 
 
   }
