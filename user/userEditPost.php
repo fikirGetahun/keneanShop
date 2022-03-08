@@ -3356,7 +3356,7 @@ foreach($pp as $photo){
 
 
 ///// bank stock edit
-if(isset($_GET['type']) ){
+if(isset($_GET['type']) && ( $_GET['type'] == 'ban' || $_GET['type'] == 'ins') ){
 
   if($_GET['type'] == 'ban'){
     $editFetch = allPostListerOn2Columen('realestate', 'selectKey', 'ban', 'id', $uidx);

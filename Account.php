@@ -17,7 +17,7 @@ require_once "php/auth.php";
 
 
 $dbTables = array('ad', 'car', 'charity', 'electronics',
-'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse' );
+'housesell', 'tender', 'vacancy', 'zebegna', 'jobhometutor', 'hotelhouse', 'realestate' );
 
 $excluded = array('zebegna', 'jobhometutor', 'hotelhouse', 'housesell' );
 
@@ -415,6 +415,14 @@ foreach($dbTables as $posts){
                     <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=House Worker Job Seekers&type=houseWorker" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                       <?php
                     }
+                  }
+                }elseif($posts == 'realestate'){
+                  if($row['selectKey']== 'rs'){
+
+                  }elseif($row['selectKey']== 'ban'){
+
+                  }elseif($row['selectKey']== 'ins'){
+
                   }
                 }
                 ?>
