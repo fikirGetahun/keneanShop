@@ -2962,7 +2962,7 @@ include "../includes/lang.php";
 
 
 ///// real estate posting
-if(isset($_GET['type']) && $_GET['type'] == 'real'){
+if(isset($_GET['type']) && $_GET['type'] == 'rs'){
 
   $editFetch = allPostListerOn2Columen('realestate', 'selectKey', 'rs', 'id', $uidx);
   $reditFetch = $editFetch->fetch_assoc();
@@ -3339,6 +3339,277 @@ foreach($pp as $photo){
 
          
           <div id="alertVacancy"></div>
+         
+
+          <!-- </div> -->
+      <!-- </div> -->
+      <!-- /.modal-content -->
+            <!-- /// to select address like jiji style -->
+            <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
+  </div><!-- /.modal-dialog -->
+      
+  
+  
+  <?php
+}
+
+
+
+///// bank stock edit
+if(isset($_GET['type']) ){
+
+  if($_GET['type'] == 'ban'){
+    $editFetch = allPostListerOn2Columen('realestate', 'selectKey', 'ban', 'id', $uidx);
+    $reditFetch = $editFetch->fetch_assoc();
+  }elseif($_GET['type'] == 'ins'){
+    $editFetch = allPostListerOn2Columen('realestate', 'selectKey', 'ins', 'id', $uidx);
+    $reditFetch = $editFetch->fetch_assoc();
+  }
+
+  ?>
+  
+  <!-- <script src="assets/jquery.js"  ></script> -->
+<script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
+
+  })
+
+  $('sponser').on('submit', function(e){
+     
+
+    })
+
+  })
+
+
+
+// $(document).ready(function(){
+//   $('#sponser').on('submit', function(){
+//     alert('in the sponser ajax')
+
+//     $.ajax({
+//             url: './user/paymentPage.php?sub=true',
+//             type: 'post',
+//             data:  new FormData( this ),
+//             success : function(data){
+//               $( 'form' ).each(function(){
+//                     this.reset();
+//               });
+//               $('#alertVacancy').text(data)
+//               $('.modal-dialog').load(data)
+//               // $('#alertVacancy').delay(5200).fadeOut(1000);
+//               // location.reload()
+//             },
+//             processData: false,
+//         contentType: false
+//           })
+//   })
+// })
+
+</script>
+
+<div  class="modal-dialog">
+  <div  id="contSp"  class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+      <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+    </div>
+          <div class="modal-body">
+
+          <form id="sponser"    method="POST" enctype="multipart/form-data">
+          <input hidden name="postId" value="<?php echo $reditFetch['id'] ?>">
+ 
+
+
+         
+
+          <!-- title -->
+          <div class="form-group">
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="title" value="<?php echo $reditFetch['title'] ?>">
+          </div>
+
+          <!-- company name -->
+          <div class="form-group">
+           <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="company" value="<?php echo $reditFetch['company'] ?>">
+          </div>
+
+
+          <script>
+
+
+  // sub city filter api
+  function hCity(x){
+    // alert(x)
+    $.ajax({
+        url: 'user/userApi.php',
+        type: 'post',
+        data: {
+          cityH: x
+        },
+        success: function(data){
+          // alert(data)
+          $('#subH').empty()
+          $('#subH').append(data)
+        }
+      })
+  }
+</script>
+
+
+
+
+
+
+<!--  city list -->
+
+<div  class="input-group mb-3" >
+  <!-- <label><?php echo $lang['city'] ?></label> -->
+        <select  class="form-select" aria-label="Default select example" name="city" onchange="hCity(this.value)" id="">
+           <option><?php echo $reditFetch['address'] ?></option>
+          <?php 
+              require_once '../php/fetchApi.php';
+                $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                $city = array();
+                while($rowLoc = $locc->fetch_assoc()){
+                    $city[]= $rowLoc['category'];
+                }
+                sort($city);
+                $i = 0;
+                foreach($city as $loc){
+                  if($loc == 'Addis Ababa'){
+                    ?>
+                    <option selected ><?php echo $loc ?></option>
+                    <?php
+                  }else{
+                    ?>
+                     <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                    <?php
+                  }
+                  ?>
+                  
+                
+                  <?php
+                  $i++;
+                }
+              ?> 
+        </select>
+        </div>
+
+      
+
+      
+     
+
+
+
+
+        <!-- phone number  -->
+        <div class="form-group">
+                        <label for="exampleInputEmail1"><?php echo $lang['phone'] ?> : </label>
+           <input type="number" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="phone" placeholder=" " value="<?php echo $reditFetch['phone'] ?>">
+        </div>
+
+        <!-- email  -->
+        <div class="form-group">
+          <label for="exampleInputEmail1"><?php echo $lang['email'] ?></label>
+           <input type="email" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="email" value="<?php echo $reditFetch['email'] ?>">
+        </div>
+
+
+                
+<!-- price  -->
+<div class="form-group">
+  <label for="exampleInputEmail1"><?php echo $lang['labelPrice'] ?> :</label>
+  <input type="number" class="form-control" id="nameTitle" 
+  aria-describedby="emailHelp" name="price" value="<?php echo $reditFetch['price'] ?>">
+</div>
+
+
+
+
+<!-- price type  -->
+<div class="input-group mb-3">
+
+<select class="form-select" aria-label="Default select example" name="fixidOrN" id="inputGroupSelect01">
+  <option selected> <?php echo $reditFetch['priceType'] ?></option>
+  <option value="Fixed"><?php echo $lang['Fixed'] ?></option>
+  <option value="Negotiatable"><?php echo $lang['Negotiatable'] ?></option>
+  <option value="Negotiatable"><?php echo $lang['slightlyNegotiable'] ?></option>
+</select>
+</div>
+        
+
+ 
+
+        <div class="form-group">
+        <h6 style="color: coral;" > <?php echo $lang['Description'] ?></h6>
+
+          <textarea type="text" class="form-control" id="des2" 
+          aria-describedby="emailHelp" name="info" placeholder="<?php echo $lang['Descriptionmore'] ?>"><?php echo $reditFetch['info'] ?></textarea>
+        </div>
+
+
+        <input class="btn btn-dark" type="submit" value="Save Changes!">
+        </form>
+        <div id="alertVacancy"></div>
+<script>
+
+function pUpdate(divz, photo){
+ $('#'+divz).empty()
+ $.post('admin/editHandler.php', {photoPath: photo, tableName: "realestate", pid: "<?php echo $reditFetch['id'] ?>"}, 
+   function(returnedData){
+     $('#'+divz).append(returnedData)        
+ })
+}
+
+</script>
+<?php
+$i = 0;
+$pp = photoSplit($reditFetch['photoPath1']);
+if(!empty($reditFetch['photoPath1'])){
+foreach($pp as $photo){
+  ?>
+       <div id="<?php echo $i ?>">
+       <img class="img-thumbnail" src="<?php  echo $photo ;?>" alt="Card">  
+       <button type="button" onclick="pUpdate('<?php echo $i ?>', '<?php echo $photo ?>')" class="btn btn-dark"><?php echo $lang['deletePhoto'] ?></button> 
+       </div>
+  <?php
+  $i ++;
+}
+}else{
+ ?>
+       <form method="POST" enctype="multipart/form-data" >
+       <input hidden name="pid" value="<?php echo $uidx; ?>">
+       <input hidden name="tName" value="realestate">
+       <div class="row">
+       <div id="registerBox">
+       <label for="exampleInputEmail1"><?php echo $lang['up'] ?>  </label>
+       <input type="file" class="form-control" id="photo" name="photo[]" multiple >
+       </div>
+       </div>
+
+       <input type="submit" value="Change Photo">
+       </form>
+ 
+ <?php
+}
+?>
+
+
+
+
+
+          
+
+
+         
+          
          
 
           <!-- </div> -->
