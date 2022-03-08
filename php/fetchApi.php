@@ -522,7 +522,7 @@
                 $q = "SELECT * FROM `msg` WHERE (( `user1` = '$LogedUserId' AND `user2` = '$secondUser') OR (`user1` = '$secondUser' AND `user2` = '$LogedUserId')) AND ( `tableName` = '$tableOfPost' AND `postId` = '$postId')  ORDER BY `postedDate` ASC  "; // the query is the  0 1, 1 0 all posibel probablity of the sender and recever  
 
                 $ask = $mysql->query($q);
-                echo $mysql->error;
+                echo $mysql->error; 
                 return $ask;
             }
 

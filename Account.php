@@ -807,12 +807,18 @@ foreach($dbTables as $posts){
           ?>
 
         <div class="card-body row">
+
             
             <?php 
+
+
+              
+            
+if($o['tableName'] != 'ORDER'){
             // to fetch the post photo and title to be displayed 
             $postCrap = allPostListerOnColumen($o['tableName'], 'id', $o['postId'] );
             $rowPostCrap = $postCrap->fetch_assoc();
-
+}
 
           // to fetch the reciver end user data crap
           $userCrap = allPostListerOnColumen('user', 'id', $otherUser);
@@ -823,7 +829,14 @@ foreach($dbTables as $posts){
           $authCH = allPostListerOnColumen('user','id',$otherUser);
           $rowAuth = $authCH->fetch_assoc();
 
+          if($o['tableName'] == 'ORDER'){ // if the table name is 'ORDER' this means the msg type is order so the order msg label must be included
             ?>
+             <h4>Order Message From</h4>
+            <?php
+          }
+            ?>
+
+           
             <?php
             if($_SESSION['auth'] == 'ADMIN'  || $_SESSION['auth'] == 'EDITOR'  ){
               ?>
@@ -863,6 +876,8 @@ foreach($dbTables as $posts){
                  <span class="badge badge-danger"><?php if($numUnseen != 0){ echo ' New'; } ?></span>
                 <?php
               } 
+
+            }
             ?>
            
           </div></a>
@@ -884,6 +899,7 @@ foreach($dbTables as $posts){
         $tb = $_GET['tb'];
         $reciver = $_GET['reciver'];
         $postFocus = $_GET['post'];
+        if($tb != 'ORDER'){
         // echo 'post ID '.$postFocus;
         //fetch the posts photo and title of the post
         $postData = allPostListerOnColumen($tb, 'id', $postFocus);
@@ -902,7 +918,7 @@ foreach($dbTables as $posts){
         // to check if any of the users are admin/ editor / user
         $authCH = allPostListerOnColumen('user','id',$reciver);
         $rowAuth = $authCH->fetch_assoc();
-
+        }
         ?>
         
 
@@ -912,6 +928,10 @@ foreach($dbTables as $posts){
         <div class="col-md-12 col-xl-12 chat">
 					<div class="card">
 						<div class="card-header msg_head">
+            <?php
+                if($tb != 'ORDER'){ /// if the msg is not order this is not set so it will show the noraml inner msg view
+            ?>
+
 							<div class="d-flex bd-highlight">
 								<div class="d-flex justify-content-start mb-4">
                   <?php
@@ -1012,10 +1032,17 @@ foreach($dbTables as $posts){
 									<li><i class="fas fa-ban"></i> Block</li>
 								</ul>
 							</div> -->
+              <?php
+                }else{ /// else if its an order it only shows the order label
+                  ?>
+                  <h4 class="justify-content-center">Order Item!</h4>
+                  <?php
+                }
+              ?>
 						</div>
 						<div class="card-body msg_card_body">
               <?php
-              echo $_SESSION['userId'];
+              // echo $_SESSION['userId'];
                 // to fetch all the messages of this particular user and post
                 $innerMsg = innerMsgFetcher($tb, $_SESSION['userId'], $postFocus, $reciver);
                 if($innerMsg->num_rows != 0){
@@ -1158,7 +1185,7 @@ foreach($dbTables as $posts){
 
 
       
-    }
+    
 
     if(isset($_GET['setting'])){
       $us = allPostListerOnColumen('user', 'id', $_SESSION['userId']);
