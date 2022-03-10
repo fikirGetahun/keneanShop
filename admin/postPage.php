@@ -2939,12 +2939,15 @@ if($_GET['type'] == 'zebegna'){
   <?php
 }
 
-///// real estate posting
-if($_GET['type'] == 'real'){
-  ?>
-  
+
+}
+  if(isset($_GET['type'])){
+      if($_GET['type'] == 'blog'){
+
+
+?>
   <!-- <script src="assets/jquery.js"  ></script> -->
-<script>
+  <script>
   $(document).ready(function(){
   $('#cl').click(function(){
   location.reload();
@@ -2953,21 +2956,199 @@ if($_GET['type'] == 'real'){
 
   })
 </script>
-
 <div id="cont" class="modal-dialog">
   <div class="modal-content">
+
+  <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
+      <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
+    </div>
+          <div class="modal-body">
+
+<form  method="POST" enctype="multipart/form-data">
+          <input hidden name="posterId" value="<?php echo $uidx; ?>">
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Front Label Of Blog</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="frontLabel" placeholder="Front Label here">
+          <small id="emailHelp" class="form-text text-muted">This is the frontal name of the blog that people see to click on</small>
+          </div>
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Title Of Blog</label>
+          <input type="text" class="form-control" id="nameTitle" 
+          aria-describedby="emailHelp" name="title" placeholder="Title here">
+          <small id="emailHelp" class="form-text text-muted">Title must be clear and simple</small>
+          </div>
+
+
+
+
+
+
+
+          <div class="form-group">
+          <label for="exampleInputEmail1">Content of Blog.</label>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <textarea type="text" class="form-control rounded-0" style="width:90%; height:800px;"  id="des2" 
+           name="content" placeholder="Copy Paste or write your content here"></textarea>
+        </div>
+
+
+        <div class="row">
+        <div id="registerBox">
+        <label for="exampleInputEmail1">Upload Photos</label>
+          <input type="file"  class="form-control" id="photo" name="photo[]" multiple>
+          <small id="emailHelp" class="form-text text-muted">photos that describe your blog post</small>
+        </div>
+
+
+
+
+
+
+          
+
+
+          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
+          <div id="alertVacancy"></div>
+          </form>
+  </div>
+</div>
+</div>
+
+<?php
+
+
+      }
+  
+ 
+}
+
+
+
+///// real estate posting
+if(isset($_GET['type'])&&$_GET['type'] == 'real'){
+  ?>
+  
+  <script src="assets/jquery.js"  ></script>
+<script>
+  $(document).ready(function(){
+  $('#cl').click(function(){
+  location.reload();
+
+  })
+
+  $('sponser').on('submit', function(e){
+          
+
+          
+
+    })
+
+  })
+
+  function spon(){
+    alert('in the sponser ajax')
+    // e.preventDefault()
+    // location = './user/paymentPage.php?sub=true'
+    $.ajax({
+            url: 'paymentPage.php',
+            type: 'post',
+            data:  new FormData( this ),
+            success : function(data){
+              $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text(data)
+              // $('#alertVacancy').delay(5200).fadeOut(1000);
+              // location.reload()
+            },
+            processData: false,
+        contentType: false
+          })
+  }
+
+$(document).ready(function(){
+  $('#sponser').on('submit', function(){
+    alert('in the sponser ajax')
+
+    $.ajax({
+            url: './user/paymentPage.php?sub=true',
+            type: 'post',
+            data:  new FormData( this ),
+            success : function(data){
+              $( 'form' ).each(function(){
+                    this.reset();
+              });
+              $('#alertVacancy').text(data)
+              $('.modal-dialog').load(data)
+              // $('#alertVacancy').delay(5200).fadeOut(1000);
+              // location.reload()
+            },
+            processData: false,
+        contentType: false
+          })
+  })
+})
+
+</script>
+
+<div  class="modal-dialog">
+  <div  id="contSp"  class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
       <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
     </div>
           <div class="modal-body">
 
-          <form  method="POST" enctype="multipart/form-data">
+          <form id="sponser"   method="POST" enctype="multipart/form-data">
           <input hidden name="posterId" value="<?php echo $_SESSION['userId']; ?>">
 
           <?php
+            // to set the selectKey to deside the post is realestate, bank or insurance post
+            if(isset($_GET['real']) && $_GET['real'] == 'realEstate'){
+              ?>
+            <input hidden type="text" name="selectKey" value="rs">
+              <?php
+            }elseif(isset($_GET['real']) && $_GET['real'] == 'insurance'){ 
+              ?>
+            <input hidden type="text" name="selectKey" value="ins">
+              <?php
+            }elseif(isset($_GET['real']) && $_GET['real'] == 'bank'){
+              ?>
+            <input hidden type="text" name="selectKey" value="ban">
+              <?php
+            }
+          
+          
+          ?>
+
+<!-- select pkgs to post in the admin side  -->
+<div class="input-group mb-3">
+
+<select class="form-select" aria-label="Default select example" name="pkg" id="inputGroupSelect01">
+  <option selected>Select Package</option>
+  <?php 
+        $fetch = allPostListerOnColumen('adcategory', 'tableName', 'pkg');
+        if($fetch->num_rows !=0){
+        while($row = $fetch->fetch_assoc()){
+          ?>
+          <option value="<?php echo $row['category'] ?>"><?php echo $row['category'] ?></option>
+          <?php
+        }
+      }
+  ?>
+
+</select>
+</div>
+
+          <?php 
           if(isset($_GET['real']) && $_GET['real'] == 'realEstate'){
             ?>
+            
+
             <!-- for rent or sell  -->
 <div class="form-group">
           <label for="exampleInputEmail1" class="fs-6  " ><?php echo $lang['sellOrRent'] ?></label><br>
@@ -3147,8 +3328,9 @@ if($_GET['type'] == 'real'){
           <?php 
              for($y=1;$y<=30;$y++){
                if($y <= 9 ){
+                 $pre = 0;
                  ?>
-                 <option value="<?php echo '0'.$y ?>"><?php echo '0'.$y ?></option>
+                 <option value="<?php echo $pre.$y ?>"><?php echo '0'.$y ?></option>
                  <?php
                }else{
                 ?>
@@ -3275,98 +3457,12 @@ if($_GET['type'] == 'real'){
             <!-- /// to select address like jiji style -->
             <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
   </div><!-- /.modal-dialog -->
-
-      <?php
-
-}
-}
-  if(isset($_GET['type'])){
-      if($_GET['type'] == 'blog'){
-
-
-?>
-  <!-- <script src="assets/jquery.js"  ></script> -->
-  <script>
-  $(document).ready(function(){
-  $('#cl').click(function(){
-  location.reload();
-
-  })
-
-  })
-</script>
-<div id="cont" class="modal-dialog">
-  <div class="modal-content">
-
-  <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang['upload'] ?></h5>
-      <button id="cl"   type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"> </button>
-    </div>
-          <div class="modal-body">
-
-<form  method="POST" enctype="multipart/form-data">
-          <input hidden name="posterId" value="<?php echo $uidx; ?>">
-
-          <div class="form-group">
-          <label for="exampleInputEmail1">Front Label Of Blog</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="frontLabel" placeholder="Front Label here">
-          <small id="emailHelp" class="form-text text-muted">This is the frontal name of the blog that people see to click on</small>
-          </div>
-
-          <div class="form-group">
-          <label for="exampleInputEmail1">Title Of Blog</label>
-          <input type="text" class="form-control" id="nameTitle" 
-          aria-describedby="emailHelp" name="title" placeholder="Title here">
-          <small id="emailHelp" class="form-text text-muted">Title must be clear and simple</small>
-          </div>
-
-
-
-
-
-
-
-          <div class="form-group">
-          <label for="exampleInputEmail1">Content of Blog.</label>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          <textarea type="text" class="form-control rounded-0" style="width:90%; height:800px;"  id="des2" 
-           name="content" placeholder="Copy Paste or write your content here"></textarea>
-        </div>
-
-
-        <div class="row">
-        <div id="registerBox">
-        <label for="exampleInputEmail1">Upload Photos</label>
-          <input type="file"  class="form-control" id="photo" name="photo[]" multiple>
-          <small id="emailHelp" class="form-text text-muted">photos that describe your blog post</small>
-        </div>
-
-
-
-
-
-
-          
-
-
-          <input class="btn btn-dark" type="submit" onclick="x()" value="POST">
-          <div id="alertVacancy"></div>
-          </form>
-  </div>
-</div>
-</div>
-
-<?php
-
-
-      }
+      
   
- 
+  
+  <?php
 }
-
-
-
+?>
 ?>
 
 

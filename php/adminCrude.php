@@ -1620,10 +1620,10 @@ return $ask;
 
 
         /// realestate insereting data
-        function realEstatePay($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area   , $email, $price, $fixidOrN, $info, $up, $selectKey, $bn, $pkg, $tid){
+        function realEstatePay($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area   , $email, $price, $fixidOrN, $info, $up, $selectKey, $bn, $pkg, $tid, $stat){
             include "connect.php";
             $postedDate = date('Y-m-d H:i:s');
-            $q = "INSERT INTO `realestate`(  `type`, `title`, `company`, `city`, `subCity`, `wereda`, `phone`, `email`, `area`, `floor`, `forRentOrSell`, `price`, `priceType`, `photoPath1`, `info`, `postedDate`, `posterId`, `selectKey`, `payBank`, `transId`, `filled`, `pkg`) VALUES  ('$rsType', '$title', '$company', '$city', '$subCity', '$wereda', '$phonem', '$email',  '$area', '$floor', '$forRentOrSell', '$price', '$fixidOrN', '$up', '$info', '$postedDate', '$posterId', '$selectKey', '$bn', '$tid', 'YES', '$pkg' )";
+            $q = "INSERT INTO `realestate`(  `type`, `title`, `company`, `city`, `subCity`, `wereda`, `phone`, `email`, `area`, `floor`, `forRentOrSell`, `price`, `priceType`, `photoPath1`, `info`, `postedDate`, `posterId`, `selectKey`, `payBank`, `transId`, `filled`, `pkg` , `status`) VALUES  ('$rsType', '$title', '$company', '$city', '$subCity', '$wereda', '$phonem', '$email',  '$area', '$floor', '$forRentOrSell', '$price', '$fixidOrN', '$up', '$info', '$postedDate', '$posterId', '$selectKey', '$bn', '$tid', 'YES', '$pkg', '$stat' )";
     
             $ask = $mysql->query($q);
     

@@ -108,7 +108,7 @@ global $selectKey, $posterId, $title, $company, $phonem, $email, $price, $fixidO
     </script>
     <div class="card m-4">
     <div class="row">
-        <div  class="col-4" >
+       
         <h5>Available Pakages!</h5>
         <?php
         $fpkg = allPostListerOnColumen('adcategory', 'tableName', 'pkg' );
@@ -116,15 +116,17 @@ global $selectKey, $posterId, $title, $company, $phonem, $email, $price, $fixidO
             $jjf = explode(',', $row['subcityKey']);
 
             ?>
+             <div  class="col-4 border border-warning" >
     <h4><?php echo $row['category'].' Pakage' ?></h4>
 <p><?php echo $jjf[0] ?></p>
         <h5 id="amount" class="text-success">Amount: <?php echo $jjf[1] ?> birr </h5> 
+        </div>
             <?php
         }
         ?>
         
        
-        </div>
+       
         
     </div>
     <hr>

@@ -235,7 +235,7 @@ $sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId'
                         <div  class="col-md-4 mb-3">
                       <div class="card mb-1 box-shadow">
                   
-                  <a class="img-thumbnail" href="./Description.php?cat=realestate&type=<?php echo $row['selectKey'] ?>&postId=<?php echo $row['id'] ?>&label=<?php echo $viewLabel ?>" class="> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=realestate&type=<?php echo $row['selectKey'] ?>&postId=<?php echo $row['id'] ?>&label=<?php echo $viewLabel ?>" class=""> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
                     <div class="card-body ">
                       <h5 class="card-title">  <?php echo $row['title'] ?></h5>
@@ -379,7 +379,7 @@ foreach($dbTables as $posts){
 <?php
                     }else{
 ?>
-          <a class="img-thumbnail " href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+          <a class="img-thumbnail st" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Product Ads&type=product" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
 <?php                     
                     }                    

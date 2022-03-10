@@ -495,8 +495,12 @@ if(!isset($_SESSION)){
 
         </ul>
       </li><!-- End Components Nav -->  
-
-
+      <li>
+      <?php
+        $out = userDataShower($uid);
+        $row2 = $out->fetch_assoc();
+        if($row2['auth'] == 'ADMIN'){
+          ?>
       <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse" href="#">
           <i class="bi bi-credit-card-2-back-fill"></i><span>Manage Sponsered System</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -524,7 +528,9 @@ if(!isset($_SESSION)){
 
         </ul>
       </li><!-- End Components Nav -->  
-
+        <?php
+        }
+        ?>
       <a class="nav-link collapsed" data-bs-target="#components-nav55" data-bs-toggle="collapse" href="#">
           <i class="bi bi-binoculars-fill"></i><span>Sponserd Posts</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -793,6 +799,21 @@ alert('wiork')
           <li>
             <a id="postCharity" href='./postPage.php?type=land'>
               <i class="bi bi-circle"></i><span>Post Land</span>
+            </a>
+          </li>
+          <li>
+            <a id="postCharity" href='./postPage.php?type=real&real=realEstate'>
+              <i class="bi bi-circle"></i><span class="text-success">Post REAL ESTATE</span>
+            </a>
+          </li>
+          <li>
+            <a id="postCharity" href='./postPage.php?type=real&real=bank'>
+              <i class="bi bi-circle"></i><span  class="text-success">Post BANK STOCK</span>
+            </a>
+          </li>
+          <li>
+            <a id="postCharity" href='./postPage.php?type=real&real=insurance'>
+              <i class="bi bi-circle"></i><span  class="text-success">Post INSURANCE STOCK</span>
             </a>
           </li>
           <li>

@@ -426,7 +426,7 @@ $bn = $_POST['bankName'];
 $pkg = $_POST['pkg'];
   
 
-    $enter = realEstatePay($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area  , $email, $price, $fixidOrN, $info, $fileVar, $selectKey, $bn, $pkg, $tid);
+    $enter = realEstatePay($posterId,$rsType, $title, $company, $phonem, $city, $wereda, $floor, $forRentOrSell, $subCity, $area  , $email, $price, $fixidOrN, $info, $fileVar, $selectKey, $bn, $pkg, $tid, 'NOT');
     if($enter){
       echo 'Posted Successfully.';
     }else{
