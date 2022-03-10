@@ -425,11 +425,17 @@ foreach($dbTables as $posts){
                   }
                 }elseif($posts == 'realestate'){
                   if($row['selectKey']== 'rs'){
-
+                    ?>
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=RealEstate Posts&type=<?php echo $row['selectKey'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                      <?php
                   }elseif($row['selectKey']== 'ban'){
-
+                    ?>
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=BankStock Posts&type=<?php echo $row['selectKey'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                      <?php
                   }elseif($row['selectKey']== 'ins'){
-
+                    ?>
+                    <a class="img-thumbnail" href="./Description.php?cat=<?php echo $posts;?>&postId=<?php echo $row['id'];?>&label=Insurance Posts&type=<?php echo $row['selectKey'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                      <?php
                   }
                 }
                 ?>
@@ -460,6 +466,10 @@ foreach($dbTables as $posts){
                     }elseif($posts == 'charity'){
                       ?>
                       <h5>Charity Post</h5>
+                      <?php
+                    }elseif($posts == 'realestate'){
+                      ?>
+                      <h6>Sponsered!</h6>
                       <?php
                     }
 
@@ -794,6 +804,7 @@ foreach($dbTables as $posts){
       if(isset($_GET['outter'])){
         $outerM = outerMsgFetcher($_SESSION['userId']);
         // echo $_SESSION['userId'];
+        echo " <div class=card>";
         if($outerM->num_rows != 0){
         while($o = $outerM->fetch_assoc()){
           $date = time_elapsed_string($o['postedDate']);
@@ -807,7 +818,7 @@ foreach($dbTables as $posts){
             $you = ' ';
           }
           ?>
-        <div class="card">
+        <!-- <div class="card"> -->
           <?php 
             // to mark unread msgs
             if($o['seen'] == 'new'){ // if the msg is unseen it will send an unseen request to the inner msg so that it updates it to seen after they click the unread msg

@@ -14,34 +14,47 @@ require_once "../php/adminCrude.php";
 // this is arry of the location, subcity and wereda imploded to string so that its assinged to 'filter' parameter in the memberslist.php
 if(isset($_GET['filter'])){
   $filter = $_GET['filter'];
+
   $filter = explode(',',$filter); // now we will explode it back to arry so that we can perform the get request for all the location, subcity, and wereda
+  
+ 
 }
 
 if(isset($_GET['pending'])){
   echo $_GET['pending'];
 }
 
-if(isset($filter[0])){
-  if(isset($filter[1], $filter[2])){
+$leee2= $filter[3];
+
+
+if(isset($filter[0]) || isset($_SESSION['location'])){
+  if( $filter[1] != 1  && $filter[2] != 2){
     $we = $filter[2];
     $su = $filter[1];
+   
     if(isset($_GET['pending'])){
       $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null, 'wereda', $we, 'subCity', $su , $_SESSION['mbScroll'], 5);
     }else{
-      $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su , $_SESSION['mbScroll'], 5);
+      $member = allPostListerOn5ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su, 'label', $leee2 , $_SESSION['mbScroll'], 5);
     }
-  }elseif(isset($filter[1])){
+  }elseif(isset($filter[1]) && $filter[1] != 1){
     $subReq = $filter[1];
     if(isset($_GET['pending'])){
       $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', null, 'subCity', $subReq , $_SESSION['mbScroll'], 5);
     }else{
-      $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq , $_SESSION['mbScroll'], 5);
+      $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq, 'label', $leee2  , $_SESSION['mbScroll'], 5);
     }
   }elseif(isset($filter[0]) && $filter[0] == 'All'){ // IF THE location is seted to 'ALL'
     if(isset($_GET['pending'])){
       $member = allPostListerOnColumenD('mambership', 'approved', null , $_SESSION['mbScroll'], 5);
     }else{
-      $member = allPostListerOnColumenD('mambership', 'approved', 'YES' , $_SESSION['mbScroll'], 5);
+      $member = allPostListerOn2ColumenD('mambership', 'approved', 'YES', 'label', $leee2  , $_SESSION['mbScroll'], 5);
+    }
+  }elseif(isset($filter[0]) && $filter[0] != 'All'){ // IF THE location is seted to 'ALL'
+    if(isset($_GET['pending'])){
+      $member = allPostListerOn2ColumenD('mambership', 'approved', null , 'city', $_SESSION['location'] , $_SESSION['mbScroll'], 5);
+    }else{
+      $member = allPostListerOn3ColumenD('mambership', 'approved', 'YES', 'label', $leee2 , 'city', $_SESSION['location']  , $_SESSION['mbScroll'], 5);
     }
   }
  
@@ -49,7 +62,7 @@ if(isset($filter[0])){
   if(isset($_GET['pending'])){
     $member = allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
   }else{
-    $member = allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
+    $member = allPostListerOn2ColumenD('mambership', 'approved',  'YES', 'label', $leee2 , 1, 2);
   }
 }
 
@@ -93,6 +106,7 @@ if(isset($filter[0])){
                       }else{
                         ?>
                       <a href="./membersList.php?view=true&mid=<?php echo $row['id'] ?>"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View </button></a>
+                      <span class="btn btn-sm btn-outline-secondary text-success" >Level <?php echo $row['label'] ?></span>
                         <?php
                         
                       }

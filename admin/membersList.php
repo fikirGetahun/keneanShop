@@ -75,9 +75,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
                 $i = 0;
 
               ?> 
-<div class="input-group-prepend">
-  <span class="input-group-text" id="basic-addon1"><?php echo $lang['location'] ?></span>
-</div>
+ 
 <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01"  onchange="location=this.value;" >
   <option selected >  <?php echo $_SESSION['location'] ?></option>
   <!-- <option value="All"> All </option> -->
@@ -159,8 +157,8 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
     </div><?php
 }else{
   ?>
+  <span class="text-warning" >No Sub City here!</span>
   
-  No Sub City here!
 </div>
   <?php
 }
@@ -196,6 +194,26 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
         </select>
         </div>
 
+        <!-- lavel filter  -->
+        <div class="form-group col-3">
+            <?php
+            $weredaurl = parse_url($_SERVER['REQUEST_URI']);
+            $WU = parse_str($weredaurl['query'], $wer);
+
+            if(isset($wer['label'])){
+              unset($wer['label']);
+            }
+           
+            $wer = http_build_query($wer);
+            ?>
+        <select class="form-select" aria-label="Default select example" name="wereda" onchange="location=this.value;"  id="inputGroupSelect01">
+          <option value="<?php echo '?'.$wer  ?>&label=4" >Level 4</option>
+          <option value="<?php echo '?'.$wer  ?>&label=3" >Level 3</option>
+          <option value="<?php echo '?'.$wer  ?>&label=2" >Level 2</option>
+          <option value="<?php echo '?'.$wer  ?>&label=1" >Level 1</option>
+        </select>
+        </div>
+
 
 </div>
  <?php
@@ -205,32 +223,54 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
       $filterArr = array(); // this array holds the location, subcity, and wereda in a single arry when they are set. so that we implode it to string and pass it to the scroll view so that it loads the appropretelly filtered data
 
       // echo $_SESSION['location'];
-        if(isset($_GET['loc'])){
+        if(isset($_GET['loc']) || isset($_SESSION['location']) || isset($_GET['label']) || !isset($_GET['label'])){
+
+
+          // echo $filterArr[3];
+         
+          $_GET['loc'] = $_SESSION['location'];
           $filterArr[0] = $_GET['loc'];
+          $filterArr[1] = 1;
+          $filterArr[2] = 2;
+          if(isset($_GET['label'])){
+            $leee = $_GET['label'];
+            $filterArr[3] = $leee;
+          }else{
+            $leee = 4;
+            $filterArr[3] = $leee;
+          }
+
+
+
           if(isset($_GET['sub'], $_GET['wereda'])){
             $filterArr[1] = $_GET['sub'];
             $filterArr[2] = $_GET['wereda'];
             $we = $_GET['wereda'];
             $su = $_GET['sub'];
-            $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su ,0 , 2);
+            $member = allPostListerOn5ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su, 'label', $leee ,0 , 2);
           }elseif(isset($_GET['sub'])){
             $filterArr[1] = $_GET['sub'];
             $subReq = $_GET['sub'];
-            $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq ,1 , 2);
+            $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq , 'label', $leee ,0 , 2);
+          }elseif(isset($_GET['wereda'])){
+            $filterArr[2] = $_GET['wereda'];
+            $we = $_GET['wereda'];
+            $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we , 'label', $leee ,0 , 2);
           }elseif($_GET['loc'] == 'All'){ // IF THE location is seted to 'ALL'
             $filterArr[0] = 'All';
-            $member = allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
+            $member = allPostListerOn2ColumenD('mambership', 'approved', 'YES', 'label', $leee , 1, 2);
           }
           else{
             // $filterArr[0] = 'All';
-            $member = allPostListerOn2ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES' ,0 , 2);
+            $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES' , 'label', $leee ,0 , 2);
           }
         }else{
           $filterArr[0] = 'All';
-          $member = allPostListerOnColumenD('mambership', 'approved', 'YES', 1, 2);
+          $member = allPostListerOn2ColumenD('mambership', 'approved', 'YES', 'label', $leee , 1, 2);
         }
-        $filter = implode($filterArr); // implode the arry values to string so that we pass it through a single parameter in the ajax script bellow
+        $filter = implode(',',$filterArr); // implode the arry values to string so that we pass it through a single parameter in the ajax script bellow
         // $member = allPostListerOnTableD('mambership', 1 , 2);
+        print_r($filterArr);
 
         ?>
                 <script>
@@ -289,6 +329,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
                       }else{
                         ?>
                         <a href="./membersList.php?view=true&mid=<?php echo $row['id'] ?>"   ><button type="button"  class="btn btn-sm btn-outline-secondary">View</button></a>
+                        <span class="btn btn-sm btn-outline-secondary text-success" >Level <?php echo $row['label'] ?></span>
                         <?php
                       }
                     ?>
@@ -315,11 +356,26 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
 /// this block is to view the members info
         if(isset($_GET['view'], $_GET['mid'])){
           $mid = $_GET['mid'];
+
+
+          /// to update level
+          if(isset($_POST['level'])){
+            $ps = $_POST['level'];
+            $cl = updateOnColomen('mambership', 'label', $ps, $mid);
+            if($cl){
+              echo '<span class="text-warning"> Level Changed!</span>';
+            }else{
+              echo '<span class="text-danger"> error</span>';
+            }
+          }
+        
+        
+
           $member = allPostListerOnColumen('mambership', 'id', $mid);
           $row = $member->fetch_assoc();
           ?>
           <div class="container">
-          <div class="card w-25 float-left ">
+          <div class="card w-25  ">
         <?php
         if($row['photoPath1'] == null){
           ?>
@@ -338,7 +394,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
         }else{
           ?>
 
-    // a script tag to handle the accept and decline of members
+    <!-- // a script tag to handle the accept and decline of members -->
     <script>
       function accDecl(choice){
         if(choice == 'del'){
@@ -400,6 +456,21 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
     
       </div> <br>
 
+   
+    <form action="./membersList.php?view=true&mid=<?php echo $mid ?>" method="POST" >
+<div class="input-group mb-3 col-5">
+<select class="form-select" aria-label="Default select example" name="level" id="inputGroupSelect01">
+  <option selected> Change Level </option>
+  <option value="4" >Level 4</option>
+  <option value="2" >Level 2</option>
+  <option value="1" >Level 1</option>
+  <option value="3" >Level 3</option>
+</select>
+</div>
+<input type="submit" value="Change">
+      </form>
+
+<h4 class="text-success" > LEVEL <?php echo ' '.$row['label']?> </h4>
       <h5 >Name : <?php echo $row['name']?></h5><br>
     <h5> Location <?php echo $row['city'] ?>  </h5><br>
     <h5> Wereda: <?php echo $row['wereda'] ?> </h5><br>
