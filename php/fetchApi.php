@@ -371,6 +371,22 @@
     }
 
 
+    /// search
+    function searchCMemeber($table, $sarg, $limitStart, $limitEnd){
+        include "connect.php";
+        $q2 = "SELECT `postedDate` FROM `$table` WHERE  `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC";
+        $q = "SELECT * FROM `$table` WHERE  `name` LIKE '%$sarg%' ORDER BY `postedDate` DESC LIMIT $limitStart,$limitEnd ";
+
+        $ask2 = $mysql->query($q2);
+        $ask = $mysql->query($q);
+        echo $mysql->error;
+
+        return array($ask, $ask2);
+
+    }
+
+
+
 
     ///// search output based on one colomun that match one search condition with tobe searched columen 
     function search1C($table, $columen, $carg, $sarg, $limitStart, $limitEnd){
@@ -533,6 +549,22 @@
 
                 // the ' where or ' will only let us select the messages associated with a single user with sending and reciveing end, so the distict key word will filter only ones that are linked with one post in a single table
                 $q = "SELECT `postedDate`, `tableName`,`postId`,`user1`,`user2`,`msg`,`seen`  FROM `msg` WHERE (`user1` = '$userx' OR `user2` = '$userx') AND `id` IN (
+                    SELECT max(`id`) FROM `msg` GROUP BY `tableName`,`postId`  DESC
+                ) ORDER BY `postedDate` DESC "; // the IN() function is to select the top one msg from all of msgs asscosiated, the GROUP BY will group all msgs by table name separetlly and the IN() function will let us sellect the most recent or the top or the last msg on that particular table(which also contains the post id to)
+
+                $ask = $mysql->query($q);
+                echo $mysql->error;
+
+                return $ask;
+            } 
+
+
+            //// to serach messages from a single person with the loged in user having in commen and access thoses msgs 
+            function outerMsgFetcherOfUser($userx, $otheruser){
+                include "connect.php";
+
+                // the ' where or ' will only let us select the messages associated with a single user with sending and reciveing end, so the distict key word will filter only ones that are linked with one post in a single table
+                $q = "SELECT `postedDate`, `tableName`,`postId`,`user1`,`user2`,`msg`,`seen`  FROM `msg` WHERE (`user1` = '$userx' AND `user2` = '$otheruser') OR (`user1` = '$otheruser' AND `user2` = '$userx')  AND `id` IN (
                     SELECT max(`id`) FROM `msg` GROUP BY `tableName`,`postId`  DESC
                 ) ORDER BY `postedDate` DESC "; // the IN() function is to select the top one msg from all of msgs asscosiated, the GROUP BY will group all msgs by table name separetlly and the IN() function will let us sellect the most recent or the top or the last msg on that particular table(which also contains the post id to)
 

@@ -198,16 +198,17 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
         <div class="form-group col-3">
             <?php
             $weredaurl = parse_url($_SERVER['REQUEST_URI']);
-            $WU = parse_str($weredaurl['query'], $wer);
+            $WU = parse_str($weredaurl['query'], $werc);
 
-            if(isset($wer['label'])){
-              unset($wer['label']);
+            if(isset($werc['label'])){
+              unset($werc['label']);
             }
            
-            $wer = http_build_query($wer);
+            $wer = http_build_query($werc);
             ?>
         <select class="form-select" aria-label="Default select example" name="wereda" onchange="location=this.value;"  id="inputGroupSelect01">
-          <option value="<?php echo '?'.$wer  ?>&label=4" >Level 4</option>
+          <option value="<?php echo '?'.$wer  ?>&label=4" >Selected Level 4</option>
+           <option value="<?php echo '?'.$wer  ?>&label=4" >Level 4</option>
           <option value="<?php echo '?'.$wer  ?>&label=3" >Level 3</option>
           <option value="<?php echo '?'.$wer  ?>&label=2" >Level 2</option>
           <option value="<?php echo '?'.$wer  ?>&label=1" >Level 1</option>
@@ -270,7 +271,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
         }
         $filter = implode(',',$filterArr); // implode the arry values to string so that we pass it through a single parameter in the ajax script bellow
         // $member = allPostListerOnTableD('mambership', 1 , 2);
-        print_r($filterArr);
+        // print_r($filterArr);
 
         ?>
                 <script>

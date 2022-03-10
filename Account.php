@@ -235,7 +235,7 @@ $sponsered = allPostListerOnColumen('realestate', 'posterId', $_SESSION['userId'
                         <div  class="col-md-4 mb-3">
                       <div class="card mb-1 box-shadow">
                   
-                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=realestate&type=<?php echo $row['selectKey'] ?>&postId=<?php echo $row['id'] ?>&label=<?php echo $viewLabel ?>" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <a class="img-thumbnail" href="./Description.php?cat=realestate&type=<?php echo $row['selectKey'] ?>&postId=<?php echo $row['id'] ?>&label=<?php echo $viewLabel ?>" class="> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
                     <div class="card-body ">
                       <h5 class="card-title">  <?php echo $row['title'] ?></h5>
@@ -802,9 +802,52 @@ foreach($dbTables as $posts){
 
 
       if(isset($_GET['outter'])){
-        $outerM = outerMsgFetcher($_SESSION['userId']);
+        if(isset($_GET['memberId'])){ // if members filter is searched by the admin
+          $mid = $_GET['memberId'];
+          $outerM = outerMsgFetcherOfUser($_SESSION['userId'], $mid);
+        }else{
+          $outerM = outerMsgFetcher($_SESSION['userId']);
+        }
+       
         // echo $_SESSION['userId'];
-        echo " <div class=card>";
+        ?>
+        <script>
+          $(document).ready(function(){
+            $('input').keyup('submit', function(){
+              $.ajax({
+                url: 'user/membersSearchList.php',
+                type: 'post',
+                data: $('form').serialize(),
+                success: function(data){
+                  $('#outerMsgDiv').empty()
+                  $('#outerMsgDiv').append(data)
+                }
+              })
+            })
+
+            $('form').on('submit', function(){
+              $.ajax({
+                url: 'user/membersSearchList.php',
+                type: 'post',
+                data: $('form').serialize(),
+                success: function(data){
+                  $('#outerMsgDiv').empty()
+                  $('#outerMsgDiv').append(data)
+                }
+              })
+            })
+          })
+        </script>
+        <!-- this is the search form that only the admin have the access  -->
+        <form> 
+        <input id="search" class="form-control me-2" name="searchData" type="search" placeholder="Search in " aria-label="Search">
+        <button class="btn btn-warning" type="submit">Members Search</button>
+      </form>
+
+        <!-- <div  class="card"> -->
+        <!-- <div class="card-body"> -->
+          <div id="outerMsgDiv" class="row">
+        <?php
         if($outerM->num_rows != 0){
         while($o = $outerM->fetch_assoc()){
           $date = time_elapsed_string($o['postedDate']);
@@ -819,20 +862,21 @@ foreach($dbTables as $posts){
           }
           ?>
         <!-- <div class="card"> -->
+          <!-- <div class="border"> -->
           <?php 
             // to mark unread msgs
             if($o['seen'] == 'new'){ // if the msg is unseen it will send an unseen request to the inner msg so that it updates it to seen after they click the unread msg
               ?>
-        <a class="link stretched-link"  href="Account.php?message=true&inner=true&tb=<?php echo $o['tableName'] ?>&reciver=<?php echo $otherUser ?>&post=<?php echo $o['postId'] ?>&unseen=true" > </a>
+        <a class="link"  href="Account.php?message=true&inner=true&tb=<?php echo $o['tableName'] ?>&reciver=<?php echo $otherUser ?>&post=<?php echo $o['postId'] ?>&unseen=true" > 
               <?php
             }else{
               ?>
-              <a class="link stretched-link"  href="Account.php?message=true&inner=true&tb=<?php echo $o['tableName'] ?>&reciver=<?php echo $otherUser ?>&post=<?php echo $o['postId'] ?>" > </a>
+              <a class="link"  href="Account.php?message=true&inner=true&tb=<?php echo $o['tableName'] ?>&reciver=<?php echo $otherUser ?>&post=<?php echo $o['postId'] ?>" >  
               <?php
             } 
           ?>
 
-        <div class="card-body row">
+        <div class="card-body row border border-warning m-1"> 
 
             
             <?php 
@@ -857,7 +901,7 @@ if($o['tableName'] != 'ORDER'){
 
           if($o['tableName'] == 'ORDER'){ // if the table name is 'ORDER' this means the msg type is order so the order msg label must be included
             ?>
-             <h4>Order Message From</h4>
+             <h6 class="text-warning border border-success" >Order Message From</h6>
             <?php
           }
             ?>
@@ -895,6 +939,8 @@ if($o['tableName'] != 'ORDER'){
                 <?php
               }
             ?>
+          </div>
+          </a>
             <?php 
               // to mark unread msgs
               if($o['seen'] == 'new'){
@@ -906,9 +952,11 @@ if($o['tableName'] != 'ORDER'){
             }
             ?>
            
-          </div></a>
+          <!-- </div> -->
+        </a>
           
-        </div>
+        <!-- </div> -->
+          </div>
           <?php
         }
       }else{
