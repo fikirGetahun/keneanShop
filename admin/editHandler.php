@@ -19,6 +19,47 @@ if(isset($_GET['cSession'])){
   // echo $_SESSION['mbScroll']; 
 }
 
+//// webad approver 
+if(isset($_POST['webAdId'], $_POST['dis'])){
+  $webAdId = $_POST['webAdId'];
+  $webAdData = allPostListerOnColumen('webAd', 'id', $webAdId);
+  $row = $webAdData->fetch_assoc();
+
+  if($_POST['dis'] == 'approve'){
+
+  
+
+  if($row['position'] == 'Home'){
+    $counter = allPostListerOn2Columen('webAd', 'position', 'Home', 'status', 'ACTIVE');
+    if($counter->num_rows > 8){
+      echo 'You CANT Post any more ads in this position';
+    }else{
+      $upd = updateOnColomen('webAd', 'status', 'ACTIVE', $webAdId);
+      echo 'Disapprove';
+    }
+  }else  if($row['position'] == 'Post View'){
+    $counter = allPostListerOn2Columen('webAd', 'position', 'Post View', 'status', 'ACTIVE');
+    if($counter->num_rows > 5){
+      echo 'You CANT Post any more ads in this position';
+    }else{
+      $upd = updateOnColomen('webAd', 'status', 'ACTIVE', $webAdId);
+      echo 'Disapprove';
+    }
+  }elseif($row['position'] == 'Description View'){
+    $counter = allPostListerOn2Columen('webAd', 'position', 'Description View', 'status', 'ACTIVE');
+    if($counter->num_rows > 5){
+      echo 'You CANT Post any more ads in this position';
+    }else{
+      $upd = updateOnColomen('webAd', 'status', 'ACTIVE', $webAdId);
+      echo 'Disapprove';
+    }
+  }
+}elseif($_POST['dis'] == 'disapprove'){
+  $upd = updateOnColomen('webAd', 'status', 'DEL', $webAdId);
+  echo 'Approve';
+}
+}
+
 
 /// to update the current page of allusers
 if(isset($_GET['allUser'])){

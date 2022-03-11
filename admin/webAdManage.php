@@ -3,6 +3,7 @@
     require_once "../php/auth.php";
 require_once "../php/adminCrude.php";
 require "../php/fetchApi.php";
+// include "../includes/header.php";
 
 include "../includes/adminSide.php";
 if(isset($_POST['id'])){
@@ -18,6 +19,37 @@ $_SESSION['allUser'] = 0; // this automaticaly sets the page session to 0 so tha
 
 ?>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- <script src="../assets/jquery.js"></script> -->
+<script>
+  function usrScroll(){
+
+    // the firist ajax request is for changing the page number, when the request goes, it adds 10 to the session variable that holds the page no of the 
+    $.ajax({
+      url: 'editHandler.php',
+      type: 'get',
+      data:{
+        allUser: 'true'
+      },
+      success: function(){
+                $.ajax({
+              url: 'allUserScroll.php',
+              type : 'get',
+              data: {
+                listType: '<?php echo $selected ?>'
+              },
+              success: function(data){
+                $('tbody').append(data)
+              }
+            })
+      }
+    })
+  }
+
+
+
+</script>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -25,13 +57,13 @@ $_SESSION['allUser'] = 0; // this automaticaly sets the page session to 0 so tha
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- <!-- Favicons
+  <!--Favicons
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"> -->
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -52,7 +84,6 @@ $_SESSION['allUser'] = 0; // this automaticaly sets the page session to 0 so tha
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <!-- <script src="../assets/jquery.js"></script> -->
   <!-- <script>
     $(document).ready(function(){
 
@@ -111,10 +142,11 @@ $_SESSION['allUser'] = 0; // this automaticaly sets the page session to 0 so tha
 </head> 
 <!-- <script src="assets/jquery.js" type="text/javascript"></script> -->
 
-<script>
 
-        
-      </script>
+
+
+
+ 
 
 
 
@@ -224,62 +256,36 @@ if($fil != 'mix' && $stat != 'mix'){
   }
     
     ?>
-<script>
-  function usrScroll(){
 
-    // the firist ajax request is for changing the page number, when the request goes, it adds 10 to the session variable that holds the page no of the 
-    $.ajax({
-      url: 'editHandler.php',
-      type: 'get',
-      data:{
-        allUser: 'true'
-      },
-      success: function(){
-                $.ajax({
-              url: 'allUserScroll.php',
-              type : 'get',
-              data: {
-                listType: '<?php echo $selected ?>'
-              },
-              success: function(data){
-                $('tbody').append(data)
-              }
-            })
-      }
-    })
-
-
-
-
-  }
-
-
-  function appMan(id){
-      $.ajax({
-          url: 'editHandler.php',
-          type: 'post',
-          data: {
-              webAdId: id
-          },
-          success: function(data){
-             
-              if(data == 'Approved'){
-                $('#apb'+id).text(data)
-              }else{
-                alert(data)
-              }
-          }
-      })
-  }
-</script>
- 
       <?php
       $i = 1;
       while($row = $oneTablePostList[0]->fetch_assoc()){  
 
   
         ?>
-      
+      <script>
+            function xappMan(id, sel){
+      alert('wtf')
+      $.ajax({
+          url: 'editHandler.php',
+          type: 'post',
+          data: {
+              webAdId: id,
+              dis : sel
+          },
+          success:function(data){
+             
+              if(data == 'Disapprove'){
+location.reload()
+              }else if( data == 'Approve'){
+                location.reload()  
+                  }else{
+                alert(data)
+              }
+          }
+      })
+  }
+      </script>
       
     <tr>
    
@@ -291,7 +297,27 @@ if($fil != 'mix' && $stat != 'mix'){
       <td><?php echo $row['website'] ?></td>
       <td><?php echo $row['status'] ?></td>
       <td><a href="./userInfo.php?poster=<?php echo $row['posterId'] ?>"  class="btn btn-dark"> View User</a></td>
-      <td><a id="apb<?php echo $row['id'] ?>" class="btn btn-success" onclick="appMan('<?php echo $row['id'] ?>')" > Approve</a></td>
+      <?php
+      if($row['status'] == 'PEND'){
+        ?>
+        <td><a id="apb<?php echo $row['id'] ?>" class="btn btn-warning" onclick="xappMan('<?php echo $row['id'] ?>', 'approve')" > Approve</a></td>
+
+        <?php
+      }else    if($row['status'] == 'DEL'){
+        ?>
+        <td><a id="apb<?php echo $row['id'] ?>" class="btn btn-warning" onclick="xappMan('<?php echo $row['id'] ?>', 'approve')" > Approve</a></td> 
+        <td>OLD</td>
+
+        <?php
+      }
+      else{
+          ?>
+    <td><a id="apb<?php echo $row['id'] ?>" class="btn btn-success" onclick="xappMan('<?php echo $row['id'] ?>', 'disapprove')" > Disapprove</a></td>
+    
+          <?php
+      }
+      ?>
+
 
      </tr>
 
