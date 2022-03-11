@@ -75,7 +75,7 @@ global $selectKey, $posterId, $title, $company, $phonem, $email, $price, $fixidO
       ?>
 <!--       
       /// if they are submiting for the first time... the form will send request to this page and holds the submited data. then the payment page will appear. if the user pays all the needed info will be submitted to the database but if the user chooses the post data and pay latter button, it only uploads the post data -->
-      <script src="../assets/jquery.js"></script>
+      <!-- <script src="../assets/jquery.js"></script> -->
 <script>
 
 
@@ -116,7 +116,7 @@ global $selectKey, $posterId, $title, $company, $phonem, $email, $price, $fixidO
             $jjf = explode(',', $row['subcityKey']);
 
             ?>
-             <div  class="col-4 border border-warning" >
+         <div class="col" >
     <h4><?php echo $row['category'].' Pakage' ?></h4>
 <p><?php echo $jjf[0] ?></p>
         <h5 id="amount" class="text-success">Amount: <?php echo $jjf[1] ?> birr </h5> 
@@ -224,7 +224,7 @@ global $selectKey, $posterId, $title, $company, $phonem, $email, $price, $fixidO
         <h5>Pay For Sponcership!</h5>
         <div class="row">
 
-        <div class="col-5">
+        <div class="col-2">
         <label for="exampleFormControlFile1">Choose Banks</label>
         <select  class="form-select" onchange ='bnk(this.value)'  aria-label="Default select example" name="bankName" id="forWho">
                 <option>No Bank Selected</option>

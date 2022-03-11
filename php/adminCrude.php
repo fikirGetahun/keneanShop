@@ -932,6 +932,14 @@ echo $mysql->error;
                         }
                         $dbPath .= './uploads/realEstate/'.$uploadName;
                     }
+                    
+                    if($tableName == 'webAd'){
+                        $uploadPath[] = '../uploads/webAdx/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= './uploads/webAdx/'.$uploadName;
+                    }
 
 
                     if(!in_array($fileExt, $allowedType)){
