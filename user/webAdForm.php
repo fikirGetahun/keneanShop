@@ -101,12 +101,13 @@ body {
   </head>
   <?php
   include "../php/connect.php";
-  if(isset($_POST['cname'], $_POST['name'], $_POST['phone'], $_POST['web'], $_FILES['photo'] )){
+  if(isset($_POST['cname'], $_POST['name'], $_POST['phone'], $_POST['web'], $_FILES['photo'], $_POST['position'] )){
       $cname = $_POST['cname'];
       $name = $_POST['name'];
       $phone = $_POST['phone'];
       $web = $_POST['web'];
       $fileVarx = $_FILES['photo'];
+      $position = $_POST['position'];
 
 
         
@@ -116,8 +117,9 @@ body {
         echo $val;
         }
     }elseif($up[4] == 'work'){
- 
-        $q = "INSERT INTO `webAd`( `company`, `name`, `phone`, `website`, `photoPath1`) VALUES ( '$cname','$name','$phone','$web','$up[0]')";
+        $uu = $_SESSION['userId'];
+        $postDate = date('Y-m-d H:i:s');
+        $q = "INSERT INTO `webAd`( `company`, `name`, `phone`, `website`, `photoPath1` , `posterId`, `status`, `position`, `postedDate`) VALUES ( '$cname','$name','$phone','$web','$up[0]', '$uu', 'PEND', '$position', '$postDate' )";
 
         $ask = $mysql->query($q);
     
@@ -174,11 +176,20 @@ body {
             aria-describedby="emailHelp" name="web" placeholder="  Website Link">
         </div>
 
+        <div class="form-group">
+        <label for="exampleInputEmail1">Select where should your ad will be posted.:</Title></label>
+        <select class="form-select" aria-label="Default select example" name="position" id="inputGroupSelect01">
+           <option value="Home">Home</option>
+          <option value="Post View">Post View</option>
+          <option value="Description View">Description View</option>
+        </select>
+        </div>
+
         <div class="row">
         <div id="registerBox">
         <label for="exampleInputEmail1"><?php echo $lang['up'] ?></label>
           <input type="file" class="form-control" id="photo" name="photo[]" multiple >
-          <small id="emailHelp" class="form-text text-muted"><?php echo $lang['DescriptionPhoto'] ?></small>
+          <small id="emailHelp" class="form-text text-muted">You are allowed one ad photo only.</small>
         </div>
 
         <input type="submit" value="submit">

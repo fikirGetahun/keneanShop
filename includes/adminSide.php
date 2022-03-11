@@ -496,11 +496,27 @@ if(!isset($_SESSION)){
         </ul>
       </li><!-- End Components Nav -->  
       <li>
+      <a class="nav-link collapsed" data-bs-target="#components-nav111" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-credit-card-2-back-fill"></i><span>Website Ad System</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav111" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="webAdManage.php?filter=mix&stat=mix" id="viewPtag" >       
+
+              <i class="bi bi-circle"></i><span>Manage The Ads</span>
+            </a>
+          </li>
+         
+
+
+        </ul>
+      </li><!-- End Components Nav --> 
       <?php
         $out = userDataShower($uid);
         $row2 = $out->fetch_assoc();
         if($row2['auth'] == 'ADMIN'){
           ?>
+            <li>
       <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse" href="#">
           <i class="bi bi-credit-card-2-back-fill"></i><span>Manage Sponsered System</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>

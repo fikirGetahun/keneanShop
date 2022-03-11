@@ -857,6 +857,8 @@ echo $mysql->error;
             $amount = 3;
             if($tableName == 'blog'){
                 $amount = 6;
+            }elseif('webAd'){
+                $amount = 1;
             }else{
                 $amount = 3;
             }
@@ -932,7 +934,7 @@ echo $mysql->error;
                         }
                         $dbPath .= './uploads/realEstate/'.$uploadName;
                     }
-                    
+
                     if($tableName == 'webAd'){
                         $uploadPath[] = '../uploads/webAdx/'.$uploadName;
                         if($i != 0){
