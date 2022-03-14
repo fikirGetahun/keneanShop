@@ -1106,7 +1106,7 @@ function hCity(x){
   while($rowLoc = $locc->fetch_assoc()){
       $city[]= $rowLoc['category'];
   }
-  sort($city);
+  sort($city); 
   $i = 0;
   foreach($city as $loc){
     if($loc == 'Addis Ababa'){
@@ -1446,7 +1446,7 @@ if($_GET['type'] == 'charity'){
                   ?>
                   
                 
-                  <?php
+                     <?php
                   $i++;
                 }
               ?> 

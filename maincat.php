@@ -234,7 +234,7 @@ if(isset($_GET['cat']) && $_GET['cat'] == 'realestate'){
 /// for rent and for sell filter for car, house and land
 
 if(isset($_GET['cat'])){
-  $rent_filter = array('car', 'housesell', 'realestate');
+  $rent_filter = array('car', 'housesell', 'realestate'); 
   $table = $_GET['cat'];
   /// if the table does need for rent or for sell filter
   if(in_array($table, $rent_filter)){
@@ -275,6 +275,7 @@ if(isset($_GET['cat'])){
 
     /// for realEstate rent or sell
     if(isset($_GET['spType']) && $_GET['spType'] == 'rs'){
+
       ?>
       <div  class="col-md-3" >
       <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
@@ -431,7 +432,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
     // unset($params['dyArg2']);
   }
   // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-  if(isset($params['loc'])){
+   if(isset($params['loc'])){
     unset($params['loc']);
   }
 
@@ -442,8 +443,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
 
 <div class="input-group mb-3 col-md-3">
         <select class="form-select" aria-label="Default select example" name="positionType" id="inputGroupSelect01" onchange="location = this.value;" >
-          <option selected><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg']; }else{ echo $lang['Purpose'];}?></option>
-
+          <option selected><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];  }else{ echo $lang['Purpose'];}?></option>
 
           <?php
 
@@ -484,7 +484,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Rent' ){
   <?php
 }
 
-if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
+if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){ 
 
   $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
   $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
@@ -503,7 +503,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 ?>
             <div class="input-group mb-3 col-md-3">
         <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location = this.value;"  >
-          <option ><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];}else{  echo $lang['yearMade']; }  ?></option>
+          <option ><?php if(isset($_GET['dyArg'])){ if($_GET['dyCol'] == 'status'){ echo $_GET['dyArg']; } }else{  echo $lang['yearMade']; }  ?></option>
           <?php 
             $cYear = date('Y');
             for($y=1990;$y<=$cYear;$y++){
@@ -540,7 +540,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
           <span class="input-group-text" id="basic-addon1">Sub City: </span>
         </div>
         <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location = this.value;"  >
-        <option><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];}else{  echo $lang['subCity']; }  ?></option>
+        <option selected ><?php if(isset($_GET['dyArg'])){ if($_GET['dyCol'] == 'subCity'){echo $_GET['dyArg'];}elseif($_GET['dyCol2'] == 'subCity'){echo $_GET['dyArg2'];} }else{  echo $lang['subCity']; }  ?></option>
           <?php
         while($rowLoc = $locc->fetch_assoc()){
             $city[]= $rowLoc['category'];
@@ -582,7 +582,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
 
               
-              <option selected value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>   
+              <option  value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>   
                 <?php
             }else{
               if(isset($_GET['dyCol']) && $_GET['dyCol'] == 'subCity'){
@@ -601,11 +601,11 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
               $string = http_build_query($params); // to build the corrected requst to normal get query format
                 ?>
-              <option selected value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option> 
+              <option value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option> 
                 <?php
               }elseif(isset($_GET['dyCol']) && $_GET['dyCol'] != 'subCity'){
                 ?>
-              <option selected value="maincat.php?<?php echo $string ?>&dyCol2=subCity&dyArg2=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>  
+              <option  value="maincat.php?<?php echo $string ?>&dyCol2=subCity&dyArg2=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>  
                 <?php
               }
 
@@ -626,15 +626,15 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
 
               $string = http_build_query($params); // to build the corrected requst to normal get query format
                 ?>
-              <option selected value="maincat.php?<?php echo $string ?>&dyCol2=subCity&dyArg2=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option> 
+              <option  value="maincat.php?<?php echo $string ?>&dyCol2=subCity&dyArg2=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option> 
                 <?php
               }elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] != 'subCity'){
                 ?>
-                 <option selected value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>            
+                 <option  value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option>            
                 <?php
               }else{
                 ?>
-                <option selected value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option> 
+                <option value="maincat.php?<?php echo $string ?>&dyCol=subCity&dyArg=<?php echo $loc?>" role="tab" aria-controls="home"><?php echo $loc?></option> 
                 <?php
               }
               ?>
@@ -655,26 +655,25 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
     </div>
     
 
-
         <!-- kebele when subcity is involved in the search query. it will use both dyCol1 and dyCol2 -->
       <!-- kebele list -->
       <div class="input-group mb-3 col-md-3">
         <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location=this.value;"  >
-          <option ><?php if(isset($_GET['dyArg2'])){ echo $_GET['dyArg2'];}else{  echo $lang['Wereda']; }?> <option>
+          <option selected ><?php   if(isset($_GET['dyArg'])){ if(isset($_GET['dyCol']) && $_GET['dyCol'] == 'wereda'){echo $_GET['dyArg'];}elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] == 'wereda'){echo $_GET['dyArg2'];} }else{  echo $lang['Wereda']; }?> <option>
           <?php 
           $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
           $urlll = parse_str($urlll['query'], $params); // to make an assoc array of all the parameter key with the value
           //to unset the subcity and kebele get params. this helps us to eleminate when user changes city the subcity of the pervious city will not query to the database
-          if($params['dyCol'] && $params['dyArg']  ){
+          if(isset($params['dyCol']) && $params['dyArg']  ){
             // unset($params['dyCol']);
             // unset($params['dyArg']);
           }
-          if($params['dyCol2'] && $params['dyArg2']){ 
+          if(isset($params['dyCol2']) && $params['dyArg2']){ 
             // unset($params['dyCol2']);
             // unset($params['dyArg2']);
           }
           // TO UNSET THE LOCATION GET REQUST IF ALRADY EXIST IN THE URL
-          if($params['loc']){
+          if(isset($params['loc'])){
             unset($params['loc']);
           }
 
@@ -698,11 +697,11 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
     
                   $string = http_build_query($params); // to build t
                   ?>
-                    <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
+                    <option   value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
                   <?php
                  }elseif(isset($_GET['dyCol']) && $_GET['dyCol'] != 'wereda'){
                    ?>
-                   <option selected value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
+                   <option   value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
                    <?php
                  }
 
@@ -723,15 +722,15 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
     
                   $string = http_build_query($params); // to build the corrected requst to normal get query format
                   ?>
-                <option selected value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
+                <option   value="maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
                   <?php
                  }elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] != 'wereda'){
                   ?>
-                <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
+                <option  value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>
                   <?php
                  }else{
                    ?>
-                       <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>      
+                       <option  value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $zero.$y?>" role="tab" aria-controls="home"><?php echo '0'.$y ?></option>      
                    <?php
                  }
 
@@ -754,11 +753,11 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
     
                   $string = http_build_query($params); // to build t
                   ?>
-                    <option selected value="./maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
+                    <option   value="./maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
                   <?php
                  }else if(isset($_GET['dyCol']) && $_GET['dyCol'] != 'wereda'){
                    ?>
-                   <option selected value="./maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
+                   <option  value="./maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
                    <?php
                  }
         
@@ -779,15 +778,15 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
     
                   $string = http_build_query($params); // to build the corrected requst to normal get query format
                   ?>
-                <option selected value="./maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
+                <option   value="./maincat.php?<?php echo $string ?>&dyCol2=wereda&dyArg2=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
                   <?php
                  }elseif(isset($_GET['dyCol2']) && $_GET['dyCol2'] != 'wereda'){
                   ?>
-                <option selected value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
+                <option  value="maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>
                   <?php
                  }else{
                    ?>
-                         <option selected value="./maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>    
+                         <option   value="./maincat.php?<?php echo $string ?>&dyCol=wereda&dyArg=<?php echo $y?>" role="tab" aria-controls="home"><?php echo $y ?></option>    
                    <?php
                  }
 
@@ -808,7 +807,7 @@ if($_GET['cat'] == 'car' && $_GET['off'] == 'For Sell' ){
               <!-- kebele list -->
       <div class="input-group mb-3 col-md-3">
         <select class="form-select" aria-label="Default select example" name="status2" id="inputGroupSelect01" onchange="location=this.value;"  >
-          <option ><?php if(isset($_GET['dyArg'])){ echo $_GET['dyArg'];}else{  echo $lang['Wereda']; }?> <option>
+          <option selected ><?php if(isset($_GET['dyArg'])){ if(isset($_GET['dyCol']) && $_GET['dyCol'] == 'wereda'){echo $_GET['dyArg'];}elseif(isset($_GET['dyCol2']) &&$_GET['dyCol2'] == 'wereda'){echo $_GET['dyArg2'];} }else{  echo $lang['Wereda']; }?> <option>
           <?php 
 
 $urlll = parse_url($_SERVER['REQUEST_URI']);  // to prase all the url parameter in the 'query' key
@@ -1076,7 +1075,7 @@ if(isset($_GET['status'])){
       </div>
         
         <br>
-      <div id="vc" class="row">
+      <div id="vc" class="row"> 
 
 
     <?php
@@ -3000,12 +2999,12 @@ if(isset($_GET['status'])){
     <?php
     $pageNumberPerPAGE = 2; 
     
-    if(isset($_GET['end']) && $_GET['end'] != 0){
+      if(isset($_GET['end']) && $_GET['end'] != 0){
       $_SESSION['pgn'] =  $_GET['end'];
-    }
+     }
     elseif(isset($_GET['end']) && $_GET['end'] > 0 || !isset($_GET['end'])){
       $_SESSION['pgn'] =  1;
-    }
+    } 
     
     ?>
     <li class="page-item">

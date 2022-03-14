@@ -265,7 +265,7 @@ if($fil != 'mix' && $stat != 'mix'){
         ?>
       <script>
             function xappMan(id, sel){
-      alert('wtf')
+      // alert('wtf')
       $.ajax({
           url: 'editHandler.php',
           type: 'post',

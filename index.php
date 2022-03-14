@@ -64,9 +64,13 @@ $pageLocation = $_SESSION['location'];
 <!--section 1 -->
 
 <div class="album py-5 bg-light">
-    <div class="container">
+    <div class="container-fluid">
 
-
+<div id="mainone" class="row">
+  <div class="col-sm-3">
+    <?php include "./includes/homeAds.php" ?>
+  </div>
+  <div class="col-sm-9 ">
  <div class="card">
    <br>
    <br>
@@ -103,7 +107,7 @@ $pageLocation = $_SESSION['location'];
     while($row1 = $home->fetch_assoc()){
       
       ?>
-        <div class="col">
+        <div class="col-3">
           <div class="card shadow-sm">
           <a href="Description.php?cat=housesell&type=house&postId=<?php echo $row1['id'] ?>&label=House%20Posts" class=" ">
            <img class="bd-placeholder-img card-img-top" width="100%" height="150"
@@ -271,7 +275,8 @@ for($z=0;$z<17;$z++){
   </div>
     </div>
   </div>
-  
+  </div>
+</div>
 <button onclick="view()" > View More</button>
 
 </main>
