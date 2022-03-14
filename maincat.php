@@ -2523,7 +2523,7 @@ if(isset($_GET['status'])){
                   <div  class="row-col-md-3 row-col-sm-12 row-col-md-3">
                       <div class="card mb-4 box-shadow">
                   
-                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=realestate&type=rs&postId=<?php echo $row['id'] ?>&label=RealEstate Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
                     <div class="card-body">
                       <h5 class="card-title">  <?php echo $row['title'] ?></h5>
@@ -2614,7 +2614,7 @@ if(isset($_GET['status'])){
                   <div  class="row-col-md-3 row-col-sm-12 row-col-md-3">
                       <div class="card mb-4 box-shadow">
                   
-                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=realestate&type=ban&postId=<?php echo $row['id'] ?>&label=Bank Stocks" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
                     <div class="card-body">
                       <h5 class="card-title">  <?php echo $row['title'] ?></h5>
@@ -2702,7 +2702,7 @@ if(isset($_GET['status'])){
                   <div  class="row-col-md-3 row-col-sm-12 row-col-md-3">
                       <div class="card mb-4 box-shadow">
                   
-                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=housesell&type=land&postId=<?php echo $row['id'] ?>&label=Land Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <a class="img-thumbnail stretched-link" href="./Description.php?cat=realestate&type=ins&postId=<?php echo $row['id'] ?>&label=Insurance Posts" class="stretched-link"> <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
 
                     <div class="card-body">
                       <h5 class="card-title">  <?php echo $row['title'] ?></h5>
