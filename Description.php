@@ -68,6 +68,8 @@ require_once "php/fetchApi.php";
       <?php
       ?> 
         <h2><?php echo $label; ?></h2>
+        <div class="row" style="width: 100%;">
+          <div class="col-9">
       <?php
 
       /////////////////////////////////////car post description ///////////////
@@ -343,7 +345,7 @@ require_once "php/fetchApi.php";
           </div>
         </div>
       </div>
-  </div>
+  <!-- </div> -->
         <?php
       }
 
@@ -475,7 +477,7 @@ require_once "php/fetchApi.php";
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
     <?php
   }
 
@@ -613,7 +615,7 @@ require_once "php/fetchApi.php";
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
     <?php
   }
 
@@ -751,7 +753,7 @@ require_once "php/fetchApi.php";
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
     <?php
   }
   ///////////////////////////electronics/////////////
@@ -894,7 +896,7 @@ require_once "php/fetchApi.php";
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
     <?php
   }
 
@@ -1025,7 +1027,7 @@ require_once "php/fetchApi.php";
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
     <?php
   }
 
@@ -1152,7 +1154,7 @@ if($_GET['cat'] == 'vacancy'){
     </div>
   </div>
 </div>
-</div>
+<!-- </div> -->
   <?php
 }
 
@@ -1292,7 +1294,7 @@ if($_GET['cat'] == 'tender'){
     </div>
   </div>
 </div>
-</div>
+<!-- </div> -->
   <?php
 }
 
@@ -1401,7 +1403,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
       </div>
     </div>
   </div>
-    </div>
+    <!-- </div> -->
     <?php
 
   }
@@ -1514,7 +1516,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
       </div>
     </div>
   </div>
-    </div>
+    <!-- </div> -->
     <?php
 
   }
@@ -1627,7 +1629,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
       </div>
     </div>
   </div>
-    </div>
+    <!-- </div> -->
     <?php
 
   }
@@ -1740,7 +1742,7 @@ if(isset($_GET['cat'], $_GET['postId'], $_GET['type'], $_GET['label'])){
       </div>
     </div>
   </div>
-    </div>
+    <!-- </div> -->
     <?php
 
   }
@@ -2010,7 +2012,7 @@ if($_GET['type'] == 'rs'){
     </div>
   </div>
 </div>
-</div>
+<!-- </div> -->
   <?php
 }
 
@@ -2160,7 +2162,7 @@ if($_GET['type'] == 'ban' || $_GET['type'] == 'ins'){
     </div>
   </div>
 </div>
-</div>
+<!-- </div> -->
   <?php
 }
 
@@ -2170,7 +2172,11 @@ if($_GET['type'] == 'ban' || $_GET['type'] == 'ins'){
   }
 
 ?>
-
+  </div>
+  <div class="col-2 border">
+    <?php include "./includes/descriptionAd.php" ?>
+  </div>
+        </div>
 <?php
 
 if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blog'){
@@ -2303,7 +2309,7 @@ if($_GET['cat'] != 'vacancy' && $_GET['cat'] != 'tender' && $_GET['cat'] != 'blo
        ?>
       </div>
     </div>
-  </div>
+
   
 <?php
 include 'includes/footer.php';

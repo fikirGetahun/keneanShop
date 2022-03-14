@@ -4,7 +4,7 @@ require_once "php/fetchApi.php";
 <div class="container-fluid">
         <?php
         // ad fetcher
-        $ad = allPostListerOn2Columen('webAd', 'position', 'Home', 'status', 'ACTIVE');
+        $ad = allPostListerOn2Columen('webAd', 'position', 'Description View', 'status', 'ACTIVE');
         if($ad->num_rows != 0){
         while($row=$ad->fetch_assoc()){
             ?>
@@ -17,7 +17,7 @@ require_once "php/fetchApi.php";
         }
     }else{
         // ad fetcher
-        $ad = allPostListerOnColumen('webAd', 'id', 33);
+        $ad = allPostListerOnColumen('webAd','id', 33);
         if($ad->num_rows != 0){
         while($row=$ad->fetch_assoc()){
             ?>
@@ -28,7 +28,7 @@ require_once "php/fetchApi.php";
             </div>     
             <?php
         }
-        echo 'default picture';
+        
     }
 }
         ?>

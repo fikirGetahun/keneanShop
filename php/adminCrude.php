@@ -859,6 +859,8 @@ echo $mysql->error;
                 $amount = 6;
             }elseif('webAd'){
                 $amount = 1;
+            }elseif('webAdx'){
+                $amount = 3;
             }else{
                 $amount = 3;
             }
@@ -936,6 +938,14 @@ echo $mysql->error;
                     }
 
                     if($tableName == 'webAd'){
+                        $uploadPath[] = '../uploads/webAdx/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= './uploads/webAdx/'.$uploadName;
+                    }
+
+                    if($tableName == 'webAdx'){
                         $uploadPath[] = '../uploads/webAdx/'.$uploadName;
                         if($i != 0){
                             $dbPath .= ',';

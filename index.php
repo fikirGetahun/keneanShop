@@ -20,6 +20,11 @@ require_once "php/fetchApi.php";
 //   $_SESSION['location'] = 'All';
 // }
 $pageLocation = $_SESSION['location'];
+// ad fetcher
+$webadd = allPostListerOnColumen('webAd', 'id', 31);
+$rx = $webadd->fetch_assoc();
+$p = explode(',', $rx['photoPath1']);
+
 	?>
 
 <!-- </head> -->
@@ -30,15 +35,18 @@ $pageLocation = $_SESSION['location'];
   <section class="col-lg-8 ">
   <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="assets/img/salon.jpg" class="d-block mx-auto card-img-top" style="max-height: 450px;" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="assets/img/ecommerce.png" class="d-block mx-auto card-img-top"  style="max-height: 450px;" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="assets/img/salon.jpg" class="d-block  mx-auto card-img-top" style="max-height:450px;" alt="...">
-    </div>
+    <?php
+      foreach( $p as $p){
+        ?>
+      <div class="carousel-item active">
+      <img src="<?php echo $p ?>" class="d-block mx-auto card-img-top" style="max-height: 450px;" alt="...">
+    </div>      
+        <?php
+      }
+    
+    ?>
+
+
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -52,8 +60,12 @@ $pageLocation = $_SESSION['location'];
 </section>
 
 <div class="row col-md-4 p-3">
+  <?php
+  $webadd = allPostListerOnColumen('webAd', 'id', 32);
+  $rxs = $webadd->fetch_assoc();
+  ?>
   <div class="card">
-  <img src="assets/img/work-7.jpg" class="card-img-top" alt="...">
+  <img src="<?php echo $rxs['photoPath1'] ?>" class="card-img-top" alt="...">
 </div>
 </div>  
   </div>

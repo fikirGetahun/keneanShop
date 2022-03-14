@@ -175,7 +175,7 @@ function reload(x){
 </head>
 <body>
 
-<div id="all" class="container">
+<div id="all" class="container-fluid">
 
 <div class="overflow-auto">
 
@@ -880,7 +880,13 @@ $string = http_build_query($params); // to build the corrected requst to normal 
 <!-- </div> -->
 <!-- this is the main listed dysplay of the posts tha above is the filters -->
  
-  <div id="loop" class="col-md-12">
+  <div id="loop" class="row" style="width: 100%;">
+    <div class="col-2">
+      <?php include "./includes/viewAds.php" ?>
+    </div>
+    <div class="col-10">
+
+    <!-- </div> -->
     <?Php
 
 
@@ -1070,7 +1076,7 @@ if(isset($_GET['status'])){
     ?>
     <br>
     
-      <div  class="container">
+      <div  class="container-fluid">
           <h5><?php echo $label ?></h5> <h6><?php if(isset($_GET['dbType'])){ echo $_GET['dbType']; } ?></h6>
       </div>
         
@@ -1088,7 +1094,7 @@ if(isset($_GET['status'])){
                 
 
           
-                <div  class="row-col-md-3 col-sm-3 col-md-3">
+                <div  class="col-md-3 col-sm-3 col-md-3">
               <div class="card mb-4 box-shadow">
               
               <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $_GET['type'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -1193,7 +1199,7 @@ if(isset($_GET['status'])){
 
               ?>
               </div>
-        </div>
+        <!-- </div> -->
               
               <?php
 
@@ -1875,7 +1881,7 @@ if(isset($_GET['status'])){
 
     ?>
     <br>
-      <div  class="container">
+      <div  class="container-fluid">
           <h5><?php echo $label ?></h5>
       </div>
         
@@ -2140,7 +2146,7 @@ if(isset($_GET['status'])){
               
     ?>
     <br>
-      <div  class="container">
+      <div  class="container-fluid">
           <h5><?php echo $label ?></h5>
       
         </div>
@@ -2501,7 +2507,7 @@ if(isset($_GET['status'])){
     }
 
              ?>
-              <div  class="container">
+              <div  class="container-fluid">
               <h5><?php echo $label ?></h5>
           
             </div>
@@ -2592,7 +2598,7 @@ if(isset($_GET['status'])){
         }
 
         ?>
-             <div  class="container">
+             <div  class="container-fluid">
               <h5><?php echo $label ?></h5>
           
             </div>
@@ -2680,7 +2686,7 @@ if(isset($_GET['status'])){
         }
 
         ?>
-             <div  class="container">
+             <div  class="container-fluid">
               <h5><?php echo $label ?></h5>
           
             </div>
@@ -2871,7 +2877,7 @@ if(isset($_GET['status'])){
             
             ?>
             <br>
-            <div  class="container">
+            <div  class="container-fluid">
                 <!-- <h5><?php echo $label ?></h5> -->
             </div>
               
@@ -3084,7 +3090,10 @@ if(isset($_GET['status'])){
         
         ?>
         </div>
-<div style="clear:both;"></div>
+        </div>
+        </div>
+        </div>
+ <div style="clear:both;"></div>
 
 <!-- </div> -->
 <div style="clear:both;"></div>
