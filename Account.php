@@ -12,6 +12,8 @@ require_once "php/adminCrude.php";
 require_once "php/auth.php";
 // require_once "php/adminCrude.php";
 
+if(isLogedIn()){
+
 
 
 
@@ -1441,4 +1443,8 @@ if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'],
 <?php
 
 include "./includes/footer.php";
+
+  }else{
+    header('Location: login.php');
+  }
 ?>

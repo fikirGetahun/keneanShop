@@ -878,6 +878,13 @@
             }
     ////// search from
     // function 
+    function isLogedIn(){
+        if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 
