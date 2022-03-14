@@ -46,7 +46,7 @@ include "../php/connect.php";
             <form action="addWebsiteAd.php" method="POST" enctype="multipart/form-data">
             <div id="registerBox">
         <label for="exampleInputEmail1">Change Front Page large Photo</label>
-          <input type="file" required class="form-control" id="photo" name="photoFL[]"  >
+          <input type="file" required class="form-control" id="photo" name="photoFL[]" multiple >
           <small id="emailHelp" class="form-text text-muted"> </small>
         </div>
 

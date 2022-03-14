@@ -35,11 +35,14 @@ $p = explode(',', $rx['photoPath1']);
   <section class="col-lg-8 ">
   <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-inner">
+  <div class="carousel-item active">
+      <img src="<?php echo $p[0] ?>" class="d-block mx-auto card-img-top" style="max-height: 450px;" alt="...">
+    </div> 
     <?php
-      foreach( $p as $p){
+      for($i=1;$i<count($p);$i++){
         ?>
-      <div class="carousel-item active">
-      <img src="<?php echo $p ?>" class="d-block mx-auto card-img-top" style="max-height: 450px;" alt="...">
+      <div class="carousel-item ">
+      <img src="<?php echo $p[$i] ?>" class="d-block mx-auto card-img-top" style="max-height: 450px;" alt="...">
     </div>      
         <?php
       }

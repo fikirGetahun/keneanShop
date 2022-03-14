@@ -857,9 +857,9 @@ echo $mysql->error;
             $amount = 3;
             if($tableName == 'blog'){
                 $amount = 6;
-            }elseif('webAd'){
+            }elseif($tableName == 'webAd'){
                 $amount = 1;
-            }elseif('webAdx'){
+            }elseif($tableName == 'webAdx'){
                 $amount = 3;
             }else{
                 $amount = 3;
