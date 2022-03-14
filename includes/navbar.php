@@ -71,18 +71,20 @@ if(isset($_GET['loc'])){
   padding-bottom: .75rem;
   font-size: .875rem;
 }
-#1nav {
+/* #nav1 {
+  z-index: 1;
   position: fixed;
   top: 0;
 }
 
-#2nav {
+#nav2 {
+  z-index: 1;
   position: fixed;
-  top: 5%;
-}
+  top: 8%;
+} */
 
 </style>
-<script src="assets/jquery.js"  ></script>
+<!-- <script src="assets/jquery.js"  ></script> -->
 
 
 <script>
@@ -176,7 +178,8 @@ function reload(x){
 
 
 </script>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="height: min-content;">
+
+<nav id="nav1" class="navbar navbar-expand-lg navbar-dark bg-primary" style="height: min-content;">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -184,7 +187,7 @@ function reload(x){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="nav-link active" href="index.php?loc=All"  aria-current="page"  ><?php echo $lang['home'] ?></a>
+          <a class="nav-link active small" href="index.php?loc=All"  aria-current="page"  ><?php echo $lang['home'] ?></a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="./maincat.php?cat=ad&status=bigDiscount&off=ACTIVE&label=Big Discount Advertisment&type=big"  aria-current="page"  > <span class="small"><?php echo $lang['big_discount'] ?></span> </a>
@@ -343,7 +346,7 @@ function reload(x){
       </form>
 
       
-      <a href="./Account.php?message=true&inner=true&tb=ORDER&reciver=89&post=89" class="btn btn-outline-danger m-1 text-dark flex-shrink-0">Order Item</a>
+      <a href="./Account.php?message=true&inner=true&tb=ORDER&reciver=89&post=89" class="btn btn-outline-danger m-1 text-dark   small">Order</a>
       
    
 
@@ -361,7 +364,7 @@ function reload(x){
 
   <div class="container nav-scrollers py-1 mb-2">
     
-    <nav class="nav d-flex justify-content-between">
+    <nav id="nav2" class="nav d-flex justify-content-between">
       
       <li class="nav-item dropdown">
 

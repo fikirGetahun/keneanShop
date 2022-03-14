@@ -772,10 +772,12 @@ foreach($dbTables as $posts){
 
                 if($posts == 'realestate'){
                   ?>
-                 <a class="img-thumbnail" href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>&type=" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php echo $row['photoPath1'] ?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                 <a class="img-thumbnail" href="./Description.php?cat=realestate&label=<?php
+                 if($row['selectKey'] == 'rs'){ echo 'RealEstate'; }elseif($row['selectKey'] == 'ban'){echo 'Bank Stocks';}elseif($row['selectKey'] == 'ins'){echo 'Insurance Post';}
+                 ?>&postId=<?php echo $row['id'] ?>&type=<?php echo $row['selectKey'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php echo $row['photoPath1'] ?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
                  <!-- favourite deleter button -->
 <a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
-                  
+
                  <?php
                }
                 ?>
