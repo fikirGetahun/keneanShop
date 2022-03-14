@@ -753,20 +753,114 @@ foreach($dbTables as $posts){
                           <?php                  
                   }
 
+                }if($posts == 'vacancy'){
+          
+                  ?>
+                  <a class="img-thumbnail" href="./Description.php?cat=vacancy&label=Vacancy Post&postId=<?php echo $row['id'] ?>&type=" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="./assets/img/work-7.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <!-- favourite deleter button -->
+<a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
+                  <?php
                 }
+
+                if($posts == 'tender'){
+                   ?>
+                  <a class="img-thumbnail" href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>&type=" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php echo $row['photoPath1'] ?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                  <!-- favourite deleter button -->
+<a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
+                  <?php
+                }
+
+                if($posts == 'realestate'){
+                  ?>
+                 <a class="img-thumbnail" href="./Description.php?cat=tender&label=Tender Post&postId=<?php echo $row['id'] ?>&type=" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php echo $row['photoPath1'] ?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
+                 <!-- favourite deleter button -->
+<a href="Account.php?fav=true&delFav=true&tb=<?php echo $posts ?>&pid=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete Favourite</a>
+                  
+                 <?php
+               }
                 ?>
 
                 <div class="card-body">
                   <?php
-                  if(!in_array($posts, $excluded)){
-                    ?>
-                    <p class="card-text"><?php echo $row['title'] ?></p>
-                    <?php
-                  }else{
-                    ?>
-                    <p class="card-text"><?php echo $row['name'] ?></p>        
-                    <?php
-                  }
+                                    if(!in_array($posts, $excluded)){
+                                      if($posts == 'vacancy'){
+                                        ?>
+                                        <h5>Vacancy Post</h5>
+                                        <?php
+                                      }elseif($posts == 'car'){
+                                        ?>
+                                        <h5>Car Post</h5>
+                                        <?php
+                                      }elseif($posts == 'tender'){
+                                        ?>
+                                        <h5>Tender Post</h5>
+                                        <?php
+                                      }elseif($posts == 'ad'){
+                                        ?>
+                                        <h5>Ad Post</h5>
+                                        <?php
+                                      }elseif($posts == 'electronics'){
+                                        ?>
+                                        <h5>Electronics Post</h5>
+                                        <?php
+                                      }elseif($posts == 'charity'){
+                                        ?>
+                                        <h5>Charity Post</h5>
+                                        <?php
+                                      }elseif($posts == 'realestate'){
+                                        ?>
+                                        <h6>Sponsered!</h6>
+                                        <?php
+                                      }
+                  
+                                      
+                                      ?>
+                                      <p class="card-text"><?php echo $row['title'] ?></p>
+                                      <?php
+                                    }
+                                    elseif($posts == 'housesell'){
+                                      if($row['houseOrLand'] == 'HOUSE'){
+                                        ?>
+                                        <h5>House Post</h5>
+                                        <p class="card-text"><?php echo $row['type'] ?></p>
+                                        <?php
+                                      }else{
+                                        ?>
+                                        <h5>Land Post</h5>
+                                        <p class="card-text"><?php echo $row['type'] ?></p>
+                                        <?php                      
+                                      }
+                                    }elseif($posts == 'jobhometutor'){
+                                      ?>
+                                      <h5>Home Tutor Post</h5>
+                                      <p class="card-text"><?php echo $row['name'] ?></p> 
+                  
+                                      <?php
+                                    }elseif($posts == 'zebegna'){
+                                      ?>
+                                      <h5>Security Gaurd Post</h5>
+                                      <p class="card-text"><?php echo $row['name'] ?></p> 
+                  
+                                      <?php
+                                    }elseif($posts == 'hotelhouse'){
+                                      if($row['hotelOrHouse'] == 'HOUSE'){
+                                        ?>
+                                        <h5>House Jobs Post</h5>
+                                        <p class="card-text"><?php echo $row['name'] ?></p> 
+                                        <?php
+                                      }else{
+                                        ?>
+                                        <h5>Hotel Jobs Post</h5>
+                                        <p class="card-text"><?php echo $row['name'] ?></p> 
+                                        <?php
+                                      }
+                                    }           else{
+                                      ?>
+                                      <p class="card-text"><?php echo $row['name'] ?></p> 
+                                      <?php
+                                    }
+   
+                
                   ?>
                   
                   <div class="d-flex justify-content-between align-items-center">
