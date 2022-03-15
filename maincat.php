@@ -226,7 +226,31 @@ if(isset($_GET['cat']) && $_GET['cat'] == 'realestate'){
     <option value="./maincat.php?cat=realestate&spType=ins&arg= &label=Insurance Stokes" >Insurance Stokes Sponsered </option>
   </select>
   </div>
+
+
 <?php  
+}
+
+if(isset($_GET['spType']) && $_GET['spType'] == 'rs'){
+  ?>
+  <div  class="col-sm-3" >
+  
+  <select  class="form-select" aria-label="Default select example" onchange="location=this.value" name="forWho" id="forWho">
+  /maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate
+   <option selected><?php echo $lang['CategoryReal'] ?></option>
+   <option value="./maincat.php?cat=realestate&spType=rs&arg= &label=Real Estate&dbType=Commercial RS">Commercial RS</option>
+   <option value="Hotel and Lodging">Hotel and Lodging</option>
+   <option value="Industrial RS">Industrial RS</option>
+   <option value="Land For RS">Land For RS</option>
+   <option value="Mixed Use">Mixed Use</option>
+   <option value="Office Space">Office Space</option>
+   <option value="Residential Rs">Residential Rs</option>
+
+ </select>
+   </div>
+
+
+<?php 
 }
 
 
