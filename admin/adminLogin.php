@@ -102,9 +102,12 @@
             $login = 'NOT_USER';
 
         }elseif($check->num_rows > 0){
+
+
             
 
             while($row = $check->fetch_assoc()){
+              
                 if(password_verify($pa, $row['password'])){
                     $_SESSION['idz'] = $row['id'];
                     
