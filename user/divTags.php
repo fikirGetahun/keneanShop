@@ -1,10 +1,12 @@
 <?php
-include "../includes/header.php";
+// include "../includes/header.php";
+
 
 ?>
 
-targetFor
+ 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <!-- input form jiji -->
 <div id="jiji" style="width:100%;" class="modal-dialog">

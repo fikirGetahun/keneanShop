@@ -98,7 +98,7 @@ include "../includes/lang.php";
           <option selected>Choose...</option>
 <?php
     require_once "../php/adminCrude.php";
-    $house = $admin->houseCategoryLister();
+    $house = houseCategoryLister();
     while($houseRow = $house->fetch_assoc()){
       ?>
       <option value="<?php echo $houseRow['category'] ?>"><?php echo $houseRow['category'] ?></option>
@@ -140,7 +140,7 @@ include "../includes/lang.php";
   <tbody>
       <?php
       require_once "../php/adminCrude.php";
-      $out = $admin->allCategoryLister('car');
+      $out = allCategoryLister('car');
 
       while($row = $out->fetch_assoc()){
 
@@ -185,7 +185,7 @@ include "../includes/lang.php";
   <tbody>
       <?php
       require_once "../php/adminCrude.php";
-      $out2 = $admin->allCategoryLister('ad');
+      $out2 = allCategoryLister('ad');
 
       while($row = $out2->fetch_assoc()){
 
@@ -285,7 +285,7 @@ include "../includes/lang.php";
   <tbody>
       <?php
       require_once "../php/adminCrude.php";
-      $out = $admin->allCategoryLister('vacancy');
+      $out = allCategoryLister('vacancy');
 
       while($row = $out->fetch_assoc()){
 
@@ -333,7 +333,7 @@ include "../includes/lang.php";
 
       <?php
       require_once "../php/adminCrude.php";
-      $out = $admin->allCategoryLister('housesell');
+      $out = allCategoryLister('housesell');
       while($row = $out->fetch_assoc()){
 
               ?>
@@ -427,7 +427,7 @@ include "../includes/lang.php";
 
 
       <?php
-      $out = $admin->allCategoryLister('electronics');
+      $out = allCategoryLister('electronics');
       while($row = $out->fetch_assoc()){
 
               ?>

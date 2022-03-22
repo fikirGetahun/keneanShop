@@ -3022,9 +3022,9 @@ if(isset($_GET['status'])){
 // this condition will dictate the pageination 
           // this condition will dictate the pageination 
 // this condition will dictate the pageination 
-          if($fetchPost[1]->num_rows != 0){
+if($fetchPost[1]->num_rows != 0){
             ?>
-<nav aria-label="Page navigation example">
+      <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-end">
     <?php
     $pageNumberPerPAGE = 2; 

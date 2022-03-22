@@ -2,7 +2,7 @@
     include "../includes/adminSide.php";
 
 require_once "../php/adminCrude.php";
-
+require_once "../php/auth.php";
 if(isset($_POST['adCatw'])){
     // echo 'innnn';
     $cat = $_POST['adCatw'];
@@ -18,45 +18,33 @@ if(isset($_POST['adCatw'])){
 
 
 
-if(isset($_POST['carC'])){
-    $cat = $_POST['carC'];
-    $out = allCategoryAdder($cat, 'car');}
-
-if(isset($_POST['vacancyC'])){
-    $cat = $_POST['vacancyC'];
-    $out = allCategoryAdder($cat, 'vacancy');}
-
-if(isset($_POST['houseC'])){
-    $cat = $_POST['houseC'];
-    $out = allCategoryAdder($cat, 'housesell');}
-
-if(isset($_POST['elc'])){
-    $cat = $_POST['elc'];
-    $out = allCategoryAdder($cat, 'electronics');
-}
 
 
 
 ?>
 <head>
-    <script src="assets/jquery.js"></script>
+    <!-- <script src="../assets/jquery.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <script>
         $(document).ready(function(){
 
-            $('form').on('submit', function(e){
-                e.preventDefault()
+            // $('form').on('submit', function(e){
+            //     // alert('in')
+            //     e.preventDefault()
                 
-                $.ajax({
-                    url: 'addCategory.php',
-                    type: 'post',
-                    data: $('form').serialize(),
-                    success: function(){
-                        $('#adCat').val() = "";
+            //     $.ajax({
+            //         url: 'addCategory.php',
+            //         type: 'post',
+            //         data: $('form').serialize(),
+            //         success: function(data){
+            //             alert('Category Added!')
+            //             alert(data)
                         
-                    }
-                })
+            //         }
+            //     })
  
-            })
+            // })
 
 
 
@@ -168,7 +156,66 @@ if(isset($_POST['elc'])){
     <div id="postBox">
 
 <main id="main" class="main">
+    
+<?php
+    if(isset($_POST['carC'])){
+        $cat = $_POST['carC'];
+        $out = allCategoryAdder($cat, 'car');}
+        if($out){
+            echo '<span class="text-success"> Category Added! </span>';
+        }else{
+            echo $out;
+        }
+    
+    if(isset($_POST['vacancyC'])){
+        $cat = $_POST['vacancyC'];
+        $out = allCategoryAdder($cat, 'vacancy');
+        if($out){
+            echo '<span class="text-success"> Category Added! </span>';
+        }else{
+            echo $out;
+        }
+    }
+    
+    if(isset($_POST['houseC'])){
+        $cat = $_POST['houseC'];
+        $out = allCategoryAdder($cat, 'housesell');
+        if($out){
+            echo '<span class="text-success"> Category Added! </span>';
+        }else{
+            echo $out;
+        }
+    }
+    
+    if(isset($_POST['elc'])){
+        $cat = $_POST['elc'];
+        $out = allCategoryAdder($cat, 'electronics');
+        if($out){
+            echo '<span class="text-success"> Category Added! </span>';
+        }else{
+            echo $out;
+        }
+    }
+    
+    
+    ?>
+ 
  <?php
+
+if(isset($_GET['typeD'] , $_GET['did']) && $_GET['typeD']   == 'vacancyDelete'){
+    $delVac = postDeleterCat('adcategory', $_GET['did']);
+}elseif(isset($_GET['typeD'] , $_GET['did']) && $_GET['typeD']  == 'adDelete'){
+    $delVac = postDeleterCat('adcategory', $_GET['did']);
+}elseif(isset($_GET['typeD'] , $_GET['did']) && $_GET['typeD']  == 'carDelete'){
+    $delVac = postDeleterCat('adcategory', $_GET['did']);
+}elseif(isset($_GET['typeD'] , $_GET['did']) && $_GET['typeD']  == 'houseDelete'){
+    $delVac = postDeleterCat('adcategory', $_GET['did']);
+}elseif(isset($_GET['typeD'] , $_GET['did']) && $_GET['typeD'] == 'elecDel'){
+    $delVac = postDeleterCat('adcategory', $_GET['did']);  
+}
+
+
+
 if(isset($_GET['type'])){
     if($_GET['type'] == 'ad'){
         ?>
@@ -202,8 +249,7 @@ if(isset($_GET['type'])){
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-                    <button onclick="edit(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
-                    <button onclick="adDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+<a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=ad"  class="btn btn-dark">Edit</a>                      <a href="addCategory.php?type=ad&typeD=adDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a>
                     <?php
                 }
             ?>
@@ -221,7 +267,7 @@ if(isset($_GET['type'])){
   </tbody>
 </table>
 </div>
-<form  action="addCategory.php" method="POST">
+<form  action="addCategory.php?&type=ad" method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>
     <input type="text" class="form-control" id="adCategory" 
@@ -263,8 +309,8 @@ if(isset($_GET['type'])){
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-             <button onclick="editCar(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
-            <button onclick="carDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+<a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=car"  class="btn btn-dark">Edit</a>      
+        <a href="addCategory.php?type=car&typeD=carDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a>
                     <?php
                 }
             ?>
@@ -284,9 +330,7 @@ if(isset($_GET['type'])){
 </div>
 
 <script>
-    $(document).ready(function(){
-
-    })
+ 
     function updateCar(){
         $('#xx2').load('divTags.php #carCat');
         $('#xx2').load('divTags.php #carCat');
@@ -296,7 +340,7 @@ if(isset($_GET['type'])){
 
 </script>
 
-<form  method="POST">
+<form action="addCategory.php?&type=car"  method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>
     <input type="text" class="form-control" id="adCategory" 
@@ -339,8 +383,8 @@ if(isset($_GET['type'])){
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-             <button onclick="editVacancy(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
-            <button onclick="vacDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+     <a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=vacancy"  class="btn btn-dark">Edit</a>      
+     <a href="addCategory.php?type=vacancy&typeD=vacancyDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a>
                     <?php
                 }
             ?>
@@ -373,7 +417,7 @@ if(isset($_GET['type'])){
 
 </script>
 
-<form  method="POST">
+<form action="addCategory.php?&type=vacancy" method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>
     <input type="text" class="form-control" id="adCategory" 
@@ -415,9 +459,9 @@ if(isset($_GET['type'])){
 
             <?php
                 if($row['category'] != 'OTHER' ){
-                    ?>
-             <button onclick="editHouse(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
-            <button onclick="houseDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+                    ?> 
+             <a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=house"  class="btn btn-dark">Edit</a> 
+             <a href="addCategory.php?type=house&typeD=houseDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a>
                     <?php
                 }
             ?>
@@ -439,7 +483,7 @@ if(isset($_GET['type'])){
   </tbody>
 </table>
 </div>
-<form id="adzC" method="POST">
+<form id="adzC" action="addCategory.php?&type=house" method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>
     <input type="text" class="form-control" id="adCategory" 
@@ -487,8 +531,8 @@ if(isset($_GET['type'])){
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-             <button onclick="editElec(<?php echo $row['id'] ?>)"  class="btn btn-dark">Edit</button> 
-            <button onclick="elecDelete(<?php echo $row['id'] ?>)" class="btn btn-dark">Delete</button>
+     <a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=elec"  class="btn btn-dark">Edit</a>  
+     <a href="addCategory.php?type=electronics&typeD=electronicsDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a>
                     <?php
                 }
             ?>
@@ -510,16 +554,10 @@ if(isset($_GET['type'])){
 </div>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
-<script>
-        $(document).ready(function(){
-
-})
 
 
-</script>
 
-
-<form id="adzxcC" method="POST">
+<form id="adzxcC" action="addCategory.php?&type=electronics" method="POST">
 <div id="registerBox">
     <label for="exampleInputEmail1">Add Category</label>
     <input type="text" class="form-control" id="adCategory" 
@@ -537,6 +575,7 @@ if(isset($_GET['type'])){
 include "../includes/adminFooter.php";
 
 ?>
+
 </main>
     </div>
 

@@ -1,9 +1,13 @@
+<?php
+include "../includes/adminSide.php";
+?>
+<main id="main" class="main">
 <div id="editAd">
     <?php
     require_once "../php/adminCrude.php";
     require_once "../php/auth.php";
-    if(isset($_POST['id'])){
-        $id = $_POST['id'];
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
     }
 
      
@@ -14,6 +18,11 @@
         $cat = $_POST['edCat'];
         echo $cat;
         $out3 = allCategoryUpdater($cat, 'ad', $id2);
+        if($out3){
+            echo 'Category Edited!';
+        }else{
+            echo $out;
+        }
     }
 
     //car category editoer
@@ -23,6 +32,11 @@
         $cat = $_POST['carCat'];
         echo $cat;
         $out3 = allCategoryUpdater($cat, 'car', $id2);
+        if($out3){
+            echo 'Category Edited!';
+        }else{
+            echo $out;
+        }
     }
 
     //vacancy category editor
@@ -31,7 +45,12 @@
         $id2 = $_POST['id'];
         $cat = $_POST['vacancyCat'];
         echo $cat;
-        $out3 = allCategoryUpdater($cat, 'vacancy', $id2);    }
+        $out3 = allCategoryUpdater($cat, 'vacancy', $id2);  
+        if($out3){
+            echo 'Category Edited!';
+        }else{
+            echo $out;
+        }  }
 
     //house category editor
     if(isset($_POST['houseCat'], $_POST['id'])){
@@ -39,7 +58,12 @@
         $id2 = $_POST['id'];
         $cat = $_POST['houseCat'];
         echo $cat;
-        $out3 = allCategoryUpdater($cat, 'housesell', $id2);    }
+        $out3 = allCategoryUpdater($cat, 'housesell', $id2);  
+        if($out3){
+            echo 'Category Edited!';
+        }else{
+            echo $out;
+        }  }
 
         //house category editor
         if(isset($_POST['elecCat'], $_POST['id'])){
@@ -47,7 +71,12 @@
             $id2 = $_POST['id'];
             $cat = $_POST['elecCat'];
             echo $cat;
-            $out3 = allCategoryUpdater($cat, 'electronics', $id2);       
+            $out3 = allCategoryUpdater($cat, 'electronics', $id2);  
+            if($out3){
+                echo 'Category Edited!';
+            }else{
+                echo $out;
+            }     
          }
 
          
@@ -58,26 +87,26 @@
 
 <script>
     $(document).ready(function(){
-        $('form').on('submit', function(e){
-            // alert('innn')
-            e.preventDefault()
-            $.ajax({
-                url: 'adCatEdit.php',
-                type: 'post',
-                data: $('form').serialize(),
-                success: function(){
+        // $('form').on('submit', function(e){
+        //     // alert('innn')
+        //     e.preventDefault()
+        //     $.ajax({
+        //         url: 'adCatEdit.php',
+        //         type: 'post',
+        //         data: $('form').serialize(),
+        //         success: function(){
 
-                }
-            })
-            })
+        //         }
+        //     })
+        //     })
 
     })
 
 </script> 
 </head>
 <?php
-if(isset($_POST['type'])){
-    if($_POST['type'] == 'ad'){
+if(isset($_GET['type'])){
+    if($_GET['type'] == 'ad'){
         ?>
         <td>
 
@@ -88,10 +117,10 @@ if(isset($_POST['type'])){
           <button type="submit" onclick="update()"  class="btn btn-dark">Edit</button>
 </form></td>
         <?php
-    }elseif($_POST['type'] == 'car'){
+    }elseif($_GET['type'] == 'car'){
         ?>
         <td>
-<!-- <script src="../assets/jquery.js"></script> -->
+<script src="../assets/jquery.js"></script>
 
 <form id="editAd2" method="POST">
 <input hidden name="id" value="<?php echo $id ?>">
@@ -100,9 +129,9 @@ if(isset($_POST['type'])){
           <button type="submit" onclick="updateCar()"  class="btn btn-dark">Edit</button>
 </form></td>
         <?php
-    }elseif($_POST['type'] == 'vacancy' ){
+    }elseif($_GET['type'] == 'vacancy' ){
         ?>
-        <!-- <script src="../assets/jquery.js"></script> -->
+        <script src="../assets/jquery.js"></script>
 
 <form id="editAd2" method="POST">
 <input hidden name="id" value="<?php echo $id ?>">
@@ -111,18 +140,18 @@ if(isset($_POST['type'])){
           <button type="submit" onclick="updateVacancy()"  class="btn btn-dark">Edit</button>
 </form></td>
         <?php
-    }elseif($_POST['type'] == 'house'){
+    }elseif($_GET['type'] == 'house'){
         ?>
-        <!-- <script src="../assets/jquery.js"></script> -->
+        <script src="../assets/jquery.js"></script>
         
-        <form id="editAd2" method="POST">
+        <form id="adCatEdit.php?type=house" method="POST">
         <input hidden name="id" value="<?php echo $id ?>">
         <input type="text" class="form-control" id="adCategory" 
                   aria-describedby="emailHelp" name="houseCat" placeholder="Job"> 
-                  <button type="submit" onclick="updateHouse()"  class="btn btn-dark">Edit</button>
+                  <button type="submit"   class="btn btn-dark">Edit</button>
         </form></td>        
         <?php
-    }elseif($_POST['type'] == 'elec'){
+    }elseif($_GET['type'] == 'elec'){
         ?>
         <!-- <script src="assets/jquery.js"></script> -->
         <script>
@@ -159,3 +188,4 @@ if(isset($_POST['type'])){
 
 
 </div>
+</main>

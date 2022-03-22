@@ -1,5 +1,5 @@
 <?php
-include "../includes/header.php";
+// include "../includes/header.php";
   require_once "../php/adminCrude.php";
 
   $url = $_SERVER['REQUEST_URI'];
@@ -40,10 +40,11 @@ if(!isset($_SESSION)){
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-  <script src="assets/jquery.js" type="text/javascript"></script>
+  <!-- <script src="assets/jquery.js" type="text/javascript"></script> -->
   <script>
     $(document).ready(function(){
       var currentUrl = '<?php echo $url; ?>'

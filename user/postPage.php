@@ -1268,7 +1268,7 @@ $('#sElc').on('change', function(){
           <option><?php echo $lang['elecCat'] ?></option>
           <?php 
               require_once '../php/fetchApi.php';
-                $locc= allPostListerOnColumen('adCategory', 'tableName', 'electronics');
+                $locc= allPostListerOnColumen('adcategory', 'tableName', 'electronics');
                 $city = array();
                 while($rowLoc = $locc->fetch_assoc()){
                     $city[]= $rowLoc['category'];
@@ -1383,7 +1383,7 @@ $('#sElc').on('change', function(){
               <!-- /// to select address like jiji style -->
       <div id="z"  class="modal-dialog" style="position: absolute; top: 3%; width: 100%;" ></div>
     </div><!-- /.modal-dialog -->
-    
+    </div>
     
     <?php
 }

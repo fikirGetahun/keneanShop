@@ -1,5 +1,5 @@
 <?php
-    include('../includes/header.php');
+    include '../includes/header.php';
     include "../includes/adminSide.php";
 
     require_once "../php/adminCrude.php";
@@ -9,62 +9,37 @@
 
 
 
-    if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'], $_POST['username'],
-     $_POST['password'], $_POST['auth'], $_POST['about'], $_FILES['photoq'], $_POST['recover'])){
-
-      echo 'in';
-         $firstName =$_POST['firstName'] ;
-         $lastName =$_POST['lastName'] ;
-         $phoneNumber =$_POST['phoneNumber'] ;
-         $username =$_POST['username'] ;
-         $password =$_POST['password'] ;
-         $auth =$_POST['auth'] ;
-         $about =$_POST['about'];
-         $recover = $_POST['recover'];
-         $password = password_hash($password, PASSWORD_DEFAULT);
 
 
 
-         //to add user data
-        //  $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, '', $job, $about); 
-
-        //to add user data and photo upload if user adds photo since its optional
-        //  if(isset($_FILES['photoq'])){
-          $tempName = $_FILES['photoq']['tmp_name'];
-          $fileName = $_FILES['photoq']['name'];
-                    //to upload photo
-                    $up = uploadPhoto($fileName, $tempName);
-                    $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, $up, $about, $recover ); 
-
-        // }
-
-
-     }
+    //  }
 
      
 
 ?>
-  <script src="assets/jquery.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
   <script>
-      $(document).ready(function(){
-        $('#registerBox').on('submit', function(e){
-      e.preventDefault()
-      $.ajax({
-        url: 'admin/adminRegister.php',
-        type: 'post',
-        data:  new FormData( this ),
-        success : function(){
-          $('#alertVacancy').text('Register SUCCESSFULL!  ')
-        },
-        processData: false,
-    contentType: false
-      })
-      return false;
+    //   $(document).ready(function(){
+    //     $('form').on('submit', function(e){
+    //   e.preventDefault()
+    //   $.ajax({
+    //     url: 'admin/adminRegister.php',
+    //     type: 'post',
+    //     data:  new FormData( this ),
+    //     success : function(){
+    //       $('#alertVacancy').text('Register SUCCESSFULL!  ')
+    //     },
+    //     processData: false,
+    // contentType: false
+    //   })
+    //   return false;
 
-    })
-      })
+    // })
+    //   })
   </script>
     <main id="main" class="main">
+
 
 <div class="pagetitle">
   <h1>Dashboard x</h1>
@@ -79,7 +54,7 @@
 </div> 
 <div id="postBox" class="container">
 <div class="container">
-  <form id="registerBox"  method="POST" enctype="multipart/form-data" >
+  <form action="adminRegister.php"  method="POST" enctype="multipart/form-data" >
     <div id="registerBox2">
     <label for="exampleInputEmail1">First Name</label>
           <input type="text" class="form-control" id="firstName" 
@@ -154,9 +129,47 @@
 
 
       <input class="btn btn-light" type="submit" value="Register">
+
  
   </form>
   <div id="alertVacancy"></div>
+  <?php
+      
+      if(isset($_POST['firstName'], $_POST['lastName'], $_POST['phoneNumber'], $_POST['username'],
+      $_POST['password'], $_POST['auth'], $_POST['about'], $_FILES['photoq'], $_POST['recover'])){
+               $firstName =$_POST['firstName'] ;
+              $lastName =$_POST['lastName'] ;
+              $phoneNumber =$_POST['phoneNumber'] ;
+              $username =$_POST['username'] ;
+              $password =$_POST['password'] ;
+              $auth =$_POST['auth'] ;
+              $about =$_POST['about'];
+              $recover = $_POST['recover'];
+              $password = password_hash($password, PASSWORD_DEFAULT);
+     
+     
+     
+              //to add user data
+             //  $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, '', $job, $about); 
+     
+             //to add user data and photo upload if user adds photo since its optional
+             //  if(isset($_FILES['photoq'])){
+               $tempName = $_FILES['photoq']['tmp_name'];
+               $fileName = $_FILES['photoq']['name'];
+                         //to upload photo
+                         $up = uploadPhoto($fileName, $tempName);
+                         $out = userAdder($firstName, $lastName, $phoneNumber, $username, $password, $auth, $up, $about, $recover ); 
+     
+             // }
+     
+               if($out){
+                 echo '<span class="text-success">REGISTERD</span> ';
+               }else{
+                 echo 'error';
+               }
+              }
+     
+        ?>
     
   </div>
 </div>

@@ -315,14 +315,14 @@ echo $mysql->error;
             $postStatus = 'ACTIVE';
             $q ="INSERT INTO `car`(`title`,`type`, `status`, `fuleKind`, `posterId`, `fixidOrN`,
              `photoPath1`,  `price`, `info`, `forRentOrSell`,
-              `postStatus`, `postedDate`, `transmission`, `bodyStatus`, `km`, `ownerBroker` ,`forWho`,`rentStatus`,`whyRent`, `address`  )
+              `postStatus`, `postedDate`, `transmission`, `bodyStatus`, `km`, `ownerBroker` ,`forWho`,`rentStatus`,`whyRent`, `address`, `edited`, `view`  )
              VALUES ( '$title','$type', '$status', '$fuleKind', '$posterId', '$fixedOrN', '$photoPath1', 
              '$price','$info','$forRentOrSell', '$postStatus', '$postDate',
-             '$transmission', '$bodyStatus', '$km', '$ob', '$forWho', '$rentStatus', '$whyRent', '$ad' )";
+             '$transmission', '$bodyStatus', '$km', '$ob', '$forWho', '$rentStatus', '$whyRent', '$ad', ' ', 0 )";
 
-    echo $mysql->error;
+    
             $ask = $mysql->query($q);
-
+            echo $mysql->error;
             return $ask;
             
         }
@@ -802,7 +802,7 @@ echo $mysql->error;
             include "connect.php";
             $q = "INSERT INTO `adcategory`(`category`, `tableName`) VALUES ('$cat','$table')";
             $ask = $mysql->query($q);
-
+            echo $mysql->error;
             return $ask;  
         }
 
@@ -825,12 +825,18 @@ echo $mysql->error;
             $ask3 = $mysql->query($q3);
             $row = $ask3->fetch_assoc();
             $tobeupdated = $row['category'];
+  
 
-            $q2 ="UPDATE `$table` SET `type` = '$cat' WHERE `$table`.`type` = '$tobeupdated'" ; /// the updated category will also update the table that are associated with it....
-            $q = "UPDATE `adcategory` SET `category`= '$cat' WHERE  `adCategory`.`id` = '$id' "; // to update the category listed table
+            $f = "SELECT * FROM `$table` WHERE `$table`.`type` = '$tobeupdated' ";
+            $askS = $mysql->query($f);
+            if($askS->num_rows != 0){
+                $q2 ="UPDATE `$table` SET `type` = '$cat' WHERE `$table`.`type` = '$tobeupdated'" ; /// the updated category will also update the table that are associated with it....
+                $ask2 = $mysql->query($q2);
+            }
+            $q = "UPDATE `adcategory` SET `category`= '$cat' WHERE  `adcategory`.`id` = '$id' "; // to update the category listed table
 
        
-            $ask2 = $mysql->query($q2);
+           
             $ask = $mysql->query($q);
             echo $mysql->error;
             
@@ -891,11 +897,11 @@ echo $mysql->error;
                     }
 
                     if($tableName == 'car'){
-                        $uploadPath[] = '../uploads/CarPostsPhoto/'.$uploadName;
+                        $uploadPath[] = '../uploads/carPostsPhoto/'.$uploadName;
                         if($i != 0){
                             $dbPath .= ',';
                         }
-                        $dbPath .= './uploads/CarPostsPhoto/'.$uploadName;
+                        $dbPath .= './uploads/carPostsPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'housesell'){
@@ -1018,9 +1024,9 @@ echo $mysql->error;
                     
 
                     if($tableName == 'car'){
-                        $uploadPath = '../uploads/CarPostsPhoto/'.$uploadName;
+                        $uploadPath = '../uploads/carPostsPhoto/'.$uploadName;
 
-                        $dbPath .= './uploads/CarPostsPhoto/'.$uploadName;
+                        $dbPath .= './uploads/carPostsPhoto/'.$uploadName;
                     }
 
                     if($tableName == 'housesell'){
@@ -1298,11 +1304,11 @@ echo $mysql->error;
             }
 
             if($tableName == 'car'){
-                $uploadPath = '../uploads/CarPostsPhoto/'.$uploadName;
+                $uploadPath = '../uploads/carPostsPhoto/'.$uploadName;
                 if($i != 0){
                     $dbPath .= ',';
                 }
-                $dbPath .= './uploads/CarPostsPhoto/'.$uploadName;
+                $dbPath .= './uploads/carPostsPhoto/'.$uploadName;
             }
 
             if($tableName == 'housesell'){
