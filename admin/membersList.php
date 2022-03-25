@@ -63,6 +63,29 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
 
 <div class="row" >
 
+        <!-- lavel filter  -->
+        <div class="form-group col-3">
+            <?php
+            $weredaurl = parse_url($_SERVER['REQUEST_URI']);
+            $WU = parse_str($weredaurl['query'], $werc);
+
+            if(isset($werc['label'])){
+              unset($werc['label']);
+            }
+           
+            $wer = http_build_query($werc);
+            ?>
+        <select class="form-select" aria-label="Default select example" name="wereda" onchange="location=this.value;"  id="inputGroupSelect01">
+          <option value="<?php echo '?'.$wer  ?>&label=4" ><?php if(isset($_GET['label'])){echo 'Level '.$_GET['label'];}else{
+            echo 'Selected Level 4';
+          } ?></option>
+           <option value="<?php echo '?'.$wer  ?>&label=4" >Level 4</option>
+          <option value="<?php echo '?'.$wer  ?>&label=3" >Level 3</option>
+          <option value="<?php echo '?'.$wer  ?>&label=2" >Level 2</option>
+          <option value="<?php echo '?'.$wer  ?>&label=1" >Level 1</option>
+        </select>
+        </div>
+
 <div class="col-3">
 <?php 
               require_once '../php/fetchApi.php';
@@ -194,26 +217,6 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
         </select>
         </div>
 
-        <!-- lavel filter  -->
-        <div class="form-group col-3">
-            <?php
-            $weredaurl = parse_url($_SERVER['REQUEST_URI']);
-            $WU = parse_str($weredaurl['query'], $werc);
-
-            if(isset($werc['label'])){
-              unset($werc['label']);
-            }
-           
-            $wer = http_build_query($werc);
-            ?>
-        <select class="form-select" aria-label="Default select example" name="wereda" onchange="location=this.value;"  id="inputGroupSelect01">
-          <option value="<?php echo '?'.$wer  ?>&label=4" >Selected Level 4</option>
-           <option value="<?php echo '?'.$wer  ?>&label=4" >Level 4</option>
-          <option value="<?php echo '?'.$wer  ?>&label=3" >Level 3</option>
-          <option value="<?php echo '?'.$wer  ?>&label=2" >Level 2</option>
-          <option value="<?php echo '?'.$wer  ?>&label=1" >Level 1</option>
-        </select>
-        </div>
 
 
 </div>

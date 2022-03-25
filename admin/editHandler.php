@@ -465,6 +465,11 @@ if(isset(
             $roww = $out->fetch_assoc();
           }
 
+          if($tn == 'mambership'){
+            $out = aSinglePostView($pid, 'mambership');
+            $roww = $out->fetch_assoc();
+          }
+
 
           $dbPath = null;
 

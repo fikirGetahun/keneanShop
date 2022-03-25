@@ -1106,7 +1106,7 @@ echo $mysql->error;
 
         //photo updater
         function photoUpdater($tableName, $pid, $fileVar){
-            // require "auth.php";
+            require_once "auth.php";
             include "connect.php";
             //  echo 'idddddddddd'.$fileVar['name'];
             $dbPath = '';
@@ -1220,6 +1220,14 @@ echo $mysql->error;
                             $dbPath .= ',';
                         }
                         $dbPath .= './uploads/realEstate/'.$uploadName;
+                    }
+
+                    if($tableName == 'mambership'){
+                        $uploadPath[] = './uploads/members/'.$uploadName;
+                        if($i != 0){
+                            $dbPath .= ',';
+                        }
+                        $dbPath .= './uploads/members/'.$uploadName;
                     }
                     
 

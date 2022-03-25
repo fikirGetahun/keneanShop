@@ -1,6 +1,7 @@
 <?php
-include "includes/header.php";
+// include "includes/header.php";
 require "./php/auth.php";
+
 ob_start();
 if(!isset($_SESSION)) { 
   session_start(); 
@@ -9,6 +10,27 @@ if(!isset($_SESSION)) {
 
 
 ?>
+<head> 
+      <meta name="google-signin-client_id" content="188687233688-uin1hc4po34opmfp5gem7ps60k45kjip.apps.googleusercontent.com">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="assets/css/innerMsg.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+        <script>
+
+function onSignIn(googleUser){
+//  alert('yes')
+  // $('#v').load('', {username: 'bla', name: 'blaa'})
+  var fName = googleUser.getBasicProfile().getEmail();
+  var name = googleUser.getBasicProfile().getName()
+  var lastName = googleUser.getBasicProfile().getGivenName()
+  // var us = googleUser.getBasicProfile()
+ location="./googleLogin.php?usernameG="+fName+"&nameG="+name+"&lastName="+lastName;
+}
+</script>
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -57,6 +79,7 @@ $(document).ready(function(){
   <form action="login.php" method="POST" >
     <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <div class="g-signin2" data-onsuccess="onSignIn"   ></div>
 
     <div class="form-floating">
       <input type="text" class="form-control" name="username" id="floatingInput" placeholder="name@example.com">
@@ -79,6 +102,9 @@ $(document).ready(function(){
    <div id="alertVacancy" >
 
    <?php
+
+
+
    
    //////////////////LOGIN USER //////////////////////////
 

@@ -109,11 +109,11 @@ $(document).ready(function(){
     //   }
 
     
-    $('#search').on('submit',function(){
+    // $('#search').on('submit',function(){
               
       // alert($('form').serialize())
-      $('#loop').empty()
-      $('#loop').load("search.php?"+$('form').serialize())
+      // $('#loop').empty()
+      // $('#loop').load("search.php?"+$('form').serialize())
       
                     // $.ajax({
                     //     url: 'search.php',
@@ -124,7 +124,7 @@ $(document).ready(function(){
                              
                     //     }
                     // })
-                  })
+                  // })
 
 
 

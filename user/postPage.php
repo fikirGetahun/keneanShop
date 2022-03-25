@@ -57,8 +57,8 @@ $(document).ready(function(){
                     this.reset();
               });
               $('#alertVacancy').text(data)
-              // $('#alertVacancy').delay(5200).fadeOut(1000);
-              // location.reload()
+              $('#alertVacancy').delay(5200).fadeOut(1000);
+              location.reload()
             },
             processData: false,
         contentType: false

@@ -1207,7 +1207,8 @@ if($o['tableName'] != 'ORDER'){
               <?php
                 }else{ /// else if its an order it only shows the order label
                   ?>
-                  <h4 class="justify-content-center">Order Item!</h4>
+                  <div class="border border-success p-2">
+                  <p class="text-success d-flex justify-content-center" > <strong>Welcome </strong> &nbsp;To  &nbsp; <strong> Zumra360</strong> &nbsp; Order Box !!    &nbsp;&nbsp; Please Fill Your Needs Detail below. </p></div>
                   <?php
                 }
               ?>

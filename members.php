@@ -45,15 +45,108 @@ if(!isset($_SESSION)){
       <h4 class="mb-3">Member</h4>
       <form action="members.php"   method="POST" enctype="multipart/form-data"  >
         <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="firstName">Full name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" name="name" value="<?php echo $_SESSION['name'] ?>" required>
-            <div class="invalid-feedback">
-              Valid first name is required.
-            </div>
-          </div>
+
 
         </div>
+        <div class="row">
+                <div class="">
+                  <div class="col mb-3">
+                    <label for="firstName">Full name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="" name="name" value="<?php echo $_SESSION['name'] ?>" required>
+                    <div class="invalid-feedback">
+                      Valid first name is required.
+                    </div>
+                  </div>
+                </div>
+              
+          </div>
+
+          <div class="row">
+                <div class="col-lg-6">
+                  <div  class="input-group mb-3" >
+                    <select  class="form-select" aria-label="Default select example" name="city"
+                    onchange="hCityz(this.value)" id="">
+                      <option><?php echo $lang['city'] ?></option>
+                      <?php 
+                          require_once 'php/fetchApi.php';
+                            $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
+                            $city = array();
+                            while($rowLoc = $locc->fetch_assoc()){
+                                $city[]= $rowLoc['category'];
+                            }
+                            sort($city);
+                            $i = 0;
+                            foreach($city as $loc){
+                              if($loc == 'Addis Ababa'){
+                                ?>
+                                <option selected ><?php echo $loc ?></option>
+                                <?php
+                              }else{
+                                ?>
+                                <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                                <?php
+                              }
+                              ?>
+                              
+                            
+                              <?php
+                              $i++;
+                            }
+                          ?> 
+                    </select>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                     
+                  <div id="subHx"   class="input-group mb-3" >
+                        <?php
+                        require_once 'php/fetchApi.php';
+                        $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
+                        $city = array();
+                        if($locc->num_rows != 0){
+                          ?>
+                                    <select  class="form-select" aria-label="Default select example" name="subCity" >
+                              <option><?php echo $lang['subCity'] ?></option>
+                          <?php
+                        while($rowLoc = $locc->fetch_assoc()){
+                            $city[]= $rowLoc['category'];
+                        }
+                        sort($city);
+                        $i = 0;
+                        foreach($city as $loc){
+                          if($loc == 'Addis Ababa'){
+                            ?>
+                            <option selected ><?php echo $loc ?></option>
+                            <?php
+                          }else{
+                            ?>
+                            <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
+                            <?php
+                          }
+                          ?>
+                          
+                        
+                          
+                          <?php
+                          $i++;
+                        }
+                      }
+                        ?>
+                  </select>
+            </div>
+                </div>
+          </div>
+
+          <div class="row">
+                <div class="col-lg-6">
+
+                </div>
+                <div class="col-lg-6">
+                  
+                </div>
+          </div>
+
+
         <!-- <div class="row"> -->
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
@@ -78,76 +171,9 @@ function hCityz(x){
 }
 </script>
 
-<div  class="input-group mb-3" >
-      <select  class="form-select" aria-label="Default select example" name="city"
-       onchange="hCityz(this.value)" id="">
-        <option><?php echo $lang['city'] ?></option>
-        <?php 
-            require_once 'php/fetchApi.php';
-              $locc= allPostListerOnColumenORDER('adcategory', 'tableName', 'CITY');
-              $city = array();
-              while($rowLoc = $locc->fetch_assoc()){
-                  $city[]= $rowLoc['category'];
-              }
-              sort($city);
-              $i = 0;
-              foreach($city as $loc){
-                if($loc == 'Addis Ababa'){
-                  ?>
-                  <option selected ><?php echo $loc ?></option>
-                  <?php
-                }else{
-                  ?>
-                   <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
-                  <?php
-                }
-                ?>
-                
-              
-                <?php
-                $i++;
-              }
-            ?> 
-      </select>
-      </div>
 
-      
-      <div id="subHx"   class="input-group mb-3" >
-        <?php
-      require_once 'php/fetchApi.php';
-  $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', 'Addis Ababa');
-  $city = array();
-  if($locc->num_rows != 0){
-    ?>
-              <select  class="form-select" aria-label="Default select example" name="subCity" >
-        <option><?php echo $lang['subCity'] ?></option>
-    <?php
-  while($rowLoc = $locc->fetch_assoc()){
-      $city[]= $rowLoc['category'];
-  }
-  sort($city);
-  $i = 0;
-  foreach($city as $loc){
-    if($loc == 'Addis Ababa'){
-      ?>
-      <option selected ><?php echo $loc ?></option>
-      <?php
-    }else{
-      ?>
-       <option value="<?php echo $loc ?>" ><?php echo $loc ?></option>
-      <?php
-    }
-    ?>
-    
-  
-    
-    <?php
-    $i++;
-  }
-}
-  ?>
-  </select>
-      </div>
+
+   
 
 
       
@@ -199,91 +225,128 @@ function hCityz(x){
             </div>
           </div>
         </div>
+        <div class="container" >
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">What does initiate you to do work with us?</label>
+                  <textarea type="text" class="form-control" id="des2" 
+                  aria-describedby="emailHelp" name="what_does_initiate" placeholder="info"></textarea>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Do you have another Job?</label>
+                  <textarea type="text" class="form-control" id="des2" 
+                    aria-describedby="emailHelp" name="do_you_have_other_job" placeholder="info"></textarea>
+                  </div>
+              </div>
+            </div>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">What does initiate you to do work with us?</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="what_does_initiate" placeholder="info"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Have you work as a broker before?</label> <br>
+
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" required type="radio" name="broker_before" id="inlineRadio1" value="YES">
+                        <label class="form-check-label" for="inlineRadio1">Yes</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" required type="radio" name="broker_before" id="inlineRadio2" value="NO">
+                        <label class="form-check-label" for="inlineRadio2">No</label>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Do you have a business License?</label> <br>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" required type="radio" name="business_license" id="inlineRadio1" value="YES">
+                      <label class="form-check-label" for="inlineRadio1">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" required type="radio" name="business_license" id="inlineRadio2" value="NO">
+                      <label class="form-check-label" for="inlineRadio2">No</label>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                <label for="exampleInputEmail1">What kind of commission will you work with us? </label> <br>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input"  type="checkbox" name="House_and_land_Selling" id="inlineRadio1" value="House_and_land_Selling">
+                      <label class="form-check-label" for="inlineRadio1">House_and_land_Selling</label>
+                    </div> <br>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="House_Renting" id="inlineRadio2" value="House_Renting">
+                      <label class="form-check-label" for="inlineRadio2">House_Renting</label>
+                    </div><br>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input"  type="checkbox" name="Real_Estate_Renting_and_Selling" id="inlineRadio2" value="Real_Estate_Renting_and_Selling">
+                      <label class="form-check-label" for="inlineRadio2">Real_Estate_Renting_and_Selling</label>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input"  type="checkbox" name="Car_Selling" id="inlineRadio2" value="Car_Selling">
+                      <label class="form-check-label" for="inlineRadio2">Car_Selling</label>
+                    </div><br>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input"  type="checkbox" name="Car_Renting" id="inlineRadio2" value="Car_Renting">
+                      <label class="form-check-label" for="inlineRadio2">Car_Renting</label>
+                    </div><br>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="Other_Work" id="inlineRadio2" value="Other_Work">
+                      <label class="form-check-label" for="inlineRadio2">Other_Work</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+
+                </div>
+                <div class="col-lg-6">
+                  
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+
+                </div>
+                <div class="col-lg-6">
+                  
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+
+                </div>
+                <div class="col-lg-6">
+                  
+                </div>
+            </div>
         </div>
 
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Do you have another Job?</label>
-          <textarea type="text" class="form-control" id="des2" 
-          aria-describedby="emailHelp" name="do_you_have_other_job" placeholder="info"></textarea>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Have you work as a broker before?</label>
-
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" required type="radio" name="broker_before" id="inlineRadio1" value="YES">
-          <label class="form-check-label" for="inlineRadio1">Yes</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" required type="radio" name="broker_before" id="inlineRadio2" value="NO">
-          <label class="form-check-label" for="inlineRadio2">No</label>
-        </div>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">Do you have a business License?</label>
-
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" required type="radio" name="business_license" id="inlineRadio1" value="YES">
-          <label class="form-check-label" for="inlineRadio1">Yes</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" required type="radio" name="business_license" id="inlineRadio2" value="NO">
-          <label class="form-check-label" for="inlineRadio2">No</label>
-        </div>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleInputEmail1">What kind of commission will you work with us? </label>
-
-        <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="House_and_land_Selling" id="inlineRadio1" value="House_and_land_Selling">
-          <label class="form-check-label" for="inlineRadio1">House_and_land_Selling</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="House_Renting" id="inlineRadio2" value="House_Renting">
-          <label class="form-check-label" for="inlineRadio2">House_Renting</label>
-        </div>
-
-        <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="Real_Estate_Renting_and_Selling" id="inlineRadio2" value="Real_Estate_Renting_and_Selling">
-          <label class="form-check-label" for="inlineRadio2">Real_Estate_Renting_and_Selling</label>
-        </div>
-
-        
-        <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="Car_Selling" id="inlineRadio2" value="Car_Selling">
-          <label class="form-check-label" for="inlineRadio2">Car_Selling</label>
-        </div>
-
-        </div>
-
-        <div class="form-check form-check-inline">
-          <input class="form-check-input"  type="radio" name="Car_Renting" id="inlineRadio2" value="Car_Renting">
-          <label class="form-check-label" for="inlineRadio2">Car_Renting</label>
-        </div>
-
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="Other_Work" id="inlineRadio2" value="Other_Work">
-          <label class="form-check-label" for="inlineRadio2">Other_Work</label>
-        </div>
-
-        </div>
 
 
-        <div id="form-group">
-        <label for="exampleInputEmail1">Upload scaned identification card here</label>
-          <input type="file"  class="form-control" id="photoid" name="photo"  >
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+
         </div>
+  <!-- </div> -->
+
+ 
 
 
         <div class="form-group">
@@ -293,6 +356,11 @@ function hCityz(x){
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
+        <div id="form-group">
+        <label for="exampleInputEmail1">Upload scaned identification card here</label>
+          <input type="file"  class="form-control" id="photoid" name="photo"  >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
 
         <hr class="mb-4">
         <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
@@ -350,8 +418,9 @@ function hCityz(x){
             print_r($up);
           }else{
             $mem = member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $up[0], $broker_before, $business_license, $commission, $question, $userId, $subcity);
+            
             if($mem){
-              echo 'Registerd ';
+              header('Location: memberNotice.php');
             }else{
               echo 'error';
             }

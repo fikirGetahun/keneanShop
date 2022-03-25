@@ -607,15 +607,15 @@
             /// membership register
             function member($name, $city, $wereda, $phone1, $phone2, $what_does_initiate, $do_you_have_other_job, $photoPath1, $broker_before, $business_license, $commission_type, $question, $userId, $subcity ){
                 include "connect.php";
-              
+                $postedDate = date('Y-m-d H:i:s');
 
-                $q = "INSERT INTO `mambership`( `name`, `city`, `subcity`, `wereda`, `phone1`, `phone2`, `what_does_initiate`, `do_you_have_other_job`, `photoPath1`, `broker_before`, `business_license`, `commission_type`, `question`,  `userId`) VALUES ( '$name', '$city', '$subcity' ,'$wereda', '$phone1', '$phone2', '$what_does_initiate', '$do_you_have_other_job', '$photoPath1', '$broker_before', '$business_license', '$commission_type', '$question', '$userId ' )";
+                $q = "INSERT INTO `mambership`( `name`, `city`, `subcity`, `wereda`, `phone1`, `phone2`, `what_does_initiate`, `do_you_have_other_job`, `photoPath1`, `broker_before`, `business_license`, `commission_type`, `question`,  `userId` ,`postedDate`) VALUES ( '$name', '$city', '$subcity' ,'$wereda', '$phone1', '$phone2', '$what_does_initiate', '$do_you_have_other_job', '$photoPath1', '$broker_before', '$business_license', '$commission_type', '$question', '$userId', '$postedDate' )";
 
             
 
 
                 $ask = $mysql->query($q);
-
+                echo $mysql->error;
 
                 return $ask;
             }
