@@ -111,9 +111,12 @@ $p = explode(',', $rx['photoPath1']);
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
     <?php
     if($pageLocation != 'All'){
-      $home = allPostListerOn2Columen('housesell', 'houseOrLand', 'HOUSE', 'city', $pageLocation);
-    }else{
-      $home = allPostListerOnColumen('housesell','houseOrLand', 'HOUSE');
+
+      $home = allPostListerOnColumen('realestate', 'city', $pageLocation);
+    
+    }
+    else{
+      $home = allPostListerOnTable('realestate');
     }
 
     if($home->num_rows != 0){
@@ -183,23 +186,59 @@ $p = explode(',', $rx['photoPath1']);
 $dbTables = array('ad', 'car', 'charity', 'electronics',
 'housesell');
 
- 
-for($z=0;$z<17;$z++){
-  $r = rand(0,4); 
-  $tab = $dbTables[$r];// to choose random table to fetch data off
-  // echo $tab;
+if(isset($_GET['search'])){
+  $R =count($dbTables);
+  $postShow = $R;
+}else{
+  $postShow = 17;
+}
+
+
+for($z=0;$z<$postShow;$z++){
+    if(isset($_GET['search'])){
+     $tab = $dbTables[$z]; 
+    }else{
+      $r = rand(0,4); 
+      $tab = $dbTables[$r];// to choose random table to fetch data off
+      // echo $tab;
+    }
   if($pageLocation != 'All'){
     if($tab == 'housesell'){
-      $home = allPostListerOnColumen($tab,'city', $pageLocation); // if city is not all, then a city is selected so it always fetch data based on a city
+      if(isset($_GET['search'])){
+        $search = $_GET['search'];
+        $home = search1C($tab, 'city', $pageLocation, $search,0,30 );
+      }else{
+        $home = allPostListerOnColumenD($tab,'city', $pageLocation,0,$postShow); // if city is not all, then a city is selected so it always fetch data based on a city
+      }
+    
     }else{
-    $home = allPostListerOnColumen($tab,'address', $pageLocation); // if city is not all, then a city is selected so it always fetch data based on a city
+      if(isset($_GET['search'])){
+        $search = $_GET['search'];
+        $home = search1C($tab, 'address', $pageLocation, $search,0,30 );
+      }else{
+        $home = allPostListerOnColumenD($tab,'address', $pageLocation,0,$postShow); // if city is not all, then a city is selected so it always fetch data based on a city
+      }
+
     }
   }else{
-    $home = allPostListerOnTable($tab); // it fetches data from all city
+    if(isset($_GET['search'])){
+      $search = $_GET['search'];
+      $home = searchC($tab, $search,0,30);
+    }else{
+    $home = allPostListerOnTableD($tab,0,$postShow ); // it fetches data from all city
+    }
   }
-  if($home->num_rows != 0){  // if only a result occurs
+  // if( $home[0]->num_rows != 0 ){
+  //   $home = $home[0];
+  //   echo 'bithc';
+  // }else{
+  //   $home =$home;
+  //   echo 'll';
+  // }
+$noResult = array();
+  if( $home[0]->num_rows != 0){  // if only a result occurs
   $i1= 1;
-  while($row12 = $home->fetch_assoc()){
+  while($row12 = $home[0]->fetch_assoc()){
     
     ?>
       <div  class="col-3" style="height: 20%; overflow: hidden; min-height: 20%;" >
@@ -279,11 +318,10 @@ for($z=0;$z<17;$z++){
     $i1++;
   }
 
-}else{
-  echo 'No Result';
 }
 
 }
+
 
 
     ?>
@@ -292,6 +330,7 @@ for($z=0;$z<17;$z++){
   </div>
   </div>
 </div>
+
 <button onclick="view()" > View More</button>
 
 </main>
