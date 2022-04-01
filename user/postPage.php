@@ -145,6 +145,7 @@ $('#fsell').on('change', function(){
       </div>
       <!-- <h5><?php echo $lang['carAdPost'] ?></h5> -->
             <div id="carVl" class="modal-body">
+        
             <form  method="POST" enctype="multipart/form-data" >
           <input hidden name="posterId2" value="<?php echo $_SESSION['userId'] ?>">
 
@@ -380,6 +381,8 @@ $('#fsell').on('change', function(){
         <input type="submit" value="POST">
         <div id="alertVacancy"></div>
           </form>
+
+
             </div>
         </div><!-- /.modal-content -->
       <!-- /// to select address like jiji style -->
@@ -1688,7 +1691,7 @@ if($_GET['type'] == 'vacancy'){
 
         <input type="submit" onclick="x()" value="POST">
         <div id="alertVacancy"></div>
-
+        </form>
             </div>
         </div><!-- /.modal-content -->
               <!-- /// to select address like jiji style -->

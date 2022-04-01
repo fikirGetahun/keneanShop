@@ -124,7 +124,7 @@ $('.btn-close').click(function(){
           <?php
         }else{
           ?>
-          <img src="./admin/assets/img/zumra.png"pt-2">
+          <img src="./admin/assets/img/zumra.png" pt-2>
           <?php
         }
         ?>
@@ -982,10 +982,12 @@ foreach($dbTables as $posts){
 
               
             
-if($o['tableName'] != 'ORDER'){
-            // to fetch the post photo and title to be displayed 
-            $postCrap = allPostListerOnColumen($o['tableName'], 'id', $o['postId'] );
-            $rowPostCrap = $postCrap->fetch_assoc();
+if($o['tableName'] != 'ORDER'){ // if the tabel is order there is no data to fetch b/c there is no tabel named ORDER
+
+          // to fetch the post photo and title to be displayed 
+          $postCrap = allPostListerOnColumen($o['tableName'], 'id', $o['postId'] );
+          $rowPostCrap = $postCrap->fetch_assoc();
+
 }
 
           // to fetch the reciver end user data crap
@@ -995,11 +997,14 @@ if($o['tableName'] != 'ORDER'){
 
           // to check if any of the users are admin/ editor / user
           $authCH = allPostListerOnColumen('user','id',$otherUser);
-          $rowAuth = $authCH->fetch_assoc();
+          $rowAuth = $authCH->fetch_assoc(); 
+
 
           if($o['tableName'] == 'ORDER'){ // if the table name is 'ORDER' this means the msg type is order so the order msg label must be included
             ?>
-             <h6 class="text-warning border border-success" >Order Message From</h6>
+
+             <h6 class="text-warning border border-success" >Order Message From</h6>  
+
             <?php
           }
             ?>
@@ -1008,7 +1013,7 @@ if($o['tableName'] != 'ORDER'){
             <?php
             if($_SESSION['auth'] == 'ADMIN'  || $_SESSION['auth'] == 'EDITOR'  ){
               ?>
-              <img src="assets/img/pp.png" class="img-thumbnail  col-2" alt="...">
+              <img src="assets/img/pp.png" class="img-thumbnail  col-2" alt="..."> 
               <h5 class="col-2">Admin</h5>
               <?php
             }else{
@@ -1018,10 +1023,27 @@ if($o['tableName'] != 'ORDER'){
               <?php
             }
             ?>
+                      <?php
 
+                      $splitMsg = explode(',',$o['msg'] );
+
+                      // here if the next msg after comma is 'send', then it only show the go to client button so that the website member can automatically go to the client
+                      if(isset($splitMsg[1])){       
+                        ?>
+                       <p class="col-2"> <a class="col-2" href="<?php echo $splitMsg[0] ?>" > Go To Client.</a></p>
+                        <?php
+                      }else{  // else it only echo out the msg 
+                        ?>
+                        <p class="card-text col-2"><?php echo $you.' '.$splitMsg[0] ?></p>
+                        <?php
+                         
+                        
+                        // echo $splitMsg[1];
+                        // var_dump($rowInnerMsg['msg']);
+                      }
+                      ?>
             
-            <p class="card-text col-2"><?php echo $you.' '.$o['msg'] ?></p>
-            <p class="card-text col-2"><small class="text-muted"></small><?php echo $date ?></p>
+             <p class="card-text col-2"><small class="text-muted"></small><?php echo $date ?></p>
             <?php
               if($rowAuth['auth'] == 'USER' ){
                 ?>
@@ -1029,7 +1051,7 @@ if($o['tableName'] != 'ORDER'){
                   <img src="<?php  $p = photoSplit($ur['photoPath1']); echo $p[0] ;  ?>" class="img-thumbnail col-2" alt="..."> 
 
                 <?php
-              }elseif($rowAuth['auth'] == 'ADMIN'){
+              }elseif($rowAuth['auth'] == 'ADMIN' || $_SESSION['auth'] == 'EDITOR' ){
                 ?>
               <img src="assets/img/pp.png" class="img-thumbnail  col-2" alt="...">
               <h5 class="col-2">Admin</h5>              
@@ -1164,7 +1186,7 @@ if($o['tableName'] != 'ORDER'){
                  <h5><?php echo $row2['firstName'].' '.$row2['lastName'] ?></h5>
                   <img src="<?php $p = photoSplit($row2['photoPath1']); echo $p[0] ;?> " class="col-3 img-thumbnail">
                     <?php
-                  }else{ // if there is a profile pic 
+                  }else{ // if there is a profile pic  
                     ?>
                       <h5><?php echo $row2['firstName'].' '.$row2['lastName'] ?></h5>
                     <img class="col-4"  src="./admin/assets/img/zumra.png" pt-2">
@@ -1262,15 +1284,16 @@ if($o['tableName'] != 'ORDER'){
                     ?>
 <div class="d-flex justify-content-start mb-4">
 <div class="msg_cotainer ">
+
                           <?php
 
-                          $splitMsg = explode(',',$rowInnerMsg['msg'] );
+                          $splitMsg = explode(',',$rowInnerMsg['msg'] );  
 
                           // here if the next msg after comma is 'send', then it only show the go to client button so that the website member can automatically go to the client
                           if(isset($splitMsg[1])){       
                             ?>
                             <a href="<?php echo $splitMsg[0] ?>" > Go To Client.</a>
-                            <?php
+                            <?php 
                           }else{  // else it only echo out the msg 
                             echo $splitMsg[0];
                             
@@ -1278,6 +1301,8 @@ if($o['tableName'] != 'ORDER'){
                             // var_dump($rowInnerMsg['msg']);
                           }
                           ?>
+
+
                         <?php 
                             $date = time_elapsed_string($rowInnerMsg['postedDate']);
                          ?>
