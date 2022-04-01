@@ -79,6 +79,19 @@ include "../includes/adminSide.php";
             }     
          }
 
+         if(isset($_POST['big'], $_POST['id'])){
+            echo 'ind';
+            $id2 = $_POST['id'];
+            $cat = $_POST['big'];
+            echo $cat;
+            $out3 = allCategoryUpdater($cat, 'ad', $id2);  
+            if($out3){
+                echo 'Category Edited!';
+            }else{
+                echo $out;
+            }     
+         }
+
          
 
     ?>     
@@ -171,6 +184,26 @@ if(isset($_GET['type'])){
                   <button type="submit" onclick="updateElc()"  class="btn btn-dark">Edit</button>
         </form></td>        
         <?php
+    }elseif($_GET['type'] == 'big'){
+        ?>
+        <!-- <script src="assets/jquery.js"></script> -->
+        <script>
+            function updateElc(){
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+                $('#xxh2').load('divTags.php #elecCat')
+            }
+
+        </script>
+        <form id="editAd2" method="POST">
+        <input hidden name="id" value="<?php echo $id ?>">
+        <input type="text" class="form-control" id="adCategory" 
+                  aria-describedby="emailHelp" name="big" placeholder="Job"> 
+                  <button type="submit" onclick="updateElc()"  class="btn btn-dark">Edit</button>
+        </form></td>        
+        <?php
     }elseif($_POST['type'] == 'vacancyDelete'){
         $delVac = postDeleterCat('adCategory', $id);
     }elseif($_POST['type'] == 'adDelete'){
@@ -180,6 +213,8 @@ if(isset($_GET['type'])){
     }elseif($_POST['type'] == 'houseDelete'){
         $delVac = postDeleterCat('adCategory', $id);
     }elseif($_POST['type'] == 'elecDel'){
+        $delVac = postDeleterCat('adCategory', $id);
+    }elseif($_POST['type'] == 'bigcDel'){
         $delVac = postDeleterCat('adCategory', $id);
     }
 

@@ -1,5 +1,6 @@
 <?php
   include "../includes/adminSide.php";
+  include "../includes/header.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +58,7 @@ if(isset($_GET['uid'])){
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-<script src="assets/jquery.js"></script>
+<!-- <script src="assets/jquery.js"></script> -->
 <script>
   $(document).ready(function(){
     // $('#vacancyForm').on('submit', function(e){
@@ -814,7 +815,7 @@ $('#targetLoader').empty()
     <option selected ><?php echo $lang['adsCategory'] ?></option>
     <?php 
         require_once '../php/fetchApi.php';
-          $locc= allCategoryLister('ad');
+          $locc= allCategoryLister('big');
           $city = array();
           while($rowLoc = $locc->fetch_assoc()){
               $city[]= $rowLoc['category'];
@@ -1061,7 +1062,7 @@ foreach($categorySort as $sorted){
   function hCity(x){
     // alert(x)
     $.ajax({
-        url: 'user/userApi.php',
+        url: '../user/userApi.php',
         type: 'post',
         data: {
           cityH: x
@@ -1392,7 +1393,7 @@ foreach($categorySort as $sorted){
 function hCity(x){
   // alert(x)
   $.ajax({
-      url: 'user/userApi.php',
+      url: '../user/userApi.php',
       type: 'post',
       data: {
         cityH: x
@@ -3190,7 +3191,7 @@ $(document).ready(function(){
   function hCity(x){
     // alert(x)
     $.ajax({
-        url: 'user/userApi.php',
+        url: '../user/userApi.php',
         type: 'post',
         data: {
           cityH: x

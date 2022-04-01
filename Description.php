@@ -1079,7 +1079,7 @@ if($_GET['type'] == 'charity'){
               <?php
 }
 /////////////////// vacancy post
-if($_GET['type'] == 'vacancy'){
+if($_GET['cat'] == 'vacancy'){
       // to add aview count to this post
       $viewadd = viewAdder($type, $pid);
 
@@ -1205,7 +1205,7 @@ if($_GET['type'] == 'vacancy'){
     <?php
 }
 ///////////////// tender post
-if($_GET['type'] == 'tender' ){
+if($_GET['cat'] == 'tender' ){
       // to add aview count to this post
       // $type = $_GET['cat'];
       $viewadd = viewAdder($type, $pid);

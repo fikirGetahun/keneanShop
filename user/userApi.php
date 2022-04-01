@@ -169,13 +169,14 @@ if(isset($_POST['cityH'])){
   <?php
   // echo 'what';
   $city = $_POST['cityH'];
+  require_once "../includes/header.php";
    require_once '../php/fetchApi.php';
     $locc= allPostListerOn2Columen('adcategory', 'tableName', 'SUBCITY', 'subcityKey', $city);
     $city = array();
     if($locc->num_rows != 0){
       ?>
-                <select  class="form-select" aria-label="Default select example" name="subCity" >
-          <option><?php echo $lang['subCity'] ?></option>
+        <select  class="form-select" aria-label="Default select example"  name="subCity" >
+        <option><?php echo $lang['subCity'] ?></option>
       <?php
     while($rowLoc = $locc->fetch_assoc()){
         $city[]= $rowLoc['category'];

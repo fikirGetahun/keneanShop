@@ -26,7 +26,7 @@ if(isset($_POST['searchData'])){
             <tr>
                 <td><?php echo $row['name'] ?></td>
                 <td><?php echo $row['city'] ?></td>
-                <td><a class="btn btn-outline-dark flex-shrink-0" href="./Account.php?message=true&outter=true&memberId=<?php echo $row['userId'] ?>" >Go to Messages</a></td>
+                <td><a class="btn btn-outline-dark flex-shrink-0" href="./message.php?message=true&outter=true&memberId=<?php echo $row['userId'] ?>&outter=true" >Go to Messages</a></td>
             </tr>
             <?php
           }

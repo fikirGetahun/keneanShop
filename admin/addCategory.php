@@ -3,14 +3,15 @@
 
 require_once "../php/adminCrude.php";
 require_once "../php/auth.php";
+require_once "../php/fetchApi.php";
 if(isset($_POST['adCatw'])){
     // echo 'innnn';
     $cat = $_POST['adCatw'];
     $out = allCategoryAdder($cat, 'ad');
         if($out){
-        echo 'yes';
+        // echo 'yes';
     }else{
-        echo 'no';
+        // echo 'no';
     }
 }
 
@@ -196,6 +197,16 @@ if(isset($_POST['adCatw'])){
             echo $out;
         }
     }
+
+    if(isset($_POST['big'])){
+        $cat = $_POST['big'];
+        $out = allCategoryAdder($cat, 'big');
+        if($out){
+            echo '<span class="text-success"> Category Added! </span>';
+        }else{
+            echo $out;
+        }
+    }
     
     
     ?>
@@ -211,6 +222,8 @@ if(isset($_GET['typeD'] , $_GET['did']) && $_GET['typeD']   == 'vacancyDelete'){
 }elseif(isset($_GET['typeD'] , $_GET['did']) && $_GET['typeD']  == 'houseDelete'){
     $delVac = postDeleterCat('adcategory', $_GET['did']);
 }elseif(isset($_GET['typeD'] , $_GET['did']) && $_GET['typeD'] == 'elecDel'){
+    $delVac = postDeleterCat('adcategory', $_GET['did']);  
+}elseif(isset($_GET['typeD'] , $_GET['did']) && $_GET['typeD'] == 'bigDelete'){
     $delVac = postDeleterCat('adcategory', $_GET['did']);  
 }
 
@@ -228,8 +241,11 @@ if(isset($_GET['type'])){
 <table class="table" id="cBox">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <!-- <th scope="col">#</th> -->
       <th scope="col">Category</th>
+      <th scope='col'>Edit</th>
+      <th scope='col' >Delete</th>
+
     </tr>
   </thead>
 
@@ -243,13 +259,14 @@ if(isset($_GET['type'])){
 
               ?>
             <tr>
-            <th scope="row"><?php echo $row['id'] ?></th>
+            <!-- -->
             <td id="editAd<?php echo $row['id'] ?>">
             <?php echo $row['category'] ?>
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-<a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=ad"  class="btn btn-dark">Edit</a>                      <a href="addCategory.php?type=ad&typeD=adDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a>
+<td><a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=ad"  class="btn btn-dark">Edit</a>    </td>
+                 <td> <a href="addCategory.php?type=ad&typeD=adDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a> <td>
                     <?php
                 }
             ?>
@@ -269,13 +286,13 @@ if(isset($_GET['type'])){
 </div>
 <form  action="addCategory.php?&type=ad" method="POST">
 <div id="registerBox">
-    <label for="exampleInputEmail1">Add Category</label>
+   
     <input type="text" class="form-control" id="adCategory" 
           aria-describedby="emailHelp" name="adCatw" placeholder="Job">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    
+ 
+    <input class="btn btn-success" type="submit"  onclick="update()" value="Add Category">
 </div><br>
-<input class="btn btn-light" type="submit" onclick="update()" value="Add Category">
+
 </form>
 
         <?php
@@ -288,8 +305,10 @@ if(isset($_GET['type'])){
 <table class="table" id="cBox">
   <thead>
     <tr>
-      <th scope="col">#</th>
+   
       <th scope="col">Category</th>
+      <th scope='col'>Edit</th>
+      <th scope='col' >Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -303,14 +322,15 @@ if(isset($_GET['type'])){
 
               ?>
             <tr>
-            <th scope="row"><?php echo $row['id'] ?></th>
+           
             <td id="editAd<?php echo $row['id'] ?>">
             <?php echo $row['category'] ?>
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-<a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=car"  class="btn btn-dark">Edit</a>      
-        <a href="addCategory.php?type=car&typeD=carDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a>
+         <td> <a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=car"  class="btn btn-dark">Edit</a>  </td>
+
+       <td> <a href="addCategory.php?type=car&typeD=carDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a> </td>
                     <?php
                 }
             ?>
@@ -342,13 +362,13 @@ if(isset($_GET['type'])){
 
 <form action="addCategory.php?&type=car"  method="POST">
 <div id="registerBox">
-    <label for="exampleInputEmail1">Add Category</label>
+   
     <input type="text" class="form-control" id="adCategory" 
           aria-describedby="emailHelp" name="carC" placeholder="Job">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  
     
 </div><br>
-<input class="btn btn-light" type="submit" onclick="updateCar()" value="Add Category">
+<input class="btn btn-success" type="submit"  onclick="updateCar()" value="Add Category">
 </form>
         
         <?php
@@ -361,8 +381,10 @@ if(isset($_GET['type'])){
 <table class="table" id="cBox">
   <thead>
     <tr>
-      <th scope="col">#</th>
+   
       <th scope="col">Category</th>
+      <th scope='col'>Edit</th>
+      <th scope='col' >Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -376,15 +398,16 @@ if(isset($_GET['type'])){
 
               ?>
             <tr>
-            <th scope="row"><?php echo $row['id'] ?></th>
+           
             <td id="editAd<?php echo $row['id'] ?>">
             <?php echo $row['category'] ?>
 
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-     <a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=vacancy"  class="btn btn-dark">Edit</a>      
-     <a href="addCategory.php?type=vacancy&typeD=vacancyDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a>
+                    <td>     <a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=vacancy"  class="btn btn-dark">Edit</a>      
+</td>
+   <td>  <a href="addCategory.php?type=vacancy&typeD=vacancyDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a></td>
                     <?php
                 }
             ?>
@@ -419,13 +442,13 @@ if(isset($_GET['type'])){
 
 <form action="addCategory.php?&type=vacancy" method="POST">
 <div id="registerBox">
-    <label for="exampleInputEmail1">Add Category</label>
+   
     <input type="text" class="form-control" id="adCategory" 
           aria-describedby="emailHelp" name="vacancyC" placeholder="Job">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  
     
 </div><br>
-<input class="btn btn-light" type="submit" onclick="updateVacancy()" value="Add Category">
+<input class="btn btn-success" type="submit"  onclick="updateVacancy()" value="Add Category">
 </form>
         <?php
     }elseif($_GET['type'] == 'house'){
@@ -438,8 +461,10 @@ if(isset($_GET['type'])){
 <table class="table" >
   <thead>
     <tr>
-      <th scope="col">#</th>
+   
       <th scope="col">Category</th>
+      <th scope='col'>Edit</th>
+      <th scope='col' >Delete</th>
     </tr>
   </thead>
 
@@ -453,7 +478,7 @@ if(isset($_GET['type'])){
 
               ?>
             <tr>
-            <th scope="row"><?php echo $row['id'] ?></th>
+           
             <td id="editAd<?php echo $row['id'] ?>">
             <?php echo $row['category'] ?>
 
@@ -485,13 +510,13 @@ if(isset($_GET['type'])){
 </div>
 <form id="adzC" action="addCategory.php?&type=house" method="POST">
 <div id="registerBox">
-    <label for="exampleInputEmail1">Add Category</label>
+   
     <input type="text" class="form-control" id="adCategory" 
           aria-describedby="emailHelp" name="houseC" placeholder="Job">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  
     
 </div><br>
-<input class="btn btn-light" type="submit" onclick="updateHouse()" value="Add Category">
+<input class="btn btn-success" type="submit"  onclick="updateHouse()" value="Add Category">
 </form>
 
         <?php
@@ -507,8 +532,10 @@ if(isset($_GET['type'])){
 <table class="table" >
   <thead>
     <tr>
-      <th scope="col">#</th>
+   
       <th scope="col">Category</th>
+      <th scope='col'>Edit</th>
+      <th scope='col' >Delete</th>
     </tr>
   </thead>
 
@@ -523,7 +550,7 @@ if(isset($_GET['type'])){
 
               ?>
             <tr>
-            <th scope="row"><?php echo $row['id'] ?></th>
+           
 
             <td id="editAd<?php echo $row['id'] ?>">
             <?php echo $row['category'] ?>
@@ -531,8 +558,9 @@ if(isset($_GET['type'])){
             <?php
                 if($row['category'] != 'OTHER' ){
                     ?>
-     <a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=elec"  class="btn btn-dark">Edit</a>  
-     <a href="addCategory.php?type=electronics&typeD=electronicsDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a>
+                    <td>     <a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=elec"  class="btn btn-dark">Edit</a>  
+</td>
+   <td>  <a href="addCategory.php?type=electronics&typeD=electronicsDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a></td>
                     <?php
                 }
             ?>
@@ -559,13 +587,91 @@ if(isset($_GET['type'])){
 
 <form id="adzxcC" action="addCategory.php?&type=electronics" method="POST">
 <div id="registerBox">
-    <label for="exampleInputEmail1">Add Category</label>
+   
     <input type="text" class="form-control" id="adCategory" 
           aria-describedby="emailHelp" name="elc" placeholder="Job">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  
     
 </div><br>
-<input class="btn btn-light" type="submit" onclick="updateElc()" value="Add Category">
+<input class="btn btn-success" type="submit"  onclick="updateElc()" value="Add Category">
+</form>
+
+        
+        <?php
+    }elseif($_GET['type'] == 'big'){
+        ?>
+        
+        
+        <h3>Current BigDiscount Category</h3>
+
+<div id="xxh2">
+
+
+<table class="table" >
+  <thead>
+    <tr>
+   
+      <th scope="col">Category</th>
+      <th scope='col'>Edit</th>
+      <th scope='col' >Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+
+
+      <?php
+      $out = allCategoryLister('big');
+    //   $i = 0;
+      while($row = $out->fetch_assoc()){
+
+              ?>
+            <tr>
+           
+
+            <td id="editAd<?php echo $row['id'] ?>">
+            <?php echo $row['category'] ?>
+
+            <?php
+                if($row['category'] != 'OTHER' ){
+                    ?>
+                    <td>     <a  href="adCatEdit.php?id=<?php echo $row['id'] ?>&type=big"  class="btn btn-dark">Edit</a>  
+</td>
+   <td>  <a href="addCategory.php?type=big&typeD=bigDelete&did=<?php echo $row['id'] ?>"  class="btn btn-dark">Delete</a></td>
+                    <?php
+                }
+            ?>
+
+
+            </td>
+
+            </tr>
+              <?php   
+            //   $i++;         
+          }
+      
+      
+      ?>
+
+
+  </tbody>
+</table>
+</div>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+
+
+
+
+<form id="adzxcC" action="addCategory.php?&type=big" method="POST">
+<div id="registerBox">
+   
+    <input type="text" class="form-control" id="adCategory" 
+          aria-describedby="emailHelp" name="big" placeholder="Job">
+  
+    
+</div><br>
+<input class="btn btn-success" type="submit"  onclick="updateElc()" value="Add Category">
 </form>
 
         

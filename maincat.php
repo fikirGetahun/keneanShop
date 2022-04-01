@@ -94,11 +94,14 @@ $(document).ready(function(){
       // $.ajax({
       //   url:'user/userScrollView.php',
       //   type: 'GET', 
+
+
       //   success: function(htmlz){
       //     $('#vc').append(htmlz)
           
       //   }
       // })
+
     }
   })
 
@@ -255,7 +258,7 @@ if(isset($_GET['spType']) && $_GET['spType'] == 'rs'){
 
 
 
-/// for rent and for sell filter for car, house and land
+/// for rent and for sell filter for car, house and land  
 
 if(isset($_GET['cat'])){
   $rent_filter = array('car', 'housesell', 'realestate'); 
@@ -316,9 +319,9 @@ if(isset($_GET['cat'])){
 
 
 /// to list category filter
-  if(isset($_GET['cat'])){
+  if(isset($_GET['cat'])){      
     // this category lister exclude the hometutor and zebegna because thy dont have the type colomen
-    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog' && ( isset($_GET['type']) && $_GET['type'] != 'land') || $_GET['cat'] == 'vacancy' ){
+    if($_GET['cat'] != 'jobhometutor' && $_GET['cat'] != 'zebegna' && $_GET['cat'] != 'charity' && $_GET['cat'] != 'hotelhouse' && $_GET['cat'] != 'blog' && ( isset($_GET['type']) && $_GET['type'] != 'land' ) || $_GET['cat'] == 'vacancy' ){
       ?>
  
   <div class="col-md-3">
@@ -329,9 +332,16 @@ if(isset($_GET['cat'])){
       
 
       <?php
-      $tab = $_GET['cat'];
-      $categorySort = array();
-      $category = allCategoryLister($tab);
+      if($_GET['type'] == 'big'){
+        $tab = $_GET['cat'];
+        $categorySort = array();
+        $category = allCategoryLister('big');
+      }else{
+        $tab = $_GET['cat'];
+        $categorySort = array();
+        $category = allCategoryLister($tab);
+      }
+   
       while($rowc = $category->fetch_assoc()){
         $categorySort[] = $rowc['category'];
       }
@@ -1118,7 +1128,7 @@ if(isset($_GET['status'])){
                 
 
           
-                <div  class="col-md-3 col-sm-3 col-md-3">
+                <div  class="col-lg-3 col-6">
               <div class="card mb-4 box-shadow">
               
               <a class="img-thumbnail stretched-link" href="./Description.php?cat=<?php echo $cat;?>&postId=<?php echo $pid;?>&label=<?php echo $label;?>&type=<?php echo $_GET['type'] ?>" > <img class="bd-placeholder-img card-img-top" width="100%" height="150" src="<?php $p = photoSplit($row['photoPath1']); echo $p[0] ;?>" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a> 
@@ -1309,7 +1319,7 @@ if(isset($_GET['status'])){
                         $dt = new DateTime($row['postedDate']);
 
                         $now = new DateTime();
-                        $future_date = new DateTime($row['postedDate']);
+                        $future_date = new DateTime($row['deadLine']);
 
                         $interval = $future_date->diff($now);
 

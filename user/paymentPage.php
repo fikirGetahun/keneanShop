@@ -106,23 +106,25 @@ global $selectKey, $posterId, $title, $company, $phonem, $email, $price, $fixidO
             
         }
     </script>
-    <div class="card m-4">
+    <div class="card">
+    <h5>Available Pakages!</h5>
     <div class="row">
        
-        <h5>Available Pakages!</h5>
+     
         <?php
         $fpkg = allPostListerOnColumen('adcategory', 'tableName', 'pkg' );
         while($row = $fpkg->fetch_assoc()){
-            $jjf = explode(',', $row['subcityKey']);
-
+            $jjf = explode(',', $row['subcityKey']); 
             ?>
-         <div class="col" >
-    <h4><?php echo $row['category'].' Pakage' ?></h4>
-<p><?php echo $jjf[0] ?></p>
-        <h5 id="amount" class="text-success">Amount: <?php echo $jjf[1] ?> birr </h5> 
+
+        <div class="col"   >
+            <h4><?php echo $row['category'].' Pakage' ?></h4>
+            <p><?php echo $jjf[0] ?></p>
+            <h5 id="amount" class="text-success" >Amount: <?php echo $jjf[1] ?> birr </h5> 
         </div>
             <?php
         }
+
         ?>
         
        

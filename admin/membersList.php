@@ -251,26 +251,26 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
             $filterArr[2] = $_GET['wereda'];
             $we = $_GET['wereda'];
             $su = $_GET['sub'];
-            $member = allPostListerOn5ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su, 'label', $leee ,0 , 2);
+            $member = allPostListerOn5ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we, 'subCity', $su, 'label', $leee ,0 , 10);
           }elseif(isset($_GET['sub'])){
             $filterArr[1] = $_GET['sub'];
             $subReq = $_GET['sub'];
-            $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq , 'label', $leee ,0 , 2);
+            $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'subCity', $subReq , 'label', $leee ,0 , 10);
           }elseif(isset($_GET['wereda'])){
             $filterArr[2] = $_GET['wereda'];
             $we = $_GET['wereda'];
-            $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we , 'label', $leee ,0 , 2);
+            $member = allPostListerOn4ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES', 'wereda', $we , 'label', $leee ,0 , 10);
           }elseif($_GET['loc'] == 'All'){ // IF THE location is seted to 'ALL'
             $filterArr[0] = 'All';
-            $member = allPostListerOn2ColumenD('mambership', 'approved', 'YES', 'label', $leee , 1, 2);
+            $member = allPostListerOn2ColumenD('mambership', 'approved', 'YES', 'label', $leee , 0, 10);
           }
           else{
             // $filterArr[0] = 'All';
-            $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES' , 'label', $leee ,0 , 2);
+            $member = allPostListerOn3ColumenD('mambership', 'city', $_SESSION['location'] ,'approved', 'YES' , 'label', $leee ,0 , 10);
           }
         }else{
           $filterArr[0] = 'All';
-          $member = allPostListerOn2ColumenD('mambership', 'approved', 'YES', 'label', $leee , 1, 2);
+          $member = allPostListerOn2ColumenD('mambership', 'approved', 'YES', 'label', $leee , 0, 10);
         }
         $filter = implode(',',$filterArr); // implode the arry values to string so that we pass it through a single parameter in the ajax script bellow
         // $member = allPostListerOnTableD('mambership', 1 , 2);
@@ -462,7 +462,7 @@ if(isset($_GET['list']) || isset($_GET['pending'])){
 
    
     <form action="./membersList.php?view=true&mid=<?php echo $mid ?>" method="POST" >
-<div class="input-group mb-3 col-5">
+<div class="input-group mb-3 col-10">
 <select class="form-select" aria-label="Default select example" name="level" id="inputGroupSelect01">
   <option selected> Change Level </option>
   <option value="4" >Level 4</option>

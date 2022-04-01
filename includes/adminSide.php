@@ -653,6 +653,11 @@ alert('wiork')
               <i class="bi bi-circle"></i><span>Post Big Discount Advertisment</span>
             </a>
           </li>
+          <a id="houseCategory" style="padding-left: 60px;" href="./addCategory.php?type=big">
+              <i class="
+              bi bi-circle"></i><span>Add Big Discount Category</span>
+            </a>
+          </li>
 
           <li>
             <a id="carPost" href="./postPage.php?type=car">

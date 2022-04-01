@@ -62,7 +62,7 @@ if(isset($filter[0]) || isset($_SESSION['location'])){
   if(isset($_GET['pending'])){
     $member = allPostListerOnColumenD('mambership', 'approved', null, 1, 2);
   }else{
-    $member = allPostListerOn2ColumenD('mambership', 'approved',  'YES', 'label', $leee2 , 1, 2);
+    $member = allPostListerOn2ColumenD('mambership', 'approved',  'YES', 'label', $leee2 , $_SESSION['mbScroll'], 2);
   }
 }
 

@@ -13,6 +13,16 @@
         return $ask;
     }
 
+    function allPostListerOnColumenWW($table, $columen, $args){
+        include "connect.php";
+        $q = "SELECT * FROM `$table` WHERE `$columen` LIKE '$args' ORDER BY RAND() LIMIT 20";
+
+        $ask = $mysql->query($q);
+        echo $mysql->error;
+
+        return $ask;
+    }
+
         ///// to fetch data from a 'table and condition(columen) with the argument
         function allPostListerOnColumenD($table, $columen, $args, $limitStart, $limitEnd){
             include "connect.php";
@@ -26,6 +36,7 @@
     
             return array($ask, $ask2);
         }
+        
 
     /// order by accending
         ///// to fetch data from a 'table and condition(columen) with the argument
@@ -44,6 +55,15 @@
     function allPostListerOnTable($table){
         include "connect.php";
         $q = "SELECT * FROM `$table` ORDER BY RAND() LIMIT 5 ";
+
+        $ask = $mysql->query($q);
+        echo $mysql->error;
+
+        return $ask;
+    }
+    function allPostListerOnTableWW($table){
+        include "connect.php";
+        $q = "SELECT * FROM `$table` ORDER BY RAND() LIMIT 20 ";
 
         $ask = $mysql->query($q);
         echo $mysql->error;
@@ -683,7 +703,7 @@
                         //if the table is not realestate
                         if($selected_tb != 'realestate'){
                             /// delete old posts query
-                            $q = "DELETE * FROM `$selected_tb` WHERE `postedDate` < DATEADD(MONTH, -6, GETDATE())";
+                            $q = "DELETE * FROM `$selected_tb` WHERE `postedDate` < ( NOW() - INTERVAL 6  )";
                             // echo 'in 6 month delete';
                             $ask = $mysql->query($q);
                             echo $mysql->error;
@@ -879,7 +899,7 @@
     ////// search from
     // function 
     function isLogedIn(){
-        if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
+        if(isset($_SESSION['userId'])){
             return true;
         }else{
             return false;
